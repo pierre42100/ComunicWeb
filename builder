@@ -210,10 +210,12 @@ js_files_to_file($appDebugFiles, $targetAppJS);
 //Make some adpations on third party files
 $source = file_get_contents($targetThirdPartyCSS);
 $source = str_replace("../fonts/fontawesome", "fontawesome_fonts/fontawesome", $source);
+$source = str_replace("../fonts/ionicons", "ionicons_fonts/ionicons", $source);
 file_put_contents($targetThirdPartyCSS, $source);
 
-//Copy font awesome files and twemojies files + Google Fonts
+//Copy font awesome files + ionicons files + and twemojies files + Google Fonts
 rcopy($path_debug_assets."3rdparty/adminLTE/plugins/font-awesome/fonts", $path_release_assets."fontawesome_fonts");
+rcopy($path_debug_assets."3rdparty/adminLTE/plugins/ionicons/fonts", $path_release_assets."ionicons_fonts");
 rcopy($path_debug_assets."3rdparty/twemoji/2/72x72/", $path_release_assets."3rdparty/twemoji/2/72x72/");
 rcopy($path_debug_assets."3rdparty/adminLTE/plugins/googleFonts/googleFonts/", $path_release_assets."googleFonts/");
 rcopy($path_debug_assets."3rdparty/wdt-emoji/sheets/", $path_release_assets."3rdparty/wdt-emoji/sheets/");
