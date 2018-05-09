@@ -71,6 +71,10 @@ ComunicWeb.components.textParser = {
 				node.innerHTML = "@" + userID;
 				node.className = "a";
 
+				//Small fix for iOS 9
+				if(!node.addEventListener)
+					continue;
+
 				//Set event listener
 				node.addEventListener("click", function(ev){
 
