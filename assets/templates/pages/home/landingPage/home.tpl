@@ -42,7 +42,7 @@
 	}
 
 	#homeMessage {
-		background-color: #ffffff80;
+		background-color: rgba(244, 244, 244, 0.38);
 		max-width: 400px;
 		padding: 30px;
 		margin: auto;
