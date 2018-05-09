@@ -36,14 +36,14 @@ ComunicWeb.components.langPicker = {
 			class: "modal-header"
 		});
 	
-		var closeModal = createElem2({
+		var closeModalBtn = createElem2({
 			appendTo: modalHeader,
 			type: "button",
 			class: "close",
 		});
 	
 		createElem2({
-			appendTo: closeModal,
+			appendTo: closeModalBtn,
 			type: "span",
 			innerHTML: "x"
 		});
@@ -122,7 +122,7 @@ ComunicWeb.components.langPicker = {
 	
 		//Make the buttons live
 		cancelButton.onclick = closeModal;
-		closeModal.onclick = closeModal;
+		closeModalBtn.onclick = closeModal;
 	
 		//Show the modal
 		$(modal).modal('show');
