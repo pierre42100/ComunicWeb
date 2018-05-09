@@ -598,6 +598,13 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Settings helper
+			 */
+			helper: {
+				//TODO : implement
+			},
+
 		},
 
 		/**

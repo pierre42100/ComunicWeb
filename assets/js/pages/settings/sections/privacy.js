@@ -13,12 +13,24 @@ ComunicWeb.pages.settings.sections.privacy = {
 	 * @param {HTMLElement} target The target for the page
 	 */
 	open: function(args, target){
+
+		//Delete account box
+		this.showDeleteAccountBox(target);
+
+	},
 		
+	/**
+	 * Display delete account box
+	 * 
+	 * @param {HTMLElement} target The target for the box
+	 */
+	showDeleteAccountBox: function(target){
+
 		//Create a box
 		var box = createElem2({
 			appendTo: target,
 			type: "div",
-			class: "box box-primary box-privacy-settings"
+			class: "box box-danger box-delete-account-settings"
 		});
 
 		//Add box header
@@ -31,7 +43,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 			appendTo: boxHead,
 			type: "h3",
 			class: "box-title",
-			innerHTML: "Privacy"
+			innerHTML: "Delete account"
 		});
 
 		//Create box body
@@ -41,10 +53,27 @@ ComunicWeb.pages.settings.sections.privacy = {
 			class: "box-body"
 		});
 
-		//Create a form contener
-		var formContener = createElem2({
+		//Add a notice
+		createElem2({
 			appendTo: boxBody,
-			type: "div"
+			type: "p",
+			innerHTML: "You can decide here to delete your account. <br /><b>Warning! Warning! Warning! This operation CAN NOT BE REVERTED !!!! All your data (post, conversation " +
+				"messages, comments...) will be permanently deleted ! You will not be able to recover from this operation !</b>"
+		});
+
+		//Add delete account button
+		var deleteAccountBtn = createElem2({
+			appendTo: boxBody,
+			type: "div",
+			class: "btn btn-danger",
+			innerHTML: "Delete your account"
+		});
+
+		deleteAccountBtn.addEventListener("click", function(e){
+
+			//Request account deletion
+			ComunicWeb.components.settings.helper.requestAccountDeletion();
+
 		});
 	},
 

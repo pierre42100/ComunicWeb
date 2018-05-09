@@ -3,3 +3,7 @@
  *
  * @author Pierre HUBERT
  */
+
+.box-delete-account-settings .btn {
+	float: right;
+}

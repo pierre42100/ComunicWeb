@@ -251,6 +251,7 @@ class Dev {
 
 			//Settings
 			"js/components/settings/interface.js",
+			"js/components/settings/helper.js",
 			
 			//Main menubar
 			"js/components/menuBar/common.js",

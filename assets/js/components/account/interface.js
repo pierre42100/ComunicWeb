@@ -31,4 +31,18 @@ ComunicWeb.components.account.interface = {
 
 	},
 
+	/**
+	 * Request the deletion of the account
+	 * 
+	 * @param {string} password The password of the account
+	 * @param {function} callback
+	 */
+	deleteAccount: function(password, callback){
+		var apiURI = "account/delete";
+		var params = {
+			password: password
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
 }

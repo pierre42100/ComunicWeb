@@ -62,7 +62,7 @@ ComunicWeb.common.messages.createLoadingCallout = function(target){
  * 
  * @param {object} info Information about the callout to create
  * @argument {string} type The type of modal
- * @param {string} title The title of the modal
+ * @argument {string} title The title of the modal
  * @return {object} Information about the created dialog
  */
 ComunicWeb.common.messages.createDialogSkeleton = function(info){
