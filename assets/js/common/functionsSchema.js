@@ -1158,6 +1158,13 @@ var ComunicWeb = {
 				accountImage: {
 					//TODO : implement
 				},
+
+				/**
+				 * Privacy section
+				 */
+				privacy: {
+					//TODO : implement
+				},
 			},
 		},
 

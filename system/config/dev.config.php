@@ -192,6 +192,7 @@ class Dev {
 				"css/pages/settings/sections/security.css",
 				"css/pages/settings/sections/password.css",
 				"css/pages/settings/sections/accountImage.css",
+				"css/pages/settings/sections/privacy.css",
 
 			//Latest post page stylesheet
 			"css/pages/latestPosts/main.css",
@@ -364,6 +365,7 @@ class Dev {
 				"js/pages/settings/sections/security.js",
 				"js/pages/settings/sections/password.js",
 				"js/pages/settings/sections/accountImage.js",
+				"js/pages/settings/sections/privacy.js",
 
 			//Login page
 			"js/pages/login.js",

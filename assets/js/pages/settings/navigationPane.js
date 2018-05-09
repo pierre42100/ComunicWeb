@@ -91,6 +91,20 @@ ComunicWeb.pages.settings.navigationPane = {
 		sectionSecurityLink.onclick = function(){
 			openPage("settings/account_image");
 		};
+
+		//Privacy settings
+		var sectionSecurity = createElem2({
+			appendTo: elemList,
+			type: "li",
+		});
+		var sectionSecurityLink = createElem2({
+			appendTo: sectionSecurity,
+			type: "a",
+			innerHTML: "<i class='fa fa-user-secret'></i> Privacy"
+		});
+		sectionSecurityLink.addEventListener("click", function(){
+			openPage("settings/privacy");
+		});
 	}
 
 }

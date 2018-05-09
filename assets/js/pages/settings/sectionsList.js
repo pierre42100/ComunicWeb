@@ -37,4 +37,12 @@ ComunicWeb.pages.settings.sectionsList = {
 		title: "Account image",
 		handler: "ComunicWeb.pages.settings.sections.accountImage.open"
 	},
+
+	/**
+	 * Privacy settings
+	 */
+	privacy: {
+		title: "Privacy",
+		handler: "ComunicWeb.pages.settings.sections.privacy.open",
+	},
 }
