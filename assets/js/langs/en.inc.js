@@ -5,6 +5,10 @@
  */
 ComunicWeb.common.langs.en = {
 
+    /**
+     * Common
+     */
+
     //Really really common messages
     _loading: "Loading...",
     _send: "Send",
@@ -14,15 +18,10 @@ ComunicWeb.common.langs.en = {
     "__fatal_error": "Fatal error",
     "__fatal_error_explanation": "A fatal error occured : <i>%p</i>. Please try to refresh the page...",
 
-    //Login form
-    _login_page_top_msg: "Login to your Comunic account.",
-    _login_page_remember_me: "Remember me",
-    _login_page_email_placeholder: "Email",
-    _login_page_password_placeholder: "Password",
-    _login_page_submit: "Sign In",
-    _login_page_error_head: "Login failed",
-    _login_page_error_message: "Please check your usermail and password !",
-    _login_page_bad_input: "Please check what you've typed !",
+
+    /**
+     * Components
+     */
 
     //Menu bar - login form
     _menu_bar_login_btn: "Login",
@@ -54,4 +53,19 @@ ComunicWeb.common.langs.en = {
 
     _err_drag_image_post: "Please do not drag images directly in the message !",
 
+
+    /**
+     * Pages
+     */
+
+    //Login form
+    _login_page_top_msg: "Login to your Comunic account.",
+    _login_page_remember_me: "Remember me",
+    _login_page_email_placeholder: "Email",
+    _login_page_password_placeholder: "Password",
+    _login_page_submit: "Sign In",
+    _login_page_error_head: "Login failed",
+    _login_page_error_message: "Please check your usermail and password !",
+    _login_page_bad_input: "Please check what you've typed !",
+    _login_page_create_account_lnk: "Create an account",
 }

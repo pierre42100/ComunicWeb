@@ -39,6 +39,7 @@ ComunicWeb.pages.login = {
 			"email": lang("_login_page_email_placeholder"),
 			"password": lang("_login_page_password_placeholder"),
 			"sign_in": lang("_login_page_submit"),
+			"create_account": lang("_login_page_create_account_lnk")
 		};
 
 		//Preparing next actions

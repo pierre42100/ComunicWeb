@@ -40,7 +40,7 @@
 		</form>
 
 		<!-- Create an account -->
-		<a target="create_account">Create an account</a>
+		<a target="create_account">{create_account}</a>
 		
 	</div>
 	<!-- /.login-box-body -->
