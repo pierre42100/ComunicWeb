@@ -93,6 +93,13 @@ ComunicWeb.pages.createAccount = {
 			type: "password"
 		});
 
+		//Terms of use must have been accepted
+		var siteTerms = createFormGroup({
+			target: formRoot,
+			label: "I have read and accepted the <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/terms/' target='_blank'>terms of use of the network</a>",
+			type: "checkbox"
+		});
+
 		//Submit form
 		var submitButtonContainer = createElem2({
 			appendTo: formRoot,
@@ -129,6 +136,10 @@ ComunicWeb.pages.createAccount = {
 
 			//Empty the message target
 			emptyElem(messagesTarget);
+
+			//Check the terms of use have been accepted
+			if(!siteTerms.checked)
+				return notify("Please read and accept the terms of use of the website!", "danger");
 
 			//Check the first name
 			if(!ComunicWeb.common.formChecker.checkInput(firstNameInput, true))
