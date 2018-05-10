@@ -59,7 +59,7 @@ ComunicWeb.common.langs.en = {
      */
 
     //Landing page
-    _landing_main_caption: "Free social network that respect your privacy.",
+    _landing_main_caption: "Free social network that respects your privacy.",
     _landing_signup_link: "Sign up",
     _landing_signin_link: "Sign in",
 
