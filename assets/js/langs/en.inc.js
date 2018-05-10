@@ -58,6 +58,11 @@ ComunicWeb.common.langs.en = {
      * Pages
      */
 
+    //Landing page
+    _landing_main_caption: "Free social network that respect your privacy.",
+    _landing_signup_link: "Sign up",
+    _landing_signin_link: "Sign in",
+
     //Login form
     _login_page_top_msg: "Login to your Comunic account.",
     _login_page_remember_me: "Remember me",

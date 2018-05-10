@@ -10,11 +10,11 @@
 		<div id="homeMessage">
 			<h1>Comunic</h1>
 
-			<h3>Free social network that respect your privacy.</h3>
+			<h3>[[_landing_main_caption]]</h3>
 			<br />
 
-			<a class="btn btn-lg btn-primary" target="create_account">Sign up</a>
-			<a class="btn btn-lg btn-success" target="login">Sign in</a>
+			<a class="btn btn-lg btn-primary" target="create_account">[[_landing_signup_link]]</a>
+			<a class="btn btn-lg btn-success" target="login">[[_landing_signin_link]]</a>
 		</div>
 	</div>
 

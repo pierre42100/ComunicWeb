@@ -56,6 +56,12 @@ ComunicWeb.common.langs.fr = {
     /**
      * Pages
      */
+
+    //Landing page
+    _landing_main_caption: "Réseau social libre respectueux de votre vie priv&eacute;e.",
+    _landing_signup_link: "Inscription",
+    _landing_signin_link: "Connexion",
+
     //Login form
     _login_page_top_msg: "Connectez-vous à votre compte Comunic.",
     _login_page_remember_me: "Se souvenir de moi",
