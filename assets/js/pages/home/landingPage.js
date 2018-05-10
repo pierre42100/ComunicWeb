@@ -19,6 +19,9 @@ ComunicWeb.pages.home.landingPage = {
         //Prepare additional data
         var additionalData = {
             
+            //About the website URL
+            about_url: ComunicWeb.__config.aboutWebsiteURL,
+
             //Background image URL
             backgroundImage: ComunicWeb.__config.assetsURL + "img/pages/home/landingPage/img_background.jpg"
 

@@ -11,13 +11,16 @@
 			<h1>Comunic</h1>
 
 			<h3>[[_landing_main_caption]]</h3>
+
+			<div class="learn_more"><a href="{about_url}">Learn more</a></div>
+
 			<br />
 
 			<a class="btn btn-lg btn-primary" target="create_account">[[_landing_signup_link]]</a>
 			<a class="btn btn-lg btn-success" target="login">[[_landing_signin_link]]</a>
+
 		</div>
 	</div>
-
 
 </div>
 
@@ -47,6 +50,11 @@
 		padding: 30px;
 		margin: auto;
 		border-radius: 5px;
+	}
+
+	#homeMessage .learn_more a {
+		color: black;
+		font-size: 110%;
 	}
 
 </style>
