@@ -339,10 +339,25 @@ ComunicWeb.common.page = {
                 } 
             }
 
+            //Apply required translations
+            while(templateContent.includes("[[")){
+
+                //Get the full template inclusion
+                var source = templateContent.match(/\[\[.*\]\]/i)[0];
+
+                //Determine lang key
+                var key = source.replace("[[", "").replace("]]", "");
+                var translation = lang(key);
+
+                //Apply lang
+                while(templateContent.includes(source))
+                    templateContent = templateContent.replace(source, translation);
+            }
+
             //Apply template source
             targetElem.innerHTML = templateContent;
 
-            //Make a link live
+            //Make links live
             var aElems = targetElem.getElementsByTagName("a");
             for(num in aElems){
 
