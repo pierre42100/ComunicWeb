@@ -88,6 +88,9 @@ function get_javascript_config($config) : string {
         apiServiceName: '".$config::API_SERVICE_NAME."',
         apiServiceToken: '".$config::API_SERVICE_TOKEN."',
 
+        //About website URL
+        aboutWebsiteURL: '".$config::ABOUT_WEBSITE_URL."',
+
         //Default language
         defaultLanguage: '".$config::DEFAULT_LANGUAGE."',
 

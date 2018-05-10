@@ -20,6 +20,11 @@ class Dev {
 	const SITE_URL = "http://devweb.local/comunic/v2/";
 
 	/**
+	 * About website access
+	 */
+	const ABOUT_WEBSITE_URL = "http://127.0.0.1:4000/";
+
+	/**
 	 * Site production mode
 	 */
 	const PROD_MODE = false;

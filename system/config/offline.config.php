@@ -15,6 +15,11 @@ class Offline {
 	const API_SERVICE_TOKEN = "12XU67pJUlnNQ";
 
 	/**
+	 * About website access
+	 */
+	const ABOUT_WEBSITE_URL = "http://127.0.0.1:4000/";
+
+	/**
 	 * Site URL
 	 */
 	const SITE_URL = "http://devweb.local/comunic/v2/output/";
