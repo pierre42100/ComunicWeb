@@ -21,4 +21,6 @@
 .latest-posts-row .col-md-5 {
 	margin: auto;
 	float: none;
+	width: 100%;
+	max-width: 800px;
 }
