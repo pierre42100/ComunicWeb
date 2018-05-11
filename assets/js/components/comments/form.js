@@ -49,6 +49,7 @@ ComunicWeb.components.comments.form = {
 			placeholder: "New comment...",
 			name: "content"
 		});
+		newCommentText.maxLength = 255;
 		
 
 		//Add button group
