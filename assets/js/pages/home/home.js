@@ -19,7 +19,7 @@ ComunicWeb.pages.home.home = {
         if(userLoggedIn){
             
             //Open current user page
-            openPage("latest");
+            ComunicWeb.pages.latestPosts.main.open(additionnalData, targetElement);
 
         }
         else{
