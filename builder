@@ -221,7 +221,9 @@ rcopy($path_debug_assets."3rdparty/adminLTE/bootstrap/fonts", $path_release_asse
 rcopy($path_debug_assets."3rdparty/twemoji/2/72x72/", $path_release_assets."3rdparty/twemoji/2/72x72/");
 rcopy($path_debug_assets."3rdparty/adminLTE/plugins/googleFonts/googleFonts/", $path_release_assets."googleFonts/");
 rcopy($path_debug_assets."3rdparty/wdt-emoji/sheets/", $path_release_assets."3rdparty/wdt-emoji/sheets/");
-copy($path_debug_assets."3rdparty/adminLTE/plugins/iCheck/flat/blue.png",  $path_release_assets."blue.png");
+
+//Copy iCheck images
+rcopy($path_debug_assets."3rdparty/adminLTE/plugins/iCheck/flat/icheck-flat-imgs/", $path_release_assets."icheck-flat-imgs/");
 
 //Copy images and templates
 rcopy($path_debug_assets."img/", $path_release_assets."img/");
