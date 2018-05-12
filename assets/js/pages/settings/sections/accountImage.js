@@ -75,9 +75,15 @@ ComunicWeb.pages.settings.sections.accountImage = {
 			appendTo: target
 		});
 		
+		//Create top actions contener
+		var actionsTopContener = createElem2({
+			appendTo: accountImageForm,
+			type: "div"
+		});
+
 		//First, offer the user to upload a new account image
 		var newAccountImageLabel = createElem2({
-			appendTo: accountImageForm,
+			appendTo: actionsTopContener,
 			type: "label"
 		});
 		var fileInput = createElem2({
@@ -125,6 +131,46 @@ ComunicWeb.pages.settings.sections.accountImage = {
 				ComunicWeb.common.system.reset();
 			});
 		});
+
+		add_space(actionsTopContener);
+
+		//Offer the user to create a new random account image
+		var generateAccountImageBtn = createElem2({
+			appendTo: actionsTopContener,
+			type: "div",
+			class: "btn btn-success",
+			innerHTML: "Generate random"
+		});
+
+		//Make generate account image buttons lives
+		generateAccountImageBtn.onclick = function(){
+			
+			//Lock screen
+			message = ComunicWeb.common.page.showTransparentWaitSplashScreen();
+
+			//Generate image
+			var base64 = generateIdentImage();
+
+			//Upload image
+			var fd = new FormData();
+			fd.append("picture", dataURItoBlob("data:image/png;base64," + base64));
+			ComunicWeb.components.settings.interface.uploadAccountImage(fd, function(result){
+
+				//Remove message
+				message.remove();
+
+				//Check for errors
+				if(result.error){
+					notify("An error occured while trying to upload generated image !", "danger");
+					return;
+				}
+
+				notify("Random generated image has been uploaded !", "success");
+				
+				//Reload current page
+				ComunicWeb.common.system.reset();
+			});
+		}
 
 		//Stop here if the user does not have any account image
 		if(!info.has_image)

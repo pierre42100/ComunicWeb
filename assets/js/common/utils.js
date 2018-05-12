@@ -539,7 +539,38 @@ function generateIdentImage() {
 	var options = {
 		foreground: [color, color2, color3, 255],
 		size: 130,
+		margin: 0.2,
 		format: 'png'
 	};
 	return new Identicon(hash, options).toString();
+}
+
+/**
+ * Turn a data URI into blob
+ * 
+ * This function is based on Stoive answer at StackOverFlow question #4998908
+ * 
+ * @param {string} dataURI The URI to process
+ * @return {Blob} generated blob
+ */
+function dataURItoBlob(dataURI){
+
+	//convert base64 / URLEncoded data component to raw binary data held in a string
+	var byteString;
+	if(dataURI.split(",")[0].indexOf("base64") >= 0)
+		byteString = atob(dataURI.split(",")[1]);
+	else
+		byteString = unescape(dataURI.split(",")[1]);
+	
+	
+	//Separate the out the mime component
+	var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+
+	//Write the bytes of the string to a typed array
+	var ia = new Uint8Array(byteString.length);
+	for(var i = 0; i < byteString.length; i++)
+		ia[i] = byteString.charCodeAt(i);
+	
+	return new Blob([ia], {type: mimeString});
+
 }
