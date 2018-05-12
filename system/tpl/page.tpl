@@ -20,6 +20,11 @@
         <link rel="icon" type="image/vnd.microsoft.icon" href="{ASSETS_URL}img/favicon.png" />
         <link rel="shortcut icon" type="image/x-icon" href="{ASSETS_URL}img/favicon.png" />
 
+        <!-- Open Graph content -->
+        <meta property="og:title" content="Comunic"/>
+        <meta property ="og:description" content="A free social network that respect your privacy."/>
+        <meta property="og:image" content="{ASSETS_URL}img/favicon.png"/>
+
         <!--3rdPary Stylesheet requirements -->
         {THIRD_PARTY_CSS}
 
