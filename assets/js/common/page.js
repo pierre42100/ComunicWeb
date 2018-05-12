@@ -186,8 +186,9 @@ ComunicWeb.common.page = {
         //Change page title
         document.title =  pageInfos.pageTitle;
 
-        //Change page URL
-        ComunicWeb.common.url.changeURI(document.title, pageURI);
+        //Change page URL, if required
+        if(additionnalData.no_url_update ? !additionnalData.no_url_update : true)
+            ComunicWeb.common.url.changeURI(document.title, pageURI);
 
         //Save new url
         this._current_url = window.location.href.toString();
@@ -274,7 +275,7 @@ ComunicWeb.common.page = {
         var currentPage = ComunicWeb.common.url.getCurrentWebsiteURL();
 
         //Open a page
-        this.openPage(currentPage);
+        this.openPage(currentPage, {no_url_update: true});
     },
 
     /**

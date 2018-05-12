@@ -52,11 +52,8 @@ ComunicWeb.common.system = {
 			 * Open a page
 			 */
 			if(!openPage){
-				//Get current page URI
-				var currentPage = ComunicWeb.common.url.getCurrentWebsiteURL();
-
-				//Open a page
-				ComunicWeb.common.page.openPage(currentPage);
+				//Refresh current page
+				ComunicWeb.common.page.refresh_current_page();
 			}
 			else
 				//Open specified page
