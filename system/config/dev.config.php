@@ -127,6 +127,10 @@ class Dev {
 		//Emoji picker
 		"3rdparty/wdt-emoji/emoji.min.js",
 		"3rdparty/wdt-emoji/wdt-emoji-bundle.js",
+
+		//Identicon.JS
+		"3rdparty/identicon.js/pnglib.js",
+		"3rdparty/identicon.js/identicon.js",
 	);
 
 	/**

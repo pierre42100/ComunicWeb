@@ -508,3 +508,38 @@ window.location.changed = function(e){};
 	}
 
 })(jQuery);
+
+/**
+ * Generate a new random string
+ * 
+ * @param {number} length The length of the string ot generate
+ * @return {string} Generated string
+ */
+function random_string(length){
+
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrst0123456789";
+
+	for(var i = 0; i < length; i++)
+		text += possible.charAt(Math.random() * possible.length);
+
+	return text;
+}
+
+/**
+ * Generate and return a new random identity image
+ * 
+ * @return {string} Base64 - encoded new identity image
+ */
+function generateIdentImage() {
+	var hash = random_string(32);
+	var color = Math.random() * 240;
+	var color2 = Math.random() * 240;
+	var color3 = Math.random() * 240;
+	var options = {
+		foreground: [color, color2, color3, 255],
+		size: 130,
+		format: 'png'
+	};
+	return new Identicon(hash, options).toString();
+}
