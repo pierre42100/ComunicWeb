@@ -52,6 +52,18 @@ ComunicWeb.components.bottom.main = {
 		langLink.onclick = function(){
 			ComunicWeb.components.langPicker.show();
 		};
+
+		add_space(leftElements);
+		add_space(leftElements);
+
+		//Add about link
+		var aboutLink = createElem2({
+			appendTo: leftElements,
+			type: "a",
+			innerHTML: "<i class='fa fa-question-circle'></i> About",
+			href: ComunicWeb.__config.aboutWebsiteURL
+		});
+		aboutLink.setAttribute("target", "_blank");
 	}
 
 }
