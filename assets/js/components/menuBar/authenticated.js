@@ -77,18 +77,18 @@ ComunicWeb.components.menuBar.authenticated = {
 
 
 		//Add conversations link
-		var conversationsButton = createElem2({
-			appendTo: dropdownContent,
-			type: "li"
-		});
-		var conversationsLink = createElem2({
-			appendTo: conversationsButton,
-			type: "a",
-			innerHTML: "Conversations"
-		});
-		conversationsButton.onclick = function(){
-			openPage("conversations");
-		};
+		// var conversationsButton = createElem2({
+		// 	appendTo: dropdownContent,
+		// 	type: "li"
+		// });
+		// var conversationsLink = createElem2({
+		// 	appendTo: conversationsButton,
+		// 	type: "a",
+		// 	innerHTML: "Conversations"
+		// });
+		// conversationsButton.onclick = function(){
+		// 	openPage("conversations");
+		// };
 
 		//Add settings link
 		var settingsButton = createElem2({
