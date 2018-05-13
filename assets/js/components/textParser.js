@@ -37,11 +37,11 @@ ComunicWeb.components.textParser = {
 	_prepare_user_tag_parsing: function(target){
 
 		//Find all occurences of users tag
-		while(target.innerHTML.match(/@[a-zA-Z0-9.]+/i)){
+		while(target.innerHTML.match(/ @[a-zA-Z0-9.]+/i)){
 
 			//Get user tag
-			var userTag = target.innerHTML.match(/@[a-zA-Z0-9.]+/i)[0];
-			var userID = userTag.replace("@", "");
+			var userTag = target.innerHTML.match(/ @[a-zA-Z0-9.]+/i)[0];
+			var userID = userTag.replace(" @", "");
 
 			target.innerHTML = target.innerHTML.replace(userTag, "<userTag>"+userID+"</userTag>");
 
