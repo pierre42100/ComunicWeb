@@ -131,6 +131,9 @@ class Dev {
 		//Identicon.JS
 		"3rdparty/identicon.js/pnglib.js",
 		"3rdparty/identicon.js/identicon.js",
+
+		//JSZip
+		"3rdparty/jszip/jszip.min.js",
 	);
 
 	/**
