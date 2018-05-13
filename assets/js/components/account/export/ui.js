@@ -49,6 +49,13 @@ ComunicWeb.components.account.export.ui = {
 		});
 		this.updateProgress(1);
 
+		//Add message
+		this._exportModal.messageContainer = createElem2({
+			appendTo: this._exportModal.modalBody,
+			type: "p",
+			innerHTML: "Starting..."
+		});
+
 		//Create close modal function
 		var closeModal = function(){
 			$(modal).modal('hide');
@@ -70,6 +77,15 @@ ComunicWeb.components.account.export.ui = {
 	 */
 	updateProgress: function(progress){
 		this._exportModal.progress.style.width = progress + "%";
+	},
+
+	/**
+	 * Update the message shown on the screen
+	 * 
+	 * @param {String} message The new message
+	 */
+	updateMessage: function(message){
+		this._exportModal.messageContainer.innerHTML = message;
 	},
 
 	/**

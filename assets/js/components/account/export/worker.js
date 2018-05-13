@@ -22,6 +22,7 @@ ComunicWeb.components.account.export.worker = {
 			}
 
 			//Update progress
+			ComunicWeb.components.account.export.ui.updateMessage("Got text data");
 			ComunicWeb.components.account.export.ui.updateProgress(10);
 
 			//Parse data
@@ -31,14 +32,91 @@ ComunicWeb.components.account.export.worker = {
 	},
 
 	/**
-	 * Parse account text data
+	 * Parse account text data into ZIP file
 	 * 
 	 * @param {Object} data Text data about the account
 	 */
 	parse: function(data){
 		
+		//Get UI shorcut
+		var ui = ComunicWeb.components.account.export.ui;
+
+		var Promise = window.Promise;
+		if (!Promise) {
+			Promise = JSZip.external.Promise;
+		}
+
+		/**
+		 * Fetch the content and return the associated promise.
+		 * @param {String} url the url of the content to fetch.
+		 * @return {Promise} the promise containing the data.
+		 */
+		function urlToPromise(url) {
+			return new Promise(function(resolve, reject) {
+				JSZipUtils.getBinaryContent(url, function (err, data) {
+					if(err) {
+						reject(err);
+					} else {
+						resolve(data);
+					}
+				});
+			});
+		}
+
+		/**
+		 * Transform an URL into a path in the archive
+		 * 
+		 * @param {String} url The URL to transform
+		 * @return {String} Generated file path
+		 */
+		function urlToPath(url) {
+			var path = url.replace("://", "/");
+			return "files/" + path;
+		}
+
 		//Determine the list of files to download
 		var files_list = this._generate_files_list(data);
+
+		//Create zip file
+		var zip = new JSZip();
+
+		//Add raw json file
+		zip.file("source.json", JSON.stringify(data));
+
+		//Add the files to download
+		/*files_list.forEach(function(url){
+			var path = urlToPath(url);
+			zip.file(path, urlToPromise(url), {binary:true});
+		});*/
+
+		//Generated zip archive
+		zip.generateAsync({type:"blob"}, function updateCallback(metadata) {
+			var msg = "progression : " + metadata.percent.toFixed(2) + " %";
+			if(metadata.currentFile) {
+				msg += ", current file = " + metadata.currentFile;
+			}
+			ui.updateMessage(msg);
+			ui.updateProgress(metadata.percent.toFixed(2));
+		})
+
+		//Trigger download
+		.then(function callback(blob) {
+	
+			//Download file
+			saveAs(blob, "accountData.zip");
+			
+			//Update progress
+			ui.updateProgress(100);
+			ui.updateMessage("Done !");
+
+		}, function (e) {
+			//In case of error
+			ComunicWeb.components.account.export.ui.exportFatalError(e);
+
+			//Update progress
+			ui.updateProgress(100);
+			ui.updateMessage("Error !");
+		});
 
 	},
 
