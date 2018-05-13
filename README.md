@@ -23,4 +23,5 @@ ComunicWeb would not exists without the following technologies developped by the
 - wdt-emoji-bundle (http://ned.im/wdt-emoji-bundle)
 - PNGLib (http://www.xarg.org/2010/03/generate-client-side-png-files-using-javascript/) (BSD Licence)
 - Identicon (http://github.com/stewartlord/identicon.js) (BSD Licence)
+- FileSaver.js (http://eligrey.com) (by Eli Grey) (MIT Licence)
 - JSZip (https://github.com/Stuk/jszip.git) (MIT Licence)

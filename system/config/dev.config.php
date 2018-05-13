@@ -132,6 +132,9 @@ class Dev {
 		"3rdparty/identicon.js/pnglib.js",
 		"3rdparty/identicon.js/identicon.js",
 
+		//FileSaver.js
+		"3rdparty/FileSaver.js",
+
 		//JSZip
 		"3rdparty/jszip/jszip.min.js",
 	);
