@@ -75,6 +75,21 @@ ComunicWeb.components.menuBar.authenticated = {
 		dropdownContent.className = "dropdown-menu"
 		dropdownContent.setAttribute("role", "menu");
 
+
+		//Add conversations link
+		var conversationsButton = createElem2({
+			appendTo: dropdownContent,
+			type: "li"
+		});
+		var conversationsLink = createElem2({
+			appendTo: conversationsButton,
+			type: "a",
+			innerHTML: "Conversations"
+		});
+		conversationsButton.onclick = function(){
+			openPage("conversations");
+		};
+
 		//Add settings link
 		var settingsButton = createElem2({
 			appendTo: dropdownContent,

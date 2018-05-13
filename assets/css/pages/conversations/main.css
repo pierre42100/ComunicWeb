@@ -1,0 +1,17 @@
+/**
+ * Conversations page main script file
+ *
+ * @author Pierre HUBERT
+ */
+
+.conversations-page-container {
+	max-width: 1000px;
+	margin: auto;
+	margin-top: 10px;
+}
+
+
+.conversations-page-container .conv-list-loading-msg {
+	text-align: center;
+	padding: 10px;
+}

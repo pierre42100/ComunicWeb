@@ -1108,6 +1108,26 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Conversations page
+		 */
+		conversations: {
+
+			/**
+			 * Main script
+			 */
+			main: {
+				//TODO : implement
+			},
+
+			/**
+			 * Conversations list pane
+			 */
+			listPane: {
+				//TODO : implement
+			}
+		},
+
+		/**
 		 * User settings page
 		 */
 		settings: {

@@ -195,6 +195,9 @@ class Dev {
 			//Post page
 			"css/pages/postPage/main.css",
 
+			//Conversations page
+			"css/pages/conversations/main.css",
+
 			//Settings page
 				//Sections sections
 				"css/pages/settings/sections/general.css",
@@ -364,6 +367,10 @@ class Dev {
 
 			//Latest posts page
 			"js/pages/latestPosts/main.js",
+
+			//Conversations page
+			"js/pages/conversations/main.js",
+			"js/pages/conversations/listPane.js",
 
 			//User settings page
 			"js/pages/settings/main.js",
