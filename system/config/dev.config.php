@@ -257,6 +257,10 @@ class Dev {
 			//Account component
 			"js/components/account/interface.js",
 
+				//Account export
+				"js/components/account/export/ui.js",
+				"js/components/account/export/worker.js",
+
 			//Mail caching
 			"js/components/mailCaching.js",
 			

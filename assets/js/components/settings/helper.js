@@ -119,4 +119,81 @@ ComunicWeb.components.settings.helper = {
 
 	},
 
+	/**
+	 * Request full account data export
+	 */
+	requestAccountDataExport: function(){
+
+		//Prompt user password
+		var dialog = ComunicWeb.common.messages.createDialogSkeleton({
+			type: "primary",
+			title: "Export personnal data"
+		});
+		$(dialog.modal).modal("show");
+		
+		//Create modal close function
+		var closeModal = function(){
+			$(dialog.modal).modal("hide");
+			emptyElem(dialog.modal);
+			dialog.modal.remove();
+		};
+		dialog.cancelButton.addEventListener("click", closeModal);
+		dialog.closeModal.addEventListener("click", closeModal);
+
+		//Set dialog body
+		var passwordForm = createElem2({
+			appendTo: dialog.modalBody,
+			type: "div"
+		});
+
+		createElem2({
+			appendTo: passwordForm,
+			type: "p",
+			innerHTML: "We need your password to continue."
+		});
+
+		//Create pasword input group
+		var inputGroup = createElem2({
+			appendTo: passwordForm,
+			type: "div",
+			class: "input-group input-group-sm"
+		});
+
+		//Create password input
+		var passwordInput = createElem2({
+			appendTo: inputGroup,
+			type: "input",
+			class: "form-control",
+			elemType: "password"
+		});
+
+		//Create input group
+		var inputGroupContainer = createElem2({
+			appendTo: inputGroup,
+			type: "span",
+			class: "input-group-btn"
+		});
+
+		//Add submit button
+		var submitButton = createElem2({
+			appendTo: inputGroupContainer,
+			type: "button",
+			class: "btn btn-primary",
+			innerHTML: "Submit"
+		});
+
+		submitButton.addEventListener("click", function(e){
+
+			//Check given password
+			var password = passwordInput.value;
+			if(password.length < 4)
+				return notify("Please check given password !", "danger");
+			
+			closeModal();
+			
+			//Export personnal data
+			ComunicWeb.components.account.export.ui.requestExport(password);
+		});
+	}
+
 }

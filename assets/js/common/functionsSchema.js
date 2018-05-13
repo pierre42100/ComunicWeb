@@ -468,6 +468,26 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Account export
+			 */
+			export: {
+				
+				/**
+				 * UI controller
+				 */
+				ui: {
+					//TODO : implement
+				},
+
+				/**
+				 * Worker
+				 */
+				worker: {
+					//TODO: implement
+				},
+			},
+
 		},
 
 		/**

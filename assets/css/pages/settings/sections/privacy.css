@@ -4,6 +4,10 @@
  * @author Pierre HUBERT
  */
 
+.box-export-account-data-settings .btn {
+	float: right;
+}
+
 .box-delete-account-settings .btn {
 	float: right;
 }

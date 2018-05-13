@@ -32,6 +32,20 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Request the export of all the data of the user
+	 * 
+	 * @param {String} password The password of the user
+	 * @param {function} callback
+	 */
+	exportData: function(password, callback){
+		var apiURI = "account/export_data";
+		var params = {
+			password: password
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Request the deletion of the account
 	 * 
 	 * @param {string} password The password of the account
