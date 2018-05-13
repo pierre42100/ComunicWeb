@@ -197,6 +197,8 @@ class Dev {
 
 			//Conversations page
 			"css/pages/conversations/main.css",
+			"css/pages/conversations/listPane.css",
+			"css/pages/conversations/conversation.css",
 
 			//Settings page
 				//Sections sections
@@ -371,6 +373,7 @@ class Dev {
 			//Conversations page
 			"js/pages/conversations/main.js",
 			"js/pages/conversations/listPane.js",
+			"js/pages/conversations/conversation.js",
 
 			//User settings page
 			"js/pages/settings/main.js",

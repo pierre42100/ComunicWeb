@@ -38,7 +38,23 @@ ComunicWeb.pages.conversations.main = {
 			class: "col-md-9"
 		});
 
+		/**
+		 * Open a conversation
+		 * 
+		 * @param {Number} id The ID of the conversation
+		 */
+		var conversationOpener = function(id){
+
+			//Empty the target
+			emptyElem(rightArea);
+
+			//Open the conversation
+			ComunicWeb.pages.conversations.conversation.open(id, rightArea);
+		}
+
 		//Display the list of conversation
-		ComunicWeb.pages.conversations.listPane.display(leftArea);
+		ComunicWeb.pages.conversations.listPane.display(leftArea, {
+			opener: conversationOpener
+		});
 	}
 }

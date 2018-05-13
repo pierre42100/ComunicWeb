@@ -1,0 +1,9 @@
+/**
+ * Conversations list pane
+ *
+ * @author Pierre HUBERT
+ */
+
+.conversations-page-container .conversations-list-box {
+	max-height: 100%;
+}

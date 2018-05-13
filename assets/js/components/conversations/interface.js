@@ -180,7 +180,7 @@ ComunicWeb.components.conversations.interface = {
 			if(result.error){
 				
 				//Log error
-				ComunicWeb.debug.logMessage("Couldn't get informations about the conversation number "+conversationID+" !")
+				ComunicWeb.debug.logMessage("Couldn't get informations about the conversation number "+conversationID+" !");
 
 				//Perform next action now
 				nextStep(result);

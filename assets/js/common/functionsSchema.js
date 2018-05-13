@@ -1124,6 +1124,13 @@ var ComunicWeb = {
 			 */
 			listPane: {
 				//TODO : implement
+			},
+
+			/**
+			 * Conversation pane
+			 */
+			conversation: {
+				//TODO : implement
 			}
 		},
 
