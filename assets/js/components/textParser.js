@@ -20,6 +20,9 @@ ComunicWeb.components.textParser = {
 		//Prepare users tag parsing
 		this._prepare_user_tag_parsing(info.element);
 
+		//Prepare URL parsing
+		this._prepare_url_tag_parsing(info.element);
+
 		//Parse emojies
 		ComunicWeb.components.emoji.parser.parse({
 			element: info.element
@@ -27,6 +30,9 @@ ComunicWeb.components.textParser = {
 
 		//Parse users tags
 		this._parse_users_tag(info.element);
+
+		//Parse URLs
+		this._parse_urls(info.element);
 	},
 
 	/**
@@ -44,6 +50,25 @@ ComunicWeb.components.textParser = {
 			var userID = userTag.replace(" @", "");
 
 			target.innerHTML = target.innerHTML.replace(userTag, "<userTag>"+userID+"</userTag>");
+
+		}
+
+	},
+
+	/**
+	 * Prepare URL parsing
+	 * 
+	 * @param {HTMLElement} target The target element to prepare
+	 */
+	_prepare_url_tag_parsing: function(target){
+
+		//Find all occurences of users tag
+		while(target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\&:\/]+/i)){
+
+			//Get URL and save it
+			var URL = target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\&:\/]+/i)[0];
+			tempURL = URL.replace("://", ":/");
+			target.innerHTML = target.innerHTML.replace(URL, "<innerURL>"+tempURL+"</innerURL>");
 
 		}
 
@@ -82,6 +107,36 @@ ComunicWeb.components.textParser = {
 					openUserPage(userID);
 
 				});
+			}
+		}
+
+	},
+
+	/**
+	 * Parse URLs
+	 * 
+	 * @param {HTMLElement} target The target element where URLs
+	 * to be parsed
+	 */
+	_parse_urls: function(target){
+
+		//Get the list of user tags of the target
+		var nodes = target.getElementsByTagName("innerURL");
+
+		for (var num in nodes) {
+			if (nodes.hasOwnProperty(num)) {
+				const node = nodes[num];
+
+				//Small fix for iOS 9
+				if(!node.addEventListener)
+					continue;
+				
+				//Get target URL
+				var url = node.innerHTML;
+				url = url.replace(":/", "://");
+
+				//Adapt node
+				node.innerHTML = "<a href='" + url + "' target='_blank'>" + url + "</a>";
 			}
 		}
 
