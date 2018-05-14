@@ -80,6 +80,9 @@ JSZipUtils.getBinaryContent = function(path, callback) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         }
 
+        //Allow big files download
+        xhr.setRequestHeader("Range", "bytes=0-9999999999999999999999999999999");
+
         xhr.onreadystatechange = function(evt) {
             var file, err;
             // use `xhr` and not `this`... thanks IE

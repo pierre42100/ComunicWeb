@@ -82,12 +82,12 @@ ComunicWeb.components.account.export.worker = {
 
 		//Add raw json file
 		zip.file("source.json", JSON.stringify(data));
-
+		
 		//Add the files to download
-		/*files_list.forEach(function(url){
+		files_list.forEach(function(url){
 			var path = urlToPath(url);
 			zip.file(path, urlToPromise(url), {binary:true});
-		});*/
+		});
 
 		//Generated zip archive
 		zip.generateAsync({type:"blob"}, function updateCallback(metadata) {
@@ -147,9 +147,12 @@ ComunicWeb.components.account.export.worker = {
 		 * @param {Object} info Information about the post to parse
 		 */
 		var parsePost = function(post){
-			if(post.file_path_url != null){
-				if(!files.includes(post.file_path_url))
-					files.push(post.file_path_url);
+			
+			if(post.kind != "youtube"){
+				if(post.file_path_url != null){
+					if(!files.includes(post.file_path_url))
+						files.push(post.file_path_url);
+				}
 			}
 
 			//Parse comments

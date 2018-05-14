@@ -60,7 +60,7 @@ ComunicWeb.components.account.export.ui = {
 		var closeModal = function(){
 			$(modal).modal('hide');
 			emptyElem(modal);
-			remove();
+			modal.remove();
 		}
 		this._exportModal.close = closeModal;
 		this._exportModal.closeModal.onclick = closeModal;
