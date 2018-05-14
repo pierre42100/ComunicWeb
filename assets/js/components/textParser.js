@@ -49,7 +49,7 @@ ComunicWeb.components.textParser = {
 			var userTag = target.innerHTML.match(/ @[a-zA-Z0-9.]+/i)[0];
 			var userID = userTag.replace(" @", "");
 
-			target.innerHTML = target.innerHTML.replace(userTag, "<userTag>"+userID+"</userTag>");
+			target.innerHTML = target.innerHTML.replace(userTag, " <userTag>"+userID+"</userTag>");
 
 		}
 
