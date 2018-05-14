@@ -344,6 +344,26 @@ ComunicWeb.components.conversations.interface = {
 	},
 
 	/**
+	 * Get the the lastest messages of a single conversation
+	 * 
+	 * @param {Number} convID Target conversation ID
+	 * @param {Number} lastMessageID The ID of the last known message
+	 * @param {function} callback
+	 */
+	refreshSingleConversation: function(convID, lastMessageID, callback){
+
+		//Perform a request on the API
+		var apiURI = "conversations/refresh_single";
+		var params = {
+			conversationID: convID,
+			last_message_id: lastMessageID
+		};
+
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+
+	},
+
+	/**
 	 * Empty conversations cache
 	 * 
 	 * @param {Boolean} notHard Specify that the object hasn't to be recursively cleaned
