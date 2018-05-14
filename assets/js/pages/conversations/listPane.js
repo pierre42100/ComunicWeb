@@ -87,9 +87,9 @@ ComunicWeb.pages.conversations.listPane = {
 		});
 
 		//Process the list of conversations
-		for (const num in list) {
+		for (var num in list) {
 			if (list.hasOwnProperty(num)) {
-				const conversation = list[num];
+				var conversation = list[num];
 				
 				//Display conversation element
 				this._display_entry(conversationsContainer, conversation, args);
