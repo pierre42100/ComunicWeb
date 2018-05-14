@@ -25,3 +25,4 @@ ComunicWeb would not exists without the following technologies developped by the
 - Identicon (http://github.com/stewartlord/identicon.js) (BSD Licence)
 - FileSaver.js (http://eligrey.com) (by Eli Grey) (MIT Licence)
 - JSZip (https://github.com/Stuk/jszip.git) (MIT Licence)
+- JSZip Utils (https://github.com/Stuk/jszip-utils.git) (MIT Licence)

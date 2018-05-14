@@ -137,6 +137,9 @@ class Dev {
 
 		//JSZip
 		"3rdparty/jszip/jszip.min.js",
+
+		//JSZip utils
+		"3rdparty/jszip-utils/jszip-utils.min.js",
 	);
 
 	/**
