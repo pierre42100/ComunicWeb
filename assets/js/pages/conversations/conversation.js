@@ -268,7 +268,11 @@ ComunicWeb.pages.conversations.conversation = {
 			innerHTML: info.message
 		});
 
-		console.log(info);
+		//Apply user information (if available)
+		if(this._conv_info.users["user-" + info.ID_user]){
+			accountImage.src = this._conv_info.users["user-" + info.ID_user].accountImage;
+			nameContainer = userFullName(this._conv_info.users["user-" + info.ID_user]);
+		}
 		
 	},
 
