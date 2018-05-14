@@ -177,13 +177,16 @@ ComunicWeb.pages.conversations.conversation = {
 			if(response.error)
 				return notify("Could not get the latest messages of the conversation!", "danger");
 
+			//Check if there are responses to process
+			if(response.length == 0)
+				return; //Do not process messages list (avoid unwanted scrolling)
+
 			//Process the list of messages
 			response.forEach(function(message){
 				ComunicWeb.pages.conversations.conversation.addMessage(message);
 			});
-
+			
 		});
-
 	},
 
 	/**
@@ -268,12 +271,54 @@ ComunicWeb.pages.conversations.conversation = {
 			innerHTML: info.message
 		});
 
+		//Parse message content
+		ComunicWeb.components.textParser.parse({
+			element: messageContent
+		});
+
+		//Message image (if any)
+		if(info.image_path != null){
+
+			//Image link
+			var imageLink = createElem2({
+				appendTo: messageContentContainer,
+				type: "a",
+				href: info.image_path
+			});
+
+			//Apply image
+			createElem2({
+				appendTo: imageLink,
+				type: "img",
+				class: "message-img",
+				src: info.image_path
+			});
+
+			imageLink.onclick = function(){
+				$(this).ekkoLightbox({
+					alwaysShowClose: true,
+				});
+				return false;
+			};
+		}
+
 		//Apply user information (if available)
 		if(this._conv_info.users["user-" + info.ID_user]){
 			accountImage.src = this._conv_info.users["user-" + info.ID_user].accountImage;
-			nameContainer = userFullName(this._conv_info.users["user-" + info.ID_user]);
+			nameContainer.innerHTML = userFullName(this._conv_info.users["user-" + info.ID_user]);
 		}
-		
+
+		//Set a timeout to make slimscroll properly work
+		setTimeout(function(){
+
+			//Enable / update slimscroll
+			var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
+			var scrollBottom = $(target).prop("scrollHeight")+"px";
+			$(target).slimScroll({
+				scrollTo: scrollBottom
+			});
+
+		}, 100);
 	},
 
 	/**
