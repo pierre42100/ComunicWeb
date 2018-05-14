@@ -22,16 +22,35 @@ ComunicWeb.pages.conversations.conversation = {
 
 		//Reset conversation information
 		this._conv_info = {
+
+			//The ID of the conversation
 			id: convID,
+
+			//Information about the UI
 			window: {},
-			conversation: null
+
+			//Information about the downloaded messages
+			first_message_id: -1,
+			last_message_id: 0,
+
+			//Conversation refresh lock
+			locker: {
+				locked: false, 
+				oldestMessage: 0,
+			},
+
+			//Conversation information
+			conversation: null,
+
+			//Related user information
+			users: null,
 		};
 
 		//Create conversation box
 		var box = createElem2({
 			appendTo: target,
 			type: "div",
-			class: "box box-primary box-conversation"
+			class: "box box-primary box-conversation direct-chat-primary big-box-conversation"
 		});
 
 		//Box header
@@ -58,6 +77,13 @@ ComunicWeb.pages.conversations.conversation = {
 		});
 		this._conv_info.window.body = boxBody;
 
+		//Create messages target
+		this._conv_info.window.messagesTarget = createElem2({
+			appendTo: boxBody,
+			type: "div",
+			class: "direct-chat-messages"
+		});
+
 		//Loading message
 		var loadingMsg = createElem2({
 			appendTo: boxBody,
@@ -70,13 +96,28 @@ ComunicWeb.pages.conversations.conversation = {
 
 			//Check for errors
 			if(result.error)
-				return loadingMsg.innerHTML = "An error occurred !";
+				return loadingMsg.innerHTML = "An error occurred while loading conversation information !";
+		
+			//Save conversation information
+			ComunicWeb.pages.conversations.conversation._conv_info.conversation = result;
 
-			//Remove loading message
-			loadingMsg.remove();
+			//Time to load user information
+			ComunicWeb.user.userInfos.getMultipleUsersInfos(result.members, function(membersInfo){
 
-			//Perform next steps
-			ComunicWeb.pages.conversations.conversation.onGotInfo(result);
+				//Check for errors
+				if(membersInfo.error)
+					return loadingMsg.innerHTML = "An error occuredd while loading conversation members information !";
+
+				//Save members information
+				ComunicWeb.pages.conversations.conversation._conv_info.users = membersInfo;
+
+				//Remove loading message
+				loadingMsg.remove();
+
+				//Perform next steps
+				ComunicWeb.pages.conversations.conversation.onGotInfo(result);
+
+			});
 		});
 	},
 
@@ -94,8 +135,142 @@ ComunicWeb.pages.conversations.conversation = {
 
 		//Add send message form
 		this.addSendMessageForm();
+
+		//Defines an intervall to refresh the conversation
+		var windowBody = this._conv_info.window.body;
+		var locker = this._conv_info.locker;
+		var interval = setInterval(function(){
+
+			//Check if the conversation body element is still connected or not on the screen
+			if(!windowBody.isConnected){
+				clearInterval(interval);
+				return;
+			}
+
+			//Check if the system is locked
+			if(locker.locked){
+				ComunicWeb.debug.logMessage("Skip conversation refresh : locked");
+				return;
+			}
+
+			//Lock the system
+			locker.locked = true;
+
+			//Refresh the conversation
+			ComunicWeb.pages.conversations.conversation.refresh();
+
+		}, 1500);
 	},
 
+	/**
+	 * Refresh the current conversation
+	 */
+	refresh: function(){
+
+		//Peform the request over the API
+		ComunicWeb.components.conversations.interface.refreshSingleConversation(this._conv_info.id, this._conv_info.last_message_id, function(response){
+
+			//Unlock service
+			ComunicWeb.pages.conversations.conversation._conv_info.locker.locked = false;
+
+			//Check for errors
+			if(response.error)
+				return notify("Could not get the latest messages of the conversation!", "danger");
+
+			//Process the list of messages
+			response.forEach(function(message){
+				ComunicWeb.pages.conversations.conversation.addMessage(message);
+			});
+
+		});
+
+	},
+
+	/**
+	 * Add a message to the list
+	 * 
+	 * @param {Object} info Information about the message to add
+	 */
+	addMessage: function(info){
+
+		//Check if the message is to add at the begining of the end of conversation
+		var toLatestMessages = true;
+		
+		//Check if it is the first processed message
+		if(this._conv_info.first_message_id == -1){
+			this._conv_info.last_message_id = info.ID;
+			this._conv_info.first_message_id = info.ID;
+		}
+
+		//Check if it is a message to add to the oldest messages
+		else if(this._conv_info.first_message_id > info.ID) {
+			this._conv_info.first_message_id = info.ID;
+			var toLatestMessages = false; //Message to add to the begining
+		}
+
+		//Message is to add to the latest messages
+		else {
+			this._conv_info.last_message_id = info.ID;
+		}
+
+		//Determine wether the current user is the owner or not of the message
+		var userIsOwner = userID() == info.ID_user;
+
+		//Create message container
+		var messageContainer = createElem2({
+			appendTo: this._conv_info.window.messagesTarget,
+			type: "div",
+			class: "direct-chat-msg " + (userIsOwner ? "right" : "")
+		});
+
+		//Top message information
+		var topInformation = createElem2({
+			appendTo: messageContainer,
+			type: "div",
+			class: "direct-chat-info clearfix"
+		});
+
+		//Add user name
+		var nameContainer = createElem2({
+			appendTo: topInformation,
+			type: "span",
+			class: "direct-chat-name pull-right",
+			innerHTML: "Loading"
+		});
+
+		//Add message date
+		createElem2({
+			appendTo: topInformation,
+			type: "span",
+			class: "direct-chat-timestamp pull-left",
+			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.time_insert)
+		});
+
+		//Add user account image
+		var accountImage = createElem2({
+			appendTo: messageContainer,
+			type: "img",
+			class: "direct-chat-img",
+			src: ComunicWeb.__config.assetsURL + "img/defaultAvatar.png"
+		});
+
+		//Add message content container
+		var messageContentContainer = createElem2({
+			appendTo: messageContainer,
+			type: "div",
+			class: "direct-chat-text",
+		});
+
+		//Message content
+		var messageContent = createElem2({
+			appendTo: messageContentContainer,
+			type: "div",
+			innerHTML: info.message
+		});
+
+		console.log(info);
+		
+	},
 
 	/**
 	 * Create and append message form

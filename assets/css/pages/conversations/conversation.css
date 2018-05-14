@@ -4,6 +4,12 @@
  * @author Pierre HUBERT
  */
 
-.conversations-page-container .box-conversation .loading-msg {
+.big-box-conversation .direct-chat-text {
+	display: inline-block;
+	margin-left: 10px;
+}
 
+.big-box-conversation .right .direct-chat-text {
+	float: right;
+	margin-right: 10px;
 }
