@@ -283,7 +283,7 @@ ComunicWeb.pages.conversations.conversation = {
 		var messageContent = createElem2({
 			appendTo: messageContentContainer,
 			type: "div",
-			innerHTML: info.message
+			innerHTML: removeHtmlTags(info.message)
 		});
 
 		//Parse message content
