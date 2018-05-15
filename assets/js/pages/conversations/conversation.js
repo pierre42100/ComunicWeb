@@ -42,6 +42,9 @@ ComunicWeb.pages.conversations.conversation = {
 			//Conversation information
 			conversation: null,
 
+			//Enabled top scroll detection
+			initTopScrollDetection: false,
+
 			//Related user information
 			users: null,
 		};
@@ -185,6 +188,9 @@ ComunicWeb.pages.conversations.conversation = {
 			response.forEach(function(message){
 				ComunicWeb.pages.conversations.conversation.addMessage(message);
 			});
+
+			//Init top scroll detection (if available)
+			ComunicWeb.pages.conversations.conversation.initTopScrollDetection();
 			
 		});
 	},
@@ -221,10 +227,19 @@ ComunicWeb.pages.conversations.conversation = {
 
 		//Create message container
 		var messageContainer = createElem2({
-			appendTo: this._conv_info.window.messagesTarget,
 			type: "div",
 			class: "direct-chat-msg " + (userIsOwner ? "right" : "")
 		});
+
+		//Apply message container
+		if(toLatestMessages){
+			this._conv_info.window.messagesTarget.appendChild(messageContainer);
+		}
+		else {
+
+			//Put the message in the begining
+			this._conv_info.window.messagesTarget.insertBefore(messageContainer, this._conv_info.window.messagesTarget.firstChild);
+		}
 
 		//Top message information
 		var topInformation = createElem2({
@@ -308,17 +323,19 @@ ComunicWeb.pages.conversations.conversation = {
 			nameContainer.innerHTML = userFullName(this._conv_info.users["user-" + info.ID_user]);
 		}
 
-		//Set a timeout to make slimscroll properly work
-		setTimeout(function(){
+		//Set a timeout to make slimscroll properly work (for newest messages)
+		if(toLatestMessages){
+			setTimeout(function(){
 
-			//Enable / update slimscroll
-			var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
-			var scrollBottom = $(target).prop("scrollHeight")+"px";
-			$(target).slimScroll({
-				scrollTo: scrollBottom
-			});
+				//Enable / update slimscroll
+				var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
+				var scrollBottom = $(target).prop("scrollHeight")+"px";
+				$(target).slimScroll({
+					scrollTo: scrollBottom
+				});
 
-		}, 100);
+			}, 100);
+		}
 	},
 
 	/**
@@ -478,6 +495,93 @@ ComunicWeb.pages.conversations.conversation = {
 
 			return false;
 		}
+	},
+
+	/**
+	 * Init top scroll detection (if required)
+	 */
+	initTopScrollDetection: function(){
+
+		//Check if top scroll dection has already been enabled on this conversation
+		if(this._conv_info.initTopScrollDetection)
+			return;
+		
+		//Check if there isn't any message in the list
+		if(this._conv_info.last_message_id == 0)
+			return;
+		
+		//Mark top scroll detection as initialized
+		this._conv_info.initTopScrollDetection = true;
+
+		//Define some variables
+		var refreshLocked = false;
+		var topScrollCount = 0;
+
+		//Save conversation information
+		var convInfo = this._conv_info;
+
+		$(this._conv_info.window.messagesTarget).bind("slimscrolling", function(e, pos){
+
+			//Check if a request is already pending
+			if(refreshLocked)
+				return;
+			
+			//Check if we are not at the top of the screen
+			if(pos != 0){
+				topScrollCount = 0;
+				return;
+			}
+			
+			//Increment value
+			topScrollCount++;
+			
+			//The user must scroll several seconds to request a refresh
+			if(topScrollCount < 3)
+				return;
+
+			//Lock refresh
+			refreshLocked = true;
+
+			//Query older messages
+			ComunicWeb.components.conversations.interface.getOlderMessages(convInfo.id, convInfo.first_message_id, 10, function(response){
+
+				//Unlock service
+				refreshLocked = false;
+
+				//Check for errors
+				if(response.error)
+					return notify("An error occured while trying to retrive older messages !", "danger");
+				
+				//Check if there is not any message to display
+				if(response.length == 0){
+
+					//Lock service
+					refreshLocked = true;
+					return;
+
+				}
+
+				//Process the list of messages
+				//Reverse messages order
+				response.reverse();
+
+				//Save the current oldest message
+				var oldestMessage = convInfo.window.messagesTarget.firstChild;
+
+				//Process the list of messages in reverse order
+				response.forEach(function(message){
+					ComunicWeb.pages.conversations.conversation.addMessage(message);
+				});
+
+				//Update slimscroll
+				newScrollPos = oldestMessage.offsetTop - 30;
+				if(newScrollPos < 0)
+					newScrollPos = 0;
+				$(convInfo.window.messagesTarget).slimScroll({
+					scrollTo: newScrollPos + "px"
+				});
+			});
+		});
 	}
 
 };

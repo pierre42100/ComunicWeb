@@ -7,6 +7,7 @@
 .big-box-conversation .direct-chat-text {
 	display: inline-block;
 	margin-left: 10px;
+	max-width: 150px;
 }
 
 .big-box-conversation .right .direct-chat-text {
