@@ -50,11 +50,26 @@ ComunicWeb.pages.conversations.main = {
 
 			//Open the conversation
 			ComunicWeb.pages.conversations.conversation.open(id, rightArea);
+
+			//Update website URI
+			ComunicWeb.common.page.update_uri("Conversations", "conversations/" + id);
 		}
 
 		//Display the list of conversation
 		ComunicWeb.pages.conversations.listPane.display(leftArea, {
 			opener: conversationOpener
 		});
+
+		//Check if a conversation has to be opened
+		if(args.subfolder){
+
+			//Determine conversation ID
+			var convID = args.subfolder;
+			if(convID.includes("/"))
+				convID = convID.split("/")[0];
+				
+			//Open the conversation
+			conversationOpener(Number(convID));
+		}
 	}
 }
