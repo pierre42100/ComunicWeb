@@ -188,10 +188,7 @@ ComunicWeb.common.page = {
 
         //Change page URL, if required
         if(additionnalData.no_url_update ? !additionnalData.no_url_update : true)
-            ComunicWeb.common.url.changeURI(document.title, pageURI);
-
-        //Save new url
-        this._current_url = window.location.href.toString();
+            this.update_uri(document.title, pageURI);
 
         //Get the main container of the page
         var mainContainerElem = byId("wrapper");
@@ -276,6 +273,21 @@ ComunicWeb.common.page = {
 
         //Open a page
         this.openPage(currentPage, {no_url_update: true});
+    },
+
+    /**
+     * Safely trigger URL update
+     * 
+     * @param {String} title The new title of the page
+     * @param {String} uri The new URL
+     */
+    update_uri: function(title, uri){
+
+        //Trigger URL update
+        ComunicWeb.common.url.changeURI(title, uri);
+
+        //Save new url
+        this._current_url = window.location.href.toString();
     },
 
     /**

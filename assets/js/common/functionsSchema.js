@@ -192,6 +192,11 @@ var ComunicWeb = {
 			refresh_current_page: function(){},
 
 			/**
+			 * Safely trigger URL update
+			 */
+			update_uri: function(title, uri){},
+
+			/**
 			 * Inform of page location update
 			 */
 			location_updated: function(new_location){},
