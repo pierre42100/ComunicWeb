@@ -5,6 +5,7 @@
  */
 
 ComunicWeb.pages.conversations.main = {
+
 	/**
 	 * Open settings page
 	 * 
@@ -56,22 +57,34 @@ ComunicWeb.pages.conversations.main = {
 		}
 
 		//Check if a conversation has to be opened
-		var currConvID = 0;
 		if(args.subfolder){
 
-			//Determine conversation ID
-			var convID = args.subfolder;
-			if(convID.includes("/"))
-				convID = convID.split("/")[0];
-			currConvID = Number(convID);
 			//Open the conversation
-			conversationOpener(currConvID);
+			conversationOpener(ComunicWeb.pages.conversations.main.getCurrentConversationID());
 		}
 
 		//Display the list of conversation
 		ComunicWeb.pages.conversations.listPane.display(leftArea, {
 			opener: conversationOpener,
-			currConvID: currConvID
+			getCurrentID: this.getCurrentConversationID
 		});
+	},
+
+	/**
+	 * Determine the current conversation ID
+	 * 
+	 * @return {Number} The ID of the current conversation (0 if none found)
+	 */
+	getCurrentConversationID: function(){
+
+		var id = location.toString().split("/conversations/");
+		id = id[id.length - 1];
+
+		//Check if no ID is specified
+		if(id.length < 1)
+			return 0;
+		else
+			return Number(id);
+
 	}
 }

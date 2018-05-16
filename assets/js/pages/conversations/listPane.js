@@ -43,15 +43,33 @@ ComunicWeb.pages.conversations.listPane = {
 			class: "box-body no-padding"
 		});
 
-		//Loading message
-		var loadingMsg = createElem2({
-			appendTo: boxBody,
-			type: "div",
-			class: "conv-list-loading-msg",
-			innerHTML: "Loading, please wait..."
-		});
-
 		//Load the list of conversations
+		this.refresh_list(boxBody, args);
+	},
+
+	/**
+	 * Refresh the list of conversations
+	 * 
+	 * @param {HTMLElement} target The target for the list
+	 * @param {Object} args Additionnal arguments
+	 */
+	refresh_list: function(target, args){
+
+		//Loading message, if required
+		if(target.childElementCount == 0){
+			var loadingMsg = createElem2({
+				appendTo: target,
+				type: "div",
+				class: "conv-list-loading-msg",
+				innerHTML: "Loading, please wait..."
+			});
+		}
+		else
+			//Create empty division
+			var loadingMsg = document.createElement("div");
+		
+
+		//Perform a request over the interface
 		ComunicWeb.components.conversations.interface.getList(function(result){
 
 			//Check for errors
@@ -62,11 +80,12 @@ ComunicWeb.pages.conversations.listPane = {
 
 			//Remove loading message
 			loadingMsg.remove();
-			emptyElem(boxBody); //Remove any previously shown list
+			emptyElem(target); //Remove any previously shown list
 
 			//Display the list of conversations
-			ComunicWeb.pages.conversations.listPane._display_list(boxBody, result, args);
+			ComunicWeb.pages.conversations.listPane._display_list(target, result, args);
 		});
+
 	},
 
 
@@ -128,7 +147,7 @@ ComunicWeb.pages.conversations.listPane = {
 		});
 
 		//Check if it is the current conversation
-		if(args.currConvID == info.ID)
+		if(args.getCurrentID() == info.ID)
 			convLink.className = " selected";
 
 		//Add conversation last activity on the rigth
