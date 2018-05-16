@@ -219,7 +219,7 @@ ComunicWeb.pages.conversations.listPane = {
 		//Add conversation name
 		var conversationName = createElem2({
 			appendTo: convLink,
-			type: "strong",
+			type: info.saw_last_message ? "span" : "strong",
 			innerHTML: "Loading..."
 		});
 		ComunicWeb.components.conversations.utils.getName(info, function(name){
