@@ -127,6 +127,10 @@ ComunicWeb.pages.conversations.listPane = {
 			args.opener(info.ID);
 		});
 
+		//Check if it is the current conversation
+		if(args.currConvID == info.ID)
+			convLink.className = " selected";
+
 		//Add conversation last activity on the rigth
 		var lastActivityContainer = createElem2({
 			appendTo: convLink,

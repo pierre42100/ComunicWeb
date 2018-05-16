@@ -55,21 +55,23 @@ ComunicWeb.pages.conversations.main = {
 			ComunicWeb.common.page.update_uri("Conversations", "conversations/" + id);
 		}
 
-		//Display the list of conversation
-		ComunicWeb.pages.conversations.listPane.display(leftArea, {
-			opener: conversationOpener
-		});
-
 		//Check if a conversation has to be opened
+		var currConvID = 0;
 		if(args.subfolder){
 
 			//Determine conversation ID
 			var convID = args.subfolder;
 			if(convID.includes("/"))
 				convID = convID.split("/")[0];
-				
+			currConvID = Number(convID);
 			//Open the conversation
-			conversationOpener(Number(convID));
+			conversationOpener(currConvID);
 		}
+
+		//Display the list of conversation
+		ComunicWeb.pages.conversations.listPane.display(leftArea, {
+			opener: conversationOpener,
+			currConvID: currConvID
+		});
 	}
 }
