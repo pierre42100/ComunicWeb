@@ -7,6 +7,11 @@
 ComunicWeb.pages.conversations.listPane = {
 
 	/**
+	 * Save current list
+	 */
+	_curr_list: {},
+
+	/**
 	 * Display the list of conversation
 	 * 
 	 * @param {HTMLElement} target The target of the page
@@ -43,8 +48,23 @@ ComunicWeb.pages.conversations.listPane = {
 			class: "box-body no-padding"
 		});
 
+		var interval = setInterval(function(){
+
+			//Check if box body is still connected
+			if(!boxBody.isConnected){
+				clearInterval(interval);
+				ComunicWeb.pages.conversations.listPane._curr_list = null;
+				return;
+			}
+
+			//Load the list of conversations
+			ComunicWeb.pages.conversations.listPane.refresh_list(boxBody, args);
+
+		}, 5000);
+
 		//Load the list of conversations
-		this.refresh_list(boxBody, args);
+		ComunicWeb.pages.conversations.listPane.refresh_list(boxBody, args);
+		
 	},
 
 	/**
@@ -80,6 +100,12 @@ ComunicWeb.pages.conversations.listPane = {
 
 			//Remove loading message
 			loadingMsg.remove();
+
+			//Check if it is required to apply new list
+			if(JSON.stringify(ComunicWeb.pages.conversations.listPane._curr_list) == JSON.stringify(result))
+				return;
+			ComunicWeb.pages.conversations.listPane._curr_list = result;
+			
 			emptyElem(target); //Remove any previously shown list
 
 			//Display the list of conversations
@@ -105,13 +131,16 @@ ComunicWeb.pages.conversations.listPane = {
 			class: "nav nav-pills nav-stacked"
 		});
 
+		//Make sure there isn't any selected conversation currently
+		args.selected_conversation = null;
+
 		//Process the list of conversations
 		for (var num in list) {
 			if (list.hasOwnProperty(num)) {
 				var conversation = list[num];
 				
 				//Display conversation element
-				this._display_entry(conversationsContainer, conversation, args);
+				args = this._display_entry(conversationsContainer, conversation, args);
 			}
 		}
 		
@@ -120,6 +149,15 @@ ComunicWeb.pages.conversations.listPane = {
 			height: '100%'
 		});
 
+		//Scroll to selected conversation, if possible
+		if(args.selected_conversation != null){
+			var newScrollPos = args.selected_conversation.offsetTop - 30;
+			if(newScrollPos < 0)
+				newScrollPos = 0;
+			$(conversationsContainer).slimScroll({
+				scrollTo: newScrollPos + "px"
+			});
+		}
 	},
 
 	/**
@@ -128,6 +166,7 @@ ComunicWeb.pages.conversations.listPane = {
 	 * @param {HTMLElement} target The target for the conversation
 	 * @param {Object} info Information about the conversation to display
 	 * @param {Object} args Additional arguments
+	 * @return Additional arguments (may be modified)
 	 */
 	_display_entry: function(target, info, args) {
 
@@ -143,12 +182,24 @@ ComunicWeb.pages.conversations.listPane = {
 			type: "a"
 		});
 		convLink.addEventListener("click", function(e){
+
+			//Force conversation list refresh
+			ComunicWeb.pages.conversations.listPane._curr_list = {};
+
+			//Make the choice visible
+			convLink.className += " selected";
+
+			//Open the conversation
 			args.opener(info.ID);
 		});
 
 		//Check if it is the current conversation
-		if(args.getCurrentID() == info.ID)
-			convLink.className = " selected";
+		if(args.getCurrentID() == info.ID){
+			convLink.className += " selected";
+
+			//Save selected conversation link
+			args.selected_conversation = convContainer;
+		}
 
 		//Add conversation last activity on the rigth
 		var lastActivityContainer = createElem2({
@@ -193,6 +244,8 @@ ComunicWeb.pages.conversations.listPane = {
 			innerHTML: (info.members.length === 1 ? "1 member" : info.members.length + " members")
 		});
 
+		//Return the list of arguments
+		return args;
 	}
 
 }
