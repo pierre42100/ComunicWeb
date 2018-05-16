@@ -198,6 +198,12 @@ ComunicWeb.common.page = {
            var mainContainerElem = this.emptyPage(true);
         }
 
+        //Check if the page requires user login
+        if(pageInfos.needLogin){
+            if(!signed_in())
+                openPage("login");
+        }
+
         //We check if the page is a full screen page or not
         if(pageInfos.disableMenus){
             //We force the screen to be cleaned

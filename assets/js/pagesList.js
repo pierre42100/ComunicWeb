@@ -47,7 +47,8 @@ ComunicWeb.pagesList = {
     conversations: {
         pageTitle: "Conversations",
         methodHandler: "ComunicWeb.pages.conversations.main.open",
-        disableMenus: false
+        disableMenus: false,
+        needLogin: true
     },
 
     /**
