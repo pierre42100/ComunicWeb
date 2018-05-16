@@ -8,6 +8,7 @@
 	display: inline-block;
 	margin-left: 10px;
 	max-width: 150px;
+	word-wrap: break-word;
 }
 
 .big-box-conversation .right .direct-chat-text {
