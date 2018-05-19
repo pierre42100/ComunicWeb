@@ -23,6 +23,11 @@ class Comunic_io extends Offline {
 	const SITE_URL = "https://comunic.io/";
 
 	/**
+	 * About website access
+	 */
+	const ABOUT_WEBSITE_URL = "https://about.comunic.io/";
+
+	/**
 	 * Site production mode
 	 */
 	const PROD_MODE = TRUE;
