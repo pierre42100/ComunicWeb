@@ -255,6 +255,21 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [L]
 </IfModule>
 ';
+
+//Check if we have to force https connection
+if(defined(get_class($release)."::FORCE_HTTPS")){
+	if($release::FORCE_HTTPS){
+
+		//Inform user
+		notice("This build will work only with https.");
+
+		//Add rules in .htaccess
+		$htaccess .= "\n\nRewriteCond %{HTTPS} !on\n";
+		$htaccess .= "RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}";
+
+	}
+}
+
 file_put_contents(OUTPUT_DIRECTORY.".htaccess", $htaccess);
 
 
