@@ -62,7 +62,8 @@ ComunicWeb.pages.conversations.listPane = {
 
 		}, 5000);
 
-		//Load the list of conversations
+		//Force load the list of conversations
+		ComunicWeb.pages.conversations.listPane._curr_list = null;
 		ComunicWeb.pages.conversations.listPane.refresh_list(boxBody, args);
 		
 	},
