@@ -37,11 +37,23 @@
     </head>
     <body>
         <!-- Welcome message -->
-        <div style="text-align: center; font-size: 150%; padding-top: 10%;">
+        <style type="text/css">
+            body {
+                background-color: #001F3F;
+                color: white;
+            }
+
+            .notice {
+                text-align: center;
+                font-size: 150%;
+                padding-top: 10%;
+                max-width: 300px;
+                margin: auto;
+            }
+        </style>
+        <div class="notice">
             Welcome !<br />
             Bienvenue !<br /><br />
-
-            <img src="{ASSETS_URL}img/roundProgress.gif" /><br /><br />
 
             Please wait while Comunic is starting...<br />
             Veuillez patienter pendant le d&eacute;marrage de Comunic...<br /><br />
