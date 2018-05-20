@@ -1156,7 +1156,15 @@ var ComunicWeb = {
 			 */
 			conversation: {
 				//TODO : implement
-			}
+			},
+			
+
+			/**
+			 * Conversation page utilities
+			 */
+			utils: {
+				//TODO : implement
+			},
 		},
 
 		/**

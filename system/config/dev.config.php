@@ -387,6 +387,7 @@ class Dev {
 			"js/pages/conversations/main.js",
 			"js/pages/conversations/listPane.js",
 			"js/pages/conversations/conversation.js",
+			"js/pages/conversations/utils.js",
 
 			//User settings page
 			"js/pages/settings/main.js",

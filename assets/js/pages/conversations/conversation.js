@@ -330,9 +330,7 @@ ComunicWeb.pages.conversations.conversation = {
 				//Enable / update slimscroll
 				var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
 				var scrollBottom = $(target).prop("scrollHeight")+"px";
-				$(target).slimScroll({
-					scrollTo: scrollBottom
-				});
+				ComunicWeb.pages.conversations.utils.enableSlimScroll(target, ComunicWeb.pages.conversations.utils.getAvailableHeight(), scrollBottom);
 
 			}, 100);
 		}
@@ -577,11 +575,12 @@ ComunicWeb.pages.conversations.conversation = {
 				newScrollPos = oldestMessage.offsetTop - 30;
 				if(newScrollPos < 0)
 					newScrollPos = 0;
-				$(convInfo.window.messagesTarget).slimScroll({
-					scrollTo: newScrollPos + "px"
-				});
+				ComunicWeb.pages.conversations.utils.enableSlimScroll(
+					convInfo.window.messagesTarget, 
+					ComunicWeb.pages.conversations.utils.getAvailableHeight(), 
+					newScrollPos);
 			});
 		});
-	}
+	},
 
 };

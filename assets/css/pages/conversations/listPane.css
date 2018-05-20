@@ -8,6 +8,10 @@
 	max-height: 100%;
 }
 
+.conversations-page-container .conversations-list-box ul {
+	max-height: 100%;
+}
+
 .conversations-page-container a.selected {
 	background: #f7f7f7;
 }

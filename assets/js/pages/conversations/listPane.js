@@ -145,19 +145,24 @@ ComunicWeb.pages.conversations.listPane = {
 		}
 		
 		//Enable slimscroll
-		$(conversationsContainer).slimScroll({
-			height: '100%'
-		});
+		ComunicWeb.pages.conversations.utils.enableSlimScroll(
+			conversationsContainer, 
+			ComunicWeb.pages.conversations.utils.getAvailableHeight(), 
+			0);
 
 		//Scroll to selected conversation, if possible
 		if(args.selected_conversation != null){
 			var newScrollPos = args.selected_conversation.offsetTop - 30;
 			if(newScrollPos < 0)
 				newScrollPos = 0;
-			$(conversationsContainer).slimScroll({
-				scrollTo: newScrollPos + "px"
-			});
+
+			//Enable slimscroll again
+			ComunicWeb.pages.conversations.utils.enableSlimScroll(
+				conversationsContainer, 
+				ComunicWeb.pages.conversations.utils.getAvailableHeight() + 55, 
+				newScrollPos);
 		}
+		
 	},
 
 	/**
