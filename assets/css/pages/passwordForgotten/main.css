@@ -1,0 +1,11 @@
+/**
+ * Password forgotten page main stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.box-password-forgotten {
+	max-width: 350px;
+	margin: auto;
+	margin-top: 20px;
+}

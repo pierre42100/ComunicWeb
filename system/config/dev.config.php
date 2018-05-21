@@ -225,6 +225,9 @@ class Dev {
 
 			//Create account page
 			"css/pages/createAccount.css",
+
+			//Password forgotten page
+			"css/pages/passwordForgotten/main.css"
 	);
 
 	/**
@@ -407,6 +410,9 @@ class Dev {
 			//Create account page
 			"js/pages/createAccount.js",
 			"js/pages/accountCreated.js",
+
+			//Password forgotten page
+			"js/pages/passwordForgotten/main.js",
 			
 			//Logout page
 			"js/pages/logout.js",

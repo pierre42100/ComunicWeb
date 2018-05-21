@@ -97,6 +97,15 @@ ComunicWeb.pagesList = {
     },
 
     /**
+     * Password forgotten page
+     */
+    forgot_password: {
+        pageTitle: "Password forgotten",
+        methodHandler: "ComunicWeb.pages.passwordForgotten.main.open",
+        disableMenus: false,
+    },
+
+    /**
      * 404 Page not found
      */
     notFound: {
