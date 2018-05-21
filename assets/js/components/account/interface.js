@@ -32,6 +32,20 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Check whether an email address is linked to an account or not
+	 * 
+	 * @param {String} email The email address to check
+	 * @param {function} callback
+	 */
+	existsMail: function(email, callback){
+		var apiURI = "account/exists_email";
+		var params = {
+			email: email
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Request the export of all the data of the user
 	 * 
 	 * @param {String} password The password of the user

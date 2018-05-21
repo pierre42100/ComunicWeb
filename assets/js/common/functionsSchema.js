@@ -1285,6 +1285,13 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Ask user email step
+			 */
+			promptEmail: {
+				//TODO : implement
+			}
+
 		},
 
 		/**

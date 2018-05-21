@@ -60,6 +60,11 @@ ComunicWeb.pages.passwordForgotten.main = {
 			type: "div",
 			class: "box-body"
 		});
+
+		//Perform first step: ask user his email
+		ComunicWeb.pages.passwordForgotten.promptEmail.open(boxBody, function(email){
+			alert("Email: " + email);
+		});
 	},
 
 }

@@ -413,6 +413,7 @@ class Dev {
 
 			//Password forgotten page
 			"js/pages/passwordForgotten/main.js",
+			"js/pages/passwordForgotten/promptEmail.js",
 			
 			//Logout page
 			"js/pages/logout.js",
