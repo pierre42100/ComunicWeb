@@ -14,12 +14,57 @@ ComunicWeb.pages.settings.sections.privacy = {
 	 */
 	open: function(args, target){
 
+		//Information box
+		this.showInfoBox(target);
+
 		//Export data box
 		this.showExportDataBox(target);
 
 		//Delete account box
 		this.showDeleteAccountBox(target);
 
+	},
+
+	/**
+	 * Show privacy policy information box
+	 * 
+	 * @param {HTMLElement} target The target for the box
+	 */
+	showInfoBox: function(target){
+
+		//Create a box
+		var box = createElem2({
+			appendTo: target,
+			type: "div",
+			class: "box box-primary box-export-account-data-settings"
+		});
+
+		//Add box header
+		var boxHead = createElem2({
+			appendTo: box,
+			type: "div",
+			class: "box-header",
+		});
+		var boxTitle = createElem2({
+			appendTo: boxHead,
+			type: "h3",
+			class: "box-title",
+			innerHTML: "About our policy"
+		});
+
+		//Create box body
+		var boxBody = createElem2({
+			appendTo: box,
+			type: "div",
+			class: "box-body"
+		});
+
+		//Box content
+		createElem2({
+			appendTo: boxBody,
+			type: "p",
+			innerHTML: "We give an high importance to our users privacy. Please take some time to check our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/privacy' target='_blank'>Privacy Policy</a> and our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/terms' target='_blank'>Terms of use</a>."
+		})
 	},
 
 	/**
