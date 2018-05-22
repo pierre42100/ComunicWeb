@@ -46,6 +46,21 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Check whether the security questions have been set for an account 
+	 * with an email address or not
+	 * 
+	 * @param {String} email The email address of the account
+	 * @param {function} callback
+	 */
+	checkSecurityQuestionsExistence: function(email, callback){
+		var apiURI = "account/has_security_questions";
+		var params = {
+			email: email
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Request the export of all the data of the user
 	 * 
 	 * @param {String} password The password of the user

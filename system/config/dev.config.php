@@ -227,7 +227,8 @@ class Dev {
 			"css/pages/createAccount.css",
 
 			//Password forgotten page
-			"css/pages/passwordForgotten/main.css"
+			"css/pages/passwordForgotten/main.css",
+			"css/pages/passwordForgotten/promptOption.css"
 	);
 
 	/**
@@ -414,6 +415,7 @@ class Dev {
 			//Password forgotten page
 			"js/pages/passwordForgotten/main.js",
 			"js/pages/passwordForgotten/promptEmail.js",
+			"js/pages/passwordForgotten/promptOption.js",
 			
 			//Logout page
 			"js/pages/logout.js",

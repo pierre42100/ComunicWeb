@@ -1290,7 +1290,14 @@ var ComunicWeb = {
 			 */
 			promptEmail: {
 				//TODO : implement
-			}
+			},
+
+			/**
+			 * Ask user reset option
+			 */
+			promptOption: {
+				//TODO : implement
+			},
 
 		},
 

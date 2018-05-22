@@ -63,7 +63,16 @@ ComunicWeb.pages.passwordForgotten.main = {
 
 		//Perform first step: ask user his email
 		ComunicWeb.pages.passwordForgotten.promptEmail.open(boxBody, function(email){
-			alert("Email: " + email);
+			
+			//Empty body
+			emptyElem(boxBody);
+
+			//Prompt user reset option
+			ComunicWeb.pages.passwordForgotten.promptOption.open(email, boxBody, function(option){
+
+				alert(option);
+
+			});
 		});
 	},
 

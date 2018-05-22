@@ -1,0 +1,14 @@
+/**
+ * Password forgotten prompt option section stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.password-reset-prompt-option-section p {
+	text-align: justify;
+}
+
+.password-reset-prompt-option-section .btn {
+	width: 100%;
+	margin-top: 10px;
+}
