@@ -461,6 +461,21 @@ function add_space(target){
 }
 
 /**
+ * Create and append a new paragraph
+ * 
+ * @param {HTMLElement} target The target for the new paragraph
+ * @param {String} content The new content for the paragraph
+ * @returns {HTMLElement} Generated element
+ */
+function add_p(target, content){
+	return createElem2({
+		appendTo: target,
+		type: "p",
+		innerHTML: content
+	});
+}
+
+/**
  * Get the current absolute position bottom of the screen
  * 
  * @return {number} The bottom on the screen
