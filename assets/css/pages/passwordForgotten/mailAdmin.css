@@ -1,0 +1,18 @@
+/**
+ * Mail admin to reset password
+ *
+ * @author Pierre HUBERT
+ */
+
+.reset-password-by-mail-step .title {
+	text-align: center;
+	margin-top: 0px;
+}
+
+.reset-password-by-mail-step p {
+	text-align: justify;
+}
+
+.reset-password-by-mail-step .btn-mail {
+	width: 100%;
+}

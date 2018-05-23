@@ -70,8 +70,21 @@ ComunicWeb.pages.passwordForgotten.main = {
 			//Prompt user reset option
 			ComunicWeb.pages.passwordForgotten.promptOption.open(email, boxBody, function(option){
 
-				alert(option);
+				//Empty body
+				emptyElem(boxBody);
 
+				//Open appropriate page
+				if(option == "mail"){
+					ComunicWeb.pages.passwordForgotten.mailAdmin.open(email, boxBody);
+				}
+
+				//Option not recognized
+				else {
+					boxBody.appendChild(ComunicWeb.common.messages.createCalloutElem(
+						"Error", 
+						"Option not found!", 
+						"danger"));
+				}
 			});
 		});
 	},

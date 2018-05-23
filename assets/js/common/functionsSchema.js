@@ -1299,6 +1299,13 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Option : send a mail to the admin
+			 */
+			mailAdmin: {
+				//TODO : implement
+			},
+
 		},
 
 		/**

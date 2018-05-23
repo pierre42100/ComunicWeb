@@ -82,7 +82,10 @@ ComunicWeb.pages.passwordForgotten.promptOption = {
 			appendTo: form,
 			type: "div",
 			class: "btn btn-default",
-			innerHTML: "<i class='fa fa-envelope-o'></i> Contact the administration"
+			innerHTML: "<i class='fa fa-envelope-o'></i> Send a mail to the administration"
+		});
+		contact.addEventListener("click", function(){
+			callback("mail");
 		});
 	},
 
