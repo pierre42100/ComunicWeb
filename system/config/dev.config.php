@@ -418,6 +418,7 @@ class Dev {
 			"js/pages/passwordForgotten/promptEmail.js",
 			"js/pages/passwordForgotten/promptOption.js",
 			"js/pages/passwordForgotten/mailAdmin.js",
+			"js/pages/passwordForgotten/promptSecurityQuestions.js",
 			
 			//Logout page
 			"js/pages/logout.js",

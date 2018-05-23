@@ -1306,6 +1306,13 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Option : prompt security questions
+			 */
+			promptSecurityQuestions: {
+				//TODO : implement
+			},
+
 		},
 
 		/**

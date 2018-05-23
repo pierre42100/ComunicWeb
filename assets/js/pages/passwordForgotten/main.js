@@ -74,8 +74,14 @@ ComunicWeb.pages.passwordForgotten.main = {
 				emptyElem(boxBody);
 
 				//Open appropriate page
+				//Send an email
 				if(option == "mail"){
 					ComunicWeb.pages.passwordForgotten.mailAdmin.open(email, boxBody);
+				}
+
+				//Prompt security questions
+				else if(option == "security_questions"){
+					ComunicWeb.pages.passwordForgotten.promptSecurityQuestions.open(email, boxBody);
 				}
 
 				//Option not recognized

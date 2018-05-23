@@ -61,6 +61,20 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Given an email address, returns the security questions of a user
+	 * 
+	 * @param {String} email The email address of the account
+	 * @param {function} callback
+	 */
+	getSecurityQuestions: function(email, callback){
+		var apiURI = "account/get_security_questions";
+		var params = {
+			email: email
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Request the export of all the data of the user
 	 * 
 	 * @param {String} password The password of the user

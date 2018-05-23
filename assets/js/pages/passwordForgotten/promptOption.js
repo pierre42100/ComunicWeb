@@ -75,6 +75,9 @@ ComunicWeb.pages.passwordForgotten.promptOption = {
 				class: "btn btn-default",
 				innerHTML: "<i class='fa fa-question'></i> Answer your security questions"
 			});
+			securityQuestions.addEventListener("click", function(){
+				callback("security_questions");
+			});
 		}
 
 		//Add an option to contact admin (always)
