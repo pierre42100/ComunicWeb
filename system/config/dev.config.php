@@ -65,6 +65,9 @@ class Dev {
 		//Datepicker
 		"3rdparty/adminLTE/plugins/datepicker/datepicker3.css",
 
+		//Timepicker
+		"3rdparty/adminLTE/plugins/timepicker/bootstrap-timepicker.min.css",
+
 		//VideoJS
 		//"3rdparty/videojs/6.4.0/video-js.min.css",
 
@@ -120,6 +123,9 @@ class Dev {
 
 		//Datepicker
 		"3rdparty/adminLTE/plugins/datepicker/bootstrap-datepicker.js",
+
+		//Timepicker
+		"3rdparty/adminLTE/plugins/timepicker/bootstrap-timepicker.js",
 
 		//VideoJS
 		//"3rdparty/videojs/6.4.0/video.min.js",

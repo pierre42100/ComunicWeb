@@ -188,23 +188,43 @@ ComunicWeb.components.posts.form = {
 		});
 		//End : PDF
 
-		//Add countdown timer specific informations
+		//Add countdown timer specific information
 		var countdownForm = createElem2({
 			appendTo: boxBody,
 			type: "div",
 			class: "post-countdown"
 		});
 
-		var timeEndInput = createFormGroup({
+		//Date end
+		var dateEndInput = createFormGroup({
 			target: countdownForm,
 			label: lang("_input_countdown_enddate"),
 			placeholder: "dd/mm/yyyy",
 			type: "text"
 		});
 
-		$(timeEndInput).datepicker({
+		$(dateEndInput).datepicker({
 			autoclose: true,
 			format: "dd/mm/yyyy"
+		});
+
+		//Time end
+		var container = createElem2({
+			appendTo: countdownForm,
+			type: "div",
+			class: "bootstrap-timepicker"
+		});
+		var timeEndInput = createFormGroup({
+			target: container,
+			label: "Time end",
+			placeholder: "hh:ss",
+			type: "text"
+		});
+		timeEndInput.className += " timepicker";
+
+		$(timeEndInput).timepicker({
+			showInputs: false,
+			showMeridian: false,
 		});
 		//End : countdown timer
 		
@@ -412,20 +432,36 @@ ComunicWeb.components.posts.form = {
 			else if(countdownType.checked){
 
 				//Check the given time
-				if(timeEndInput.value.length < 10){
+				if(dateEndInput.value.length < 10){
 					ComunicWeb.common.notificationSystem.showNotification("Please specify a date for the countdown timer !", "danger");
 					return;
 				}
 
 				//Convert the date to an array
-				var end_date_array = timeEndInput.value.split("/");
+				var end_date_array = dateEndInput.value.split("/");
 				if(end_date_array.length < 3) {
 					ComunicWeb.common.notificationSystem.showNotification("Specified date for the countdown timer is invalid !", "danger");
 					return;
 				}
 
+				//Convert the time to an array (if any)
+				if(timeEndInput.value.length > 3){
+					
+					//Get the specified time
+					var time_end = timeEndInput.value.split(":");
+					var hours = time_end[0];
+					var minutes = time_end[1];
+
+				}
+				else {
+					//Default values
+					var hours = 0;
+					var minutes = 0;
+				}
+
 				//Convert the end time to a timestamp
 				var end_date = new Date();
+				end_date.setHours(hours, minutes, 0);
 				end_date.setDate(end_date_array[0]);
 				end_date.setMonth(end_date_array[1] - 1); //January => 0 / December => 11
 				end_date.setFullYear(end_date_array[2]);
