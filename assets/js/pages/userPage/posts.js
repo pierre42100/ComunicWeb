@@ -104,14 +104,9 @@ ComunicWeb.pages.userPage.posts = {
 
 			}
 
-			//Unlock posts loading 
-			ComunicWeb.pages.userPage.posts._load_post_locked = false;
-
-			//Lock posts loading, if not any post has been shown
-			if(result.length == 0){
-				//Avoid useless traffic
-				ComunicWeb.pages.userPage.posts._load_post_locked = true;
-			}
+			//Unlock posts loading, if required
+			if(result.length != 0)
+				ComunicWeb.pages.userPage.posts._load_post_locked = false;
 
 			//Call callback (if any)
 			if(callback)
