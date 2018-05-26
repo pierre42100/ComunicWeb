@@ -154,6 +154,7 @@ class Dev {
 	const APP_CSS = array(
 		//App stylesheets - common stylesheets
 		"css/common/global.css",
+		"css/common/page/error.css",
 		"css/common/page/waitSplashScreen.css",
 		"css/common/network/networkError.css",
 

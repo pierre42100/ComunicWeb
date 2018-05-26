@@ -1,0 +1,9 @@
+/**
+ * Errors pages stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.error-page .error-content p {
+	word-wrap: break-word;
+}
