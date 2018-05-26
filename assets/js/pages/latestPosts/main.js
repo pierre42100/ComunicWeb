@@ -106,8 +106,9 @@ ComunicWeb.pages.latestPosts.main = {
 				//Display the list of posts
 				ComunicWeb.pages.latestPosts.main._display_list(response, target);
 			
-			//Unlock posts loading
-			ComunicWeb.pages.latestPosts.main._load_post_locked = false;
+			//Unlock posts loading (if required)
+			if(response.length != 0)
+				ComunicWeb.pages.latestPosts.main._load_post_locked = false;
 		});
 
 	},
