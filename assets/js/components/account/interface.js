@@ -75,6 +75,37 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Get passowrd reset token using security answer
+	 * 
+	 * @param {String} email The email address of the account
+	 * @param {Array} answers The answers to the security questions
+	 * @param {Function} callback
+	 */
+	resetPasswordWithSecurityAnswers: function(email, answers, callback){
+
+		//Prepare answers
+		answersText = "";
+		answers.forEach(function(answer){
+			
+			if(answersText != "")
+				answersText += "&";
+			
+			answersText += encodeURIComponent(answer);
+
+		});
+
+		//Perform the request
+		var apiURI = "account/check_security_answers";
+		var params = {
+			email: email,
+			answers: answersText
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+
+	},
+
+
+	/**
 	 * Request the export of all the data of the user
 	 * 
 	 * @param {String} password The password of the user
