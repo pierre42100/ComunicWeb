@@ -104,6 +104,35 @@ ComunicWeb.components.account.interface = {
 
 	},
 
+	/**
+	 * Check the validity of a reset password token
+	 * 
+	 * @param {String} token The token to check
+	 * @param {Function} callback
+	 */
+	checkPasswordResetToken: function(token, callback){
+		var apiURI = "account/check_password_reset_token";
+		var params = {
+			token: token
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
+	},
+
+	/**
+	 * Reset user password
+	 * 
+	 * @param {String} token The token to check
+	 * @param {String} passwd The new password for the user
+	 * @param {Function} callback
+	 */
+	resetUserPassword: function(token, passwd, callback){
+		var apiURI = "account/reset_user_passwd";
+		var params = {
+			token: token,
+			password: passwd
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
+	},
 
 	/**
 	 * Request the export of all the data of the user

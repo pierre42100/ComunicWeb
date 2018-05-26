@@ -106,6 +106,15 @@ ComunicWeb.pagesList = {
     },
 
     /**
+     * Password reset page
+     */
+    reset_password: {
+        pageTitle: "Reset password",
+        methodHandler: "ComunicWeb.pages.resetPassword.main.open",
+        disableMenus: false
+    },
+
+    /**
      * 404 Page not found
      */
     notFound: {

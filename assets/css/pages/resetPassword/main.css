@@ -1,0 +1,15 @@
+/**
+ * Reset password main script
+ *
+ * @author Pierre HUBERT
+ */
+
+.reset-password-box {
+	max-width: 300px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.reset-password-box .btn {
+	display: block;
+}

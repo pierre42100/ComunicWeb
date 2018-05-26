@@ -1316,6 +1316,20 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Password reset page
+		 */
+		resetPassword: {
+
+			/**
+			 * Main script
+			 */
+			main: {
+				//TODO : implement
+			},
+
+		},
+
+		/**
 		 * Logout controller
 		 */
 		logout: {
