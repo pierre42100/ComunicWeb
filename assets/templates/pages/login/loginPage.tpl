@@ -40,7 +40,7 @@
 		</form>
 
 		<!-- Password forgotten -->
-		<!--<a target="forgot_password">Forgot password</a><br />-->
+		<a target="forgot_password">Forgot password</a><br />
 
 		<!-- Create an account -->
 		<a target="create_account">{create_account}</a>
