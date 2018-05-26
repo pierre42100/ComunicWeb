@@ -107,6 +107,12 @@ ComunicWeb.pages.userPage.posts = {
 			//Unlock posts loading 
 			ComunicWeb.pages.userPage.posts._load_post_locked = false;
 
+			//Lock posts loading, if not any post has been shown
+			if(result.length == 0){
+				//Avoid useless traffic
+				ComunicWeb.pages.userPage.posts._load_post_locked = true;
+			}
+
 			//Call callback (if any)
 			if(callback)
 				callback();
@@ -139,7 +145,6 @@ ComunicWeb.pages.userPage.posts = {
 		if(this._last_post_id == 0){
 			this._no_posts_msg(target);
 		}
-
 	},
 
 	/**
