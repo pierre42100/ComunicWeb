@@ -80,6 +80,7 @@ ComunicWeb.pages.resetPassword.main = {
 					"Your reset password request timed out, or is invalid. Please try again to reset your password...",
 					"danger"
 				));
+				return;
 			}
 
 			//Display reset password form
