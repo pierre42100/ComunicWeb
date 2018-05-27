@@ -131,6 +131,17 @@ ComunicWeb.components.account.export.worker = {
 		var files = [];
 		
 		/**
+		 * Parse user information to find potential files to download
+		 * 
+		 * @param {Object} info Information about the comment to parse
+		 */
+		var parseUserInfo = function(info){
+			if(info.accountImage != null)
+				if(!files.includes(info.accountImage))
+					files.push(info.accountImage);
+		}
+
+		/**
 		 * Parse a comment to find potential files to download
 		 * 
 		 * @param {Object} info Information about the comment to parse
@@ -196,7 +207,23 @@ ComunicWeb.components.account.export.worker = {
 		data.movies.forEach(parseMovie);
 
 		//Conversation message
-		data.conversation_messages.forEach(parseConversationMessage);
+		//* All from users
+		data.all_conversation_messages.forEach(parseConversationMessage);
+
+		//* All from conversations
+		for (const num in data.conversations_messages) {
+			if (data.conversations_messages.hasOwnProperty(num)) {
+				const conversation = data.conversations_messages[num];
+				conversation.forEach(parseConversationMessage);
+			}
+		}
+
+		//Related user information
+		for (const key in data.users_info) {
+			if (data.users_info.hasOwnProperty(key)) {
+				parseUserInfo(data.users_info[key]);
+			}
+		}
 
 		return files;
 	}
