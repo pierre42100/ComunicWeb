@@ -63,10 +63,10 @@ ComunicWeb.components.textParser = {
 	_prepare_url_tag_parsing: function(target){
 
 		//Find all occurences of users tag
-		while(target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\&:\/]+/i)){
+		while(target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\-\_\&\;:\/]+/i)){
 
 			//Get URL and save it
-			var URL = target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\&:\/]+/i)[0];
+			var URL = target.innerHTML.match(/ [a-zA-Z]{2,5}:\/\/[a-zA-Z0-9.=@\?\-\_\&\;:\/]+/i)[0];
 			tempURL = URL.replace("://", ":/");
 			target.innerHTML = target.innerHTML.replace(URL, "<innerURL>"+tempURL+"</innerURL>");
 
