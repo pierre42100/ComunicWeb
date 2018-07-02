@@ -52,6 +52,16 @@ ComunicWeb.pagesList = {
     },
 
     /**
+     * Groups page
+     */
+    groups: {
+        pageTitle: "Groups",
+        methodHandler: "ComunicWeb.pages.groups.main.open",
+        disableMenus: false,
+        needLogin: false
+    },
+
+    /**
      * User settings page
      */
     settings: {

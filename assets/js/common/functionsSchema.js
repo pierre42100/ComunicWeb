@@ -1168,6 +1168,33 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Groups page
+		 */
+		groups: {
+
+			/**
+			 * Groups page main script
+			 */
+			main: {
+				//TODO : implement
+			},
+
+			/**
+			 * Groups pages
+			 */
+			pages: {
+				
+				/**
+				 * Main page
+				 */
+				main: {
+					//TODO : implement
+				}
+
+			}
+		},
+
+		/**
 		 * User settings page
 		 */
 		settings: {

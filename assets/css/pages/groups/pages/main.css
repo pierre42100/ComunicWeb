@@ -1,0 +1,12 @@
+/**
+ * Groups main page stylesheet
+ * 
+ * @author Pierre HUBERT
+ */
+
+.groups-main-page {
+    max-width: 450px;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}

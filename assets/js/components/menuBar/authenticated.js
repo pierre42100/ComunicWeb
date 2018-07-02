@@ -90,6 +90,20 @@ ComunicWeb.components.menuBar.authenticated = {
 			openPage("conversations");
 		};
 
+		//Add groups link
+		var groupsButton = createElem2({
+			appendTo: dropdownContent,
+			type: "li"
+		});
+		createElem2({
+			appendTo: groupsButton,
+			type: "a",
+			innerHTML: "Groups"
+		});
+		groupsButton.onclick = function(){
+			openPage("groups");
+		}
+
 		//Add settings link
 		var settingsButton = createElem2({
 			appendTo: dropdownContent,

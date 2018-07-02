@@ -216,6 +216,10 @@ class Dev {
 			"css/pages/conversations/listPane.css",
 			"css/pages/conversations/conversation.css",
 
+			//Groups page
+				//Groups pages
+				"css/pages/groups/pages/main.css",
+
 			//Settings page
 				//Sections sections
 				"css/pages/settings/sections/general.css",
@@ -394,7 +398,7 @@ class Dev {
 
 			//Post page
 			"js/pages/postPage/main.js",
-
+			
 			//Latest posts page
 			"js/pages/latestPosts/main.js",
 
@@ -403,6 +407,11 @@ class Dev {
 			"js/pages/conversations/listPane.js",
 			"js/pages/conversations/conversation.js",
 			"js/pages/conversations/utils.js",
+
+
+			//Groups page
+			"js/pages/groups/main.js",
+			"js/pages/groups/pages/main.js",
 
 			//User settings page
 			"js/pages/settings/main.js",
