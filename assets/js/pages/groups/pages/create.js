@@ -50,7 +50,7 @@ ComunicWeb.pages.groups.pages.create = {
 			type: "div",
 			class: "submit-button-container"
 		});
-		createElem2({
+		var submitButton = createElem2({
 			appendTo: submitContainer,
 			type: "input",
 			elemType: "submit",
@@ -61,14 +61,32 @@ ComunicWeb.pages.groups.pages.create = {
 		//Handle form submit
 		formContainer.onsubmit = function(){
 
+			//Check if a request is already pending
+			if(submitButton.disabled)
+				return;
+
 			//Check user inputs
 			if(!ComunicWeb.common.formChecker.checkInput(nameInput, true)){
 				notify("Please specify the name of the group!", "danger");
 				return false;	
 			}
 
+			var name = nameInput.value;
+
+			//Check the length of the name of the group
+			if(name.length < 4){
+				notify("The name of the group is too short !", "danger");
+				return false;
+			}
+
+			//Disable submit button
+			submitButton.disabled = true;
+
 			//Perform a request on the server to create the group
-			ComunicWeb.components.groups.interface.create(nameInput.value, function(res){
+			ComunicWeb.components.groups.interface.create(name, function(res){
+
+				//Enable submit button
+				submitButton.disabled = false;
 
 				//Check for errors
 				if(res.error){
