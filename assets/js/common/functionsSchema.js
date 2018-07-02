@@ -993,7 +993,21 @@ var ComunicWeb = {
 				//TODO : implement
 			}
 
-		}
+		},
+
+		/**
+		 * Groups component
+		 */
+		groups: {
+
+			/**
+			 * API interface
+			 */
+			interface: {
+				//TODO : implement
+			},
+
+		},
 
 	},
 
@@ -1189,7 +1203,14 @@ var ComunicWeb = {
 				 */
 				main: {
 					//TODO : implement
-				}
+				},
+
+				/**
+				 * Create a group page
+				 */
+				create: {
+					//TODO : implement
+				},
 
 			}
 		},

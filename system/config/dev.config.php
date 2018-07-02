@@ -219,6 +219,7 @@ class Dev {
 			//Groups page
 				//Groups pages
 				"css/pages/groups/pages/main.css",
+				"css/pages/groups/pages/create.css",
 
 			//Settings page
 				//Sections sections
@@ -378,6 +379,9 @@ class Dev {
 			"js/components/notifications/ui.js",
 			"js/components/notifications/utils.js",
 
+			//Groups component
+			"js/components/groups/interface.js",
+
 		//User scripts
 		"js/user/loginTokens.js",
 		"js/user/userLogin.js",
@@ -411,7 +415,10 @@ class Dev {
 
 			//Groups page
 			"js/pages/groups/main.js",
-			"js/pages/groups/pages/main.js",
+
+				//Groups sub pages
+				"js/pages/groups/pages/main.js",
+				"js/pages/groups/pages/create.js",
 
 			//User settings page
 			"js/pages/settings/main.js",

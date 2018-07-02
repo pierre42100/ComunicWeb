@@ -1,0 +1,25 @@
+/**
+ * Create groups page main stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.create-group-page {
+	max-width: 450px;
+	margin: auto;
+	padding-top: 60px;
+}
+
+.create-group-page form {
+	border: 1px #162935 solid;
+	padding: 15px;
+}
+
+.create-group-page form h3 {
+	text-align: center;
+	margin-top: 0px;
+}
+
+.create-group-page .submit-button-container {
+	text-align: center;
+}
