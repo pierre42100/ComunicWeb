@@ -51,7 +51,7 @@ ComunicWeb.pages.passwordForgotten.promptOption = {
 	 * @param {HTMLElement} target The target of the form
 	 * @param {Function} callback
 	 */
-	_show_options(hasSecurityQuestions, target, callback){
+	_show_options: function(hasSecurityQuestions, target, callback){
 
 		//Create a form
 		var form = createElem2({
