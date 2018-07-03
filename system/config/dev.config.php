@@ -220,6 +220,11 @@ class Dev {
 				//Groups pages
 				"css/pages/groups/pages/main.css",
 				"css/pages/groups/pages/create.css",
+				"css/pages/groups/pages/group.css",
+
+				//Groups sections
+				"css/pages/groups/sections/header.css",
+
 
 			//Settings page
 				//Sections sections
@@ -419,6 +424,11 @@ class Dev {
 				//Groups sub pages
 				"js/pages/groups/pages/main.js",
 				"js/pages/groups/pages/create.js",
+				"js/pages/groups/pages/group.js",
+
+				//Groups sections
+				"js/pages/groups/sections/header.js",
+
 
 			//User settings page
 			"js/pages/settings/main.js",

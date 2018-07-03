@@ -1,0 +1,17 @@
+/**
+ * Groups header
+ *
+ * @author Pierre HUBERT
+ */
+
+.group-header {
+    
+}
+
+.group-header .group-icon {
+    max-height: 150px;
+}
+
+.group-header .group-name {
+    font-size: 200%;
+}

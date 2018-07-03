@@ -1212,7 +1212,28 @@ var ComunicWeb = {
 					//TODO : implement
 				},
 
-			}
+				/**
+				 * Main group page
+				 */
+				group: {
+					//TODO : implement
+				},
+
+			},
+
+			/**
+			 * Groups sections
+			 */
+			sections: {
+
+				/**
+				 * Header section
+				 */
+				header: {
+					//TODO : implement
+				},
+
+			},
 		},
 
 		/**

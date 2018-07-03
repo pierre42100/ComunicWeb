@@ -31,15 +31,34 @@ ComunicWeb.pages.groups.main = {
 
 		//Check if the main page has to be opened
 		if(page == "main" && signed_in()){
-			ComunicWeb.pages.groups.pages.main.open(target);
+			return ComunicWeb.pages.groups.pages.main.open(target);
 		}
 
 		//Check if the page to create a group has to be opened
 		else if (page == "create" && signed_in()){
-			ComunicWeb.pages.groups.pages.create.open(target);
+			return ComunicWeb.pages.groups.pages.create.open(target);
 		}
 
-		//Else the page was not found
+		//Else determine which group page to open (specified after the ID of the group)
+		var groupID = page;
+		if(args.subfolder.split("/").length < 2){
+			page = "group";
+		}
+		else {
+			//Extract the page to open from the URL
+			page = args.subfolder.split("/")[1];
+
+			//Check if there is nothing after "/"
+			if(page.length < 2)
+				page = "group";
+		}
+
+		//Check which page to open
+		if(page == "group"){
+			ComunicWeb.pages.groups.pages.group.open(groupID, target);
+		}
+
+		//Unrecognized page
 		else
 			ComunicWeb.common.error.pageNotFound(args, target);
 	}

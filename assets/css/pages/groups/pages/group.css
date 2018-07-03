@@ -1,0 +1,14 @@
+/**
+ * Group page main stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.group-page {
+    padding-top: 10px;
+}
+
+.group-page .col-md-6 {
+    margin: auto;
+    float: none;
+}
