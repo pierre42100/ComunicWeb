@@ -50,6 +50,27 @@ ComunicWeb.pages.groups.sections.header = {
             class: "group-name",
             innerHTML: info.name
         });
+
+        //Second column : information about the company
+        var secondColumn = createElem2({
+            appendTo: row,
+            type: "div",
+            class: "col-lg-4 col-info"
+        });
+
+        //Add join date
+        var joinDate = createElem2({
+            appendTo: secondColumn,
+            type: "div",
+            innerHTML: '<i class="fa fa-clock-o"></i> Joined '+ComunicWeb.common.date.timeDiffToStr(info.time_create)+' ago'
+        });
+
+        //Add number of members
+        var joinDate = createElem2({
+            appendTo: secondColumn,
+            type: "div",
+            innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
+        });
     },
 
 };
