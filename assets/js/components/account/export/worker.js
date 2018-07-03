@@ -211,15 +211,15 @@ ComunicWeb.components.account.export.worker = {
 		data.all_conversation_messages.forEach(parseConversationMessage);
 
 		//* All from conversations
-		for (const num in data.conversations_messages) {
+		for (var num in data.conversations_messages) {
 			if (data.conversations_messages.hasOwnProperty(num)) {
-				const conversation = data.conversations_messages[num];
+				var conversation = data.conversations_messages[num];
 				conversation.forEach(parseConversationMessage);
 			}
 		}
 
 		//Related user information
-		for (const key in data.users_info) {
+		for (var key in data.users_info) {
 			if (data.users_info.hasOwnProperty(key)) {
 				parseUserInfo(data.users_info[key]);
 			}
