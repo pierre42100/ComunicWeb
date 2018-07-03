@@ -19,6 +19,11 @@ ComunicWeb.common.system = {
 		//Start init
 		ComunicWeb.debug.logMessage("Start initialization...");
 
+		//Enable error reporting
+		window.addEventListener("error", function(e){
+			ComunicWeb.common.error.syntaxtError(e.error);
+		});
+
 		//Disable tooltips
 		$(function () {
 			$(document.body).tooltip("disable");
