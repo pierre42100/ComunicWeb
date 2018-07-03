@@ -124,8 +124,15 @@ ComunicWeb.components.comments.form = {
 			//Lock send button
 			sendButton.disabled = true;
 
-			//Try to create the comment
-			var formData = new FormData(commentForm);
+			//Prepare the request
+			var formData = new FormData();
+			formData.append("content", newCommentText.value);
+
+			//Check for image
+			if(imageFile.files.length > 0)
+				formData.append("image", imageFile.files[0], imageFile.files[0].name);
+
+			//Send the request
 			ComunicWeb.components.comments.interface.create(postID, formData, function(result){
 
 				//Unlock send button
