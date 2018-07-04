@@ -62,7 +62,7 @@ ComunicWeb.pages.groups.sections.header = {
         var joinDate = createElem2({
             appendTo: secondColumn,
             type: "div",
-            innerHTML: '<i class="fa fa-clock-o"></i> Joined '+ComunicWeb.common.date.timeDiffToStr(info.time_create)+' ago'
+            innerHTML: '<i class="fa fa-clock-o"></i> Created '+ComunicWeb.common.date.timeDiffToStr(info.time_create)+' ago'
         });
 
         //Add number of members
