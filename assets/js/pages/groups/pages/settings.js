@@ -192,6 +192,7 @@ ComunicWeb.pages.groups.pages.settings = {
 			src: settings.icon_url
 		});
 
+
 		//Add a button to update the group logo
 		var updateGroupLogoLabel = createElem2({
 			appendTo: groupLogoSettingsContainer,
@@ -232,6 +233,43 @@ ComunicWeb.pages.groups.pages.settings = {
 
 				//Change logo image
 				groupLogo.src = result.url;
+
+			});
+
+		});
+
+
+		//Add a button to delete the account image
+		add_space(groupLogoSettingsContainer);
+		var deleteLogoBtn = createElem2({
+			appendTo: groupLogoSettingsContainer,
+			type: "div",
+			class: "btn btn-sm btn-danger",
+			innerHTML: "Delete logo"
+		});
+		deleteLogoBtn.addEventListener("click", function(e){
+
+			//Ask user confirmation
+			ComunicWeb.common.messages.confirm("Do you really want to delete group logo ? This operation can not be reverted !", function(c){
+
+				//Check if the user rejected the request
+				if(!c) return;
+
+				//Forward the request on the server
+				ComunicWeb.components.groups.interface.deleteLogo(id, function(result){
+
+					//Check for errors
+					if(result.error)
+						return notify("An error occurred while trying to delete group logo!", "danger");
+					
+					//Success
+					notify("The group logo has been successfully deleted!", "success");
+
+					//Apply new group logo
+					groupLogo.src = result.url;
+
+				});
+
 
 			});
 

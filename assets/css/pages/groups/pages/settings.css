@@ -27,5 +27,6 @@
 .group-settings-container .group-logo-settings-img {
     width: 150px;
     margin: auto;
+    margin-bottom: 10px;
     display: block;
 }

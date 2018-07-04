@@ -95,6 +95,21 @@ ComunicWeb.components.groups.interface = {
         var apiURI = "groups/upload_logo";
         data.append("id", id);
         ComunicWeb.common.api.makeFormDatarequest(apiURI, data, true, callback);
-    }
+    },
+
+    /**
+     * Delete user logo
+     * 
+     * @param {Number} id The ID of the target group
+     * @param {Function} callback
+     */
+    deleteLogo: function(id, callback){
+        //Perform the request over the API
+        var apiURI = "groups/delete_logo";
+        var params = {
+            id: id
+        };
+        ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+    },
 
 };
