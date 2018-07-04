@@ -82,4 +82,19 @@ ComunicWeb.components.groups.interface = {
         ComunicWeb.common.api.makeAPIrequest(apiURI, settings, true, callback);
     },
 
+    /**
+     * Upload a new group logo
+     * 
+     * @param {Number} id The ID of the target group
+     * @param {FormData} data The form data that contains the
+     * new logo (parameter name : logo)
+     * @param {Function} callback
+     */
+    uploadLogo: function(id, data, callback){
+        //Perform the request over the API
+        var apiURI = "groups/upload_logo";
+        data.append("id", id);
+        ComunicWeb.common.api.makeFormDatarequest(apiURI, data, true, callback);
+    }
+
 };

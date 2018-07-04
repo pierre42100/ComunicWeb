@@ -18,3 +18,14 @@
 .group-settings-container .submit-button-container {
     text-align: center;
 }
+
+.group-settings-container .groupLogoSettingsContainer {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.group-settings-container .group-logo-settings-img {
+    width: 150px;
+    margin: auto;
+    display: block;
+}
