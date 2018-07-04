@@ -65,6 +65,21 @@ ComunicWeb.components.groups.interface = {
             id: id
         };
         ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
-    }
+    },
+
+    /**
+     * Set (update) the settings of a group
+     * 
+     * @param {Number} id The ID of the target group
+     * @param {Object} settings The new settings to apply to 
+     * the group
+     * @param {Function} callback
+     */
+    setSettings: function(id, settings, callback){
+        //Perform the request over the API
+        var apiURI = "groups/set_settings";
+        settings.id = id;
+        ComunicWeb.common.api.makeAPIrequest(apiURI, settings, true, callback);
+    },
 
 };

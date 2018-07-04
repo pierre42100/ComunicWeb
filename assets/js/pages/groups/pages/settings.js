@@ -65,7 +65,7 @@ ComunicWeb.pages.groups.pages.settings = {
 
             else {
                 //Display settings pages
-                ComunicWeb.pages.groups.pages.settings.display(id, result, target);
+                ComunicWeb.pages.groups.pages.settings.display(id, result, settingsContainer);
             }
 
         });
@@ -81,7 +81,79 @@ ComunicWeb.pages.groups.pages.settings = {
      */
     display: function(id, settings, target){
 
-        alert(settings);
+        //Create form container
+        var formContainer = createElem2({
+            appendTo: target,
+            type: "div",
+            class: "group-settings-form"
+        });
 
+        //Group ID (not editable)
+        createFormGroup({
+            target: formContainer,
+            label: "Group ID",
+            type: "text",
+            value: settings.id,
+            disabled: true
+        });
+
+        //Group name
+        var groupName = createFormGroup({
+            target: formContainer,
+            type: "text",
+            label: "Group name",
+            placeholder: "The name of the group",
+            value: settings.name,
+        });
+
+        //Submit button
+        var submitButtonContainer = createElem2({
+            appendTo: formContainer,
+            type: "div",
+            class: "submit-button-container"
+        });
+        var submitButton = createElem2({
+            appendTo: submitButtonContainer,
+            type: "div",
+            class: "btn btn-primary",
+            innerHTML: "Submit"
+        });
+
+        submitButton.addEventListener("click", function(e){
+
+            //Check if another request is already pending or not
+            if(submitButton.disabled)
+                return;
+
+            //Validate the form
+            if(!ComunicWeb.common.formChecker.checkInput(groupName, true))
+                return;
+            
+            //Check the length of the name of the group
+            if(groupName.value.length < 4)
+                return notify("Please check the name of group !", "danger");
+
+            //Prepare the update request on the server
+            var settings = {
+                name: groupName.value
+            };
+
+            //Lock the send button
+            submitButton.disabled = true;
+
+            //Perform the request on the API
+            ComunicWeb.components.groups.interface.setSettings(id, settings, function(result){
+
+                //Unlock send button
+                submitButton.disabled = false;
+
+                //Check for errors
+                if(result.error)
+                    return notify("An error occured while trying to update group settings!", "danger");
+                else
+                    return notify("Group settings have been successfully updated!", "success");
+
+            });
+        });
     },
 }
