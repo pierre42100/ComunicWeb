@@ -21,7 +21,7 @@ ComunicWeb.pages.groups.pages.group = {
             if(result.error){
 
                 //Check the code of the error
-                if(result.error.code == 404){
+                if(result.error.code == 401){
                     need_auth;//TODO : implement
                 }
 

@@ -1219,6 +1219,13 @@ var ComunicWeb = {
 					//TODO : implement
 				},
 
+				/**
+				 * Settings page
+				 */
+				settings: {
+					//TODO : implement
+				},
+
 			},
 
 			/**

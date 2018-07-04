@@ -71,6 +71,20 @@ ComunicWeb.pages.groups.sections.header = {
             type: "div",
             innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
         });
+
+        //If the user is an admin, add a link to configure the page
+        if(signed_in() && info.membership == "administrator"){
+
+            var settingsLink = createElem2({
+                appendTo: secondColumn,
+                type: "div",
+                class: "a",
+                innerHTML: " <i class='fa fa-gear'></i>Settings"
+            });
+            settingsLink.addEventListener("click", function(e){
+                openPage("groups/" + info.id + "/settings");
+            });
+        }
     },
 
 };

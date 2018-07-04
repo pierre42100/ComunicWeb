@@ -54,9 +54,12 @@ ComunicWeb.pages.groups.main = {
 		}
 
 		//Check which page to open
-		if(page == "group"){
+		if(page == "group")
 			ComunicWeb.pages.groups.pages.group.open(groupID, target);
-		}
+		
+		else if(page == "settings")
+			ComunicWeb.pages.groups.pages.settings.open(groupID, target);
+
 
 		//Unrecognized page
 		else

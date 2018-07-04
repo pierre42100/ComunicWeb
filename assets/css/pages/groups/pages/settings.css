@@ -1,0 +1,16 @@
+/**
+ * Group settings stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.group-settings-container {
+    float: none;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.group-settings-container .title {
+    text-align: center;
+    margin-bottom: 15px;
+}
