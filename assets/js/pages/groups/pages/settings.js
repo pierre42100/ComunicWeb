@@ -239,7 +239,44 @@ ComunicWeb.pages.groups.pages.settings = {
 		});
 
 
-		//Add a button to delete the account image
+		//Add a button to apply a random generated logo
+		add_space(groupLogoSettingsContainer);
+		var generateRandomLogo = createElem2({
+			appendTo: groupLogoSettingsContainer,
+			type: "div",
+			class: "btn btn-sm btn-success",
+			innerHTML: "Generate random"
+		});
+		generateRandomLogo.addEventListener("click", function(e){
+
+			//Lock screen
+			message = ComunicWeb.common.page.showTransparentWaitSplashScreen();
+
+			//Generate image
+			var base64 = generateIdentImage();
+
+			//Upload image
+			var fd = new FormData();
+			fd.append("logo", dataURItoBlob("data:image/png;base64," + base64));
+			ComunicWeb.components.groups.interface.uploadLogo(id, fd, function(result){
+
+				//Remove message
+				message.remove();
+
+				//Check for errors
+				if(result.error){
+					notify("An error occured while trying to upload generated logo !", "danger");
+					return;
+				}
+
+				notify("Random generated logo has been uploaded !", "success");
+				groupLogo.src = result.url;
+				
+			});
+
+		});
+
+		//Add a button to delete the group logo
 		add_space(groupLogoSettingsContainer);
 		var deleteLogoBtn = createElem2({
 			appendTo: groupLogoSettingsContainer,
