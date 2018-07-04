@@ -21,6 +21,17 @@ ComunicWeb.pages.groups.pages.settings = {
             class: "group-settings-container col-md-6"
         });
 
+        //Add backward link
+        var backwardLink = createElem2({
+            appendTo: settingsContainer,
+            type: "div",
+            class: "a",
+            innerHTML: "<i class='fa fa-arrow-left'></i> Go back to the group"
+        });
+        backwardLink.addEventListener("click", function(e){
+            openPage("groups/" + id);
+        });
+
         //Add title
         createElem2({
             appendTo: settingsContainer,
