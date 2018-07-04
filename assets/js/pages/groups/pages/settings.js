@@ -99,6 +99,7 @@ ComunicWeb.pages.groups.pages.settings = {
 			class: "group-settings-form"
 		});
 
+
 		//Group ID (not editable)
 		createFormGroup({
 			target: formContainer,
@@ -108,6 +109,7 @@ ComunicWeb.pages.groups.pages.settings = {
 			disabled: true
 		});
 
+
 		//Group name
 		var groupName = createFormGroup({
 			target: formContainer,
@@ -116,6 +118,51 @@ ComunicWeb.pages.groups.pages.settings = {
 			placeholder: "The name of the group",
 			value: settings.name,
 		});
+
+
+		//Group visibility
+		createElem2({
+			appendTo: formContainer,
+			type: "label",
+			innerHTML: "Group visibility"
+		});
+
+		var visibilityForm = createElem2({
+			type: "form",
+			appendTo: formContainer
+		});
+
+		//Open
+		createFormGroup({
+			target: visibilityForm,
+			label: "Open Group (accessible to everyone)",
+			name: "group-visibility",
+			type: "radio",
+			value: "open",
+			checked: settings.visibility == "open"
+		});
+
+		//Private
+		createFormGroup({
+			target: visibilityForm,
+			label: "Private Group (accessible to accepted members only)",
+			name: "group-visibility",
+			type: "radio",
+			value: "private",
+			checked: settings.visibility == "private"
+		});
+
+		//Secret
+		createFormGroup({
+			target: visibilityForm,
+			label: "Secrete Group (accessible only to invited members)",
+			name: "group-visibility",
+			type: "radio",
+			value: "secrete",
+			checked: settings.visibility == "secrete"
+		});
+
+
 
 		//Submit button
 		var submitButtonContainer = createElem2({
@@ -146,7 +193,8 @@ ComunicWeb.pages.groups.pages.settings = {
 
 			//Prepare the update request on the server
 			var settings = {
-				name: groupName.value
+				name: groupName.value,
+				visibility: visibilityForm.elements["group-visibility"].value
 			};
 
 			//Lock the send button
