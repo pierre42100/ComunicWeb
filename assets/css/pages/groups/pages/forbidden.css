@@ -1,0 +1,22 @@
+/**
+ * Access forbidden to page groups stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.group-forbidden-page-container {
+    max-width: 300px;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.group-forbidden-page-container .group-logo {
+    width: 130px;
+    margin: auto;
+    display: block;
+}
+
+.group-forbidden-page-container .group-name {
+    margin-bottom: 15px;
+}

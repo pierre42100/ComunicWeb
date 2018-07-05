@@ -22,7 +22,7 @@ ComunicWeb.pages.groups.pages.group = {
 
                 //Check the code of the error
                 if(result.error.code == 401){
-                    need_auth;//TODO : implement
+                    ComunicWeb.pages.groups.pages.forbidden.open(id, target);
                 }
 
                 else 

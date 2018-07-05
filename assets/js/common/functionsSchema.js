@@ -1226,6 +1226,13 @@ var ComunicWeb = {
 					//TODO : implement
 				},
 
+				/**
+				 * Access to group forbidden page
+				 */
+				forbidden: {
+					//TODO : implemement
+				},
+
 			},
 
 			/**
