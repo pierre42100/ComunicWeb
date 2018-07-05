@@ -72,6 +72,10 @@ ComunicWeb.pages.groups.sections.header = {
             innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
         });
 
+        //Display membership level
+        if(signed_in())
+            ComunicWeb.pages.groups.sections.membershipBlock.display(info, secondColumn);
+
         //If the user is an admin, add a link to configure the page
         if(signed_in() && info.membership == "administrator"){
 

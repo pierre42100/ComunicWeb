@@ -1247,6 +1247,12 @@ var ComunicWeb = {
 					//TODO : implement
 				},
 
+				/**
+				 * Membership block
+				 */
+				membershipBlock: {
+					//TODO : implement
+				},
 			},
 		},
 

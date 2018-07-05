@@ -90,5 +90,12 @@ ComunicWeb.pages.groups.pages.forbidden = {
             innerHTML: result.name,
             class: "group-name"
         });
+
+        //Add a notice
+        add_p(boxBody, "A registration is required to access this group contents.");
+
+        //Append membership block (if the user is signed in)
+        if(signed_in())
+            ComunicWeb.pages.groups.sections.membershipBlock.display(result);
     },
 }

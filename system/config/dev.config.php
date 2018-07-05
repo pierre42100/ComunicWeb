@@ -432,6 +432,7 @@ class Dev {
 
 				//Groups sections
 				"js/pages/groups/sections/header.js",
+				"js/pages/groups/sections/membershipBlock.js",
 
 
 			//User settings page
