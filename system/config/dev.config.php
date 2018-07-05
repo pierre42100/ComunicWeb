@@ -226,6 +226,7 @@ class Dev {
 
 				//Groups sections
 				"css/pages/groups/sections/header.css",
+				"css/pages/groups/sections/membershipBlock.css",
 
 
 			//Settings page

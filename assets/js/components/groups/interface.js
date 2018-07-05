@@ -112,4 +112,22 @@ ComunicWeb.components.groups.interface = {
         ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
     },
 
+    /**
+     * Respond to a group invitation
+     * 
+     * @param {Number} id The ID of the target group
+     * @param {Boolean} accept Specify whether the invitation was
+     * accepted or not
+     * @param {Function} callback
+     */
+    respondInvitation: function(id, accept, callback) {
+        //Perform the request over the API
+        var apiURI = "groups/respond_invitation";
+        var params = {
+            id: id,
+            accept: accept
+        };
+        ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+    },
+
 };

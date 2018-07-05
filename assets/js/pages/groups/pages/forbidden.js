@@ -96,6 +96,6 @@ ComunicWeb.pages.groups.pages.forbidden = {
 
         //Append membership block (if the user is signed in)
         if(signed_in())
-            ComunicWeb.pages.groups.sections.membershipBlock.display(result);
+            ComunicWeb.pages.groups.sections.membershipBlock.display(result, boxBody);
     },
 }
