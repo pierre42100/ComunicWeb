@@ -121,16 +121,17 @@ ComunicWeb.pages.groups.pages.settings = {
 
 
 
-		//Group visibility
-		createElem2({
-			appendTo: formContainer,
-			type: "label",
-			innerHTML: "Group visibility"
-		});
 
+		//Group visibility
 		var visibilityForm = createElem2({
 			type: "form",
-			appendTo: formContainer
+			appendTo: formContainer,
+			class: "separated-block"
+		});
+		createElem2({
+			appendTo: visibilityForm,
+			type: "label",
+			innerHTML: "Group visibility"
 		});
 
 		//Open
@@ -165,10 +166,12 @@ ComunicWeb.pages.groups.pages.settings = {
 
 
 
+
 		//Group registration levels
 		var registrationLevelForm = createElem2({
 			appendTo: formContainer,
 			type: "form",
+			class: "separated-block"
 		});
 		createElem2({
 			appendTo: registrationLevelForm,
@@ -189,7 +192,7 @@ ComunicWeb.pages.groups.pages.settings = {
 		//Moderated
 		createFormGroup({
 			target: registrationLevelForm,
-			label: "Moderated registration (anyone can request a membership, but a moderator must review the request)",
+			label: "Moderated registration (anyone can request a membership, but a moderator review the requests)",
 			name: "group-registration-level",
 			type: "radio",
 			value: "moderated",
