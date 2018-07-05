@@ -30,12 +30,14 @@ ComunicWeb.pages.groups.main = {
 		}
 
 		//Check if the main page has to be opened
-		if(page == "main" && signed_in()){
+		if(page == "main"){
+			if(!signed_in()) openPage("login");
 			return ComunicWeb.pages.groups.pages.main.open(target);
 		}
 
 		//Check if the page to create a group has to be opened
-		else if (page == "create" && signed_in()){
+		else if (page == "create"){
+			if(!signed_in()) openPage("login");
 			return ComunicWeb.pages.groups.pages.create.open(target);
 		}
 
