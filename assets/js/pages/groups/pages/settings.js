@@ -120,6 +120,7 @@ ComunicWeb.pages.groups.pages.settings = {
 		});
 
 
+
 		//Group visibility
 		createElem2({
 			appendTo: formContainer,
@@ -153,7 +154,7 @@ ComunicWeb.pages.groups.pages.settings = {
 		});
 
 		//Secret
-		createFormGroup({
+		var secreteGroup = createFormGroup({
 			target: visibilityForm,
 			label: "Secrete Group (accessible only to invited members)",
 			name: "group-visibility",
@@ -162,6 +163,55 @@ ComunicWeb.pages.groups.pages.settings = {
 			checked: settings.visibility == "secrete"
 		});
 
+
+
+		//Group registration levels
+		var registrationLevelForm = createElem2({
+			appendTo: formContainer,
+			type: "form",
+		});
+		createElem2({
+			appendTo: registrationLevelForm,
+			type: "label",
+			innerHTML: "Registration level"
+		});
+
+		//Open
+		createFormGroup({
+			target: registrationLevelForm,
+			label: "Open registration (anyone can join the group as member)",
+			name: "group-registration-level",
+			type: "radio",
+			value: "open",
+			checked: settings.registration_level == "open"
+		});
+
+		//Moderated
+		createFormGroup({
+			target: registrationLevelForm,
+			label: "Moderated registration (anyone can request a membership, but a moderator must review the request)",
+			name: "group-registration-level",
+			type: "radio",
+			value: "moderated",
+			checked: settings.registration_level == "moderated"
+		});
+
+		//Closed registration (required for secret groups)
+		var closedRegistration = createFormGroup({
+			target: registrationLevelForm,
+			label: "Closed registration (the only way to join the group is to be invited by a moderator)",
+			name: "group-registration-level",
+			type: "radio",
+			value: "closed",
+			checked: settings.registration_level == "closed"
+		});
+
+		//Make sure secret group have closed registration
+		$(secreteGroup).on("ifChanged", function(){
+			if(secreteGroup.checked){
+				$(closedRegistration).iCheck("check");
+			}
+		});
 
 
 		//Submit button
@@ -194,7 +244,8 @@ ComunicWeb.pages.groups.pages.settings = {
 			//Prepare the update request on the server
 			var settings = {
 				name: groupName.value,
-				visibility: visibilityForm.elements["group-visibility"].value
+				visibility: visibilityForm.elements["group-visibility"].value,
+				registration_level: registrationLevelForm.elements["group-registration-level"].value
 			};
 
 			//Lock the send button
@@ -214,6 +265,9 @@ ComunicWeb.pages.groups.pages.settings = {
 
 			});
 		});
+
+
+
 
 
 		/**
