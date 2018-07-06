@@ -71,6 +71,7 @@ ComunicWeb.pages.groups.pages.forbidden = {
         //Box body
         var boxBody = createElem2({
             appendTo: box,
+            type: "div",
             class: "box-body"
         });
 
