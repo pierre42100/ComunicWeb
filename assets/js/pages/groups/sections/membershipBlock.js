@@ -20,6 +20,24 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 			type: "div"
 		});
 
+		/**
+		 * Refresh current component information
+		 */
+		refresh_component = function(){
+			emptyElem(container);
+			ComunicWeb.components.groups.interface.getInfo(info.id, function(result){
+
+				//Check for errors
+				if(result.error)
+					return notify("Could not refresh membership information!", "danger");
+				
+				//Display the component again
+				ComunicWeb.pages.groups.sections.membershipBlock.display(result, container);
+
+			});
+
+		}
+
 		//Check if the user is an administrator / moderator / member
 		if(info.membership == "administrator")
 			return createElem2({
@@ -75,6 +93,10 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 			 */
 			var respondInvitation = function(accept){
 
+				//Hide the buttons
+				acceptInvitation.style.visibility = "hidden";
+				rejectInvitation.style.visibility = "hidden";
+
 				//Perform the request over the server
 				ComunicWeb.components.groups.interface.respondInvitation(info.id, accept, function(result){
 
@@ -83,18 +105,7 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 						notify("An error occurred while trying to respond to the invitation!", "danger");
 					
 					//Refresh the component
-					emptyElem(container);
-					ComunicWeb.components.groups.interface.getInfo(info.id, function(result){
-
-						//Check for errors
-						if(result.error)
-							return notify("Could not refresh membership information!", "danger");
-						
-						//Display the component again
-						ComunicWeb.pages.groups.sections.membershipBlock.display(result, container);
-
-					});
-
+					refresh_component();
 				});
 
 			}
@@ -116,6 +127,40 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 				})
 
 			});
+		}
+
+		//Check if the user send a membership request
+		if(info.membership == "pending"){
+
+			var requestedContainer = createElem2({
+				appendTo: container,
+				type: "span",
+				innerHTML: "<i class='fa fa-clock-o'></i> Requested "
+			});
+			add_space(container);
+
+			//Add a link to cancel the request
+			var cancelLink = createElem2({
+				appendTo: requestedContainer,
+				type: "span",
+				class: "a",
+				innerHTML: "Cancel"
+			});
+
+			cancelLink.addEventListener("click", function(e){
+				cancelLink.style.visibility = "hidden";
+
+				//Cancel the request
+				ComunicWeb.components.groups.interface.cancelRequest(info.id, function(result){
+
+					if(result.error)
+						notify("An error occurred while trying to cancel membership request!", "danger");
+					
+					refresh_component();
+
+				});
+				
+			})
 		}
 
 	}
