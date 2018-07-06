@@ -143,6 +143,21 @@ ComunicWeb.components.groups.interface = {
 			id: id
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
-	}
+	},
+
+	/**
+	 * Send a request to join a group
+	 * 
+	 * @param {Number} id The ID of the target group
+	 * @param {Function} callback
+	 */
+	sendRequest: function(id, callback){
+		//Perform the request over the API
+		var apiURI = "groups/send_request";
+		var params = {
+			id: id
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
 
 };

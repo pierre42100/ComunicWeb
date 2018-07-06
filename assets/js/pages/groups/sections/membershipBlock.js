@@ -163,6 +163,39 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 			})
 		}
 
+		//Check if the user is only a simple visitor
+		if(info.membership == "visitor"){
+
+			//Check if the registration is closed
+			if(info.registration_level == "closed"){
+				add_p(container, "Only a moderator can invite you to join this group.");
+				return;
+			}
+
+			//Offer the user to join the group
+			var joinGroup = createElem2({
+				appendTo: container,
+				type: "span",
+				class: "a",
+				innerHTML: "Join this group"
+			});
+
+			joinGroup.addEventListener("click", function(e){
+
+				ComunicWeb.components.groups.interface.sendRequest(info.id, function(result){
+
+					//Check for errors
+					if(result.error)
+						notify("An error occurred while trying to send a membership request to the server!", "danger");
+					
+					//Refresh current page
+					ComunicWeb.common.page.refresh_current_page();
+
+				});
+
+			});
+		}
+
 	}
 
 };
