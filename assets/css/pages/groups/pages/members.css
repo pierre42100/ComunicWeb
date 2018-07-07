@@ -22,6 +22,10 @@
 	margin-bottom: 10px;
 }
 
+.group-members-page .member div {
+	display: inline-block;
+}
+
 .group-members-page .member .user-image {
 	border-radius: 50%;
 	max-width: 50px;
@@ -31,4 +35,13 @@
 .group-members-page .member .member-name {
 	margin-left: 5px;
 	font-weight: bold;
+	width: 150px;
+}
+
+.group-members-page .member .delete-link {
+	cursor: pointer;
+}
+
+.group-members-page .member .delete-link:active {
+	color: #3c8dbc;
 }

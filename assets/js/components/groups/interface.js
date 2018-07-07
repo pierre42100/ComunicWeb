@@ -173,5 +173,22 @@ ComunicWeb.components.groups.interface = {
 			id: id
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
+	 * Remove (delete) a member from the group
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Number} userID The ID of the target user
+	 * @param {Function} callback
+	 */
+	deleteMember: function(groupID, userID, callback){
+		//Perform the request over the API
+		var apiURI = "groups/delete_member";
+		var params = {
+			groupID: groupID,
+			userID: userID
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	}
 };

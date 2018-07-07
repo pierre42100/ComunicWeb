@@ -153,10 +153,49 @@ ComunicWeb.pages.groups.pages.members = {
 
 			createElem2({
 				appendTo: memberContainer,
-				type: "span",
+				type: "div",
 				class: "member-name",
 				innerHTML: userFullName(userInfo)
 			});
+
+			//Add an option to delete the member
+			if(userID() != userInfo.userID){
+
+				//Delete user button
+				var deleteUserButton = createElem2({
+					appendTo: memberContainer,
+					type: "div",
+					class: "delete-link",
+					innerHTML: "<i class='fa fa-trash'></i>"
+				});
+
+				deleteUserButton.addEventListener("click", function(e){
+
+					//Ask user confirmation
+					ComunicWeb.common.messages.confirm("Do you really want to delete this membership ?", function(r){
+						if(!r) return;
+
+						//Hide the member
+						memberContainer.style.visibility = "hidden";
+
+						ComunicWeb.components.groups.interface.deleteMember(info.id, userInfo.userID, function(result){
+
+							//Show the member
+							memberContainer.style.visibility = "visible";
+
+							//Check for error
+							if(result.error)
+								return notify("Could not delete the member from the group!", "danger");
+							
+							//Else, remove completely the member
+							memberContainer.remove();
+
+						});
+
+					});
+
+				})
+			}
 		});
 	}
 }
