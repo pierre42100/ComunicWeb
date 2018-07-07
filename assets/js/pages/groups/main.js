@@ -61,6 +61,9 @@ ComunicWeb.pages.groups.main = {
 		
 		else if(page == "settings")
 			ComunicWeb.pages.groups.pages.settings.open(groupID, target);
+		
+		else if(page == "members")
+			ComunicWeb.pages.groups.pages.members.open(groupID, target);
 
 
 		//Unrecognized page

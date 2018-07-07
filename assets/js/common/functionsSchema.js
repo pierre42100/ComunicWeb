@@ -1007,6 +1007,12 @@ var ComunicWeb = {
 				//TODO : implement
 			},
 
+			/**
+			 * Groups utilities
+			 */
+			utils: {
+				//TODO : implement
+			},
 		},
 
 	},
@@ -1223,6 +1229,13 @@ var ComunicWeb = {
 				 * Settings page
 				 */
 				settings: {
+					//TODO : implement
+				},
+
+				/**
+				 * Group members page
+				 */
+				members: {
 					//TODO : implement
 				},
 

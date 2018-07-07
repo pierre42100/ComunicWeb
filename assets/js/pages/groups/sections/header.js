@@ -69,18 +69,31 @@ ComunicWeb.pages.groups.sections.header = {
         });
 
         //Add join date
-        var joinDate = createElem2({
+        createElem2({
             appendTo: thirdColumn,
             type: "div",
             innerHTML: '<i class="fa fa-clock-o"></i> Created '+ComunicWeb.common.date.timeDiffToStr(info.time_create)+' ago'
         });
 
         //Add number of members
-        var joinDate = createElem2({
+        var members = createElem2({
             appendTo: thirdColumn,
             type: "div",
             innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
         });
+
+        //Check if the user is a moderator or an admin
+        if(info.membership == "administrator" || info.membership == "moderator"){
+            
+            //Turn members information into a link
+            members.className = "a";
+
+            members.addEventListener("click", function(e){
+
+                openPage("groups/" + info.id + "/members");
+
+            });
+        }
 
         //Group visibility
         var visibility = {

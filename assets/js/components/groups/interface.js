@@ -160,4 +160,18 @@ ComunicWeb.components.groups.interface = {
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	},
 
+	/**
+	 * Get the members of a group
+	 * 
+	 * @param {Number} id The ID of the target group
+	 * @param {Function} callback
+	 */
+	getMembers: function(id, callback){
+		//Perform the request over the API
+		var apiURI = "groups/get_members";
+		var params = {
+			id: id
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	}
 };

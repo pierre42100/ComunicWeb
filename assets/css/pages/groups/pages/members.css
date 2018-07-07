@@ -1,0 +1,34 @@
+/**
+ * Groups members page stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.group-members-page {
+	float: none;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.group-members-page .backward-link {
+	margin-bottom: 10px;
+}
+
+.group-members-page .title {
+	text-align: center;
+}
+
+.group-members-page .member {
+	margin-bottom: 10px;
+}
+
+.group-members-page .member .user-image {
+	border-radius: 50%;
+	max-width: 50px;
+	height: auto;
+}
+
+.group-members-page .member .member-name {
+	margin-left: 5px;
+	font-weight: bold;
+}
