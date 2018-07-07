@@ -82,6 +82,31 @@ ComunicWeb.pages.groups.sections.header = {
             innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
         });
 
+        //Group visibility
+        var visibility = {
+            open: "Open group",
+            private: "Private group",
+            secrete: "Secrete group"
+        };
+        createElem2({
+            appendTo: thirdColumn,
+            type: "div",
+            innerHTML: "<i class='fa fa-lock'></i> " + visibility[info.visibility]
+        });
+
+        //Group registration
+        var levels = {
+            open: "Open registration",
+            moderated: "Moderated registration",
+            closed: "Closed registration"
+        }
+        createElem2({
+            appendTo: thirdColumn,
+            type: "div",
+            innerHTML: "<i class='fa fa-pencil'></i> " + levels[info.registration_level]
+        });
+        
+
         //Display membership level
         if(signed_in())
             ComunicWeb.pages.groups.sections.membershipBlock.display(info, thirdColumn);
