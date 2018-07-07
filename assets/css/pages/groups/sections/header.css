@@ -4,9 +4,6 @@
  * @author Pierre HUBERT
  */
 
-.group-header {
-    
-}
 
 .group-header .group-icon {
     max-height: 150px;
@@ -19,4 +16,17 @@
 .group-header .col-info .fa {
     margin-right: 10px;
     width: 10px;
+}
+
+.group-header .group-col-icon {
+    text-align: center;
+}
+
+.group-header .group-col-icon span {
+    display: block;
+}
+
+.group-header .col-md-4 {
+    display: table;
+    margin: auto;
 }

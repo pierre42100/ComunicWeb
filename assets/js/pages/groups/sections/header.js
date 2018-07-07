@@ -32,7 +32,7 @@ ComunicWeb.pages.groups.sections.header = {
         var firstColumn = createElem2({
             appendTo: row,
             type: "div",
-            class: "col-lg-8"
+            class: "col-md-4 group-col-icon",
         });
 
         //Group icon
@@ -51,36 +51,46 @@ ComunicWeb.pages.groups.sections.header = {
             innerHTML: info.name
         });
 
-        //Second column : information about the company
+
+        //Second column : Information about the company
         var secondColumn = createElem2({
             appendTo: row,
             type: "div",
-            class: "col-lg-4 col-info"
+            class: "col-md-4"
+        });
+
+        add_p(secondColumn, "Column 2 : Group info");
+
+        //Third column : information about the group
+        var thirdColumn = createElem2({
+            appendTo: row,
+            type: "div",
+            class: "col-md-4 col-info"
         });
 
         //Add join date
         var joinDate = createElem2({
-            appendTo: secondColumn,
+            appendTo: thirdColumn,
             type: "div",
             innerHTML: '<i class="fa fa-clock-o"></i> Created '+ComunicWeb.common.date.timeDiffToStr(info.time_create)+' ago'
         });
 
         //Add number of members
         var joinDate = createElem2({
-            appendTo: secondColumn,
+            appendTo: thirdColumn,
             type: "div",
             innerHTML: '<i class="fa fa-group"></i> '+ info.number_members+' members'
         });
 
         //Display membership level
         if(signed_in())
-            ComunicWeb.pages.groups.sections.membershipBlock.display(info, secondColumn);
+            ComunicWeb.pages.groups.sections.membershipBlock.display(info, thirdColumn);
 
         //If the user is an admin, add a link to configure the page
         if(signed_in() && info.membership == "administrator"){
 
             var settingsLink = createElem2({
-                appendTo: secondColumn,
+                appendTo: thirdColumn,
                 type: "div",
                 class: "a",
                 innerHTML: " <i class='fa fa-gear'></i>Settings"
