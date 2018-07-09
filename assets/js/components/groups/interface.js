@@ -225,5 +225,22 @@ ComunicWeb.components.groups.interface = {
 			accept: accept
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
-	}
+	},
+
+	/**
+	 * Cancel a membership invitation
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Number} userID The ID of the target user
+	 * @param {Function} callback
+	 */
+	cancelInvitation: function(groupID, userID, callback){
+		//Perform the request over the API
+		var apiURI = "groups/cancel_invitation";
+		var params = {
+			groupID: groupID,
+			userID: userID
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
 };

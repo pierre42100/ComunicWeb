@@ -238,7 +238,7 @@ ComunicWeb.pages.groups.pages.members = {
 		if(member.level == "pending"){
 
 			//Disable membership level button
-			membershipLevelButton.style.display = true;
+			membershipLevelButton.disabled = true;
 
 			//Create container
 			var responseContainer = createElem2({
@@ -302,6 +302,40 @@ ComunicWeb.pages.groups.pages.members = {
 			//Make the buttons lives
 			acceptRequest.addEventListener("click", function(e){respondRequest(true)});
 			rejectRequest.addEventListener("click", function(e){respondRequest(false)});
+		}
+
+		//Check if the user was invited
+		else if(member.level == "invited"){
+
+			//Disable membership level button
+			membershipLevelButton.disabled = true;
+
+			//Add a button to cancel invitation
+			var cancelInvitationButton = createElem2({
+				appendTo: memberContainer,
+				type: "div",
+				class: "btn btn-danger",
+				innerHTML: "Cancel"
+			});
+
+			cancelInvitationButton.addEventListener("click", function(e){
+
+				//Peform the request on the APi
+				ComunicWeb.components.groups.interface.cancelInvitation(info.id, userInfo.userID, function(result){
+
+					cancelInvitationButton.style.visibility = "hidden";
+
+					//Check for errors
+					if(result.error){
+						cancelInvitationButton.style.visibility = "visible";
+						return notify("An error occurred while trying to cancel the invitation!", "danger");
+					}
+
+					//Remove the member
+					memberContainer.remove();
+				});
+
+			});
 		}
 
 	}
