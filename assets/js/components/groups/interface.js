@@ -176,6 +176,23 @@ ComunicWeb.components.groups.interface = {
 	},
 
 	/**
+	 * Get information about a single user membership
+	 * 
+	 * @param {Number} userID The ID of the target user
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Function} callback The result
+	 */
+	getMembership: function(userID, groupID, callback){
+		//Perform the request over the API
+		var apiURI = "groups/get_membership";
+		var params = {
+			groupID: groupID,
+			userID: userID
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Remove (delete) a member from the group
 	 * 
 	 * @param {Number} groupID The ID of the target group
@@ -188,6 +205,24 @@ ComunicWeb.components.groups.interface = {
 		var params = {
 			groupID: groupID,
 			userID: userID
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
+	 * Respond to a membership request
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Number} userID The ID of the target user
+	 * @param {Boolean} accept Specify whether the request is accepted or not
+	 */
+	respondRequest: function(groupID, userID, accept, callback){
+		//Perform the request over the API
+		var apiURI = "groups/respond_request";
+		var params = {
+			groupID: groupID,
+			userID: userID,
+			accept: accept
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	}

@@ -131,71 +131,178 @@ ComunicWeb.pages.groups.pages.members = {
 			class: "members-list"
 		});
 
+		//Process the list of members
 		list.forEach(function(member){
+			ComunicWeb.pages.groups.pages.members._display_member(info, member, users, membersList);
+		});
+	},
 
-			//Fetch user information
-			var userInfo = users["user-" + member.user_id];
-			
-			//Create member container
+	/**
+	 * Display a single membership information
+	 * 
+	 * @param {Object} info Information about the group
+	 * @param {Object} member Information about the membership
+	 * @param {Object} users The list of users of the group
+	 * @param {HTMLElement} target The target for the list
+	 */
+	_display_member: function(info, member, users, target){
+
+		//Fetch user information
+		var userInfo = users["user-" + member.user_id];
+		
+		//Create member container (if required)
+		if(target.className != "member")
 			var memberContainer = createElem2({
-				appendTo: membersList,
+				appendTo: target,
 				type: "div",
 				class: "member"
 			});
+		else {
+			emptyElem(target);
+			var memberContainer = target;
+		}
 
-			//User account image and name
-			createElem2({
-				appendTo: memberContainer,
-				type: "img",
-				class: "user-image",
-				src: userInfo.accountImage
-			});
+		//User account image and name
+		createElem2({
+			appendTo: memberContainer,
+			type: "img",
+			class: "user-image",
+			src: userInfo.accountImage
+		});
 
-			createElem2({
-				appendTo: memberContainer,
-				type: "div",
-				class: "member-name",
-				innerHTML: userFullName(userInfo)
-			});
+		createElem2({
+			appendTo: memberContainer,
+			type: "div",
+			class: "member-name",
+			innerHTML: userFullName(userInfo)
+		});
 
-			//Add an option to delete the member
-			if(userID() != userInfo.userID){
+		//Add an option to delete the member
+		//Delete user button
+		var deleteUserButton = createElem2({
+			appendTo: memberContainer,
+			type: "div",
+			class: "delete-link",
+			innerHTML: "<i class='fa fa-trash'></i>"
+		});
+		if(userID() != userInfo.userID){
 
-				//Delete user button
-				var deleteUserButton = createElem2({
-					appendTo: memberContainer,
-					type: "div",
-					class: "delete-link",
-					innerHTML: "<i class='fa fa-trash'></i>"
-				});
+			deleteUserButton.addEventListener("click", function(e){
 
-				deleteUserButton.addEventListener("click", function(e){
+				//Ask user confirmation
+				ComunicWeb.common.messages.confirm("Do you really want to delete this membership ?", function(r){
+					if(!r) return;
 
-					//Ask user confirmation
-					ComunicWeb.common.messages.confirm("Do you really want to delete this membership ?", function(r){
-						if(!r) return;
+					//Hide the member
+					memberContainer.style.visibility = "hidden";
 
-						//Hide the member
-						memberContainer.style.visibility = "hidden";
+					ComunicWeb.components.groups.interface.deleteMember(info.id, userInfo.userID, function(result){
 
-						ComunicWeb.components.groups.interface.deleteMember(info.id, userInfo.userID, function(result){
+						//Show the member
+						memberContainer.style.visibility = "visible";
 
-							//Show the member
-							memberContainer.style.visibility = "visible";
-
-							//Check for error
-							if(result.error)
-								return notify("Could not delete the member from the group!", "danger");
-							
-							//Else, remove completely the member
-							memberContainer.remove();
-
-						});
+						//Check for error
+						if(result.error)
+							return notify("Could not delete the member from the group!", "danger");
+						
+						//Else, remove completely the member
+						memberContainer.remove();
 
 					});
 
-				})
-			}
+				});
+
+			})
+		}
+		else
+			deleteUserButton.style.visibility = "hidden";
+
+		//Display user membership level
+		var membershipLevels = {
+			administrator: "Administrator",
+			moderator: "Moderator",
+			member: "Member",
+			invited: "Invited",
+			pending: "Requested"
+		};
+		var membershipLevelButton = createElem2({
+			appendTo: memberContainer,
+			type: "button",
+			class: "btn btn-default dropdown-toggle btn-membership-level",
+			type: "button",
+			innerHTML: membershipLevels[member.level]
 		});
+		add_space(memberContainer);
+
+		//Check if the user is pending
+		if(member.level == "pending"){
+
+			//Disable membership level button
+			membershipLevelButton.style.display = true;
+
+			//Create container
+			var responseContainer = createElem2({
+				appendTo: memberContainer,
+				type: "div"
+			});
+
+			//Offer the moderator to accept or not the request
+			var acceptRequest = createElem2({
+				appendTo: responseContainer,
+				type: "div",
+				class: "btn btn-success",
+				innerHTML: "Accept"
+			});
+			add_space(responseContainer);
+			var rejectRequest = createElem2({
+				appendTo: responseContainer,
+				type: "div",
+				class: "btn btn-danger",
+				innerHTML: "Reject"
+			});
+
+			/**
+			 * Respond to user request
+			 * 
+			 * @param {Boolean} accept Specify whether the request was accepted or not
+			 */
+			var respondRequest = function(accept){
+
+				//Hide response area
+				responseContainer.style.visibility = "hidden";
+
+				//Perform the request on the API
+				ComunicWeb.components.groups.interface.respondRequest(info.id, userInfo.userID, accept, function(result){
+
+					//Check for errors
+					if(result.error){
+						responseContainer.style.visibility = "visible";
+						return notify("An error occurred while trying to respond to the request!", "danger");
+					}	
+					
+					//If the response was to reject the request, remove the user from the list
+					if(!accept)
+						memberContainer.remove();
+					else {
+
+						ComunicWeb.components.groups.interface.getMembership(userInfo.userID, info.id, function(member){
+
+							//Check for errors
+							if(member.error)
+								return notify("Could not refresh membership information!", "danger");
+							
+							//Apply new membership information
+							ComunicWeb.pages.groups.pages.members._display_member(info, member, users, memberContainer);
+						});
+					}
+				})
+
+			}
+
+			//Make the buttons lives
+			acceptRequest.addEventListener("click", function(e){respondRequest(true)});
+			rejectRequest.addEventListener("click", function(e){respondRequest(false)});
+		}
+
 	}
 }

@@ -45,3 +45,11 @@
 .group-members-page .member .delete-link:active {
 	color: #3c8dbc;
 }
+
+.group-members-page .member .delete-link {
+	width: 20px;
+}
+
+.group-members-page .member .btn-membership-level {
+	width: 130px;;
+}
