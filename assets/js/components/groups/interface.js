@@ -23,6 +23,18 @@ ComunicWeb.components.groups.interface = {
 	},
 
 	/**
+	 * Get the list of groups of the user
+	 * 
+	 * @param {Function} callback
+	 */
+	getListUser: function(callback){
+		//Perform a request over the API
+		var apiURI = "groups/get_my_list";
+		var params = {};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Get information about a group
 	 * 
 	 * @param {Number} id The ID of the target group

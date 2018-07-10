@@ -31,6 +31,74 @@ ComunicWeb.pages.groups.pages.main = {
             openPage("groups/create");
         });
 
+        //Add loading message
+        var message = ComunicWeb.common.messages.createCalloutElem(
+            "Loading", 
+            "Please wait while we retrieve the list of your groups...",
+            "info");
+        pageContainer.appendChild(message);
+
+        //Get the list of groups of the user
+        ComunicWeb.components.groups.interface.getListUser(function(list){
+
+            message.remove();
+
+            //Check for errors
+            if(list.error)
+                return pageContainer.appendChild(
+                    ComunicWeb.common.messages.createCalloutElem(
+                        "Error", 
+                        "An error occurred while retrieving the list of groups of the user!",
+                        "danger"
+                    )
+                );
+            
+            //Display the list of the groups of the user
+            ComunicWeb.pages.groups.pages.main._display_list(pageContainer, list);
+        });
     },
+
+    /**
+     * Display the list of groups of the user
+     * 
+     * @param {HTMLElement} target The target for the lsit
+     * @param {Object} list The list to apply
+     */
+    _display_list: function(target, list){
+
+        //Process the list of groups
+        list.forEach(function(group){
+
+            //Create group item
+            var groupItem = createElem2({
+                appendTo: target,
+                type: "div",
+                class: "group-item"
+            });
+
+            //Display group information
+            createElem2({
+                appendTo: groupItem,
+                type: "img",
+                class: "group-icon",
+                src: group.icon_url
+            });
+            
+            var groupName = createElem2({
+                appendTo: groupItem,
+                type: "div",
+                class: "group-name a",
+                innerHTML: group.name
+            });
+
+            groupName.addEventListener("click", function(e){
+                openPage("groups/" + group.id); 
+            });
+
+            //Display membership status
+            ComunicWeb.pages.groups.sections.membershipBlock.display(group, groupItem);
+        });
+
+    }
 
 }

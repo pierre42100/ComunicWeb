@@ -10,3 +10,21 @@
     text-align: center;
     padding-top: 50px;
 }
+
+.groups-main-page .group-item {
+    text-align: justify;
+    margin-top: 10px;
+}
+
+.groups-main-page .group-item .group-icon {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.groups-main-page .group-item div {
+    display: inline-block;
+}
+
+.groups-main-page .group-item .group-name {
+    width: 180px;
+} 
