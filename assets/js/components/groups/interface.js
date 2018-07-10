@@ -243,4 +243,23 @@ ComunicWeb.components.groups.interface = {
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	},
+
+	/**
+	 * Update the membership of a user
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Number} userID The ID of the target user
+	 * @param {String} level The new membership level for the user
+	 * @param {Function} callback
+	 */
+	updateMembership: function(groupID, userID, level, callback){
+		//Perform the request over the API
+		var apiURI = "groups/update_membership_level";
+		var params = {
+			groupID: groupID,
+			userID: userID,
+			level: level
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
 };

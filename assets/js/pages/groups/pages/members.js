@@ -225,8 +225,13 @@ ComunicWeb.pages.groups.pages.members = {
 			invited: "Invited",
 			pending: "Requested"
 		};
-		var membershipLevelButton = createElem2({
+		var membershipChooseContainer = createElem2({
 			appendTo: memberContainer,
+			type: "div",
+			class: "btn-group"
+		});
+		var membershipLevelButton = createElem2({
+			appendTo: membershipChooseContainer,
 			type: "button",
 			class: "btn btn-default dropdown-toggle btn-membership-level",
 			type: "button",
@@ -338,5 +343,64 @@ ComunicWeb.pages.groups.pages.members = {
 			});
 		}
 
+		//Manage other levels
+		else if(info.membership == "administrator" && userID() != userInfo.userID) {
+
+			//Add dropdown attribute to the button
+			membershipLevelButton.setAttribute("data-toggle", "dropdown");
+
+			var membershipDropdown = createElem2({
+				appendTo: membershipChooseContainer,
+				type: "ul",
+				class: "dropdown-menu"
+			});
+
+			/**
+			 * Add an option to membership dropdown menu
+			 * 
+			 * @param {String} name The name of the option to add
+			 */
+			var addOption = function(name){
+
+				//Create element
+				var elemLi = createElem2({
+					appendTo: membershipDropdown,
+					type: "li"
+				});
+
+				//Add link
+				var elemLink = createElem2({
+					appendTo: elemLi,
+					type: "a"
+				});
+
+				//Add option name
+				createElem2({
+					appendTo: elemLink,
+					type: "span",
+					innerHTML: membershipLevels[name]
+				});
+
+				//Make the option lives
+				elemLi.addEventListener("click", function(e){
+
+					//Perform a request over the API
+					ComunicWeb.components.groups.interface.updateMembership(info.id, userInfo.userID, name, function(result){
+
+						//Check for error
+						if(result.error)
+							return notify("An error occurred while trying to update the membership of this user!", "danger");
+						
+						//Display new membership
+						membershipLevelButton.innerHTML = membershipLevels[name];
+					});
+
+				});
+			};
+
+			addOption("administrator");
+			addOption("moderator");
+			addOption("member");
+		}
 	}
 }
