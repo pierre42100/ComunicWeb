@@ -27,4 +27,16 @@
 
 .groups-main-page .group-item .group-name {
     width: 180px;
-} 
+}
+
+.groups-main-page .group-item .buttons-area {
+    width: 20px;
+}
+
+.groups-main-page .group-item .buttons-area .fa {
+    color: #b5bbc8;
+}
+
+.groups-main-page .group-item .buttons-area .fa:active {
+    color: black;
+}

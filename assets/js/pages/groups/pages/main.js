@@ -95,6 +95,36 @@ ComunicWeb.pages.groups.pages.main = {
                 openPage("groups/" + group.id); 
             });
 
+            //Offer the user to delete its membership
+            var deleteButton = createElem2({
+                appendTo: groupItem,
+                type: "div",
+                class: "buttons-area a",
+                innerHTML: "<i class='fa fa-trash'></i>"
+            });
+
+            deleteButton.addEventListener("click", function(e){
+
+                //Ask user confirmation
+                ComunicWeb.common.messages.confirm("Do you really want to delete your membership of this group ?", function(r){
+                    if(!r) return;
+
+                    groupItem.style.visibility = "hidden";
+
+                    ComunicWeb.components.groups.interface.removeMembership(group.id, function(result){
+
+                        groupItem.style.visibility = "visible";
+
+                        if(result.error)
+                            return notify("Could not your membership to this group!", "error");
+                        
+                        groupItem.remove();
+
+                    });
+                });
+
+            });
+
             //Display membership status
             ComunicWeb.pages.groups.sections.membershipBlock.display(group, groupItem);
         });
