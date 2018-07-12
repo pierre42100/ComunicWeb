@@ -1,0 +1,13 @@
+sudo: required
+
+language: php
+
+services:
+- docker
+
+#Target PHP versions
+php:
+ - 7.2
+  
+script:
+  - docker run -t -v $(pwd):/data pierre42100/docker-comunicwebappscratch /data/builder build offline
