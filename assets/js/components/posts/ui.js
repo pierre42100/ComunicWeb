@@ -71,7 +71,7 @@ ComunicWeb.components.posts.ui = {
 				userName.innerHTML = result.firstName + " " + result.lastName;
 
 				userName.onclick = function(){
-					openUserPage(userIDorPath(result));
+					openUserPage(result);
 				}
 			}
 		});

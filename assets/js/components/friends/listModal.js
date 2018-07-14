@@ -213,7 +213,7 @@ ComunicWeb.components.friends.listModal = {
 				userLink.onclick = function(){
 					
 					//Open user page
-					openUserPage(userIDorPath(users["user-" + id]));
+					openUserPage(users["user-" + id]);
 
 					//Close all modals
 					$(".modal").modal("hide");

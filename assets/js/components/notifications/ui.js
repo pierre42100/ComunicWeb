@@ -77,7 +77,7 @@ ComunicWeb.components.notifications.ui = {
 			if(data.on_elem_type == "friend_request"){
 				
 				//Open user page
-				openUserPage(data.from_user_id);
+				openUserPageFromID(data.from_user_id);
 
 			}
 

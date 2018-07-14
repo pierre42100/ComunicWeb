@@ -55,7 +55,7 @@ ComunicWeb.components.friends.ui = {
 		userLink.onclick = function(){
 			
 			//Open user page
-			openUserPage(userIDorPath(user));
+			openUserPage(user);
 
 			//Close all modals
 			$(".modal").modal("hide");

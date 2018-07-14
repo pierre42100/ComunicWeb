@@ -82,7 +82,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 						else {
 							//Reopen user page
-							openUserPage(userID);
+							openUserPageFromID(userID);
 						}
 
 					});

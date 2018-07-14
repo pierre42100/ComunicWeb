@@ -153,7 +153,7 @@ ComunicWeb.components.searchForm = {
 		//Make user link element live
 		userLinkElement.onclick = function() {
 			ComunicWeb.components.searchForm.close();
-			openUserPage(userIDorPath(userInfos));
+			openUserPage(userInfos);
 		}
 	},
 

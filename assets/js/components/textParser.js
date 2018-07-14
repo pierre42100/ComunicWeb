@@ -104,7 +104,7 @@ ComunicWeb.components.textParser = {
 				node.addEventListener("click", function(ev){
 
 					//Open user page
-					openUserPage(userID);
+					openPage(userID);
 
 				});
 			}

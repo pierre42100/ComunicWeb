@@ -186,7 +186,7 @@ ComunicWeb.components.menuBar.authenticated = {
 			userimage.src = userInfos.accountImage;
 
 			userlinkelement.onclick = function(){
-				openUserPage(userIDorPath(userInfos));
+				openUserPage(userInfos);
 			}
 
 		}), true);

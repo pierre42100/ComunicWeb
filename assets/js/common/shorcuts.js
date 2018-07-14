@@ -38,6 +38,19 @@ function openPage(pageURI, additionnalData){
  * @return {Boolean} True for a success
  */
 function openUserPage(user){
+    if(user.virtualDirectory == "")
+        openUserPageFromID(user.userID);
+    else
+        openPage(user.virtualDirectory);
+}
+
+/**
+ * Open a user page quickly from its user ID
+ * 
+ * @param {String} user The ID of the user or its directory
+ * @return {Boolean} True for a success
+ */
+function openUserPageFromID(user){
     return openPage("user/" + user);
 }
 

@@ -159,7 +159,7 @@ ComunicWeb.components.friends.bar = {
 
 		//Make the link lives
 		friendLink.onclick = function(){
-			openUserPage(userIDorPath(userInfos));
+			openUserPage(userInfos);
 
 			//For the responsive mode
 			ComunicWeb.components.friends.bar.toggleShowHide();
