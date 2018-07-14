@@ -121,6 +121,15 @@ ComunicWeb.pages.groups.pages.settings = {
 
 
 
+		//Group virtual directory
+		var virtualDirectory = createFormGroup({
+			target: formContainer,
+			type: "text",
+			label: "Virtual directory",
+			placeholder: "Virtual directory of the group",
+			value: settings.virtual_directory == "null" ? "" : settings.virtual_directory,
+		});
+
 
 		//Group visibility
 		var visibilityForm = createElem2({
@@ -247,6 +256,7 @@ ComunicWeb.pages.groups.pages.settings = {
 			//Prepare the update request on the server
 			var settings = {
 				name: groupName.value,
+				virtual_directory: virtualDirectory.value,
 				visibility: visibilityForm.elements["group-visibility"].value,
 				registration_level: registrationLevelForm.elements["group-registration-level"].value
 			};
