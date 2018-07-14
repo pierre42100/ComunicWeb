@@ -130,6 +130,37 @@ ComunicWeb.pages.groups.pages.settings = {
 			value: settings.virtual_directory == "null" ? "" : settings.virtual_directory,
 		});
 
+		//Check message target
+		var checkVirtualDirectoryTarget = createElem2({
+			appendTo: formContainer,
+			type: "small"
+		});
+
+		virtualDirectory.onkeyup = function(){
+
+			checkVirtualDirectoryTarget.innerHTML = "Checking availability...";
+
+			//Get the directory to check
+			var directory = virtualDirectory.value;
+
+			//Check if the directory is empty
+			if(directory == ""){
+				checkVirtualDirectoryTarget.innerHTML = "";
+				return;
+			}
+
+			//Perform a request on the API
+			ComunicWeb.components.groups.interface.checkVirtualDirectory(directory, settings.id, function(callback){
+
+				//Check if the directory is available or not
+				checkVirtualDirectoryTarget.innerHTML = 
+					callback.error
+					? "<invalidDirectory>This directory is not available!</invalidDirectory>"
+					: "This directory seems to be available!";
+
+			})
+		}
+
 
 		//Group visibility
 		var visibilityForm = createElem2({

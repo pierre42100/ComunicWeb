@@ -110,6 +110,23 @@ ComunicWeb.components.groups.interface = {
 	},
 
 	/**
+	 * Check the availability of a virtual directory for a group
+	 * 
+	 * @param {String} directory The directory to check
+	 * @param {Number} groupID The ID of the group to check
+	 * @param {Function} callback
+	 */
+	checkVirtualDirectory: function(directory, groupID, callback){
+		//Perform the request over the API
+		var apiURI = "groups/checkVirtualDirectory";
+		var params = {
+			groupID: groupID,
+			directory: directory
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Upload a new group logo
 	 * 
 	 * @param {Number} id The ID of the target group
