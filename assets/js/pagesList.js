@@ -125,6 +125,15 @@ ComunicWeb.pagesList = {
     },
 
     /**
+     * Virtual directory
+     */
+    virtual_directory: {
+        pageTitle: "Loading",
+        methodHandler: "ComunicWeb.pages.virtualDirectory.page.open",
+        disableMenus: false
+    },
+
+    /**
      * 404 Page not found
      */
     notFound: {

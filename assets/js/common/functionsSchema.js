@@ -1015,6 +1015,19 @@ var ComunicWeb = {
 			},
 		},
 
+		/**
+		 * Virtual directories component
+		 */
+		virtualDirectory: {
+
+			/**
+			 * API interface
+			 */
+			interface: {
+				//TODO : implement
+			},
+
+		},
 	},
 
 	/**
@@ -1441,5 +1454,18 @@ var ComunicWeb = {
 			openLogoutPage: function(additionnalData, targetElement){},
 		},
 
+		/**
+		 * Virtual directory pages
+		 */
+		virtualDirectory: {
+
+			/**
+			 * Main page
+			 */
+			page: {
+				//TODO : implement
+			},
+
+		},
 	},
 };

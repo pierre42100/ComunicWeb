@@ -392,6 +392,9 @@ class Dev {
 			"js/components/groups/interface.js",
 			"js/components/groups/utils.js",
 
+			//Virtual directory component
+			"js/components/virtualDirectory/interface.js",
+
 		//User scripts
 		"js/user/loginTokens.js",
 		"js/user/userLogin.js",
@@ -470,6 +473,9 @@ class Dev {
 
 			//Logout page
 			"js/pages/logout.js",
+
+			//Virtual directory page
+			"js/pages/virtualDirectory/page.js",
 
 		//Create shortcuts for common functions
 		"js/common/shorcuts.js",

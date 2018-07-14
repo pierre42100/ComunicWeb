@@ -157,20 +157,23 @@ ComunicWeb.common.page = {
             firstPartURI = "home";
         }
 
+        //Save the first part of the URI as an argument
+        additionnalData.rootDirectory = firstPartURI;
+
         //Check if there is also subfolders
         if(firstPartURI.indexOf("/") != -1){
 
             //Save the list of subfolders
             var subfoldersURIarray = firstPartURI.split("/");
             subfoldersURIarray.shift();
-            subfoldersURI = subfoldersURIarray.join("/");
+            var subfoldersURI = subfoldersURIarray.join("/");
 
             //Remove them to find the right page
             firstPartURI = firstPartURI.split("/")[0];
             
         } else {
             //No subfolder was specified
-            subfoldersURI = false;
+            var subfoldersURI = false;
         }
 
         //Check if specied page exists
@@ -179,8 +182,17 @@ ComunicWeb.common.page = {
         }
         
         //Else we include the 404 not found page
-        else{
-            var pageInfos = ComunicWeb.pagesList.notFound;
+        else {
+
+            //Check if no subfolder was specified
+            if(subfoldersURI)
+                var pageInfos = ComunicWeb.pagesList.notFound;
+            
+            //Find & open dynamically the appropriate page
+            else {
+                var pageInfos = ComunicWeb.pagesList.virtual_directory;
+            }
+                
         }
 
         //Change page title
