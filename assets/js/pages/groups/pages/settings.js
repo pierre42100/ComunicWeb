@@ -119,6 +119,14 @@ ComunicWeb.pages.groups.pages.settings = {
 			value: settings.name,
 		});
 
+		//Group URL
+		var groupURL = createFormGroup({
+			target: formContainer,
+			type: "text",
+			label: "Group URL",
+			placeholder: "The URL of the group (optionnal)",
+			value: settings.url == "null" ? "" : settings.url
+		});
 
 
 		//Group virtual directory
@@ -129,8 +137,9 @@ ComunicWeb.pages.groups.pages.settings = {
 			placeholder: "Virtual directory of the group",
 			value: settings.virtual_directory == "null" ? "" : settings.virtual_directory,
 		});
+		
 
-		//Check message target
+		//Check virtual directory message target
 		var checkVirtualDirectoryTarget = createElem2({
 			appendTo: formContainer,
 			type: "small"
@@ -257,6 +266,16 @@ ComunicWeb.pages.groups.pages.settings = {
 		});
 
 
+		//Group description
+		var groupDescription = createFormGroup({
+			target: formContainer,
+			label: "Description of your group 255 characters max (optionnal)",
+			type: "textarea",
+			placeholder: "Description of your group...",
+			value: settings.description != "null" ? settings.description : ""
+		});
+
+
 		//Submit button
 		var submitButtonContainer = createElem2({
 			appendTo: formContainer,
@@ -283,13 +302,21 @@ ComunicWeb.pages.groups.pages.settings = {
 			//Check the length of the name of the group
 			if(groupName.value.length < 4)
 				return notify("Please check the name of group !", "danger");
+			
+			//Check the given group URL (if any)
+			if(groupURL.value.length > 0){
+				if(!check_url(groupURL.value))
+					return notify("Please check the given URL !", "danger");
+			}
 
 			//Prepare the update request on the server
 			var settings = {
 				name: groupName.value,
 				virtual_directory: virtualDirectory.value,
 				visibility: visibilityForm.elements["group-visibility"].value,
-				registration_level: registrationLevelForm.elements["group-registration-level"].value
+				registration_level: registrationLevelForm.elements["group-registration-level"].value,
+				description: groupDescription.value,
+				url: groupURL.value
 			};
 
 			//Lock the send button
