@@ -51,6 +51,16 @@ ComunicWeb.pages.groups.sections.header = {
             innerHTML: info.name
         });
 
+        //Group tag (if any)
+        if(info.virtual_directory != "null"){
+            createElem2({
+                appendTo: firstColumn,
+                type: "small",
+                class: "group-tag",
+                innerHTML: "@" + info.virtual_directory
+            });
+        }
+
 
         //Second column : Information about the company
         var secondColumn = createElem2({
@@ -60,6 +70,9 @@ ComunicWeb.pages.groups.sections.header = {
         });
 
         add_p(secondColumn, "Column 2 : Group info");
+
+
+
 
         //Third column : information about the group
         var thirdColumn = createElem2({
