@@ -266,6 +266,42 @@ ComunicWeb.pages.groups.pages.settings = {
 		});
 
 
+
+		//Group posts level
+		var postsLevelsForm = createElem2({
+			appendTo: formContainer,
+			type: "form",
+			class: "separated-block"
+		});
+		createElem2({
+			appendTo: postsLevelsForm,
+			type: "label",
+			innerHTML: "Posts creation level"
+		});
+
+		//Every members of the group
+		createFormGroup({
+			target: postsLevelsForm,
+			label: "Every members of the posts can create posts",
+			name: "group-posts-level",
+			type: "radio",
+			value: "members",
+			checked: settings.posts_level == "members"
+		});
+
+		//Moderators only
+		createFormGroup({
+			target: postsLevelsForm,
+			label: "Moderators and moderators only can create groups",
+			name: "group-posts-level",
+			type: "radio",
+			value: "moderators",
+			checked: settings.posts_level == "moderators"
+		});
+
+
+
+
 		//Group description
 		var groupDescription = createFormGroup({
 			target: formContainer,
@@ -315,6 +351,7 @@ ComunicWeb.pages.groups.pages.settings = {
 				virtual_directory: virtualDirectory.value,
 				visibility: visibilityForm.elements["group-visibility"].value,
 				registration_level: registrationLevelForm.elements["group-registration-level"].value,
+				posts_level: postsLevelsForm.elements["group-posts-level"].value,
 				description: groupDescription.value,
 				url: groupURL.value
 			};
