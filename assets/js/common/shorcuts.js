@@ -55,6 +55,20 @@ function openUserPageFromID(user){
 }
 
 /**
+ * Open a group age
+ * 
+ * @param {Object} info Information about the target group
+ */
+function openGroupPage(info){
+
+    if(info.virtual_directory != "null")
+        openPage(info.virtual_directory);
+    else
+        openPage("groups/" + info.id);
+
+}
+
+/**
  * Check if user is signed in or not
  * 
  * @return {Boolean} True if the user is signed in / false else

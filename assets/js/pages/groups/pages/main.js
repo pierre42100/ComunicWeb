@@ -92,7 +92,7 @@ ComunicWeb.pages.groups.pages.main = {
             });
 
             groupName.addEventListener("click", function(e){
-                openPage("groups/" + group.id); 
+                openGroupPage(group);
             });
 
             //Offer the user to delete its membership
