@@ -48,6 +48,9 @@ ComunicWeb.pages.groups.pages.group = {
      */
     display: function(id, info, target){
 
+        //Update page title
+        document.title = info.name;
+
         //Create page row
         var pageRow = createElem2({
             appendTo: target,

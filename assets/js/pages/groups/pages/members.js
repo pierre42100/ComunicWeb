@@ -116,6 +116,8 @@ ComunicWeb.pages.groups.pages.members = {
 	 */
 	displayList: function(info, list, users, target){
 
+		document.title = info.name + " - Members";
+
 		//Append the title of the group
 		createElem2({
 			appendTo: target,

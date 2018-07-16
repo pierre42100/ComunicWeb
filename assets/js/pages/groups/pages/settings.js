@@ -92,6 +92,8 @@ ComunicWeb.pages.groups.pages.settings = {
 	 */
 	display: function(id, settings, target){
 
+		document.title = settings.name + " - Settings";
+
 		//Create form container
 		var formContainer = createElem2({
 			appendTo: target,
