@@ -116,7 +116,7 @@ ComunicWeb.pages.groups.pages.main = {
                         groupItem.style.visibility = "visible";
 
                         if(result.error)
-                            return notify("Could not your membership to this group!", "error");
+                            return notify("Could not delete your membership to this group!", "error");
                         
                         groupItem.remove();
 
