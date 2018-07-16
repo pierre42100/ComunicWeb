@@ -66,11 +66,30 @@ ComunicWeb.pages.groups.sections.header = {
         var secondColumn = createElem2({
             appendTo: row,
             type: "div",
-            class: "col-md-4"
+            class: "col-md-4 col-info"
         });
 
-        add_p(secondColumn, "Column 2 : Group info");
+        //Group URL (if any)
+        if(info.url != "null"){
+            var urlElem = createElem2({
+                appendTo: secondColumn,
+                type: "a",
+                class: "a",
+                href: info.url,
+                innerHTML: "<i class='fa fa-link'></i> " + info.url
+            });
+            urlElem.target = "_blank";
 
+        }
+    
+
+        //Group description (if any)
+        if(info.url != "null")
+            createElem2({
+                appendTo: secondColumn,
+                type: "div",
+                innerHTML: "<i class='fa fa-file-text-o'></i> " + info.description
+            });
 
 
 
@@ -78,7 +97,7 @@ ComunicWeb.pages.groups.sections.header = {
         var thirdColumn = createElem2({
             appendTo: row,
             type: "div",
-            class: "col-md-4 col-info"
+            class: "col-md-4 col-metadata"
         });
 
         //Add join date
