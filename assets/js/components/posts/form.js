@@ -302,9 +302,11 @@ ComunicWeb.components.posts.form = {
 			class: "post-visiblity-container"
 		});
 
-		//Private post
-		var privateLevel = ComunicWeb.components.posts.visibilityLevels.private;
-		var privateInput = this._add_visiblity_choice(visibility_choices_container, "private", privateLevel.name, privateLevel.icon);
+		if(kind != "group"){
+			//Private post
+			var privateLevel = ComunicWeb.components.posts.visibilityLevels.private;
+			var privateInput = this._add_visiblity_choice(visibility_choices_container, "private", privateLevel.name, privateLevel.icon);
+		}
 
 		//Friends-visible post
 		var friendsLevel = ComunicWeb.components.posts.visibilityLevels.friends;
