@@ -18,14 +18,14 @@ ComunicWeb.pages.groups.sections.header = {
         var headerContainer = createElem2({
             appendTo: target,
             type: "div",
-            class: "group-header"
+            class: "group-header box box-primary"
         });
 
         //Create a row
         var row = createElem2({
             appendTo: headerContainer,
             type: "div",
-            class: "row"
+            class: "box-body row"
         });
 
         //First column

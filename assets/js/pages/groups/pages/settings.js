@@ -292,7 +292,7 @@ ComunicWeb.pages.groups.pages.settings = {
 		//Moderators only
 		createFormGroup({
 			target: postsLevelsForm,
-			label: "Moderators and moderators only can create groups",
+			label: "Administrators and moderators only can create groups",
 			name: "group-posts-level",
 			type: "radio",
 			value: "moderators",

@@ -65,6 +65,28 @@ ComunicWeb.pages.groups.pages.group = {
         //Display the header for the group
         ComunicWeb.pages.groups.sections.header.display(info, headerColumn);
 
+
+        //Check if the user can create posts or not
+        if(ComunicWeb.components.groups.utils.canCreatePosts(info)){
+            
+            //Intialize posts creation form
+            var postFormRow = createElem2({
+                appendTo: target,
+                type: "div",
+                class: "row group-page"
+            });
+
+            //Add column
+            var postFormCol = createElem2({
+                appendTo: postFormRow,
+                type: "div",
+                class: "col-md-6"
+            });
+
+            //Display form
+            ComunicWeb.components.posts.form.display("group", id, postFormCol);
+        }
+
     }
 
 }

@@ -23,6 +23,26 @@ ComunicWeb.components.groups.utils = {
 
 		return IDs;
 
-	}
+	},
+
+	/**
+	 * Check whether a user can create posts for a group or not
+	 * 
+	 * @param {Object} info Information about the target group
+	 * @return {boolean} TRUE if the user can create a post / FALSE else
+	 */
+	canCreatePosts: function(info){
+
+		//Administrator and moderators can always create posts
+		if(info.membership == "administrator" || info.membership == "moderator")
+			return true;
+		
+		if(info.membership == "member" && info.posts_level == "members")
+			return true;
+
+		//In all the other case, the user can not create posts
+		return false;
+
+	},
 
 }
