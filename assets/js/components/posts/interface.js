@@ -32,6 +32,31 @@ ComunicWeb.components.posts.interface = {
 	},
 
 	/**
+	 * Get a group posts
+	 * 
+	 * @param {number} groupID The ID of the target group
+	 * @param {int} lastPostID The ID of the last post loaded
+	 * @param {function} callback
+	 */
+	get_group: function(groupID, lastPostID, callback){
+
+		//Load the previous posts to the loaded post if required
+		if(lastPostID > 0)
+			lastPostID--;
+
+		//Prepare the API request
+		var APIuri = "posts/get_group";
+		var params = {
+			groupID: groupID,
+			startFrom: lastPostID
+		};
+
+		//Make the request
+		ComunicWeb.common.api.makeAPIrequest(APIuri, params, true, callback);
+
+	},
+
+	/**
 	 * Get the list of the latest posts
 	 * 
 	 * @param {number} lastPostID The ID of the loast loaded post (or 0)

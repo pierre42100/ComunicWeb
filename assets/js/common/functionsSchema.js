@@ -1279,6 +1279,13 @@ var ComunicWeb = {
 				membershipBlock: {
 					//TODO : implement
 				},
+
+				/**
+				 * Posts sections
+				 */
+				posts: {
+					//TODO : implement
+				},
 			},
 		},
 

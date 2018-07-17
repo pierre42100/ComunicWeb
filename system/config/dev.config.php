@@ -228,6 +228,7 @@ class Dev {
 				//Groups sections
 				"css/pages/groups/sections/header.css",
 				"css/pages/groups/sections/membershipBlock.css",
+				"css/pages/groups/sections/posts.css",
 
 
 			//Settings page
@@ -440,6 +441,7 @@ class Dev {
 				//Groups sections
 				"js/pages/groups/sections/header.js",
 				"js/pages/groups/sections/membershipBlock.js",
+				"js/pages/groups/sections/posts.js",
 
 
 			//User settings page

@@ -90,6 +90,21 @@ ComunicWeb.pages.groups.pages.group = {
             ComunicWeb.components.posts.form.display("group", id, postFormCol);
         }
 
+        //Display group posts
+        var postsRow = createElem2({
+            appendTo: target,
+            type: "div",
+            class: "row group-page"
+        });
+
+        var postsCol = createElem2({
+            appendTo: postsRow,
+            type: "div",
+            class: "col-md-6"
+        });
+
+        ComunicWeb.pages.groups.sections.posts.display(info, postsCol);
+
     }
 
 }
