@@ -169,6 +169,18 @@ ComunicWeb.pages.groups.sections.header = {
                 openPage("groups/" + info.id + "/settings");
             });
         }
+
+        //Display likes block
+        ComunicWeb.components.like.button.display(
+			"group",
+			info.id,
+			info.number_likes,
+			info.is_liking,
+			createElem2({
+                appendTo: thirdColumn,
+                type: "div"
+            })
+		);
     },
 
 };
