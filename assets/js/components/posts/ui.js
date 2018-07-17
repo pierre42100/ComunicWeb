@@ -136,8 +136,18 @@ ComunicWeb.components.posts.ui = {
 			});
 
 			//Process all visibility levels
-			var privateChoice = this._add_visibility_menu_item(visibilityDropdown, "private");
-			var friendsChoice = this._add_visibility_menu_item(visibilityDropdown, "friends");
+			//For pages only
+			if(infos.user_page_id != 0){
+				var privateChoice = this._add_visibility_menu_item(visibilityDropdown, "private");
+				var friendsChoice = this._add_visibility_menu_item(visibilityDropdown, "friends");
+			}
+
+			//For groups only
+			if(infos.group_id != 0){
+				var membersChoice = this._add_visibility_menu_item(visibilityDropdown, "members");
+			}
+
+			//Public
 			var publicChoice = this._add_visibility_menu_item(visibilityDropdown, "public");
 
 			var onVisibilityLevelChoice = function(){
@@ -167,8 +177,14 @@ ComunicWeb.components.posts.ui = {
 			}
 
 			//Set the items lives
-			privateChoice.onclick = onVisibilityLevelChoice;
-			friendsChoice.onclick = onVisibilityLevelChoice;
+			if(infos.user_page_id != 0){
+				privateChoice.onclick = onVisibilityLevelChoice;
+				friendsChoice.onclick = onVisibilityLevelChoice;
+			}
+			
+			if(infos.group_id != 0)
+				membersChoice.onclick = onVisibilityLevelChoice;
+
 			publicChoice.onclick = onVisibilityLevelChoice;
 			
 		}

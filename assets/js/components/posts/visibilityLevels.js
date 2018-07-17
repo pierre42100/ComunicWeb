@@ -29,6 +29,17 @@ ComunicWeb.components.posts.visibilityLevels = {
 	},
 
 	/**
+	 * Group members
+	 */
+	members: {
+		//Icon
+		icon: "fa-users",
+
+		//Name
+		name: "Group members"
+	},
+
+	/**
 	 * Public
 	 */
 	public: {

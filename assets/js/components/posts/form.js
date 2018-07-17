@@ -302,16 +302,28 @@ ComunicWeb.components.posts.form = {
 			class: "post-visiblity-container"
 		});
 
-		if(kind != "group"){
+		//For posts on users page
+		if(kind == "user"){
+
 			//Private post
 			var privateLevel = ComunicWeb.components.posts.visibilityLevels.private;
 			var privateInput = this._add_visiblity_choice(visibility_choices_container, "private", privateLevel.name, privateLevel.icon);
+
+			//Friends-visible post
+			var friendsLevel = ComunicWeb.components.posts.visibilityLevels.friends;
+			var friendsInput = this._add_visiblity_choice(visibility_choices_container, "friends", friendsLevel.name, friendsLevel.icon);
+			friendsInput.checked = true;
 		}
 
-		//Friends-visible post
-		var friendsLevel = ComunicWeb.components.posts.visibilityLevels.friends;
-		var friendsInput = this._add_visiblity_choice(visibility_choices_container, "friends", friendsLevel.name, friendsLevel.icon);
-		friendsInput.checked = true;
+		//For posts on groups page
+		if(kind == "group"){
+
+			//Members-visible posts
+			var membersLevel = ComunicWeb.components.posts.visibilityLevels.friends;
+			var membersInput = this._add_visiblity_choice(visibility_choices_container, "members", membersLevel.name, membersLevel.icon);
+			membersInput.checked = true;
+
+		}
 
 		//Worldwide post
 		var publicLevel = ComunicWeb.components.posts.visibilityLevels.public;
