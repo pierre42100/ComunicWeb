@@ -84,7 +84,7 @@ ComunicWeb.pages.groups.sections.header = {
     
 
         //Group description (if any)
-        if(info.url != "null")
+        if(info.description != "null")
             createElem2({
                 appendTo: secondColumn,
                 type: "div",
