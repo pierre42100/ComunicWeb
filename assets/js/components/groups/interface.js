@@ -306,4 +306,21 @@ ComunicWeb.components.groups.interface = {
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	},
+
+	/**
+	 * Set whether a user is following a group or not
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {Boolean} follow
+	 * @param {Function} callback
+	 */
+	setFollowing: function(groupID, follow, callback){
+		//Perform the request over the API
+		var apiURI = "groups/set_following";
+		var params = {
+			groupID: groupID,
+			follow: follow
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	}
 };

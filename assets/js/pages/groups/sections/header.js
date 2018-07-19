@@ -155,6 +155,10 @@ ComunicWeb.pages.groups.sections.header = {
         //Display membership level
         if(signed_in())
             ComunicWeb.pages.groups.sections.membershipBlock.display(info, thirdColumn);
+        
+        //Display follow block
+        if(signed_in() && ComunicWeb.components.groups.utils.isGroupMember(info))
+            ComunicWeb.pages.groups.sections.followBlock.display(info, thirdColumn);
 
         //If the user is an admin, add a link to configure the page
         if(signed_in() && info.membership == "administrator"){

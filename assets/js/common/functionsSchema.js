@@ -1286,6 +1286,13 @@ var ComunicWeb = {
 				posts: {
 					//TODO : implement
 				},
+
+				/**
+				 * Follow block
+				 */
+				followBlock: {
+					//TODO : implement
+				},
 			},
 		},
 

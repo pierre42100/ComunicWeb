@@ -26,6 +26,19 @@ ComunicWeb.components.groups.utils = {
 	},
 
 	/**
+	 * Check whether a user is a member (or more) of a group or not
+	 * 
+	 * @param {Object} info Information about the target group
+	 * @return {boolean} TRUE if the user is a member of the group 
+	 * FALSE else
+	 */
+	isGroupMember: function(info){
+		return info.membership == "member" 
+			|| info.membership == "moderator" 
+			|| info.membership == "administrator";
+	},
+
+	/**
 	 * Check whether a user can create posts for a group or not
 	 * 
 	 * @param {Object} info Information about the target group
