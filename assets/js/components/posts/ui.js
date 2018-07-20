@@ -54,6 +54,13 @@ ComunicWeb.components.posts.ui = {
 			innerHTML: "Loading"
 		});
 
+		//Second user area
+		var secondUserArea = createElem2({
+			appendTo: userNameBlock,
+			type: "span",
+			class: "second-user-area"
+		});
+
 		//Add post description
 		var postDescription = createElem2({
 			appendTo: userBlock,
@@ -64,17 +71,103 @@ ComunicWeb.components.posts.ui = {
 		//Show the age of the post
 		postDescription.innerHTML = ComunicWeb.common.date.timeDiffToStr(info.post_time) + " ago";
 
-		//Load user informations
-		ComunicWeb.user.userInfos.getUserInfos(info.userID, function(result){
-			if(result.firstName){
-				userAccountImage.src = result.accountImage;
-				userName.innerHTML = result.firstName + " " + result.lastName;
 
-				userName.onclick = function(){
-					openUserPage(result);
-				}
+		/**
+		 * Apply post creator information
+		 * 
+		 * @param {Object} info Information about the user
+		 */
+		var applyUserInfo = function(info){
+			userAccountImage.src = info.accountImage;
+			userName.innerHTML = info.firstName + " " + info.lastName;
+
+			userName.onclick = function(){
+				openUserPage(info);
 			}
-		});
+		}
+
+		/**
+		 * Add a separator between to name (user/group) in name header
+		 */
+		var addSeparatorForUsers = function(){
+			add_space(secondUserArea);
+			createElem2({
+				appendTo: secondUserArea,
+				type: "span",
+				class: "fa fa-caret-right"
+			});
+			add_space(secondUserArea);
+		}
+
+		//Determine the source of the post
+		//User page
+		if(info.user_page_id != 0){
+
+			//Determine which users to get information about
+			var usersToFetch = Array();
+			usersToFetch.push(info.userID);
+			if(info.user_page_id != info.userID)
+				usersToFetch.push(info.user_page_id)
+
+			getMultipleUsersInfos(usersToFetch, function(result){
+				if(result.error) {
+					ComunicWeb.debug.logMessage("Could not get some users info!");
+					userName.innerHTML = "Error";
+					return;
+				}
+
+				//Apply main user information
+				applyUserInfo(result["user-"+info.userID]);
+
+				//Add second user (if required)
+				if(info.user_page_id != info.userID){
+
+					//Add separator
+					addSeparatorForUsers();
+
+					//Add second user information
+					var infoSecondUser = result["user-"+info.user_page_id];
+					var secondUser = createElem2({
+						appendTo: secondUserArea,
+						type: "a",
+						innerHTML: userFullName(infoSecondUser)
+					});
+					secondUser.addEventListener("click", function(e){
+						openUserPage(infoSecondUser);
+					});
+				}
+
+			});
+		}
+
+
+		//Group page
+		if(info.group_id != 0){
+
+			//Get information about the user who created the post
+			ComunicWeb.user.userInfos.getUserInfos(info.userID, function(result){
+				if(result.firstName)
+					applyUserInfo(result);
+			});
+
+			//Get information about the related group
+			addSeparatorForUsers();
+
+			getInfoGroup(info.group_id, function(info){
+				ComunicWeb.debug.logMessage("Could not get a group info!");
+
+				//Add group information
+				var groupLink = createElem2({
+					appendTo: secondUserArea,
+					type: "a",
+					innerHTML: info.name
+				});
+				groupLink.addEventListener("click", function(e){
+					openGroupPage(info);
+				});
+			});
+		}
+
 
 		//Create top right area
 		var topRightArea = createElem2({
