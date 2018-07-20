@@ -151,3 +151,23 @@ function openConversation(id){
 function notify(message, type, duration, title){
     ComunicWeb.common.notificationSystem.showNotification(message, type, duration, title)
 }
+
+/**
+ * Get information about a single group
+ * 
+ * @param {Number} id The ID of the group to fetch
+ * @param {Function} callback
+ */
+function getInfoGroup(id, callback){
+    ComunicWeb.components.groups.info.getInfo(id, callback);
+}
+
+/**
+ * Get information about multiple groups
+ * 
+ * @param {Array} IDs The IDs of the groups to get information about
+ * @param {Function} callback Callback to call once we have information about the group
+ */
+function getInfoMultipleGroups(IDs, callback){
+    ComunicWeb.components.groups.info.getInfoMultiple(IDs, callback);
+}

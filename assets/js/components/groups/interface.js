@@ -65,6 +65,21 @@ ComunicWeb.components.groups.interface = {
 	},
 
 	/**
+	 * Get information about multiple groups
+	 * 
+	 * @param {Array} list The IDs of the groups to get
+	 * @param {Function} callback
+	 */
+	getInfoMultiple: function(list, callback){
+		//Perform the request over the API
+		var apiURI = "groups/get_multiple_info";
+		var params = {
+			list: list
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Get advanced information about a group
 	 * 
 	 * @param {Number} id The ID of the target group

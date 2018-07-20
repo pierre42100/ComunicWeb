@@ -1013,6 +1013,13 @@ var ComunicWeb = {
 			utils: {
 				//TODO : implement
 			},
+
+			/**
+			 * Groups information
+			 */
+			info: {
+				//TODO : implement
+			},
 		},
 
 		/**
