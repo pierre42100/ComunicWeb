@@ -60,9 +60,11 @@ ComunicWeb.components.posts.interface = {
 	 * Get the list of the latest posts
 	 * 
 	 * @param {number} lastPostID The ID of the loast loaded post (or 0)
+	 * @param {boolean} include_groups Specify whether groups posts should be
+	 * included or not
 	 * @param {function} callback What to do when we got response
 	 */
-	get_latest: function(lastPostID, callback){
+	get_latest: function(lastPostID, include_groups, callback){
 
 		if(lastPostID > 0)
 			lastPostID--;
@@ -70,7 +72,8 @@ ComunicWeb.components.posts.interface = {
 		//Prepare API request
 		var APIuri = "posts/get_latest";
 		var params = {
-			startFrom: lastPostID
+			startFrom: lastPostID,
+			include_groups: include_groups
 		};
 
 		//Perform the request

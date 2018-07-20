@@ -92,7 +92,7 @@ ComunicWeb.pages.latestPosts.main = {
 	_load_list: function(target){
 
 		//Perform a request on the server to get the list of latest posts
-		ComunicWeb.components.posts.interface.get_latest(this._last_post_id, function(response){
+		ComunicWeb.components.posts.interface.get_latest(this._last_post_id, true, function(response){
 
 			//Check for errors - display a modal
 			if(response.error){
