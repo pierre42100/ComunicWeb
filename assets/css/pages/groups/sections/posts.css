@@ -3,3 +3,7 @@
  *
  * @author Pierre HUBERT
  */
+
+.box-group-posts .second-user-area {
+	display: none;
+}

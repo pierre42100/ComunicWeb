@@ -207,6 +207,7 @@ class Dev {
 			"css/pages/userPage/main.css",
 			"css/pages/userPage/accessForbidden.css",
 			"css/pages/userPage/profileInfos.css",
+			"css/pages/userPage/posts.css",
 
 			//Post page
 			"css/pages/postPage/main.css",

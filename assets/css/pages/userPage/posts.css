@@ -1,0 +1,9 @@
+/**
+ * User posts stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.box-user-posts .second-user-area {
+	display: none;
+}

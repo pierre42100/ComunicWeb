@@ -33,7 +33,7 @@ ComunicWeb.pages.userPage.posts = {
 		var postsBlock = createElem2({
 			appendTo: target,
 			type: "div",
-			class: "box box-primary"
+			class: "box box-primary box-user-posts"
 		});
 
 		var postsBody = createElem2({

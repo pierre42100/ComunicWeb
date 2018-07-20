@@ -37,7 +37,7 @@ ComunicWeb.pages.groups.sections.posts = {
 		var postsBody = createElem2({
 			appendTo: target,
 			type: "div",
-			class: "box box-primary"
+			class: "box box-primary box-group-posts"
 		});
 
 		var postsBody = createElem2({
