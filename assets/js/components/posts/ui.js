@@ -12,7 +12,7 @@ ComunicWeb.components.posts.ui = {
 	 * @param {Object} infos Informations about the post
 	 * @param {HTMLElement} target The target for the post
 	 */
-	display_post: function(infos, target){
+	display_post: function(info, target){
 
 		//Check if it is required to create a post root element or not
 		if(target.className.includes("post"))
@@ -62,10 +62,10 @@ ComunicWeb.components.posts.ui = {
 		});
 
 		//Show the age of the post
-		postDescription.innerHTML = ComunicWeb.common.date.timeDiffToStr(infos.post_time) + " ago";
+		postDescription.innerHTML = ComunicWeb.common.date.timeDiffToStr(info.post_time) + " ago";
 
 		//Load user informations
-		ComunicWeb.user.userInfos.getUserInfos(infos.userID, function(result){
+		ComunicWeb.user.userInfos.getUserInfos(info.userID, function(result){
 			if(result.firstName){
 				userAccountImage.src = result.accountImage;
 				userName.innerHTML = result.firstName + " " + result.lastName;
@@ -92,10 +92,10 @@ ComunicWeb.components.posts.ui = {
 
 
 		//Get informations about the current visibility level
-		var visibilityInfos = ComunicWeb.components.posts.visibilityLevels[infos.visibility_level];
+		var visibilityInfos = ComunicWeb.components.posts.visibilityLevels[info.visibility_level];
 
 		//Check user level access
-		if(infos.user_access != "full"){
+		if(info.user_access != "full"){
 
 			//The user can't change the visibility level of the post
 			//Display visibility level as a simple icon
@@ -137,13 +137,13 @@ ComunicWeb.components.posts.ui = {
 
 			//Process all visibility levels
 			//For pages only
-			if(infos.user_page_id != 0){
+			if(info.user_page_id != 0){
 				var privateChoice = this._add_visibility_menu_item(visibilityDropdown, "private");
 				var friendsChoice = this._add_visibility_menu_item(visibilityDropdown, "friends");
 			}
 
 			//For groups only
-			if(infos.group_id != 0){
+			if(info.group_id != 0){
 				var membersChoice = this._add_visibility_menu_item(visibilityDropdown, "members");
 			}
 
@@ -159,7 +159,7 @@ ComunicWeb.components.posts.ui = {
 				visibilityChooseButton.disabled = true;
 
 				//Make a request on the server to update the level
-				ComunicWeb.components.posts.interface.set_visibility_level(infos.ID, new_level, function(response){
+				ComunicWeb.components.posts.interface.set_visibility_level(info.ID, new_level, function(response){
 
 					//Unlock button
 					visibilityChooseButton.disabled = false;
@@ -177,12 +177,12 @@ ComunicWeb.components.posts.ui = {
 			}
 
 			//Set the items lives
-			if(infos.user_page_id != 0){
+			if(info.user_page_id != 0){
 				privateChoice.onclick = onVisibilityLevelChoice;
 				friendsChoice.onclick = onVisibilityLevelChoice;
 			}
 			
-			if(infos.group_id != 0)
+			if(info.group_id != 0)
 				membersChoice.onclick = onVisibilityLevelChoice;
 
 			publicChoice.onclick = onVisibilityLevelChoice;
@@ -190,7 +190,7 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//Add a button to edit the post if the user is allowed
-		if(infos.user_access == "full"){
+		if(info.user_access == "full"){
 
 			var editButtonDiv = createElem2({
 				appendTo: topRightArea,
@@ -209,13 +209,13 @@ ComunicWeb.components.posts.ui = {
 			editButtonLink.onclick = function(){
 
 				//Open post editor
-				ComunicWeb.components.posts.edit.open(infos, postRoot);
+				ComunicWeb.components.posts.edit.open(info, postRoot);
 
 			};
 		}
 
 		//Add a button to delete the post if the user is allowed
-		if(infos.user_access == "full" || infos.user_access == "intermediate"){
+		if(info.user_access == "full" || info.user_access == "intermediate"){
 
 			var deleteButtonDiv = createElem2({
 				appendTo: topRightArea,
@@ -242,7 +242,7 @@ ComunicWeb.components.posts.ui = {
 					postRoot.style.visibility = "hidden";
 
 					//Delete the post
-					ComunicWeb.components.posts.interface.delete(infos.ID, function(response){
+					ComunicWeb.components.posts.interface.delete(info.ID, function(response){
 
 						//Check for error
 						if(response.error){
@@ -267,25 +267,25 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//Add post attachement (if any)
-		if(infos.kind == "text"){
+		if(info.kind == "text"){
 			//Do nothing
 		}
 
 		//In case of image
-		else if(infos.kind == "image"){
+		else if(info.kind == "image"){
 
 			//Image link
 			var imageLink = createElem2({
 				appendTo: postRoot,
 				type:"a",
-				href: infos.file_path_url,
+				href: info.file_path_url,
 			});
 
 			//Image element
 			createElem2({
 				appendTo: imageLink,
 				type: "img",
-				src: infos.file_path_url,
+				src: info.file_path_url,
 				class: "post-image"
 			});
 
@@ -299,7 +299,7 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//In case of video
-		else if(infos.kind == "movie"){
+		else if(info.kind == "movie"){
 
 			var videoContainer = createElem2({
 				appendTo: postRoot,
@@ -319,9 +319,9 @@ ComunicWeb.components.posts.ui = {
 			var video_src = createElem2({
 				appendTo: video,
 				type: "source",
-				src: infos.video_info.url
+				src: info.video_info.url
 			});
-			video_src.type = infos.video_info.file_type;
+			video_src.type = info.video_info.file_type;
 
 			//Enable videoJS
 			//videojs(video);
@@ -329,14 +329,14 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//In case of YouTube video
-		else if(infos.kind == "youtube"){
+		else if(info.kind == "youtube"){
 
 			//Create iframe
 			var youtube_iframe = createElem2({
 				appendTo: postRoot,
 				type: "iframe",
 				class: "post-youtube",
-				src: "https://www.youtube-nocookie.com/embed/"+infos.file_path+"?rel=0"
+				src: "https://www.youtube-nocookie.com/embed/"+info.file_path+"?rel=0"
 			});
 			youtube_iframe.setAttribute("frameborder", 0);
 			youtube_iframe.setAttribute("gesture", "media");
@@ -346,7 +346,7 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//In case of PDF
-		else if(infos.kind == "pdf"){
+		else if(info.kind == "pdf"){
 
 			//Create PDF button
 			var buttonContainer = createElem2({
@@ -359,7 +359,7 @@ ComunicWeb.components.posts.ui = {
 				appendTo: buttonContainer,
 				type: "a",
 				class: "btn btn-app",
-				href: infos.file_path_url,
+				href: info.file_path_url,
 			});
 			button.target = "_blank";
 
@@ -378,7 +378,7 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//In case of weblink
-		else if(infos.kind == "weblink"){
+		else if(info.kind == "weblink"){
 
 			var linkContainer = createElem2({
 				appendTo: postRoot,
@@ -390,7 +390,7 @@ ComunicWeb.components.posts.ui = {
 			var link_img = createElem2({
 				appendTo: linkContainer,
 				type: "img",
-				src: (infos.link_image != null ? infos.link_image : ComunicWeb.__config.assetsURL + "img/world.png"),
+				src: (info.link_image != null ? info.link_image : ComunicWeb.__config.assetsURL + "img/world.png"),
 				class: "attachment-img",
 			});
 
@@ -399,7 +399,7 @@ ComunicWeb.components.posts.ui = {
 				appendTo: linkContainer,
 				type: "h4",
 				class: "attachment-heading",
-				innerHTML: (infos.link_title != null ? infos.link_title : "Web page")
+				innerHTML: (info.link_title != null ? info.link_title : "Web page")
 			});
 
 
@@ -413,17 +413,17 @@ ComunicWeb.components.posts.ui = {
 			var link_a_url = createElem2({
 				appendTo: link_attachment_text,
 				type: "a",
-				href: infos.link_url,
-				innerHTML: infos.link_url
+				href: info.link_url,
+				innerHTML: info.link_url
 			});
 			link_a_url.target = "_blank";
 
 			//Add description (if any)
-			if(infos.link_description != null){
+			if(info.link_description != null){
 				var link_description = createElem2({
 					appendTo: link_attachment_text,
 					type: "p",
-					innerHTML: infos.link_description
+					innerHTML: info.link_description
 				});
 			}
 
@@ -431,7 +431,7 @@ ComunicWeb.components.posts.ui = {
 		}
 
 		//In case of countdown timer
-		else if (infos.kind == "countdown"){
+		else if (info.kind == "countdown"){
 
 			//Create countdown target
 			var target = createElem2({
@@ -441,17 +441,17 @@ ComunicWeb.components.posts.ui = {
 			});
 
 			//Initialize countdown timer
-			ComunicWeb.components.countdown.init(infos.time_end, target);
+			ComunicWeb.components.countdown.init(info.time_end, target);
 		}
 
 		//In case of survey
-		else if(infos.kind == "survey"){
+		else if(info.kind == "survey"){
 			
 			//Add survey question
 			var surveyQuestion = createElem2({
 				appendTo: postRoot,
 				type: "h4",
-				innerHTML: infos.data_survey.question,
+				innerHTML: info.data_survey.question,
 				class: "post-survey-question"
 			});
 
@@ -542,7 +542,7 @@ ComunicWeb.components.posts.ui = {
 			];
 
 			var surveyData = [];
-			var survey_choices = infos.data_survey.choices;
+			var survey_choices = info.data_survey.choices;
 			var color_id = 0;
 			var i;
 			for (i in survey_choices){
@@ -600,14 +600,14 @@ ComunicWeb.components.posts.ui = {
 			if(signed_in()){
 
 				//Check if the user gave a response to the survey
-				if(infos.data_survey.user_choice != 0){
+				if(info.data_survey.user_choice != 0){
 					
 					//Create a text to display user choice
 					var choosedResponseElem = createElem2({
 						appendTo: surveyResponse,
 						class: "survey-given-response",
 						type: "p",
-						innerHTML: "Your response: " + infos.data_survey.choices[infos.data_survey.user_choice].name + " "
+						innerHTML: "Your response: " + info.data_survey.choices[info.data_survey.user_choice].name + " "
 					});
 
 					//Offer the user to cancel his choice
@@ -627,7 +627,7 @@ ComunicWeb.components.posts.ui = {
 								return;
 							
 							//Make a request on the server
-							ComunicWeb.components.posts.interface.cancel_survey_response(infos.ID, function(response){
+							ComunicWeb.components.posts.interface.cancel_survey_response(info.ID, function(response){
 
 								//Check for errors
 								if(response.error){
@@ -636,7 +636,7 @@ ComunicWeb.components.posts.ui = {
 								}
 
 								//Reload post
-								ComunicWeb.components.posts.actions.reload_post(infos.ID, postRoot);
+								ComunicWeb.components.posts.actions.reload_post(info.ID, postRoot);
 
 							});
 
@@ -698,7 +698,7 @@ ComunicWeb.components.posts.ui = {
 						chooseButton.disabled = true;
 
 						//Perform a request on the server
-						ComunicWeb.components.posts.interface.survey_send_response(infos.ID, choice_id, function(response){
+						ComunicWeb.components.posts.interface.survey_send_response(info.ID, choice_id, function(response){
 
 							//Unlock button
 							chooseButton.disabled = false;
@@ -710,7 +710,7 @@ ComunicWeb.components.posts.ui = {
 							}
 
 							//Reload post
-							ComunicWeb.components.posts.actions.reload_post(infos.ID, postRoot);
+							ComunicWeb.components.posts.actions.reload_post(info.ID, postRoot);
 
 
 						});
@@ -723,8 +723,8 @@ ComunicWeb.components.posts.ui = {
 		//If the kind of post was not implemented
 		else {
 			//Log error
-			ComunicWeb.debug.logMessage("Not implemented kind of post: " + infos.kind);
-			ComunicWeb.common.error.submitError("notice", "Unimplemented kind of post: " + infos.kind, 0, {});
+			ComunicWeb.debug.logMessage("Not implemented kind of post: " + info.kind);
+			ComunicWeb.common.error.submitError("notice", "Unimplemented kind of post: " + info.kind, 0, {});
 		}
 
 
@@ -733,7 +733,7 @@ ComunicWeb.components.posts.ui = {
 			appendTo: postRoot,
 			type: "div",
 			class: "post_content",
-			innerHTML: infos.content
+			innerHTML: info.content
 		});
 
 		//Parse emojies
@@ -756,21 +756,21 @@ ComunicWeb.components.posts.ui = {
 
 		var userLiking = null;
 		if(signed_in()){
-			userLiking = infos.userlike;
+			userLiking = info.userlike;
 		}
 
 		//Call component
 		ComunicWeb.components.like.button.display(
 			"post",
-			infos.ID,
-			infos.likes,
+			info.ID,
+			info.likes,
 			userLiking,
 			likesTarget
 		);
 
 		//Load comments (if possible)
-		if(infos.comments != null)
-			ComunicWeb.components.comments.ui.display(infos.comments, infos.ID, postRoot);
+		if(info.comments != null)
+			ComunicWeb.components.comments.ui.display(info.comments, info.ID, postRoot);
 	},
 
 	/**
