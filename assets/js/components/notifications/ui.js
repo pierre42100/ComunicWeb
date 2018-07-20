@@ -13,8 +13,9 @@ ComunicWeb.components.notifications.ui = {
 	 * @param {HTMLElement} target The target of the notification
 	 * @param {Object} users Informations about users that might be required
 	 * to display the notification
+	 * @param {Object} groups Information about the potential related groups
 	 */
-	display_notification: function(data, target, users){
+	display_notification: function(data, target, users, groups){
 
 		//Generate the informations about the notifications
 		var from_user = users["user-"+data.from_user_id];
@@ -49,6 +50,7 @@ ComunicWeb.components.notifications.ui = {
 		message += " ";
 
 		//Notification target
+		//User page
 		if(data.from_container_type == "user_page"){
 
 			if(data.from_user_id == data.from_container_id)
@@ -57,6 +59,13 @@ ComunicWeb.components.notifications.ui = {
 				message += "on "+userFullName(users["user-"+data.from_container_id])+"'s page";
 
 		}
+
+		//Group page
+		if(data.from_container_type == "group_page"){
+			message += "on the group "+groups[data.from_container_id].name+".";
+		}
+		
+
 
 		//Create notification action
 		var action = function(){

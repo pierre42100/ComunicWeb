@@ -166,24 +166,34 @@ ComunicWeb.components.notifications.dropdown = {
 					return;
 				}
 
+				//Get information about the groups
+				var groups_id = ComunicWeb.components.notifications.utils.get_groups_id(result);
+				getInfoMultipleGroups(groups_id, function(groups){
 
-				//Empty the target list
-				list.innerHTML = "";
+					//Check for errors
+					if(groups.error)
+						return notify("Could not get groups information!", "danger");
 
-				//Process the list of notifications
-				for (var i = 0; i < result.length; i++) {
-					const notification = result[i];
-					
-					//Display the notification
-					ComunicWeb.components.notifications.ui.display_notification(notification, list, users);
-				}
+					//Empty the target list
+					list.innerHTML = "";
 
-				//Display a message if there isn't any notification to display
-				if(result.length == 0){
+					//Process the list of notifications
+					for (var i = 0; i < result.length; i++) {
+						const notification = result[i];
+						
+						//Display the notification
+						ComunicWeb.components.notifications.ui.display_notification(notification, list, users, groups);
+					}
 
-					list.innerHTML = "<li class='no-notification-msg'>You do not have any notification yet.</li>";
+					//Display a message if there isn't any notification to display
+					if(result.length == 0){
 
-				}
+						list.innerHTML = "<li class='no-notification-msg'>You do not have any notification yet.</li>";
+
+					}
+
+				});
+				
 
 			}, false);
 			

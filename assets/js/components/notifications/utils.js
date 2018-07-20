@@ -28,6 +28,27 @@ ComunicWeb.components.notifications.utils = {
 
 		return users;
 
-	}
+	},
+
+	/**
+	 * Get the ID of the groups related to the notifications
+	 * 
+	 * @param {Array} list The list to process
+	 * @return {Array} The list of target groups IDs
+	 */
+	get_groups_id: function(list){
+
+		var groups = [];
+
+		list.forEach(function(notif){
+
+			if(!groups.includes(notif.from_container_id) && notif.from_container_type == "group_page")
+				groups.push(notif.from_container_id);
+
+		});
+
+		return groups;
+
+	},
 
 }
