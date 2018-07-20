@@ -20,6 +20,12 @@ header .dropdown .fa-gear {
 	vertical-align: middle;
 }
 
+@media (max-width: 360px) {
+	.main-header[forActiveUser="true"] .navbar-brand {
+		display: none;
+	}
+}
+
 @media (max-width: 767px) {
   .skin-blue .main-header .navbar .dropdown-user-menu-action .dropdown-menu li a {
     color: #333 !important;

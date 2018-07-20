@@ -91,14 +91,12 @@ ComunicWeb.components.menuBar.common = {
 				var navbarCollapsIcon = createElem("i", navbarCollapsedButton);
 				navbarCollapsIcon.className = "fa fa-bars";
 
-		//Now we need to know if user is logged in or not
-		var userLoggedIn = ComunicWeb.user.userLogin.getUserLoginState();
 
 		//Save login information in menubar before continuing
-		menuContainer.setAttribute("forActiveUser", userLoggedIn);
+		menuContainer.setAttribute("forActiveUser", signed_in());
 
 		//Call specific menu
-		if(userLoggedIn){
+		if(signed_in()){
 			//Call authenticated menubar
 			ComunicWeb.components.menuBar.authenticated.addElements(containerElem);
 		}
