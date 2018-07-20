@@ -22,7 +22,7 @@
 
         <!-- Open Graph content -->
         <meta property="og:title" content="Comunic"/>
-        <meta property ="og:description" content="A free social network that respect your privacy."/>
+        <meta property="og:description" content="A free social network that respect your privacy."/>
         <meta property="og:image" content="{ASSETS_URL}img/favicon.png"/>
 
         <!--3rdPary Stylesheet requirements -->
