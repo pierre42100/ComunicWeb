@@ -304,8 +304,10 @@ class Dev {
 			//Mail caching
 			"js/components/mailCaching.js",
 			
+			
 			//Search form
-			"js/components/searchForm/searchForm.js",
+			"js/components/search/interface.js",
+			"js/components/search/form.js",
 
 			//Settings
 			"js/components/settings/interface.js",

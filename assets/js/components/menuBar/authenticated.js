@@ -220,6 +220,6 @@ ComunicWeb.components.menuBar.authenticated = {
 		dropdownContainer.className = "dropdown-menu";
 
 		//Initializate menu
-		ComunicWeb.components.searchForm.init(searchInput, dropdownContainer);
+		ComunicWeb.components.search.form.init(searchInput, dropdownContainer);
 	}
 };

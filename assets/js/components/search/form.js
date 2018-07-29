@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.searchForm = {
+ComunicWeb.components.search.form = {
 
 	/**
 	 * Store the text input area
@@ -45,7 +45,7 @@ ComunicWeb.components.searchForm = {
 
 		//Make input text lives
 		textInput.onkeyup = function(){
-			ComunicWeb.components.searchForm.ontextchange(textInput, searchResultBox, searchBoxContainer, footerLink);
+			ComunicWeb.components.search.form.ontextchange(textInput, searchResultBox, searchBoxContainer, footerLink);
 		}
 
 		//Cache textinput area
@@ -108,7 +108,7 @@ ComunicWeb.components.searchForm = {
 					//We show user only if we have informations about him
 					if(usersInfos["user-"+userID])
 						//Display user informations
-						ComunicWeb.components.searchForm.displayUser(usersInfos["user-"+userID], menuList);
+						ComunicWeb.components.search.form.displayUser(usersInfos["user-"+userID], menuList);
 
 				}
 
@@ -152,7 +152,7 @@ ComunicWeb.components.searchForm = {
 
 		//Make user link element live
 		userLinkElement.onclick = function() {
-			ComunicWeb.components.searchForm.close();
+			ComunicWeb.components.search.form.close();
 			openUserPage(userInfos);
 		}
 	},

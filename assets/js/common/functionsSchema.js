@@ -607,8 +607,22 @@ var ComunicWeb = {
 		/**
 		 * Search form component
 		 */
-		searchForm: {
-			//TODO : implement
+		search: {
+			
+			/**
+			 * Search form
+			 */
+			form: {
+				//TODO : implement
+			},
+
+			/**
+			 * Search interface
+			 */
+			interface: {
+				//TODO : implement
+			}
+
 		},
 
 		/**
