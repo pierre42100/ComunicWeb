@@ -41,6 +41,7 @@ ComunicWeb.components.search.form = {
 		footerLink.innerHTML = "See more results";
 		footerLink.onclick = function(){
 			openPage("search?q=" + this.getAttribute("data-searchValue"));
+			ComunicWeb.components.search.form.close();
 		}
 
 		//Make input text lives
