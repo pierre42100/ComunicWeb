@@ -7,7 +7,7 @@
 ComunicWeb.pages.groups.main = {
 
 	/**
-	 * Open settings page
+	 * Open groups page
 	 * 
 	 * @param {object} args Optionnal arguments
 	 * @param {HTMLElement} target The target for the page
