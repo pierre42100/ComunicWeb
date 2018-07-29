@@ -621,7 +621,21 @@ var ComunicWeb = {
 			 */
 			interface: {
 				//TODO : implement
-			}
+			},
+
+			/**
+			 * Search results UI
+			 */
+			ui: {
+				//TODO : implement
+			},
+
+			/**
+			 * Search utilities
+			 */
+			utils: {
+				//TODO : implement
+			},
 
 		},
 

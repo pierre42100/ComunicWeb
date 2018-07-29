@@ -308,6 +308,8 @@ class Dev {
 			//Search form
 			"js/components/search/interface.js",
 			"js/components/search/form.js",
+			"js/components/search/ui.js",
+			"js/components/search/utils.js",
 
 			//Settings
 			"js/components/settings/interface.js",

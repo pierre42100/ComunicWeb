@@ -79,82 +79,48 @@ ComunicWeb.components.search.form = {
 		footerLink.setAttribute("data-searchValue", textInput.value);
 
 		//Perform a request on the server
-		apiURI = "search/user";
-		params = {
-			query: textInput.value,
-		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, function(response){
+		ComunicWeb.components.search.interface.global(textInput.value, function(results){
 			
 			//Continue only in case of success
-			if(response.error)
+			if(results.error)
 				return false;
 			
-			//Preload users informations
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(response, function(usersInfos){
+			//Get information about related groups and users
+			getMultipleUsersInfos(ComunicWeb.components.search.utils.getUsersId(results), function(usersInfo){
 
-				//Remove any remainging element in searchResultBox
-				emptyElem(searchBoxContainer);
+				//Check for errors
+				if(usersInfo.error)
+					return;
+				
+				getInfoMultipleGroups(ComunicWeb.components.search.utils.getGroupsId(results), function(groupsInfo){
 
-				//Create menu list
-				var menuList = createElem("ul", searchBoxContainer);
-				menuList.className = "menu";
+					//Remove any remainging element in searchResultBox
+					emptyElem(searchBoxContainer);
 
-				//Process each result
-				for(i in response){
+					//Create menu list
+					var menuList = createElem("ul", searchBoxContainer);
+					menuList.className = "menu";
 
-					//Retrieve userID
-					var userID = response[i];
-					
-					//We show user only if we have informations about him
-					if(usersInfos["user-"+userID])
-						//Display user informations
-						ComunicWeb.components.search.form.displayUser(usersInfos["user-"+userID], menuList);
+					if(groupsInfo.error)
+						return;
 
-				}
+					//Process the list of results
+					results.forEach(function(result){
+						ComunicWeb.components.search.ui.display(result, usersInfo, groupsInfo, function(){
+							ComunicWeb.components.search.form.close();
+						}, menuList);
+					});
 
-				//Enable slimscroll
-				$(menuList).slimScroll({
-					height: '100%'
+					//Enable slimscroll
+					$(menuList).slimScroll({
+						height: '100%'
+					});
 				});
+
 			});
+			
 		});
 		
-	},
-
-	/**
-	 * Display a user on the result list
-	 * 
-	 * @param {Integer} userInfos Informations about the user
-	 * @param {HTMLElement} menuList The target list menu
-	 * @return {Boolean} True for a success
-	 */
-	displayUser: function(userInfos, menuList){
-		//Create user element
-		var userListElement = createElem("li", menuList);
-		var userLinkElement = createElem("a", userListElement);
-		
-		//User account image
-		var userAccountImageContainer = createElem("div", userLinkElement);
-		userAccountImageContainer.className = "pull-left";
-
-		var userImage = createElem("img", userAccountImageContainer);
-		userImage.className = "img-circle";
-		userImage.alt = "User image";
-		userImage.src = path_assets("img/defaultAvatar.png");
-
-		//User name
-		var usernameElem = createElem("h4", userLinkElement);
-		usernameElem.innerHTML = "Loading...";
-			
-		//Apply user informations
-		userImage.src = userInfos.accountImage;
-		usernameElem.innerHTML = userInfos.firstName + " " + userInfos.lastName;
-
-		//Make user link element live
-		userLinkElement.onclick = function() {
-			ComunicWeb.components.search.form.close();
-			openUserPage(userInfos);
-		}
 	},
 
 	/**
