@@ -23,6 +23,7 @@
 	margin: auto;
 }
 
+.big-box-conversation .direct-chat-text .a,
 .big-box-conversation .direct-chat-text a {
 	color: white;
 }
