@@ -1516,5 +1516,19 @@ var ComunicWeb = {
 			},
 
 		},
+
+		/**
+		 * Search page
+		 */
+		search: {
+
+			/**
+			 * Main page
+			 */
+			main: {
+				//TODO : implement
+			},
+
+		},
 	},
 };

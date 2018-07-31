@@ -134,6 +134,15 @@ ComunicWeb.pagesList = {
     },
 
     /**
+     * Search page
+     */
+    search: {
+        pageTitle: "Search",
+        methodHandler: "ComunicWeb.pages.search.main.open",
+        disableMenus: false
+    },
+
+    /**
      * 404 Page not found
      */
     notFound: {

@@ -255,7 +255,10 @@ class Dev {
 			"css/pages/passwordForgotten/mailAdmin.css",
 
 			//Password reset page
-			"css/pages/resetPassword/main.css"
+			"css/pages/resetPassword/main.css",
+
+			//Search page
+			"css/pages/search/main.css"
 	);
 
 	/**
@@ -485,6 +488,9 @@ class Dev {
 
 			//Virtual directory page
 			"js/pages/virtualDirectory/page.js",
+
+			//Search page
+			"js/pages/search/main.js",
 
 		//Create shortcuts for common functions
 		"js/common/shorcuts.js",
