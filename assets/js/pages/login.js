@@ -51,8 +51,8 @@ ComunicWeb.pages.login = {
 			//Enable iCheck
 			$(function () {
 				$('input').iCheck({
-				checkboxClass: 'icheckbox_square-blue',
-				radioClass: 'iradio_square-blue',
+				checkboxClass: 'icheckbox_flat-blue',
+				radioClass: 'iradio_flat-blue',
 				increaseArea: '20%' // optional
 				});
 			});
