@@ -199,9 +199,10 @@ ComunicWeb.components.menuBar.authenticated = {
 	 * @return {HTMLElement} The user element
 	 */
 	addSearchForm: function(navbarElem){
-		//Create form element
+
+		//Create form element (large screens)
 		var searchForm = createElem("li", navbarElem);
-		searchForm.className = "dropdown navbar-form navbar-left messages-menu";
+		searchForm.className = "dropdown navbar-form navbar-left messages-menu hidden-xs";
 		searchForm.setAttribute("role", "search");
 
 		//Create form group
@@ -221,5 +222,23 @@ ComunicWeb.components.menuBar.authenticated = {
 
 		//Initializate menu
 		ComunicWeb.components.search.form.init(searchInput, dropdownContainer);
+
+		//Create search link (small screen)
+		var searchLinkLi = createElem2({
+			appendTo: navbarElem,
+			type: "li",
+			class: "navbar-left messages-menu visible-xs"
+		});
+
+		var searchLink = createElem2({
+			appendTo: searchLinkLi,
+			type: "a",
+			innerHTML: "Search"
+		});
+
+		searchLink.addEventListener("click", function(){
+			openPage("search");
+		});
+		
 	}
 };
