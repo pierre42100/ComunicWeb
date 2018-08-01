@@ -27,6 +27,7 @@
 
 .groups-main-page .group-item .group-name {
     width: 180px;
+    vertical-align: middle;
 }
 
 .groups-main-page .group-item .buttons-area {
@@ -39,4 +40,15 @@
 
 .groups-main-page .group-item .buttons-area .fa:active {
     color: black;
+}
+
+@media screen and (max-width: 450px){
+
+    .groups-main-page {
+        max-width: 317px;
+    }
+
+    .groups-main-page .group-item .group-name {
+        width: 120px;
+    }
 }
