@@ -44,6 +44,9 @@ ComunicWeb.components.notifications.utils = {
 
 			if(!groups.includes(notif.from_container_id) && notif.from_container_type == "group_page")
 				groups.push(notif.from_container_id);
+			
+			if(!groups.includes(notif.on_elem_id) && notif.on_elem_type == "group_membership")
+				groups.push(notif.on_elem_id);
 
 		});
 

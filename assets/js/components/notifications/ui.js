@@ -37,6 +37,20 @@ ComunicWeb.components.notifications.ui = {
 			message += "accepted your friendship request.";
 		if(data.type == "rejected_friend_request")
 			message += "rejected your friendship request.";
+		
+		//About group membership
+		if(data.type == "sent_group_membership_invitation")
+			message += "invited you to join the group";
+		if(data.type == "accepted_group_membership_invitation")
+			message += "accepted his invitation to join the group";
+		if(data.type == "rejected_group_membership_invitation")
+			message += "rejected his invitation to join the group";
+		if(data.type == "sent_group_membership_request")
+			message += "sent a request to join the group";
+		if(data.type == "accepted_group_membership_request")
+			message += "accepted your request to join the group";
+		if(data.type == "rejected_group_membership_request")
+			message += "rejected your request to join the group";
 
 		//Generic element creation
 		if(data.type == "elem_created"){
@@ -65,7 +79,9 @@ ComunicWeb.components.notifications.ui = {
 			message += "on the group "+groups[data.from_container_id].name+".";
 		}
 		
-
+		//Group membership
+		if(data.on_elem_type == "group_membership")
+			message += groups[data.on_elem_id].name;
 
 		//Create notification action
 		var action = function(){
@@ -87,6 +103,17 @@ ComunicWeb.components.notifications.ui = {
 				
 				//Open user page
 				openUserPageFromID(data.from_user_id);
+
+			}
+
+			//For the group membership
+			if(data.on_elem_type == "group_membership"){
+
+				//Open appropriate page
+				if(data.type == "sent_group_membership_request")
+					openPage("groups/"+data.on_elem_id+"/members");
+				else
+					openGroupPage(groups[data.on_elem_id]);
 
 			}
 
