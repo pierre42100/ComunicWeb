@@ -61,6 +61,9 @@ ComunicWeb.pages.groups.pages.forbidden = {
      */
     display: function(id, result, target){
 
+        //Update page title
+        document.title = result.name;
+
         //Create a box to contain information about registration
         var box = createElem2({
             appendTo: target,
