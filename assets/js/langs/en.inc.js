@@ -73,4 +73,14 @@ ComunicWeb.common.langs.en = {
     _login_page_error_message: "Please check your usermail and password !",
     _login_page_bad_input: "Please check what you've typed !",
     _login_page_create_account_lnk: "Create an account",
+
+    //Create account page
+    form_create_account_title: "Create an account",
+    form_create_account_intro: "Use the following form to create an account and join the network : ",
+    form_create_account_first_name_label: "First name",
+    form_create_account_first_name_placeholder: "Your first name",
+    form_create_account_last_name_label: "Last name",
+    form_create_account_last_name_placeholder: "Your last name",
+    form_create_account_email_address_label: "Email address <small><i class='fa fa-warning'></i> Warning! You will not be able to change this later !</small>",
+    form_create_account_email_address_placeholder: "Your email address",
 }

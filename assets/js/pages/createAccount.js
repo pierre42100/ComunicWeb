@@ -37,14 +37,14 @@ ComunicWeb.pages.createAccount = {
 		createElem2({
 			appendTo: formRoot,
 			type: "h2",
-			innerHTML: "Create an account"
+			innerHTML: lang("form_create_account_title")
 		});
 
 		//Add a message
 		createElem2({
 			appendTo: formRoot,
 			type: "p",
-			innerHTML: "Use the following form to create an account and join the network : "
+			innerHTML: lang("form_create_account_intro")
 		});
 
 		//Create the message target
@@ -56,24 +56,24 @@ ComunicWeb.pages.createAccount = {
 		//Input user first name
 		var firstNameInput = createFormGroup({
 			target: formRoot,
-			label: "First name",
-			placeholder: "Your first name",
+			label: lang("form_create_account_first_name_label"),
+			placeholder: lang("form_create_account_first_name_placeholder"),
 			type: "text"
 		});
 
 		//Input user last name
 		var lastNameInput = createFormGroup({
 			target: formRoot,
-			label: "Last name",
-			placeholder: "Your last name",
+			label: lang("form_create_account_last_name_label"),
+			placeholder: lang("form_create_account_last_name_placeholder"),
 			type: "text"
 		});
 
 		//Input user email
 		var emailInput = createFormGroup({
 			target: formRoot,
-			label: "Email address <small><i class='fa fa-warning'></i> Warning! You will not be able to change this later !</small>",
-			placeholder: "Your email address",
+			label: lang("form_create_account_email_address_label"),
+			placeholder: lang("form_create_account_email_address_placeholder"),
 			type: "email"
 		});
 
