@@ -13,7 +13,7 @@
 			<h3>[[_landing_main_caption]]</h3>
 
 			<a class="btn btn-lg btn-primary" target="create_account">[[_landing_signup_link]]</a>
-			<a class="btn btn-lg btn-success" href="{about_url}">Learn more</a>
+			<a class="btn btn-lg btn-success" href="{about_url}">[[landing_page_learn_more]]</a>
 
 		</div>
 	</div>
