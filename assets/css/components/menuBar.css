@@ -20,9 +20,26 @@ header .dropdown .fa-gear {
 	vertical-align: middle;
 }
 
+.main-header .alternate-latest-posts-button {
+	display: none;
+}
+
 @media (max-width: 360px) {
 	.main-header[forActiveUser="true"] .navbar-brand {
 		display: none;
+	}
+
+	.main-header .alternate-latest-posts-button {
+		display: block;
+	}
+
+	.nav > li > a {
+		padding: 10px 10px;
+	}
+
+	.navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+		width: 100%;
+		left: 0px;
 	}
 }
 

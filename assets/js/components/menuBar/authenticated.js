@@ -32,6 +32,9 @@ ComunicWeb.components.menuBar.authenticated = {
 		//Add user name
 		this.addUserName(navbarRightElemList);
 
+		//Alternate latest posts button
+		this.addAlternateLatestPostsButton(navbarRightElemList);
+
 		//Add friends list button
 		this.addFriendListButton(navbarRightElemList);
 
@@ -126,6 +129,34 @@ ComunicWeb.components.menuBar.authenticated = {
 
 		//Return dropdown content element
 		return dropdownContent;
+	},
+
+	/**
+	 * Add alternate latest posts button 
+	 * (if the screen is too small to display "Comunic")
+	 * 
+	 * @param {HTMLElement} target The target for the ubutton
+	 */
+	addAlternateLatestPostsButton: function(target){
+		//Create button
+		var button = createElem2({
+			type: "li", 
+			appendTo: target,
+			class: "alternate-latest-posts-button"
+		});
+
+		//Create link
+		var link = createElem("a", button);
+		createElem2({
+			type: "i",
+			appendTo: link,
+			class: "fa fa-history"
+		});
+
+		//Makes link lives
+		link.addEventListener("click", function(){
+			openPage("latest");
+		});
 	},
 
 	/**
