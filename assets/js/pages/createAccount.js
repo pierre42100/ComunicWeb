@@ -80,23 +80,23 @@ ComunicWeb.pages.createAccount = {
 		//Input user password
 		var passwordInput = createFormGroup({
 			target: formRoot,
-			label: "Password",
-			placeholder: "Your password",
+			label: lang("form_create_account_password_label"),
+			placeholder: lang("form_create_account_password_placeholder"),
 			type: "password"
 		});
 
 		//Confirm user password
 		var confirmPasswordInput = createFormGroup({
 			target: formRoot,
-			label: "Confirm your password",
-			placeholder: "Your password",
+			label: lang("form_create_account_confirm_password_label"),
+			placeholder: lang("form_create_account_confirm_password_placeholder"),
 			type: "password"
 		});
 
 		//Terms of use must have been accepted
 		var siteTerms = createFormGroup({
 			target: formRoot,
-			label: "I have read and accepted the <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/terms/' target='_blank'>terms of use of the network</a>",
+			label: lang("form_create_account_terms_label", [ComunicWeb.__config.aboutWebsiteURL+"about/terms/"]), 
 			type: "checkbox"
 		});
 
@@ -110,7 +110,7 @@ ComunicWeb.pages.createAccount = {
 			appendTo: submitButtonContainer,
 			type: "button",
 			class: "btn btn-primary",
-			innerHTML: "Create the account"
+			innerHTML: lang("form_create_account_submit")
 		});
 
 		//Add bottom links area
@@ -124,7 +124,7 @@ ComunicWeb.pages.createAccount = {
 		var loginLink = createElem2({
 			appendTo: bottomLinks,
 			type: "a",
-			innerHTML: "Login with an existing account"
+			innerHTML: lang("form_create_account_login_with_existing")
 		});
 		loginLink.onclick = function(){
 			openPage("login");
@@ -139,27 +139,27 @@ ComunicWeb.pages.createAccount = {
 
 			//Check the terms of use have been accepted
 			if(!siteTerms.checked)
-				return notify("Please read and accept the terms of use of the website!", "danger");
+				return notify(lang("form_create_account_err_need_accept_terms"), "danger");
 
 			//Check the first name
 			if(!ComunicWeb.common.formChecker.checkInput(firstNameInput, true))
-				return notify("Please check your first name !", "danger");
+				return notify(lang("form_create_account_err_need_first_name"), "danger");
 			
 			//Check the last name
 			if(!ComunicWeb.common.formChecker.checkInput(lastNameInput, true))
-				return notify("Please check your last name !", "danger");
+				return notify(lang("form_create_account_err_check_last_name"), "danger");
 
 			//Check the email address
 			if(!ComunicWeb.common.formChecker.checkInput(emailInput, true))
-				return notify("Please check your email address !", "danger");
+				return notify(lang("form_create_account_err_check_email_address"), "danger");
 			
 			//Check the password
 			if(!ComunicWeb.common.formChecker.checkInput(passwordInput, true))
-				return notify("Please check your password !", "danger");
+				return notify(lang("form_create_account_err_check_password"), "danger");
 			
 			//Check the confirmation password
 			if(passwordInput.value != confirmPasswordInput.value)
-				return notify("The two passwords are not the same !", "danger");
+				return notify(lang("form_create_account_err_passwd_differents"), "danger");
 			
 			//Lock create account button
 			submitButton.disabled = true;
@@ -179,8 +179,8 @@ ComunicWeb.pages.createAccount = {
 					if(response.error){
 						//Display an error
 						messagesTarget.appendChild(ComunicWeb.common.messages.createCalloutElem(
-							"Account creation failed",
-							"An error occured while trying to create your account. It is most likely to be a server error, or the given email address is already associated with an account.",
+							lang("form_create_account_err_create_account_title"),
+							lang("form_create_account_err_create_account_message"),
 							"danger"
 						));
 						return;
