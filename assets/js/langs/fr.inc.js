@@ -73,5 +73,6 @@ ComunicWeb.common.langs.fr = {
     _login_page_error_message: "Veuillez vérifier votre identifiant et votre mot de passe !",
     _login_page_bad_input: "Veuillez vérifier votre saisie...",
     _login_page_create_account_lnk: "Cr&eacute;er un compte",
+    login_page_forgot_password: "Mot de passe oubli&eacute;"
 
 }

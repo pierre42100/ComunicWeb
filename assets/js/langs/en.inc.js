@@ -74,6 +74,7 @@ ComunicWeb.common.langs.en = {
     _login_page_error_message: "Please check your usermail and password !",
     _login_page_bad_input: "Please check what you've typed !",
     _login_page_create_account_lnk: "Create an account",
+    login_page_forgot_password: "Forgot password",
 
     //Create account page
     form_create_account_title: "Create an account",
