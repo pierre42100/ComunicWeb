@@ -36,11 +36,11 @@
 	<div class="message_container">
 
 		<div class="message">
-			<h1>Congratulations!</h1>
+			<h1>[[account_created_message_title]]</h1>
 			<br />
-			<h4>Your account has been successfully created! <br /> Login now to use all the features of Comunic!</h4>
+			<h4>[[account_created_message_body]]</h4>
 			<br />
-			<a target="login" class="btn btn-primary btn-lg">Login</a>
+			<a target="login" class="btn btn-primary btn-lg">[[account_created_message_login]]</a>
 		</div>
 
 	</div>

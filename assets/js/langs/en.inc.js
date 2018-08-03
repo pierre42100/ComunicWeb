@@ -98,4 +98,9 @@ ComunicWeb.common.langs.en = {
     form_create_account_err_passwd_differents: "The two passwords are not the same !",
     form_create_account_err_create_account_message: "An error occured while trying to create your account. It is most likely to be a server error, or the given email address is already associated with an account.",
     form_create_account_err_create_account_title: "Account creation failed",
+
+    //Account created page
+    account_created_message_title: "Congratulations!",
+    account_created_message_body: "Your account has been successfully created! <br /> Login now to use all the features of Comunic!",
+    account_created_message_login: "Login"
 }
