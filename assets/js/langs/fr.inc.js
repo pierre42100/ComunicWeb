@@ -29,6 +29,9 @@ ComunicWeb.common.langs.fr = {
 
     //Menu bar - authenticated
     _menu_bar_search_placeholder: "Recherche...",
+    menu_bar_action_conversations: "Conversations",
+    menu_bar_action_groups: "Groupes",
+    menu_bar_action_settings: "Param&egrave;tres",
     _menu_bar_action_logout: "Déconnexion",
 
     //Posts form

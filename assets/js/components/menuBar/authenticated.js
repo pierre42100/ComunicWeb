@@ -87,7 +87,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		var conversationsLink = createElem2({
 			appendTo: conversationsButton,
 			type: "a",
-			innerHTML: "Conversations"
+			innerLang: "menu_bar_action_conversations"
 		});
 		conversationsButton.onclick = function(){
 			openPage("conversations");
@@ -101,7 +101,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		createElem2({
 			appendTo: groupsButton,
 			type: "a",
-			innerHTML: "Groups"
+			innerLang: "menu_bar_action_groups"
 		});
 		groupsButton.onclick = function(){
 			openPage("groups");
@@ -115,7 +115,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		var settingsLink = createElem2({
 			appendTo: settingsButton,
 			type: "a",
-			innerHTML: "Settings"
+			innerLang: "menu_bar_action_settings"
 		});
 		settingsButton.onclick = function(){
 			openPage("settings");

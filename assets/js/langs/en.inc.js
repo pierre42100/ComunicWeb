@@ -30,6 +30,9 @@ ComunicWeb.common.langs.en = {
 
     //Menu bar - authenticated
     _menu_bar_search_placeholder: "Search...",
+    menu_bar_action_conversations: "Conversations",
+    menu_bar_action_groups: "Groups",
+    menu_bar_action_settings: "Settings",
     _menu_bar_action_logout: "Logout",
 
     //Posts form
