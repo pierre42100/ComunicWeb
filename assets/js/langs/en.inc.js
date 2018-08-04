@@ -135,4 +135,10 @@ ComunicWeb.common.langs.en = {
     user_page_profile_info_note: "Note",
     user_page_profile_info_membership: "Membership",
     user_page_profile_info_member_for: "Member for %p",
+
+    //User page - posts section
+    user_page_posts_loading: "Loading posts...",
+    user_page_posts_err_get_posts: "Couldn't get user posts!",
+    user_page_posts_notice_no_posts_title: "No post yet",
+    user_page_posts_notice_no_posts_message: "Nobody has posted a message on this page yet.",
 }

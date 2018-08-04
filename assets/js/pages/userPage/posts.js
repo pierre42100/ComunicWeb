@@ -46,7 +46,7 @@ ComunicWeb.pages.userPage.posts = {
 		var loadingMsg = createElem2({
 			appendTo: postsBody,
 			type: "p",
-			innerHTML: "Loading posts..."
+			innerHTML: lang("user_page_posts_loading")
 		});
 		loadingMsg.style.textAlign = "center";
 
@@ -95,7 +95,7 @@ ComunicWeb.pages.userPage.posts = {
 			//Check for errors
 			if(result.error){
 				//Display notification
-				ComunicWeb.common.notificationSystem.showNotification("Couldn't get user posts!", "danger", 4, "Error");
+				ComunicWeb.common.notificationSystem.showNotification(lang("user_page_posts_err_get_posts"), "danger", 4, "Error");
 			}
 			else {
 
@@ -158,14 +158,14 @@ ComunicWeb.pages.userPage.posts = {
 		var msgTitle = createElem2({
 			appendTo: msgContainer,
 			type: "h2",
-			innerHTML: "No post yet"
+			innerHTML: lang("user_page_posts_notice_no_posts_title")
 		});
 		msgTitle.style.textAlign = "center";
 
 		var msgContent = createElem2({
 			appendTo: msgContainer,
 			type: "p",
-			innerHTML: "Nobody has posted a message on this page yet."
+			innerHTML: lang("user_page_posts_notice_no_posts_message")
 		}).style.textAlign = "center";
 	}
 
