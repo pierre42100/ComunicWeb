@@ -125,4 +125,14 @@ ComunicWeb.common.langs.en = {
     page_latest_posts_err_get_list_message: "Could not get the list of the latest posts ! Please try to refresh the page...",
     page_latest_posts_notice_no_post_title: "No post to display",
     page_latest_posts_notice_no_posts_message: "Posts from you and your friend will appear here...",
+
+    //User page - Profile information
+    user_page_profile_info_friends_link: "Friends",
+    user_page_profile_info_loading: "Loading...",
+    user_page_profile_info_conversation_button: "Conversation",
+    user_page_profile_info_about_box_title: "About %p",
+    user_page_profile_info_website: "Website",
+    user_page_profile_info_note: "Note",
+    user_page_profile_info_membership: "Membership",
+    user_page_profile_info_member_for: "Member for %p",
 }

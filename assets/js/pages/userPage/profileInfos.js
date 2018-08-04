@@ -116,7 +116,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 		createElem2({
 			appendTo: friendsLi,
 			type: "b",
-			innerHTML: "Friends"
+			innerHTML: lang("user_page_profile_info_friends_link")
 		});
 		var friendsListLink = createElem2({
 			appendTo: friendsLi,
@@ -140,7 +140,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 				var userStatus = createElem2({
 					appendTo: boxBody,
 					type: "div",
-					innerHTML: "Loading...",
+					innerHTML: lang("user_page_profile_info_loading"),
 				});
 				userStatus.style.textAlign = "center";
 				ComunicWeb.pages.userPage.friendshipStatus.display(infos.userID, userStatus);
@@ -153,7 +153,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 					appendTo: boxBody,
 					type: "button",
 					class: "btn btn-default btn-block",
-					innerHTML: "<i class='fa fa-comments'></i> Conversation"
+					innerHTML: "<i class='fa fa-comments'></i> " + lang("user_page_profile_info_conversation_button")
 				});
 
 				conversationButton.onclick = function(){
@@ -191,7 +191,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 			appendTo: boxHeader,
 			type: "h3",
 			class: "box-title",
-			innerHTML: "About " + infos.firstName
+			innerHTML: lang("user_page_profile_info_about_box_title", [infos.firstName])
 		});
 
 		//Create box body
@@ -216,7 +216,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 			createElem2({
 				appendTo: userWebsite,
 				type: "span",
-				innerHTML: "Website"
+				innerHTML: lang("user_page_profile_info_website")
 			});
 			var websiteLinkContainer = createElem2({
 				appendTo: boxBody,
@@ -251,7 +251,7 @@ ComunicWeb.pages.userPage.profileInfos = {
 			createElem2({
 				appendTo: userNote,
 				type: "span",
-				innerHTML: "Note"
+				innerHTML: lang("user_page_profile_info_note")
 			});
 			var publicNotes = createElem2({
 				appendTo: boxBody,
@@ -285,13 +285,13 @@ ComunicWeb.pages.userPage.profileInfos = {
 		createElem2({
 			appendTo: membershipInfos,
 			type: "span",
-			innerHTML: "Membership"
+			innerHTML: lang("user_page_profile_info_membership")
 		});
 		createElem2({
 			appendTo: boxBody,
 			type: "p",
 			class: "text-muted",
-			innerHTML: "Member for " + ComunicWeb.common.date.timeDiffToStr(infos.account_creation_time)
+			innerHTML: lang("user_page_profile_info_member_for", [ComunicWeb.common.date.timeDiffToStr(infos.account_creation_time)])
 		});
 		
 	},
