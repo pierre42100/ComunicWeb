@@ -149,4 +149,18 @@ ComunicWeb.common.langs.en = {
     user_page_forbidden_access_denied_message: "You don't have the right to access this page.",
     user_page_forbidden_private_account_notice: "This account is private.",
     user_page_forbidden_loading: "Loading...",
+
+    //User page - friendship status section
+    user_page_friendship_section_err_load_title: "Error",
+    user_page_friendship_section_err_load_message: "Couldn't load friendship informations !",
+    user_page_friendship_section_reject_request: "Reject request",
+    user_page_friendship_section_accept_request: "Accept request",
+    user_page_friendship_section_err_update_request_status: "Couldn't update request status !",
+    user_page_friendship_section_cancel_request: "Cancel request",
+    user_page_friendship_section_err_remove_request: "An error occured while trying to remove the request !",
+    user_page_friendship_section_send_request: "Send request",
+    user_page_friendship_section_err_send_request: "An error occured while trying to send the request !",
+    user_page_friendship_section_following: "Following",
+    user_page_friendship_section_follow: "Follow",
+    user_page_friendship_section_err_update_following_status: "An error occured while trying to update following status !",
 }

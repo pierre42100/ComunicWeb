@@ -23,7 +23,9 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 			//Check for errors
 			if(response.error){
-				message = ComunicWeb.common.messages.createCalloutElem("Error", "Couldn't load friendship informations !", "danger");
+				message = ComunicWeb.common.messages.createCalloutElem(
+					lang("user_page_friendship_section_err_load_title"), 
+					lang("user_page_friendship_section_err_load_message"), "danger");
 				target.appendChild(message);
 				return;
 			}
@@ -36,7 +38,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 					appendTo: target,
 					type: "button",
 					class: "btn btn-xs btn-danger",
-					innerHTML: "Reject request"
+					innerHTML: lang("user_page_friendship_section_reject_request")
 				});
 				
 				createElem2({
@@ -50,7 +52,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 					appendTo: target,
 					type: "button",
 					class: "btn btn-xs btn-success",
-					innerHTML: "Accept request"
+					innerHTML: lang("user_page_friendship_section_accept_request")
 				});
 
 				//Prepare the buttons
@@ -76,7 +78,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 						//Check for errors
 						if(response.error){
-							ComunicWeb.common.notificationSystem.showNotification("Couldn't update request status !", 
+							ComunicWeb.common.notificationSystem.showNotification(lang("user_page_friendship_section_err_update_request_status"), 
 							"danger", 5);
 						}
 
@@ -102,7 +104,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 					appendTo: target,
 					type: "button",
 					class: "btn btn-xs btn-danger",
-					innerHTML: "Cancel request"
+					innerHTML: lang("user_page_friendship_section_cancel_request")
 				});
 
 				cancelRequest.onclick = function(){
@@ -115,7 +117,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 						//Check for errors
 						if(response.error){
-							ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to remove the request !");
+							ComunicWeb.common.notificationSystem.showNotification(lang("user_page_friendship_section_err_remove_request"));
 						}
 
 						//Reload this component
@@ -135,7 +137,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 					appendTo: target,
 					type: "button",
 					class: "btn btn-xs btn-primary",
-					innerHTML: "Send request"
+					innerHTML: lang("user_page_friendship_section_send_request")
 				});
 
 				sendRequestButton.onclick = function(){
@@ -148,7 +150,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 						//Check for errors
 						if(response.error){
-							ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to send the request !");
+							ComunicWeb.common.notificationSystem.showNotification(lang("user_page_friendship_section_err_send_request"));
 						}
 
 						//Reload this component
@@ -171,11 +173,11 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 				});
 
 				if(response.following){
-					followButton.innerHTML = "Following";
+					followButton.innerHTML = lang("user_page_friendship_section_following");
 					followButton.setAttribute("data-following", "true");
 				}
 				else {
-					followButton.innerHTML = "Follow";
+					followButton.innerHTML = lang("user_page_friendship_section_follow");
 					followButton.setAttribute("data-following", "false");
 				}
 
@@ -192,7 +194,7 @@ ComunicWeb.pages.userPage.friendshipStatus = {
 
 						//Check for errors
 						if(response.error){
-							ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to update following status !");
+							ComunicWeb.common.notificationSystem.showNotification(lang("user_page_friendship_section_err_update_following_status"));
 						}
 
 						//Reload this component
