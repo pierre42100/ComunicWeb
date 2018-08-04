@@ -125,7 +125,7 @@ ComunicWeb.components.friends.bar = {
 					noFriendMessage.style.color = "#3c8dbc";
 					noFriendMessage.style.fontSize = "150%";
 					noFriendMessage.style.textAlign = "justify";
-					noFriendMessage.innerHTML = "You have no friends yet! We can't display anything here for you for now... :("
+					noFriendMessage.innerHTML = lang("friends_bar_no_friends_notice")
 				}
 
 				//Enable slimscroll
@@ -276,9 +276,9 @@ ComunicWeb.components.friends.bar = {
 
 		//Change statusRow style
 		if(accepted)
-			statusRow.innerHTML = "Accepted";
+			statusRow.innerHTML = lang("friends_bar_accepted");
 		else
-			statusRow.innerHTML = "Refused";
+			statusRow.innerHTML = lang("friends_bar_rejected");
 		
 		//Perform an API request
 		ComunicWeb.components.friends.list.respondRequest(friendID, accepted);

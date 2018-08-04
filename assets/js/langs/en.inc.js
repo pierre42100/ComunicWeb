@@ -67,6 +67,11 @@ ComunicWeb.common.langs.en = {
     form_post_err_send_new_post: "An error occured while trying to send a new post !",
     form_post_success_create_post: "The post has been successfully created !",
 
+    //Friends - bar
+    friends_bar_no_friends_notice: "You have no friends yet! We can't display anything here for you for now... :(",
+    friends_bar_accepted: "Accepted",
+    friends_bar_rejected: "Refused",
+
     //Like - Button
     like_btn_one_like: "1 like",
     like_btn_x_likes: "%p likes",
