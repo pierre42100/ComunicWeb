@@ -46,6 +46,7 @@ ComunicWeb.common.langs.en = {
     _no_movie_selected: "No movie selected.",
     _input_page_url_label: "Page URL",
     _input_countdown_enddate: "End date",
+    _input_countdown_endtime: "End time",
     _input_survey_question_label: "Question for the survey",
     _input_survey_question_placeholder: "Question",
     _input_survey_answers_label: "Answers",

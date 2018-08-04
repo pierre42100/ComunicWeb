@@ -45,6 +45,7 @@ ComunicWeb.common.langs.fr = {
     _no_movie_selected: "Aucune vidéo sélectionnée.",
     _input_page_url_label: "URL de la page",
     _input_countdown_enddate: "Date de fin",
+    _input_countdown_endtime: "Heure de fin",
     _input_survey_question_label: "Question du sondage",
     _input_survey_question_placeholder: "Question",
     _input_survey_answers_label: "Réponses",

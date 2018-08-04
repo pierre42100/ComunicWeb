@@ -216,7 +216,7 @@ ComunicWeb.components.posts.form = {
 		});
 		var timeEndInput = createFormGroup({
 			target: container,
-			label: "Time end",
+			label: lang("_input_countdown_endtime"),
 			placeholder: "hh:ss",
 			type: "text"
 		});
