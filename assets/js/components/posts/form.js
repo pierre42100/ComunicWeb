@@ -358,7 +358,7 @@ ComunicWeb.components.posts.form = {
 				
 				//Check message content
 				if(!ComunicWeb.components.posts.form._check_message(message_content)){
-					ComunicWeb.common.notificationSystem.showNotification("The specified message is invalid !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_invalid_message"), "danger");
 					return;
 				}
 
@@ -371,7 +371,7 @@ ComunicWeb.components.posts.form = {
 
 				//Check for image
 				if(imgFileInput.files.length == 0){
-					ComunicWeb.common.notificationSystem.showNotification("Please choose an image !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_image_selected"), "danger");
 					return;
 				}
 
@@ -388,7 +388,7 @@ ComunicWeb.components.posts.form = {
 
 				//Check its validity
 				if(!videoID){
-					ComunicWeb.common.notificationSystem.showNotification("The specified Youtube link seems to be invalid !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_invalid_youtube_link"), "danger");
 					return;
 				}
 
@@ -403,7 +403,7 @@ ComunicWeb.components.posts.form = {
 				var movieID = movieIDInput.value;
 
 				if(movieID == 0){
-					ComunicWeb.common.notificationSystem.showNotification("Please choose a movie !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_movie_selected"), "danger");
 					return;
 				}
 
@@ -418,7 +418,7 @@ ComunicWeb.components.posts.form = {
 
 				//Check for image
 				if(pdfFileInput.files.length == 0){
-					ComunicWeb.common.notificationSystem.showNotification("Please pick a PDF !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_pdf_selected"), "danger");
 					return;
 				}
 
@@ -433,7 +433,7 @@ ComunicWeb.components.posts.form = {
 
 				//Check the given url
 				if(!check_url(linkInput.value)){
-					ComunicWeb.common.notificationSystem.showNotification("Please check the given URL !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_invalid_url"), "danger");
 					return;
 				}
 
@@ -447,14 +447,14 @@ ComunicWeb.components.posts.form = {
 
 				//Check the given time
 				if(dateEndInput.value.length < 10){
-					ComunicWeb.common.notificationSystem.showNotification("Please specify a date for the countdown timer !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_end_date_selected"), "danger");
 					return;
 				}
 
 				//Convert the date to an array
 				var end_date_array = dateEndInput.value.split("/");
 				if(end_date_array.length < 3) {
-					ComunicWeb.common.notificationSystem.showNotification("Specified date for the countdown timer is invalid !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_selected_end_date_invalid"), "danger");
 					return;
 				}
 
@@ -491,13 +491,13 @@ ComunicWeb.components.posts.form = {
 
 				//Check the given question
 				if(surveyQuestionInput.value.length < 5){
-					ComunicWeb.common.notificationSystem.showNotification("Please specify a question for the survey !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_question_for_survey"), "danger");
 					return;
 				}
 
 				//Get the answers
 				if(surveyAnswerInput.children.length < 2){
-					ComunicWeb.common.notificationSystem.showNotification("Please specify at least two options for the survey !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_not_enough_survey_options"), "danger");
 					return;
 				}
 
@@ -517,7 +517,7 @@ ComunicWeb.components.posts.form = {
 
 			//The post type is not supported
 			else {
-				ComunicWeb.common.notificationSystem.showNotification("Please check you have chosen a post type !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_post_type_selected"), "danger");
 				return;
 			}
 
@@ -533,14 +533,14 @@ ComunicWeb.components.posts.form = {
 
 				//Check for errors
 				if(result.error){
-					ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to send a new post !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_send_new_post"), "danger");
 					sendButton.disabled = false;
 					return;
 				}
 
 				//Else
 				//Display a success notification
-				ComunicWeb.common.notificationSystem.showNotification("The post has been successfully created !", "success");
+				ComunicWeb.common.notificationSystem.showNotification(lang("form_post_success_create_post"), "success");
 
 				//Refresh current page
 				ComunicWeb.common.page.refresh_current_page();

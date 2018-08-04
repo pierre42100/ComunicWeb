@@ -53,6 +53,19 @@ ComunicWeb.common.langs.en = {
     _input_survey_answers_hint: "Type your answer and then press return (enter) key to confirm it.",
 
     _err_drag_image_post: "Please do not drag images directly in the message !",
+    form_post_err_invalid_message: "The specified message is invalid !",
+    form_post_err_no_image_selected: "Please choose an image !",
+    form_post_err_invalid_youtube_link: "The specified Youtube link seems to be invalid !",
+    form_post_err_no_movie_selected: "Please choose a movie !",
+    form_post_err_no_pdf_selected: "Please pick a PDF !",
+    form_post_err_invalid_url: "Please check the given URL !",
+    form_post_err_no_end_date_selected: "Please specify a date for the countdown timer !",
+    form_post_err_selected_end_date_invalid: "Specified date for the countdown timer is invalid !",
+    form_post_err_no_question_for_survey: "Please specify a question for the survey !",
+    form_post_err_not_enough_survey_options: "Please specify at least two options for the survey !",
+    form_post_err_no_post_type_selected: "Please check you have chosen a post type !",
+    form_post_err_send_new_post: "An error occured while trying to send a new post !",
+    form_post_success_create_post: "The post has been successfully created !",
 
 
     /**
