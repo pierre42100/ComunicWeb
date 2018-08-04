@@ -68,7 +68,7 @@ ComunicWeb.components.notifications.dropdown = {
 			appendTo: dropdownMenu,
 			type: "li",
 			class: "header",
-			innerHTML: "Notifications"
+			innerHTML: lang("notifications_dropdown_title")
 		});
 
 		//Add notifications list
@@ -93,13 +93,13 @@ ComunicWeb.components.notifications.dropdown = {
 		var deleteAllLink = createElem2({
 			appendTo: dropdownBottom,
 			type: "a",
-			innerHTML: "Delete all"
+			innerHTML: lang("notifications_dropdown_delete_all_link")
 		});
 
 		//Make the delete all notifications link lives
 		deleteAllLink.onclick = function(){
 
-			ComunicWeb.common.messages.confirm("Are you sure do you want to delete all the notifications ? This operation can not be cancelled !", function(accept){
+			ComunicWeb.common.messages.confirm(lang("notifications_dropdown_confirm_delete_all"), function(accept){
 
 				//We continue only if the user confirmed the operation
 				if(!accept)
@@ -110,12 +110,12 @@ ComunicWeb.components.notifications.dropdown = {
 
 					//Check for errors
 					if(result.error){
-						ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to delete all the notifications !", "danger");
+						ComunicWeb.common.notificationSystem.showNotification(lang("notifications_dropdown_err_delete_all_notifications"), "danger");
 						return;
 					}
 
 					//Display success
-					ComunicWeb.common.notificationSystem.showNotification("The entire list of notification has been cleared.", "success");
+					ComunicWeb.common.notificationSystem.showNotification(lang("notifications_dropdown_delete_all_success"), "success");
 
 				});
 
@@ -150,7 +150,7 @@ ComunicWeb.components.notifications.dropdown = {
 
 			//Check for errors
 			if(result.error){
-				ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to retrieve notifications list !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("notifications_dropdown_err_get_notifs_list"), "danger");
 				return;
 			}
 
@@ -162,7 +162,7 @@ ComunicWeb.components.notifications.dropdown = {
 
 				//Check for errors
 				if(users.error){
-					ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to retrieve users informations for the notifications !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("notifications_dropdown_err_get_related_users_info"), "danger");
 					return;
 				}
 
@@ -172,7 +172,7 @@ ComunicWeb.components.notifications.dropdown = {
 
 					//Check for errors
 					if(groups.error)
-						return notify("Could not get groups information!", "danger");
+						return notify(lang("notifications_dropdown_err_get_related_groups_info"), "danger");
 
 					//Empty the target list
 					list.innerHTML = "";
@@ -188,7 +188,7 @@ ComunicWeb.components.notifications.dropdown = {
 					//Display a message if there isn't any notification to display
 					if(result.length == 0){
 
-						list.innerHTML = "<li class='no-notification-msg'>You do not have any notification yet.</li>";
+						list.innerHTML = "<li class='no-notification-msg'>" + lang("notifications_dropdown_no_notif_notice") + "</li>";
 
 					}
 

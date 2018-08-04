@@ -81,11 +81,23 @@ ComunicWeb.common.langs.en = {
     like_btn_liking: "Liking",
     like_btn_like: "Like",
 
-    //Conversations dropdown
+    //Conversations - unread dropdown
     conversations_dropdown_header: "Unread conversations",
     conversations_dropdown_err_get_list: "Could not retrieve the list of unread conversations !",
     conversations_dropdown_err_get_user_info: "Could not get informations about some users !",
     conversations_dropdown_no_unread_notice: "You do not have any unread messages in the conversations you are following...",
+
+
+    //Notifications - dropdown
+    notifications_dropdown_title: "Notifications",
+    notifications_dropdown_delete_all_link: "Delete all",
+    notifications_dropdown_confirm_delete_all: "Are you sure do you want to delete all the notifications ? This operation can not be cancelled !",
+    notifications_dropdown_err_delete_all_notifications: "An error occured while trying to delete all the notifications !",
+    notifications_dropdown_delete_all_success: "The entire list of notification has been cleared.",
+    notifications_dropdown_err_get_notifs_list: "An error occured while trying to retrieve notifications list !",
+    notifications_dropdown_err_get_related_users_info: "An error occured while trying to retrieve users informations for the notifications !",
+    notifications_dropdown_err_get_related_groups_info: "Could not get groups information!",
+    notifications_dropdown_no_notif_notice: "You do not have any notification yet.",
 
 
     /**
