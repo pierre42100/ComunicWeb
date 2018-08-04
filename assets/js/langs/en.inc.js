@@ -141,4 +141,12 @@ ComunicWeb.common.langs.en = {
     user_page_posts_err_get_posts: "Couldn't get user posts!",
     user_page_posts_notice_no_posts_title: "No post yet",
     user_page_posts_notice_no_posts_message: "Nobody has posted a message on this page yet.",
+
+    //User page - access forbidden page
+    user_page_forbidden_err_sign_in_title: "Sign in required",
+    user_page_forbidden_err_sign_in_message: "Please sign in to get access to this page.",
+    user_page_forbidden_err_access_denied_title: "Access denied",
+    user_page_forbidden_access_denied_message: "You don't have the right to access this page.",
+    user_page_forbidden_private_account_notice: "This account is private.",
+    user_page_forbidden_loading: "Loading...",
 }

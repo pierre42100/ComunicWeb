@@ -22,8 +22,8 @@ ComunicWeb.pages.userPage.accessForbidden = {
 
 			//Inform user that he must sign in to continue
 			elem = ComunicWeb.common.messages.createCalloutElem(
-				"Sign in required",
-				"Please sign in to get access to this page.",
+				lang("user_page_forbidden_err_sign_in_title"),
+				lang("user_page_forbidden_err_sign_in_message"),
 				"danger"
 			);
 
@@ -43,8 +43,8 @@ ComunicWeb.pages.userPage.accessForbidden = {
 
 				//Inform user it is impossible for him to access this page
 				elem = ComunicWeb.common.messages.createCalloutElem(
-					"Access denied",
-					"You don't have the right to access this page.",
+					lang("user_page_forbidden_err_access_denied_title"),
+					lang("user_page_forbidden_access_denied_message"),
 					"danger"
 				);
 
@@ -109,7 +109,7 @@ ComunicWeb.pages.userPage.accessForbidden = {
 			appendTo: boxBody,
 			type: "p",
 			class: "text-center",
-			innerHTML: "This account is private."
+			innerHTML: lang("user_page_forbidden_private_account_notice")
 		});
 
 		//Add friendship request message
@@ -117,7 +117,7 @@ ComunicWeb.pages.userPage.accessForbidden = {
 			appendTo: boxBody,
 			type: "div",
 			class: "text-center",
-			innerHTML: "Loading..."
+			innerHTML: lang("user_page_forbidden_loading")
 		});
 
 		//Load friendship infos
