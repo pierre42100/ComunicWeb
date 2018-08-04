@@ -81,6 +81,12 @@ ComunicWeb.common.langs.en = {
     like_btn_liking: "Liking",
     like_btn_like: "Like",
 
+    //Conversations dropdown
+    conversations_dropdown_header: "Unread conversations",
+    conversations_dropdown_err_get_list: "Could not retrieve the list of unread conversations !",
+    conversations_dropdown_err_get_user_info: "Could not get informations about some users !",
+    conversations_dropdown_no_unread_notice: "You do not have any unread messages in the conversations you are following...",
+
 
     /**
      * Pages

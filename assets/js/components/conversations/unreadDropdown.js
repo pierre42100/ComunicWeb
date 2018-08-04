@@ -51,7 +51,7 @@ ComunicWeb.components.conversations.unreadDropdown = {
 			appendTo: dropdownMenu,
 			type: "li",
 			class: "header",
-			innerHTML: "Unread conversations"
+			innerHTML: lang("conversations_dropdown_header")
 		});
 
 		//Add conversations list
@@ -107,7 +107,7 @@ ComunicWeb.components.conversations.unreadDropdown = {
 			//Check for errors
 			if(conversations.error){
 				//Display an error
-				ComunicWeb.common.notificationSystem.showNotification("Could not retrieve the list of unread conversations !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("conversations_dropdown_err_get_list"), "danger");
 				return;
 			}
 
@@ -129,7 +129,7 @@ ComunicWeb.components.conversations.unreadDropdown = {
 				//Check for errors
 				if(usersInfos.error){
 					//Display an error
-					ComunicWeb.common.notificationSystem.showNotification("Could not get informations about some users !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("conversations_dropdown_err_get_user_info"), "danger");
 					return;
 				}
 
@@ -243,7 +243,7 @@ ComunicWeb.components.conversations.unreadDropdown = {
 				appendTo: target,
 				type: "p",
 				class: "no-unread-conversation-msg",
-				innerHTML: "You do not have any unread messages in the conversations you are following..."
+				innerHTML: lang("conversations_dropdown_no_unread_notice")
 			});
 
 		}
