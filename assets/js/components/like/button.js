@@ -57,10 +57,10 @@ ComunicWeb.components.like.button = {
 			else {
 				//Update message
 				if(count == 1){
-					likeMsg.innerHTML = "1 like";
+					likeMsg.innerHTML = lang("like_btn_one_like");
 				}
 				else
-					likeMsg.innerHTML = count + " likes";
+					likeMsg.innerHTML = lang("like_btn_x_likes", [count]);
 			}
 
 		}
@@ -69,10 +69,10 @@ ComunicWeb.components.like.button = {
 
 			//Update the message
 			if(liking == true){
-				likeMsg.innerHTML = "Liking"
+				likeMsg.innerHTML = lang("like_btn_liking")
 			}
 			else {
-				likeMsg.innerHTML = "Like";
+				likeMsg.innerHTML = lang("like_btn_like");
 			}
 
 			//Add total count if possible
