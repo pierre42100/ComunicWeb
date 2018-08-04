@@ -104,5 +104,11 @@ ComunicWeb.common.langs.en = {
     //Account created page
     account_created_message_title: "Congratulations!",
     account_created_message_body: "Your account has been successfully created! <br /> Login now to use all the features of Comunic!",
-    account_created_message_login: "Login"
+    account_created_message_login: "Login",
+
+    //Latest posts page
+    page_latest_posts_err_get_list_title: "Error",
+    page_latest_posts_err_get_list_message: "Could not get the list of the latest posts ! Please try to refresh the page...",
+    page_latest_posts_notice_no_post_title: "No post to display",
+    page_latest_posts_notice_no_posts_message: "Posts from you and your friend will appear here...",
 }

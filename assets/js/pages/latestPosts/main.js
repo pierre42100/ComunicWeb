@@ -98,7 +98,7 @@ ComunicWeb.pages.latestPosts.main = {
 			if(response.error){
 				
 				//Display modal error
-				var error = ComunicWeb.common.messages.createCalloutElem("Error", "Could not get the list of the latest posts ! Please try to refresh the page...", "danger");
+				var error = ComunicWeb.common.messages.createCalloutElem(lang("page_latest_posts_err_get_list_title"), lang("page_latest_posts_err_get_list_message"), "danger");
 				error.className += " latestPostsError";
 				target.appendChild(error);
 			}
@@ -134,7 +134,7 @@ ComunicWeb.pages.latestPosts.main = {
 		//Check if there aren't any post to display
 		if(list.length == 0){
 			//Display message
-			var message = ComunicWeb.common.messages.createCalloutElem("No post to display", "Posts from you and your friend will appear here...", "info");
+			var message = ComunicWeb.common.messages.createCalloutElem(lang("page_latest_posts_notice_no_post_title"), lang("page_latest_posts_notice_no_posts_message"), "info");
 			message.className += " noLatestPosts";
 			target.appendChild(message);
 		}
