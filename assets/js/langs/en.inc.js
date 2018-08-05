@@ -18,6 +18,15 @@ ComunicWeb.common.langs.en = {
     "__fatal_error": "Fatal error",
     "__fatal_error_explanation": "A fatal error occured : <i>%p</i>. Please try to refresh the page...",
 
+    //Messages
+    messages_loading_layout_title: "Loading",
+    messages_loading_layout_message: "Please wait while this page is loading...",
+    messages_dialog_cancel: "Cancel",
+    messages_dialog_confirm_title: "Confirm the operation",
+    messages_dialog_confirm_confirm: "Confirm",
+    messages_dialog_confirm_cancel: "Cancel",
+    messages_dialog_input_string_cancel: "Cancel",
+    messages_dialog_input_string_submit: "Submit",
 
     /**
      * Components

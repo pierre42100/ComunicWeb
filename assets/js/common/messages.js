@@ -47,7 +47,7 @@ ComunicWeb.common.messages.createCalloutElem = function(calloutTitle, calloutMes
  */
 ComunicWeb.common.messages.createLoadingCallout = function(target){
 
-    var elem = this.createCalloutElem("Loading", "Please wait while this page is loading...", "info");
+    var elem = this.createCalloutElem(lang("messages_loading_layout_title"), lang("messages_loading_layout_message"), "info");
 
     if(target)
         target.appendChild(elem);
@@ -138,7 +138,7 @@ ComunicWeb.common.messages.createDialogSkeleton = function(info){
         appendTo: data.modalFooter,
         type: "button",
         class: "btn btn-default",
-        innerHTML: "Cancel"
+        innerHTML: lang("messages_dialog_cancel")
     });
 
     return data;
@@ -197,7 +197,7 @@ ComunicWeb.common.messages.confirm = function(message, callback){
         appendTo: modalHeader,
         type: "h4",
         class: "modal-title",
-        innerHTML: "Confirm the operation"
+        innerHTML: lang("messages_dialog_confirm_title")
     });
 
     //Modal body
@@ -219,7 +219,7 @@ ComunicWeb.common.messages.confirm = function(message, callback){
         appendTo: modalFooter,
         type: "button",
         class: "btn btn-default pull-left",
-        innerHTML: "Cancel"
+        innerHTML: lang("messages_dialog_confirm_cancel")
     });
     cancelButton.setAttribute("data-confirm", "false");
 
@@ -227,7 +227,7 @@ ComunicWeb.common.messages.confirm = function(message, callback){
         appendTo: modalFooter,
         type: "button",
         class: "btn btn-danger",
-        innerHTML: "Confirm"
+        innerHTML: lang("messages_dialog_confirm_confirm")
     });
     confirmButton.setAttribute("data-confirm", "true");
 
@@ -341,7 +341,7 @@ ComunicWeb.common.messages.inputString = function(title, message, defaultValue, 
         appendTo: modalFooter,
         type: "button",
         class: "btn btn-default pull-left",
-        innerHTML: "Cancel"
+        innerHTML: lang("messages_dialog_input_string_cancel")
     });
     cancelButton.setAttribute("data-confirm", "false");
 
@@ -349,7 +349,7 @@ ComunicWeb.common.messages.inputString = function(title, message, defaultValue, 
         appendTo: modalFooter,
         type: "button",
         class: "btn btn-primary",
-        innerHTML: "Submit"
+        innerHTML: lang("messages_dialog_input_string_submit")
     });
     submitButton.setAttribute("data-confirm", "true");
 
