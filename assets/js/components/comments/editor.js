@@ -26,7 +26,7 @@ ComunicWeb.components.comments.editor = {
 
 				//Check for error
 				if(result.error){
-					ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to update comment content !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("comments_editor_err_update"), "danger");
 					return;
 				}
 
@@ -39,8 +39,8 @@ ComunicWeb.components.comments.editor = {
 
 		//Prompt the user to enter the new content of the comment
 		ComunicWeb.common.messages.inputString(
-			"Edit comment content",
-			"Please specify the new content of the comment: ",
+			lang("comments_editor_title"),
+			lang("comments_editor_notice"),
 			infos.content,
 			inputCallback
 		);

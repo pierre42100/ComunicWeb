@@ -25,7 +25,7 @@ ComunicWeb.components.comments.actions = {
 
 			//Check for errors
 			if(result.error){
-				ComunicWeb.common.notificationSystem.showNotification("Couldn't get informations about a comment !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("comments_actions_err_get_info_single"), "danger");
 				return;
 			}
 

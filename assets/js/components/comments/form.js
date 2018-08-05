@@ -46,7 +46,7 @@ ComunicWeb.components.comments.form = {
 			type: "input",
 			elemType: "text",
 			class: "form-control",
-			placeholder: "New comment...",
+			placeholder: lang("comments_form_input_placeholder"),
 			name: "content"
 		});
 		newCommentText.maxLength = 255;
@@ -106,7 +106,7 @@ ComunicWeb.components.comments.form = {
 			appendTo: buttonsGroup,
 			type: "button",
 			class: "btn btn-default btn-flat",
-			innerHTML: "Send"
+			innerHTML: lang("comments_form_send")
 		});
 
 		//Catch form when submitted
@@ -117,7 +117,7 @@ ComunicWeb.components.comments.form = {
 
 			//Check the comment
 			if(!hasImage && newCommentText.value < 5){
-				ComunicWeb.common.notificationSystem.showNotification("Please type a valid comment! (at least 5 characters)", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("comments_form_err_invalid_comment"), "danger");
 				return false;
 			}
 
@@ -140,7 +140,7 @@ ComunicWeb.components.comments.form = {
 
 				//Check for errors
 				if(result.error){
-					ComunicWeb.common.notificationSystem.showNotification("Couldn't create comment! (check its content)", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("comments_form_err_create_comment"), "danger");
 					return;
 				}
 

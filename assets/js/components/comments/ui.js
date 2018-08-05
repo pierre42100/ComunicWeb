@@ -23,7 +23,7 @@ ComunicWeb.components.comments.ui = {
 			
 			//Check for errors
 			if(result.error){
-				ComunicWeb.common.notificationSystem.showNotification("Couldn't informations about some users to display their comments !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("comments_ui_err_get_users_info"), "danger");
 				return;
 			}
 
@@ -75,7 +75,7 @@ ComunicWeb.components.comments.ui = {
 
 			//Check for errors
 			if(result.error){
-				ComunicWeb.common.notificationSystem.showNotification("Couldn't get informations about a user!", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("comments_ui_err_get_user_info"), "danger");
 				return;
 			}
 
@@ -191,7 +191,7 @@ ComunicWeb.components.comments.ui = {
 			//Make delete button lives
 			deleteCommentLink.onclick = function(){
 
-				ComunicWeb.common.messages.confirm("Are you sure do you want to delete this comment ? This operation is unrecoverable!", function(response){
+				ComunicWeb.common.messages.confirm(lang("comments_ui_confirm_delete"), function(response){
 
 					//Check if user cancelled the operation
 					if(!response)
@@ -207,7 +207,7 @@ ComunicWeb.components.comments.ui = {
 
 						//Check for errors
 						if(response.error){
-							ComunicWeb.common.notificationSystem.showNotification("Could not delete comment!", "danger");
+							ComunicWeb.common.notificationSystem.showNotification(lang("comments_ui_err_delete_comment"), "danger");
 							return;
 						}
 

@@ -111,6 +111,27 @@ ComunicWeb.common.langs.en = {
     notifications_dropdown_no_notif_notice: "You do not have any notification yet.",
 
 
+    //Comments - Actions
+    comments_actions_err_get_info_single: "Couldn't get informations about a comment !",
+
+    //Comments - Editor
+    comments_editor_err_update: "An error occured while trying to update comment content !",
+    comments_editor_title: "Edit comment content",
+    comments_editor_notice: "Please specify the new content of the comment: ",
+
+    //Comments - UI
+    comments_ui_err_get_users_info: "Couldn't information about some users to display their comments !",
+    comments_ui_err_get_user_info: "Couldn't get information about a user!",
+    comments_ui_confirm_delete: "Are you sure do you want to delete this comment ? This operation is unrecoverable!",
+    comments_ui_err_delete_comment: "Could not delete comment!",
+
+    //Comments - Form
+    comments_form_input_placeholder: "New comment...",
+    comments_form_send: "Send",
+    comments_form_err_invalid_comment: "Please type a valid comment! (at least 5 characters)",
+    comments_form_err_create_comment: "Couldn't create comment! (check its content)",
+
+
     /**
      * Pages
      */
