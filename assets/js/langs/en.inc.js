@@ -56,6 +56,17 @@ ComunicWeb.common.langs.en = {
     menu_bar_action_settings: "Settings",
     _menu_bar_action_logout: "Logout",
 
+    //Posts - Actions
+    posts_actions_err_get_single: "An error occured while getting information about the post !",
+
+    //Posts - Editor
+    posts_edit_cancel: "Cancel",
+    posts_edit_update: "Update",
+    posts_edit_err_invalid_content: "Please check your message content !",
+    posts_edit_err_update_content: "An error occured while trying to udpate post !",
+    posts_edit_success_update: "The post has been updated !",
+    posts_edit_title: "Update the post",
+
     //Posts - UI
     posts_ui_error: "Error",
     posts_ui_err_update_visibility: "Couldn't change post visibility level !",

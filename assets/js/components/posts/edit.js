@@ -56,7 +56,7 @@ ComunicWeb.components.posts.edit = {
 			appendTo: modalHeader,
 			type: "h4",
 			class: "modal-title",
-			innerHTML: "Update the post"
+			innerHTML: lang("posts_edit_title")
 		});
 	
 		//Modal body
@@ -77,7 +77,7 @@ ComunicWeb.components.posts.edit = {
 			appendTo: modalFooter,
 			type: "button",
 			class: "btn btn-default pull-left",
-			innerHTML: "Cancel"
+			innerHTML: lang("posts_edit_cancel")
 		});
 		cancelButton.setAttribute("data-confirm", "false");
 	
@@ -85,7 +85,7 @@ ComunicWeb.components.posts.edit = {
 			appendTo: modalFooter,
 			type: "button",
 			class: "btn btn-primary",
-			innerHTML: "Update"
+			innerHTML: lang("posts_edit_update")
 		});
 		confirmButton.setAttribute("data-confirm", "true");
 
@@ -135,7 +135,7 @@ ComunicWeb.components.posts.edit = {
 
 			//Check the new post content
 			if(!ComunicWeb.components.posts.form._check_message(new_content)){
-				ComunicWeb.common.notificationSystem.showNotification("Please check your message content !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification(lang("posts_edit_err_invalid_content"), "danger");
 				return;
 			}
 
@@ -147,13 +147,13 @@ ComunicWeb.components.posts.edit = {
 
 				//Check for errors
 				if(response.error){
-					ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to udpate post !", "danger");
+					ComunicWeb.common.notificationSystem.showNotification(lang("posts_edit_err_update_content"), "danger");
 					confirmButton.disabled = false;
 					return;
 				}
 
 				//Display success
-				ComunicWeb.common.notificationSystem.showNotification("The post has been updated !", "success");
+				ComunicWeb.common.notificationSystem.showNotification(lang("posts_edit_success_update"), "success");
 
 				//Reload post
 				ComunicWeb.components.posts.actions.reload_post(infos.ID, root);
