@@ -112,7 +112,7 @@ ComunicWeb.components.posts.ui = {
 			getMultipleUsersInfos(usersToFetch, function(result){
 				if(result.error) {
 					ComunicWeb.debug.logMessage("Could not get some users info!");
-					userName.innerHTML = "Error";
+					userName.innerHTML = lang("posts_ui_error");
 					return;
 				}
 
@@ -259,7 +259,7 @@ ComunicWeb.components.posts.ui = {
 
 					//Check for errors
 					if(response.error){
-						ComunicWeb.common.notificationSystem.showNotification("Couldn't change post visibility level !", "danger");
+						ComunicWeb.common.notificationSystem.showNotification(lang("posts_ui_err_update_visibility"), "danger");
 						return;
 					}
 
@@ -326,7 +326,7 @@ ComunicWeb.components.posts.ui = {
 			deleteButtonLink.onclick = function(){
 				
 				//Create a confirmation dialog
-				ComunicWeb.common.messages.confirm("Are you sure do you want to delete this post? The operation can not be reverted !", function(accept){
+				ComunicWeb.common.messages.confirm(lang("posts_ui_confirm_delete"), function(accept){
 					
 					//Check if the user cancelled the operation
 					if(!accept)
@@ -341,7 +341,7 @@ ComunicWeb.components.posts.ui = {
 						if(response.error){
 
 							//Display an error
-							ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to delete post !", "danger");
+							ComunicWeb.common.notificationSystem.showNotification(lang("posts_ui_err_delete_post"), "danger");
 							
 							//Make the post visible
 							postRoot.style.visibility = "visible";
@@ -700,20 +700,20 @@ ComunicWeb.components.posts.ui = {
 						appendTo: surveyResponse,
 						class: "survey-given-response",
 						type: "p",
-						innerHTML: "Your response: " + info.data_survey.choices[info.data_survey.user_choice].name + " "
+						innerHTML: lang("posts_ui_survey_your_response", [info.data_survey.choices[info.data_survey.user_choice].name])
 					});
 
 					//Offer the user to cancel his choice
 					var cancelReponseLink = createElem2({
 						appendTo: choosedResponseElem,
 						type: "a",
-						innerHTML: "Cancel"
+						innerHTML: lang("posts_ui_cance_response_survey")
 					});
 
 					//Make cancel button lives
 					cancelReponseLink.onclick = function(){
 
-						ComunicWeb.common.messages.confirm("Do you really want to cancel your response to the survey ?", function(confirm){
+						ComunicWeb.common.messages.confirm(lang("posts_ui_confirm_cancel_survey_response"), function(confirm){
 
 							//Check if the user cancelled
 							if(!confirm)
@@ -724,7 +724,7 @@ ComunicWeb.components.posts.ui = {
 
 								//Check for errors
 								if(response.error){
-									ComunicWeb.common.notificationSystem.showNotification("Could not cancel response to survey !", "danger");
+									ComunicWeb.common.notificationSystem.showNotification(lang("posts_ui_err_cancel_response_survey"), "danger");
 									return;
 								}
 
@@ -778,7 +778,7 @@ ComunicWeb.components.posts.ui = {
 						appendTo: chooseButtonSpan,
 						type: "button",
 						class: "btn btn-default",
-						innerHTML: "Send"
+						innerHTML: lang("posts_ui_send_survey_response")
 					});
 
 					//Make confirm button lives

@@ -35,6 +35,17 @@ ComunicWeb.common.langs.en = {
     menu_bar_action_settings: "Settings",
     _menu_bar_action_logout: "Logout",
 
+    //Posts - UI
+    posts_ui_error: "Error",
+    posts_ui_err_update_visibility: "Couldn't change post visibility level !",
+    posts_ui_confirm_delete: "Are you sure do you want to delete this post? The operation can not be reverted !",
+    posts_ui_err_delete_post: "An error occured while trying to delete post !",
+    posts_ui_survey_your_response: "Your response: %p ",
+    posts_ui_confirm_cancel_survey_response: "Do you really want to cancel your response to the survey ?",
+    posts_ui_err_cancel_response_survey: "Could not cancel response to survey !",
+    posts_ui_send_survey_response: "Send",
+    posts_ui_cance_response_survey: "Cancel",
+
     //Posts form
     _post_type_text: "Text",
     _post_type_youtube: "Youtube",
