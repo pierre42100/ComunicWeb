@@ -25,7 +25,7 @@ ComunicWeb.components.posts.actions = {
 
 			//Check for errors
 			if(infos.error){
-				ComunicWeb.common.notificationSystem.showNotification("An error occured while getting informations about the post !", "danger");
+				ComunicWeb.common.notificationSystem.showNotification("An error occured while getting information about the post !", "danger");
 				return;
 			}
 
