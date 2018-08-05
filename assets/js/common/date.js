@@ -27,7 +27,7 @@ ComunicWeb.common.date = {
 
 		//Check there was less than one minute
 		if(difference == 0)
-			return seconds + "s";
+			return lang("dates_s", [seconds]);
 
 
 		//Calculate minutes
@@ -36,7 +36,7 @@ ComunicWeb.common.date = {
 
 		//Check there was less than one hour
 		if(difference == 0)
-			return minutes + "min";
+			return lang("dates_min", [minutes]);
 
 
 		//Calculate hours
@@ -45,7 +45,7 @@ ComunicWeb.common.date = {
 
 		//Check there was less than a day
 		if(difference == 0)
-			return hours + "h";
+			return lang("dates_h", [hours]);
 
 
 		//Calculate days
@@ -55,9 +55,9 @@ ComunicWeb.common.date = {
 		//Check there was less than a month
 		if(difference == 0){
 			if(days == 1)
-				return "1 day";
+				return lang("dates_one_day");
 			else
-				return days + " days";
+				return lang("dates_days", [days]);
 		}
 			
 
@@ -68,19 +68,19 @@ ComunicWeb.common.date = {
 		//Check there was less than a year
 		if(difference == 0){
 			if(months == 1)
-				return "1 month";
+				return lang("dates_one_month");
 			else
-				return months + " months";
+				return lang("dates_months", [months]);
 		}
 			
 
 		//Calculate years
 		var years = difference;
 		if(years == 1){
-			return "1 year";
+			return lang("dates_one_year");
 		}
 		else {
-			return years + " years";
+			return lang("dates_years", [years]);
 		}
 	},
 

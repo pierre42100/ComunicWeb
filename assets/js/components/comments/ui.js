@@ -147,7 +147,7 @@ ComunicWeb.components.comments.ui = {
 		createElem2({
 			appendTo: rightContainer,
 			type: "span",
-			innerHTML: ComunicWeb.common.date.timeDiffToStr(infos.time_sent) + " ago"
+			innerHTML: lang("dates_ago", [ComunicWeb.common.date.timeDiffToStr(infos.time_sent)])
 		});
 
 		//Offer the user the possibility to delete and update the comment if he is allowed to do so

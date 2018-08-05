@@ -69,7 +69,7 @@ ComunicWeb.components.posts.ui = {
 		});
 
 		//Show the age of the post
-		postDescription.innerHTML = ComunicWeb.common.date.timeDiffToStr(info.post_time) + " ago";
+		postDescription.innerHTML = lang("dates_ago", [ComunicWeb.common.date.timeDiffToStr(info.post_time)]);
 
 
 		/**

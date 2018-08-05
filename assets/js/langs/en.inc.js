@@ -18,6 +18,18 @@ ComunicWeb.common.langs.en = {
     "__fatal_error": "Fatal error",
     "__fatal_error_explanation": "A fatal error occured : <i>%p</i>. Please try to refresh the page...",
 
+    //Dates
+    dates_s: "%p s",
+    dates_min: "%p min",
+    dates_h: "% h",
+    dates_one_day: "1 day",
+    dates_days: "%p days",
+    dates_one_month: "1 month",
+    dates_months: "%p months",
+    dates_one_year: "1 year",
+    dates_years: "%p years",
+    dates_ago: "%p ago",
+
     //Messages
     messages_loading_layout_title: "Loading",
     messages_loading_layout_message: "Please wait while this page is loading...",
