@@ -21,7 +21,7 @@ ComunicWeb.common.langs.en = {
     //Dates
     dates_s: "%p s",
     dates_min: "%p min",
-    dates_h: "% h",
+    dates_h: "%p h",
     dates_one_day: "1 day",
     dates_days: "%p days",
     dates_one_month: "1 month",
