@@ -12,7 +12,7 @@ ComunicWeb.common.langs.en = {
     //Really really common messages
     _loading: "Loading...",
     _send: "Send",
-    _choose: "Choisir",
+    _choose: "Choose",
 
     //Error messages
     "__fatal_error": "Fatal error",
