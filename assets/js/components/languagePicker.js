@@ -62,27 +62,27 @@ ComunicWeb.components.langPicker = {
 			class: "modal-body",
 		});
 	
-		//Display the list of languages
-		var langs = [
-			["fr", "Français"],
-			["en", "English"]
-		];
-
+		//Display the list of language
 		var buttons = [];
-		langs.forEach(function(lang){
+		for(language in ComunicWeb.common.langs.list){
+
+			if(typeof language !== "string")
+				continue;
+			
+			var info = ComunicWeb.common.langs.list[language];
 
 			const button = createElem2({
 				appendTo: modalBody,
 				type: "div",
 				class: "btn btn-default",
-				innerHTML: lang[1]
+				innerHTML: info.local_name + " (" + info.name + ")"
 			});
-			button.setAttribute("data-lang", lang[0]);
+			button.setAttribute("data-lang", language);
 			buttons.push(button);
 
 			add_space(modalBody);
 
-		});
+		};
 	
 		//Modal footer
 		var modalFooter = createElem2({

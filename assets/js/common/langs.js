@@ -100,6 +100,10 @@ ComunicWeb.common.langs = {
      * @return {String} The string ready to show
      */
     getTranslatedText: function(stringName, stringParams){
+
+        if(!this[this.__currentLang])
+            return "Invalid language!";
+
         //Try to get string
         if(this[this.__currentLang][stringName])
             var string = this[this.__currentLang][stringName];
