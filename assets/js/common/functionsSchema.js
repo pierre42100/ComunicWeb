@@ -1370,6 +1370,13 @@ var ComunicWeb = {
 				},
 
 				/**
+				 * Language section
+				 */
+				language: {
+					//TODO : implement
+				},
+
+				/**
 				 * Security section
 				 */
 				security: {

@@ -64,6 +64,20 @@ ComunicWeb.pages.settings.navigationPane = {
 			openPage("settings/general");
 		};
 
+		//Account language settings
+		var sectionLanguage = createElem2({
+			appendTo: elemList,
+			type: "li",
+		});
+		var sectionLanguageLink = createElem2({
+			appendTo: sectionLanguage,
+			type: "a",
+			innerHTML: "<i class='fa fa-flag'></i> Language"
+		});
+		sectionLanguageLink.onclick = function(){
+			openPage("settings/language");
+		};
+
 		//Account security
 		var sectionSecurity = createElem2({
 			appendTo: elemList,

@@ -7,6 +7,22 @@
 ComunicWeb.common.langs = {
 
     /**
+     * Languages list
+     */
+    list:  {
+
+        en: {
+            name: "English",
+            local_name: "English"
+        },
+
+        fr: {
+            name: "French",
+            local_name: "Français"
+        }
+    },
+
+    /**
      * Local storage lang item name
      */
     _lang_storage_field_name: "comunic_v2_lang",
@@ -20,6 +36,7 @@ ComunicWeb.common.langs = {
      * Default langage (updated on init)
      */
     __defaultLang: "en",
+    
 
     /**
      * Get current language

@@ -15,6 +15,14 @@ ComunicWeb.pages.settings.sectionsList = {
 	},
 
 	/**
+	 * Language settings
+	 */
+	language: {
+		title: "Language",
+		handler: "ComunicWeb.pages.settings.sections.language.open",
+	},
+
+	/**
 	 * Security settings
 	 */
 	security: {

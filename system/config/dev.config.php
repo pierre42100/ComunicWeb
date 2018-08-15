@@ -235,6 +235,7 @@ class Dev {
 			//Settings page
 				//Sections sections
 				"css/pages/settings/sections/general.css",
+				"css/pages/settings/sections/language.css",
 				"css/pages/settings/sections/security.css",
 				"css/pages/settings/sections/password.css",
 				"css/pages/settings/sections/accountImage.css",
@@ -461,6 +462,7 @@ class Dev {
 
 				//Settings sections
 				"js/pages/settings/sections/general.js",
+				"js/pages/settings/sections/language.js",
 				"js/pages/settings/sections/security.js",
 				"js/pages/settings/sections/password.js",
 				"js/pages/settings/sections/accountImage.js",
