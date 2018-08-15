@@ -46,6 +46,33 @@ ComunicWeb.components.settings.interface = {
 	},
 
 	/**
+	 * Get language settings
+	 * 
+	 * @param {function} callback
+	 */
+	getLanguage: function(callback){
+		//Make a request over the API
+		var apiURI = "settings/get_language";
+		var params = {};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
+	 * Set (update) language settinsg
+	 * 
+	 * @param {string} language The language to apply
+	 * @param {function} callback
+	 */
+	setLanguage: function(language, callback){
+		//Make a request over the API
+		var apiURI = "settings/set_language";
+		var params = {
+			lang: language
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
 	 * Get security account settings
 	 * 
 	 * @param {string} password The password of the user

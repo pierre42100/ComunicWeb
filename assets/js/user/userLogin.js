@@ -174,8 +174,19 @@ ComunicWeb.user.userLogin = {
 
             //Else refresh login state to get user ID
             ComunicWeb.user.userLogin.refreshLoginState(function(){
-                //And then we'll be able to perform next action
-                afterLogin(true);
+
+                //Then get and apply user language settings
+                ComunicWeb.components.settings.interface.getLanguage(function(lang){
+
+                    if(!lang.error)
+                        ComunicWeb.common.langs.setLang(lang.lang);
+                    
+                    //And then we'll be able to perform next action
+                    afterLogin(true);
+                    
+                });
+
+                
             });
             
         };

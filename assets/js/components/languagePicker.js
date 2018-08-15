@@ -113,7 +113,12 @@ ComunicWeb.components.langPicker = {
 			closeModal();
 			
 			//Set the language
-			ComunicWeb.common.langs.setLang(this.getAttribute("data-lang"));
+			var lang = this.getAttribute("data-lang");
+			ComunicWeb.common.langs.setLang(lang);
+
+			//Save settings in user account if signed in
+			if(signed_in())
+				ComunicWeb.components.settings.interface.setLanguage(lang);
 
 			//Restart the app
 			ComunicWeb.common.system.reset();
