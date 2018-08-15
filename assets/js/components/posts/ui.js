@@ -707,7 +707,7 @@ ComunicWeb.components.posts.ui = {
 					var cancelReponseLink = createElem2({
 						appendTo: choosedResponseElem,
 						type: "a",
-						innerHTML: lang("posts_ui_cance_response_survey")
+						innerHTML: lang("posts_ui_cancel_response_survey")
 					});
 
 					//Make cancel button lives

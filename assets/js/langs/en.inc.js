@@ -76,7 +76,7 @@ ComunicWeb.common.langs.en = {
     posts_ui_confirm_cancel_survey_response: "Do you really want to cancel your response to the survey ?",
     posts_ui_err_cancel_response_survey: "Could not cancel response to survey !",
     posts_ui_send_survey_response: "Send",
-    posts_ui_cance_response_survey: "Cancel",
+    posts_ui_cancel_response_survey: "Cancel",
 
     //Posts form
     _post_type_text: "Text",

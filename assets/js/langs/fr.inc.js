@@ -77,7 +77,7 @@ ComunicWeb.common.langs.fr = {
     posts_ui_confirm_cancel_survey_response: "Voulez-vous vraiment annuler votre r&eacute;ponse au sondage ?",
     posts_ui_err_cancel_response_survey: "Une erreur a survenue lors de l'annulation de la r&ecaute;ponse !",
     posts_ui_send_survey_response: "Envoyer",
-    posts_ui_cance_response_survey: "Annuler",
+    posts_ui_cancel_response_survey: "Annuler",
 
     //Posts form
     _post_type_text: "Texte",
