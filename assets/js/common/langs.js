@@ -26,11 +26,18 @@ ComunicWeb.common.langs = {
      *
      * @return {String} The id of the current language
      */
-    getCurrentLanguage: function(){
+    current: function(){
         
         //Check if a language has been set in local storage
         if(localStorage.getItem(this._lang_storage_field_name) != null)
             return localStorage.getItem(this._lang_storage_field_name);
+
+        //Get user language
+        var language = navigator.language || navigator.userLanguage;
+
+        if(language){
+            return language.split("-")[0];
+        }
 
         //Else return default language
         return ComunicWeb.__config.defaultLanguage;
@@ -61,7 +68,7 @@ ComunicWeb.common.langs = {
         ComunicWeb.debug.logMessage("Get and install languages...");
 
         //Get languages to install
-        this.__currentLang = this.getCurrentLanguage();
+        this.__currentLang = this.current();
         this.__defaultLang = ComunicWeb.__config.defaultLanguage;
 
         //Everything is OK

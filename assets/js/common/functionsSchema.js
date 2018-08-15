@@ -74,7 +74,7 @@ var ComunicWeb = {
 			/**
 			 * Return current language
 			 */
-			getCurrentLanguage: function(){},
+			current: function(){},
 
 			/**
 			 * Initializate languages
