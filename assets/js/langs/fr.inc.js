@@ -200,7 +200,7 @@ ComunicWeb.common.langs.fr = {
     form_create_account_confirm_password_placeholder: "Votre mot de passe",
     form_create_account_terms_label: "J'ai lu et accept&eacute; les <a href='%p' target='_blank'>conditions d'utilisation du r&eacute;seau</a>",
     form_create_account_submit: "Cr&eacute;er le compte",
-    form_create_account_login_with_existing: "Login with an existing account",
+    form_create_account_login_with_existing: "Connexion avec un compte existant",
     form_create_account_err_need_accept_terms: "Veuillez lire et accepter les conditions d'utilisation du site !",
     form_create_account_err_need_first_name: "Veuillez v&eacute;rifier votre pr&eacute;nom !",
     form_create_account_err_check_last_name: "Veuillez v&eacute;rifier votre nom !",
