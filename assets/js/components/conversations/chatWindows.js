@@ -385,6 +385,10 @@ ComunicWeb.components.conversations.chatWindows = {
 	 */
 	changeName: function(newName, infos){
 
+		//Reduce new name
+		if(newName.length > 18)
+			newName = newName.slice(0, 17) + "...";
+
 		//Empty name field
 		emptyElem(infos.boxTitle);
 		
