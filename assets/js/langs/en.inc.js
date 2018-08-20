@@ -209,7 +209,8 @@ ComunicWeb.common.langs.en = {
     form_create_account_err_check_email_address: "Please check your email address !",
     form_create_account_err_check_password: "Please check your password !",
     form_create_account_err_passwd_differents: "The two passwords are not the same !",
-    form_create_account_err_create_account_message: "An error occured while trying to create your account. It is most likely to be a server error, or the given email address is already associated with an account.",
+    form_create_account_err_create_account_message: "An error occured while trying to create your account. It is most likely to be a server error, but please check your input...",
+    form_create_account_err_existing_email: "This email address is already associated with an account!",
     form_create_account_err_create_account_title: "Account creation failed",
 
     //Account created page

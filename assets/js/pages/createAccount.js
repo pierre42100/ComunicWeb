@@ -177,10 +177,17 @@ ComunicWeb.pages.createAccount = {
 
 					//Check for error
 					if(response.error){
+
+						//Determine the right error to choose
+						if(response.error.code == 409)
+							var message = "form_create_account_err_existing_email";
+						else
+							var message = "form_create_account_err_create_account_message";
+
 						//Display an error
 						messagesTarget.appendChild(ComunicWeb.common.messages.createCalloutElem(
 							lang("form_create_account_err_create_account_title"),
-							lang("form_create_account_err_create_account_message"),
+							lang(message),
 							"danger"
 						));
 						return;

@@ -208,7 +208,8 @@ ComunicWeb.common.langs.fr = {
     form_create_account_err_check_email_address: "Veuillez v&eacute;rifier votre adresse mail !",
     form_create_account_err_check_password: "Veuillez v&eacute;rifier votre mot de passe !",
     form_create_account_err_passwd_differents: "Les deux mots de passe ne sont pas identiques !",
-    form_create_account_err_create_account_message: "Une erreur a survenue lors de la tentative de cr&eacute;ation de compte. Ceci se produit g&eacute;n&eacute;ralement lorsque un compte associ&eacute; &agrave; cette adresse mail existe d&eacute;j&agrave;...",
+    form_create_account_err_create_account_message: "Une erreur a survenue lors de la tentative de cr&eacute;ation de compte. Veuillez v&eacute;rifier votre saisie...",
+    form_create_account_err_existing_email: "L'adresse mail sp&eacute;cifi&eacute;e est d&eacute;j&agrave; associ&eacute;e &agrave; un compte...",
     form_create_account_err_create_account_title: "La cr&eacute;ation de compte a &eacute;chou&eacute;e",
 
     //Account created page
