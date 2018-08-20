@@ -397,6 +397,8 @@ var ComunicWeb = {
 			 * Logout user
 			 */
 			logoutUser: function(afterLogout){},
+
+			//TODO : implement
 		},
 		
 		/**

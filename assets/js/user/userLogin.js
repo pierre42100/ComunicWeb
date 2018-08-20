@@ -16,6 +16,12 @@ ComunicWeb.user.userLogin = {
      */
     __userID: 0,
 
+    /**
+     * @var {number} lastAttemptResponseCode Last login attempt response code
+     */
+    _last_attempt_response_code: 0,
+
+
 
     /**
      * Tell if user is logged in or not
@@ -168,6 +174,7 @@ ComunicWeb.user.userLogin = {
 
             //Perform next action if login failed
             if(!loginstate) {
+                ComunicWeb.user.userLogin._last_attempt_response_code = result.error.code;
                 afterLogin(loginstate);
                 return false;
             }
@@ -231,4 +238,11 @@ ComunicWeb.user.userLogin = {
         //Done !
         return 0;
     },
+
+    /**
+     * Get last login attempt response code
+     */
+    get_last_attempt_response_code: function(){
+        return this._last_attempt_response_code;
+    }
 }

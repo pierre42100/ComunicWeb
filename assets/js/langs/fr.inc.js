@@ -180,6 +180,7 @@ ComunicWeb.common.langs.fr = {
     _login_page_password_placeholder: "Mot de passe",
     _login_page_submit: "Connexion",
     _login_page_error_head: "La connexion a échouée",
+    too_many_login_request_try_again_later: "Trop de tentatives de connexion infructueuses. Veuillez r&eacute;essayer ult&eacute;rieurement...",
     _login_page_error_message: "Veuillez vérifier votre identifiant et votre mot de passe !",
     _login_page_bad_input: "Veuillez vérifier votre saisie...",
     _login_page_create_account_lnk: "Cr&eacute;er un compte",

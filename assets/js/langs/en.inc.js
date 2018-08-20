@@ -181,6 +181,7 @@ ComunicWeb.common.langs.en = {
     _login_page_password_placeholder: "Password",
     _login_page_submit: "Sign In",
     _login_page_error_head: "Login failed",
+    too_many_login_request_try_again_later: "Too many unsuccessfull login attempts. Please try again later...",
     _login_page_error_message: "Please check your usermail and password !",
     _login_page_bad_input: "Please check what you've typed !",
     _login_page_create_account_lnk: "Create an account",

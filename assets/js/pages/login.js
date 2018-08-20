@@ -146,8 +146,16 @@ ComunicWeb.pages.login = {
 	 * @return {Boolean} True for a success
 	 */
 	displayLoginError: function(){
+
+		//Find the right error message
+		if(ComunicWeb.user.userLogin.get_last_attempt_response_code() == 429)
+			var code = "too_many_login_request_try_again_later";
+		//Default error messsage
+		else
+			var code = "_login_page_error_message";
+
 		//Create error modal
-		errorMessageElem = ComunicWeb.common.messages.createCalloutElem(lang("_login_page_error_head"), lang("_login_page_error_message"), "danger");
+		errorMessageElem = ComunicWeb.common.messages.createCalloutElem(lang("_login_page_error_head"), lang(code), "danger");
 
 		//Apply error modal
 		document.getElementById('loginMessagesTarget').innerHTML = "";
