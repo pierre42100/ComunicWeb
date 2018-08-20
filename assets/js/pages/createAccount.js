@@ -181,6 +181,8 @@ ComunicWeb.pages.createAccount = {
 						//Determine the right error to choose
 						if(response.error.code == 409)
 							var message = "form_create_account_err_existing_email";
+						else if(response.error.code = 429)
+							var message = "form_create_account_err_too_many_requests";
 						else
 							var message = "form_create_account_err_create_account_message";
 
