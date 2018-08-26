@@ -151,7 +151,7 @@ ComunicWeb.common.langs.fr = {
     comments_editor_notice: "Veuillez sp&eacute;cifier le nouveau contenu du commentaire: ",
 
     //Comments - UI
-    comments_ui_err_get_users_info: "Impossible de r&eacute;cup&eacute; des informations au sujet de certains utilisateurs pour afficher leur commentaires!",
+    comments_ui_err_get_users_info: "Impossible de r&eacute;cup&eacute;rer des informations au sujet de certains utilisateurs pour afficher leur commentaires!",
     comments_ui_err_get_user_info: "Impossible de récupérer des informations au sujet d'un utilisateur !",
     comments_ui_confirm_delete: "Voulez-vous vraiment supprimer ce commentaire ? L'op&eacute;ration est irr&eacute;versible!",
     comments_ui_err_delete_comment: "Une erreur a survenue lors de la tentative de suppression du commentaire !",
