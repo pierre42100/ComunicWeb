@@ -684,7 +684,7 @@ ComunicWeb.components.posts.ui = {
 				createElem2({
 					appendTo: lengendLi,
 					type: "span",
-					innerHTML: " "+surveyData[i].label
+					innerHTML: " " + (surveyData[i].value > 0 ? "("+surveyData[i].value+") " : "") + surveyData[i].label
 				});
 
 			}
