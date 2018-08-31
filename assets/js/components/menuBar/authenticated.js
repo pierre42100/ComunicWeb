@@ -258,7 +258,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		var searchLinkLi = createElem2({
 			appendTo: navbarElem,
 			type: "li",
-			class: "navbar-left messages-menu visible-xs"
+			class: "navbar-left visible-xs"
 		});
 
 		var searchLink = createElem2({
@@ -269,6 +269,7 @@ ComunicWeb.components.menuBar.authenticated = {
 
 		searchLink.addEventListener("click", function(){
 			openPage("search");
+			$(navbarElem.parentNode).collapse("toggle");
 		});
 		
 	}
