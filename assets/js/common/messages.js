@@ -383,3 +383,84 @@ ComunicWeb.common.messages.inputString = function(title, message, defaultValue, 
     $(modal).modal('show');
 
 }
+
+/**
+ * Prompt the user to input his password
+ * 
+ * @param {Object} info Additionnal information
+ */
+ComunicWeb.common.messages.promptPassword = function(info){
+
+    var dialog = ComunicWeb.common.messages.createDialogSkeleton({
+        type: "danger",
+        title: "Password required"
+    });
+    $(dialog.modal).modal("show");
+
+    //Create modal close function
+    var closeModal = function(e, password){
+        $(dialog.modal).modal("hide");
+        emptyElem(dialog.modal);
+        dialog.modal.remove();
+
+        //Callback
+        if(info.callback)
+            info.callback(password);
+    };
+    dialog.cancelButton.addEventListener("click", closeModal);
+    dialog.closeModal.addEventListener("click", closeModal);
+
+    //Set dialog body
+    var passwordForm = createElem2({
+        appendTo: dialog.modalBody,
+        type: "div"
+    });
+
+    createElem2({
+        appendTo: passwordForm,
+        type: "p",
+        innerHTML: "We need your password to continue."
+    });
+
+    //Create pasword input group
+    var inputGroup = createElem2({
+        appendTo: passwordForm,
+        type: "div",
+        class: "input-group input-group-sm"
+    });
+
+    //Create password input
+    var passwordInput = createElem2({
+        appendTo: inputGroup,
+        type: "input",
+        class: "form-control",
+        elemType: "password"
+    });
+
+    //Create input group
+    var inputGroupContainer = createElem2({
+        appendTo: inputGroup,
+        type: "span",
+        class: "input-group-btn"
+    });
+
+    //Add submit button
+    var submitButton = createElem2({
+        appendTo: inputGroupContainer,
+        type: "button",
+        class: "btn btn-danger",
+        innerHTML: "Confirm deletion"
+    });
+
+    submitButton.addEventListener("click", function(e){
+
+        //Check given password
+        var password = passwordInput.value;
+        if(password.length < 4)
+            return notify("Please check given password !", "danger");
+        
+        //Close modal
+        closeModal(null, password);
+
+    });
+}

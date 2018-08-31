@@ -118,6 +118,12 @@ var ComunicWeb = {
 			 * Prompt the user to input a string
 			 */
 			inputString: function(title, message, defaultValue, callback){},
+
+			/**
+			 * Prompt the user to enter his password
+			 */
+			promptPassword: function(info){},
+			
 		},
 
 		/**
