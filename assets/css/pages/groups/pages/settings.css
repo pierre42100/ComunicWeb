@@ -36,3 +36,12 @@
     margin-bottom: 10px;
     display: block;
 }
+
+.group-settings-container .delete-group-link-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.group-settings-container .delete-group-link-container a {
+    color: black;
+}

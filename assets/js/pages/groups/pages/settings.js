@@ -523,5 +523,56 @@ ComunicWeb.pages.groups.pages.settings = {
 			});
 
 		});
+
+
+
+
+		/**
+		 * Delete group link
+		 */
+		var deleteLinkContainer = createElem2({
+			appendTo: formContainer,
+			type: "div",
+			class: "delete-group-link-container",
+		});
+
+		var deleteLink = createElem2({
+			appendTo: deleteLinkContainer,
+			type: "a",
+			innerHTML: "Delete the group"
+		});
+
+		deleteLink.addEventListener("click", function(){
+			ComunicWeb.pages.groups.pages.settings.confirm_delete_group(id);
+		});
 	},
+
+	/**
+	 * Confirm groups deletion
+	 * 
+	 * @param {number} groupID Target group ID
+	 */
+	confirm_delete_group: function(groupID){
+
+		ComunicWeb.common.messages.confirm("Do you really want to delete this group? The operation can not be reverted!", function(r){
+
+			if(!r) return;
+
+			ComunicWeb.common.messages.promptPassword({callback: function(password){
+				if(!password) return;
+
+				ComunicWeb.components.groups.interface.deleteGroup(groupID, password, function(result){
+
+					if(result.error)
+						return notify("Could not delete the group! (maybe your password was incorrect...)", "danger");
+					
+					notify("The group was successfully deleted!", "success");
+					openPage("groups");
+
+				});
+			}});
+
+		});
+		
+	}
 }

@@ -337,5 +337,22 @@ ComunicWeb.components.groups.interface = {
 			follow: follow
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	},
+
+	/**
+	 * Delete a group
+	 * 
+	 * @param {Number} groupID The ID of the group to delete
+	 * @param {String} password The password of the user, for security
+	 * @param {Function} callback
+	 */
+	deleteGroup: function(groupID, password, callback){
+		//Perform the request over the API
+		var apiURI = "groups/delete";
+		var params = {
+			groupID: groupID,
+			password: password
+		};
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	}
 };
