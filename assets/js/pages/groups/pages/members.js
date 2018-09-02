@@ -15,7 +15,7 @@ ComunicWeb.pages.groups.pages.members = {
 	open: function(id, target){
 
 		//Create container
-		var membersContainer = createElem2({
+		var membersPage = createElem2({
 			appendTo: target,
 			type: "div",
 			class: "col-md-6 group-members-page"
@@ -23,7 +23,7 @@ ComunicWeb.pages.groups.pages.members = {
 
 		//Add backward link
 		var backwardLink = createElem2({
-			appendTo: membersContainer,
+			appendTo: membersPage,
 			type: "div",
 			class: "a backward-link",
 			innerHTML: "<i class='fa fa-arrow-left'></i> Go back to the group"
@@ -32,21 +32,12 @@ ComunicWeb.pages.groups.pages.members = {
 			openPage("groups/" + id);
 		});
 
-		//Loading message
-		var loadingMsg = ComunicWeb.common.messages.createCalloutElem(
-			"Loading",
-			"Please wait while we load a few information...",
-			"info"
-		);
-		membersContainer.appendChild(loadingMsg);
-
 		//Get information about the group
 		ComunicWeb.components.groups.interface.getInfo(id, function(info){
 
 			//Check for errors
 			if(info.error){
-				loadingMsg.remove();
-				membersContainer.appendChild(
+				membersPage.appendChild(
 					ComunicWeb.common.messages.createCalloutElem(
 						"Error", 
 						"Could not get group information !", 
@@ -56,52 +47,98 @@ ComunicWeb.pages.groups.pages.members = {
 				return;
 			}
 
-			//Get the list of members of the group
-			ComunicWeb.components.groups.interface.getMembers(id, function(members){
+			ComunicWeb.pages.groups.pages.members.applyGroupInfo(id, info, membersPage);
+		});
+
+	},
+
+	/**
+	 * Apply group information
+	 * 
+	 * @param {Number} id The ID of the group
+	 * @param {Object} info Information about the target of the group
+	 * @param {HTMLElement} target The target for the page
+	 */
+	applyGroupInfo: function(id, info, target){
+
+		document.title = info.name + " - Members";
+
+		//Append the title of the group
+		createElem2({
+			appendTo: target,
+			type: "h2",
+			class: "title",
+			innerHTML: "Members of " + info.name
+		});
+
+		//Refresh the list of members of the group
+		var membersList = createElem2({
+			appendTo: target,
+			type: "div",
+			class: "members-list"
+		});
+		ComunicWeb.pages.groups.pages.members.refreshMembersList(id, info, membersList);
+	},
+
+	/**
+	 * Refresh the list of members of the group
+	 * 
+	 * @param {Number} id The ID of the target group
+	 * @param {Object} info Information about the group
+	 * @param {HTMLElement} target The target for the list
+	 */
+	refreshMembersList: function(id, info, target){
+
+		//Loading message
+		var loadingMsg = ComunicWeb.common.messages.createCalloutElem(
+			"Loading",
+			"Please wait while we load a few information...",
+			"info"
+		);
+		target.appendChild(loadingMsg);
+
+		//Get the list of members of the group
+		ComunicWeb.components.groups.interface.getMembers(id, function(members){
+
+			//Check for errors
+			if(members.error){
+				loadingMsg.remove();
+				target.appendChild(
+					ComunicWeb.common.messages.createCalloutElem(
+						"Error", 
+						"Could not get group members !", 
+						"danger"
+					)
+				);
+				return;
+			}
+
+			//Get the ID of the members of the group
+			var membersIDs = ComunicWeb.components.groups.utils.getMembersIDs(members);
+
+			//Get information about the members of the group
+			getMultipleUsersInfos(membersIDs, function(users){
 
 				//Check for errors
-				if(members.error){
+				if(users.error){
 					loadingMsg.remove();
-					membersContainer.appendChild(
+					target.appendChild(
 						ComunicWeb.common.messages.createCalloutElem(
 							"Error", 
-							"Could not get group members !", 
+							"Could not get group members information !", 
 							"danger"
 						)
 					);
 					return;
 				}
 
-				//Get the ID of the members of the group
-				var membersIDs = ComunicWeb.components.groups.utils.getMembersIDs(members);
+				//Remove loading message
+				loadingMsg.remove();
 
-				//Get information about the members of the group
-				ComunicWeb.user.userInfos.getMultipleUsersInfos(membersIDs, function(users){
-
-					//Check for errors
-					if(users.error){
-						loadingMsg.remove();
-						membersContainer.appendChild(
-							ComunicWeb.common.messages.createCalloutElem(
-								"Error", 
-								"Could not get group members information !", 
-								"danger"
-							)
-						);
-						return;
-					}
-
-					//Remove loading message
-					loadingMsg.remove();
-
-					//Display the members list
-					ComunicWeb.pages.groups.pages.members.displayList(info, members, users, membersContainer);
-
-				});
-
+				//Display the group members list
+				ComunicWeb.pages.groups.pages.members.displayList(info, members, users, target);
 
 			});
-			
 
 		});
 	},
@@ -115,27 +152,9 @@ ComunicWeb.pages.groups.pages.members = {
 	 * @param {HTMLElement} target The target for the list
 	 */
 	displayList: function(info, list, users, target){
-
-		document.title = info.name + " - Members";
-
-		//Append the title of the group
-		createElem2({
-			appendTo: target,
-			type: "h2",
-			class: "title",
-			innerHTML: "Members of " + info.name
-		});
-
-		//Process the list of the members
-		var membersList = createElem2({
-			appendTo: target,
-			type: "div",
-			class: "members-list"
-		});
-
 		//Process the list of members
 		list.forEach(function(member){
-			ComunicWeb.pages.groups.pages.members._display_member(info, member, users, membersList);
+			ComunicWeb.pages.groups.pages.members._display_member(info, member, users, target);
 		});
 	},
 
