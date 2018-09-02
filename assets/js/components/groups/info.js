@@ -44,14 +44,15 @@ ComunicWeb.components.groups.info = {
 	 * 
 	 * @param {Array} list The list of the IDs of the group to get information about
 	 * @param {Function} callback
+	 * @param {Boolean} force TRUE to ignore cache (FALSE by default)
 	 */
-	getInfoMultiple: function(list, callback){
+	getInfoMultiple: function(list, callback, force){
 
 		//First, check which group are unknown in the cache
 		var toFetch = Array();
 
 		list.forEach(function(id){
-			if(!ComunicWeb.components.groups.info._cache[id])
+			if(!ComunicWeb.components.groups.info._cache[id] || force)
 				toFetch.push(id);
 		});
 

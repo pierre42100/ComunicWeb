@@ -167,7 +167,8 @@ function getInfoGroup(id, callback){
  * 
  * @param {Array} IDs The IDs of the groups to get information about
  * @param {Function} callback Callback to call once we have information about the group
+ * @param {Boolean} force TRUE to force the request (ignore cache)
  */
-function getInfoMultipleGroups(IDs, callback){
-    ComunicWeb.components.groups.info.getInfoMultiple(IDs, callback);
+function getInfoMultipleGroups(IDs, callback, force){
+    ComunicWeb.components.groups.info.getInfoMultiple(IDs, callback, force);
 }
