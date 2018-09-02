@@ -11,6 +11,11 @@
     padding-top: 50px;
 }
 
+.groups-main-page .no-group-notice {
+    margin-top: 10px;
+    text-align: center;
+}
+
 .groups-main-page .group-item {
     text-align: justify;
     margin-top: 10px;

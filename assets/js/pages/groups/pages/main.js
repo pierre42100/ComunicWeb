@@ -86,14 +86,25 @@ ComunicWeb.pages.groups.pages.main = {
      */
     _display_list: function(target, list){
         
+        var has_group = false;
+
         for (const i in list) {
             if (list.hasOwnProperty(i)) {
                 const group = list[i];
-                
+                has_group = true;
                 ComunicWeb.pages.groups.pages.main._display_group(group, target);
             }
         }
 
+        //Check if the user does not belong to any groups
+        if(!has_group){
+            createElem2({
+                appendTo: target, 
+                type: "div",
+                class: "no-group-notice",
+                innerHTML:"You do not belong to any group yet."
+            });
+        }
     },
 
     /**
