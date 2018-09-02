@@ -38,23 +38,43 @@ ComunicWeb.pages.groups.pages.main = {
             "info");
         pageContainer.appendChild(message);
 
+        /**
+         * This function is used if an error occurs while retrieving the list
+         * of groups of the user
+         */
+        var getListError = function(){
+            
+            message.remove();
+            
+            pageContainer.appendChild(
+                ComunicWeb.common.messages.createCalloutElem(
+                    "Error", 
+                    "An error occurred while retrieving the list of groups of the user!",
+                    "danger"
+                )
+            );
+        }
+
         //Get the list of groups of the user
         ComunicWeb.components.groups.interface.getListUser(function(list){
 
-            message.remove();
-
             //Check for errors
             if(list.error)
-                return pageContainer.appendChild(
-                    ComunicWeb.common.messages.createCalloutElem(
-                        "Error", 
-                        "An error occurred while retrieving the list of groups of the user!",
-                        "danger"
-                    )
-                );
+                return getListError();
             
-            //Display the list of the groups of the user
-            ComunicWeb.pages.groups.pages.main._display_list(pageContainer, list);
+            //Get information about the groups
+            getInfoMultipleGroups(list, function(info){
+                
+                if(info.error)
+                    return getListError();
+
+                message.remove();
+
+                //Display the list of the groups of the user
+                ComunicWeb.pages.groups.pages.main._display_list(pageContainer, info);
+
+            }, true);
+
         });
     },
 
@@ -65,70 +85,84 @@ ComunicWeb.pages.groups.pages.main = {
      * @param {Object} list The list to apply
      */
     _display_list: function(target, list){
+        
+        for (const i in list) {
+            if (list.hasOwnProperty(i)) {
+                const group = list[i];
+                
+                ComunicWeb.pages.groups.pages.main._display_group(group, target);
+            }
+        }
 
-        //Process the list of groups
-        list.forEach(function(group){
+    },
 
-            //Create group item
-            var groupItem = createElem2({
-                appendTo: target,
-                type: "div",
-                class: "group-item"
-            });
+    /**
+     * Display single group entry
+     * 
+     * @param {Object} group Information about the group
+     * @param {HTMLElement} target The target to display
+     * information about the group
+     */
+    _display_group: function(group, target){
 
-            //Display group information
-            createElem2({
-                appendTo: groupItem,
-                type: "img",
-                class: "group-icon",
-                src: group.icon_url
-            });
-            
-            var groupName = createElem2({
-                appendTo: groupItem,
-                type: "div",
-                class: "group-name a",
-                innerHTML: group.name
-            });
-
-            groupName.addEventListener("click", function(e){
-                openGroupPage(group);
-            });
-
-            //Offer the user to delete its membership
-            var deleteButton = createElem2({
-                appendTo: groupItem,
-                type: "div",
-                class: "buttons-area a",
-                innerHTML: "<i class='fa fa-trash'></i>"
-            });
-
-            deleteButton.addEventListener("click", function(e){
-
-                //Ask user confirmation
-                ComunicWeb.common.messages.confirm("Do you really want to delete your membership of this group ?", function(r){
-                    if(!r) return;
-
-                    groupItem.style.visibility = "hidden";
-
-                    ComunicWeb.components.groups.interface.removeMembership(group.id, function(result){
-
-                        groupItem.style.visibility = "visible";
-
-                        if(result.error)
-                            return notify("Could not delete your membership to this group!", "error");
-                        
-                        groupItem.remove();
-
-                    });
-                });
-
-            });
-
-            //Display membership status
-            ComunicWeb.pages.groups.sections.membershipBlock.display(group, groupItem);
+        //Create group item
+        var groupItem = createElem2({
+            appendTo: target,
+            type: "div",
+            class: "group-item"
         });
 
+        //Display group information
+        createElem2({
+            appendTo: groupItem,
+            type: "img",
+            class: "group-icon",
+            src: group.icon_url
+        });
+        
+        var groupName = createElem2({
+            appendTo: groupItem,
+            type: "div",
+            class: "group-name a",
+            innerHTML: group.name
+        });
+
+        groupName.addEventListener("click", function(e){
+            openGroupPage(group);
+        });
+
+        //Offer the user to delete its membership
+        var deleteButton = createElem2({
+            appendTo: groupItem,
+            type: "div",
+            class: "buttons-area a",
+            innerHTML: "<i class='fa fa-trash'></i>"
+        });
+
+        deleteButton.addEventListener("click", function(e){
+
+            //Ask user confirmation
+            ComunicWeb.common.messages.confirm("Do you really want to delete your membership of this group ?", function(r){
+                if(!r) return;
+
+                groupItem.style.visibility = "hidden";
+
+                ComunicWeb.components.groups.interface.removeMembership(group.id, function(result){
+
+                    groupItem.style.visibility = "visible";
+
+                    if(result.error)
+                        return notify("Could not delete your membership to this group!", "error");
+                    
+                    groupItem.remove();
+
+                });
+            });
+
+        });
+
+        //Display membership status
+        ComunicWeb.pages.groups.sections.membershipBlock.display(group, groupItem);
     }
 
 }
