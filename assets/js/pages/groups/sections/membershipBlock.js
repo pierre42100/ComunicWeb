@@ -105,7 +105,7 @@ ComunicWeb.pages.groups.sections.membershipBlock = {
 						notify("An error occurred while trying to respond to the invitation!", "danger");
 					
 					//Refresh the component
-					refresh_component();
+					ComunicWeb.common.page.refresh_current_page();
 				});
 
 			}
