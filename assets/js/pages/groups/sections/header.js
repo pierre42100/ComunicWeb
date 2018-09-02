@@ -91,6 +91,9 @@ ComunicWeb.pages.groups.sections.header = {
                 innerHTML: "<i class='fa fa-file-text-o'></i> " + info.description
             });
 
+        //Add separator
+        add_p(secondColumn, "&nbsp;");
+
 
 
         //Third column : information about the group
