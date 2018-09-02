@@ -71,13 +71,107 @@ ComunicWeb.pages.groups.pages.members = {
 			innerHTML: "Members of " + info.name
 		});
 
-		//Refresh the list of members of the group
+		//Add invite form
+		var inviteFormTarget = createElem2({
+			appendTo: target,
+			type: "div"
+		});
+		var inviteFormCallback;
+		
+		//Add members list target
 		var membersList = createElem2({
 			appendTo: target,
 			type: "div",
 			class: "members-list"
 		});
-		ComunicWeb.pages.groups.pages.members.refreshMembersList(id, info, membersList);
+
+		/**
+		 * Load the page components
+		 */
+		var loadComponents = function(){
+			ComunicWeb.pages.groups.pages.members.addInviteForm(info, inviteFormTarget, inviteFormCallback);
+			ComunicWeb.pages.groups.pages.members.refreshMembersList(id, info, membersList);
+		}
+
+		/**
+		 * Method called when a user has just been invited
+		 */
+		inviteFormCallback = function(){
+			emptyElem(inviteFormTarget);
+			emptyElem(membersList);
+			loadComponents();
+		}
+
+		loadComponents();
+	},
+
+	/**
+	 * Add members invite form
+	 * 
+	 * @param {Object} info Information about the target group
+	 * @param {HTMLElement} target The target for the form
+	 * @param {Function} callback
+	 */
+	addInviteForm: function(info, target, callback){
+
+		//Create form container
+		var formContainer = createElem2({
+			appendTo: target,
+			type: "form",
+			class: "invite-user-form"
+		});
+
+		//Form input
+		var userInput = createFormGroup({
+			target: formContainer, 
+			multiple: false,
+			placeholder: "Select user",
+			type: "select2"});
+		userInput.parentNode.className = "input-group";
+
+		ComunicWeb.components.userSelect.init(userInput);
+
+		//Add submit button
+		var groupsButton = createElem2({
+			appendTo: userInput.parentNode,
+			type: "div",
+			class: "input-group-btn"
+		});
+
+		createElem2({
+			appendTo: groupsButton,
+			type: "button",
+			elemType: "submit",
+			class: "btn btn-primary",
+			innerHTML: "Invite user"
+		});
+
+		/**
+		 * Handle form submit
+		 */
+		formContainer.onsubmit = function(){
+
+			//Get the list of selected users
+			var usersToInvite = ComunicWeb.components.userSelect.getResults(userInput);
+
+			//Check if there is not any user to invite
+			if(usersToInvite.length == 0){
+				notify("Please choose a user to invite!", "danger");
+				return false;
+			}
+
+			//Invite the first selected user
+			ComunicWeb.components.groups.interface.inviteUser(usersToInvite[0], info.id, function(result){
+
+				if(result.error)
+					return notify("Could not invite user to join the group!", "danger");
+				
+				callback();
+
+			});
+
+			return false;
+		}
 	},
 
 	/**

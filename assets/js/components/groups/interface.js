@@ -172,6 +172,24 @@ ComunicWeb.components.groups.interface = {
 	},
 
 	/**
+	 * Invite a user to join a group
+	 * 
+	 * @param {Number} user_id The ID of the user to invite
+	 * @param {Number} group_id Target group
+	 * @param {Function} callback
+	 */
+	inviteUser: function(user_id, group_id, callback){
+		ComunicWeb.common.api.makeAPIrequest(
+			"groups/invite",
+			{
+				userID: user_id,
+				group_id: group_id
+			},
+			true, callback
+		);
+	},
+
+	/**
 	 * Respond to a group invitation
 	 * 
 	 * @param {Number} id The ID of the target group

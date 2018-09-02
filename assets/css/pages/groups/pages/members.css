@@ -18,6 +18,11 @@
 	text-align: center;
 }
 
+.group-members-page .invite-user-form {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
 .group-members-page .member {
 	margin-bottom: 10px;
 }
