@@ -376,6 +376,7 @@ ComunicWeb.pages.conversations.conversation = {
 			placeholder: "New message...",
 		});
 		inputText.maxLength = 200;
+		inputText.focus();
 
 
 		//Enable textarea 2.0 on the message
