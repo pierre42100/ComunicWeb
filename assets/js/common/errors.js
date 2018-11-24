@@ -109,6 +109,10 @@ ComunicWeb.common.error.pageNotFound = function(additionnalData, targetElement){
  */
 ComunicWeb.common.error.syntaxtError = function(error, additional){
 	
+	//Do not do anything in production mode
+	if(ComunicWeb.__config.productionMode == true)
+		return;
+
 	//Create a modal dialog to report error
 	var dialog = ComunicWeb.common.messages.createDialogSkeleton({
 		type: "danger",
