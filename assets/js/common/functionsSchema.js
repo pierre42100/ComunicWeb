@@ -1039,6 +1039,13 @@ var ComunicWeb = {
 			},
 
 			/**
+			 * Notification song system
+			 */
+			song: {
+				//TODO : implement
+			},
+
+			/**
 			 * Notifications utilities
 			 */
 			utils: {

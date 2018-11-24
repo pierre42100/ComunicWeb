@@ -7,6 +7,11 @@
 ComunicWeb.components.notifications.service = {
 	
 	/**
+	 * Last known number of notifications
+	 */
+	last_notifs_number: -1,
+
+	/**
 	 * Init the service
 	 * 
 	 * @param {HTMLElement} target The target that will receive 
@@ -19,17 +24,18 @@ ComunicWeb.components.notifications.service = {
 	init: function(target, auto_hide, target_conversations){
 
 		//Initialize interval
-		var interval = setInterval(function(){
+		var interval = setInterval(() => {
 
 			//Auto-remove interval if the target has been removed
 			if(!target.isConnected){
 				ComunicWeb.common.pageTitle.setNotificationsNumber(0);
+				this.last_notifs_number = -1;
 				return clearInterval(interval);
 			}
 				
 
 			//Get the number of notifications from the API
-			ComunicWeb.components.notifications.interface.getAllUnread(function(response){
+			ComunicWeb.components.notifications.interface.getAllUnread(response => {
 
 				//Continue in case of success
 				if(response.error)
@@ -58,8 +64,17 @@ ComunicWeb.components.notifications.service = {
 
 				}
 
+				//Sum notification number
+				let total_number_notifs = response.notifications + response.conversations;
+
 				//Update page title too
-				ComunicWeb.common.pageTitle.setNotificationsNumber(response.notifications + response.conversations);
+				ComunicWeb.common.pageTitle.setNotificationsNumber(total_number_notifs);
+
+				//Play song if required
+				if(this.last_notifs_number != -1 && total_number_notifs > this.last_notifs_number)
+					ComunicWeb.components.notifications.song.play();
+				
+				this.last_notifs_number = total_number_notifs;
 			});
 
 		}, 2000);
