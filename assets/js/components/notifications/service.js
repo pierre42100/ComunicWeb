@@ -22,8 +22,11 @@ ComunicWeb.components.notifications.service = {
 		var interval = setInterval(function(){
 
 			//Auto-remove interval if the target has been removed
-			if(!target.isConnected)
+			if(!target.isConnected){
+				ComunicWeb.common.pageTitle.setNotificationsNumber(0);
 				return clearInterval(interval);
+			}
+				
 
 			//Get the number of notifications from the API
 			ComunicWeb.components.notifications.interface.getAllUnread(function(response){
@@ -55,6 +58,8 @@ ComunicWeb.components.notifications.service = {
 
 				}
 
+				//Update page title too
+				ComunicWeb.common.pageTitle.setNotificationsNumber(response.notifications + response.conversations);
 			});
 
 		}, 2000);

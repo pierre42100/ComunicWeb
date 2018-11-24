@@ -52,7 +52,7 @@ ComunicWeb.pages.settings.main = {
 			var section = ComunicWeb.pages.settings.sectionsList[section];
 			
 			//Update document title
-			document.title += " - " + section.title;
+			ComunicWeb.common.pageTitle.setTitle("Settings - " + section.title);
 
 			//Call handler
 			eval(section.handler + "(args, rightArea);");

@@ -14,7 +14,7 @@ ComunicWeb.pages.groups.pages.create = {
 	open: function(target){
 		
 		//Update page title
-		document.title = "Create a group";
+		ComunicWeb.common.pageTitle.setTitle("Create a group");
 
 		//Create page container
 		var pageContainer = createElem2({

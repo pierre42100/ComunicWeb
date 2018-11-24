@@ -61,7 +61,7 @@ ComunicWeb.pages.groups.pages.members = {
 	 */
 	applyGroupInfo: function(id, info, target){
 
-		document.title = info.name + " - Members";
+		ComunicWeb.common.pageTitle.setTitle(info.name + " - Members");
 
 		//Append the title of the group
 		createElem2({

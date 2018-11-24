@@ -72,7 +72,7 @@ ComunicWeb.pages.userPage.accessForbidden = {
 	showBasicInfos: function(userInfos, target){
 
 		//Update page title
-		document.title = userInfos.firstName + " " + userInfos.lastName;
+		ComunicWeb.common.pageTitle.setTitle(userInfos.firstName + " " + userInfos.lastName);
 		
 		//Create box root
 		var boxRoot = createElem2({

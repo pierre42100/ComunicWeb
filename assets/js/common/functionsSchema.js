@@ -229,6 +229,22 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Page title management
+		 */
+		pageTitle: {
+			
+			/**
+			 * Set a new title to the page
+			 */
+			setTitle: function(title){},
+
+			/**
+			 * Set new number of notifications
+			 */
+			setNotificationsNumber: function(number){}
+		},
+
+		/**
 		 * Functions to check data input in forms
 		 */
 		formChecker: {

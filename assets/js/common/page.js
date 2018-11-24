@@ -196,7 +196,7 @@ ComunicWeb.common.page = {
         }
 
         //Change page title
-        document.title =  pageInfos.pageTitle;
+        ComunicWeb.common.pageTitle.setTitle(pageInfos.pageTitle);
 
         //Change page URL, if required
         if(additionnalData.no_url_update ? !additionnalData.no_url_update : true)

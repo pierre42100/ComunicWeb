@@ -288,6 +288,7 @@ class Dev {
 		"js/common/jsFiles.js",
 		"js/common/debug.js",
 		"js/common/page.js",
+		"js/common/pageTitle.js",
 		"js/common/notifications.js",
 		"js/common/formChecker.js",
 		"js/common/date.js",

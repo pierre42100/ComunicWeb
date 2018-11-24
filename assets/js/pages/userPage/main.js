@@ -121,7 +121,7 @@ ComunicWeb.pages.userPage.main = {
 	displayUserPage: function(infos, params, target){
 
 		//Update page title
-		document.title = infos.firstName + " " + infos.lastName;
+		ComunicWeb.common.pageTitle.setTitle(infos.firstName + " " + infos.lastName);
 		
 		//Create the section class content
 		var sectionContent = createElem2({

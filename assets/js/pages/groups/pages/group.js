@@ -49,7 +49,7 @@ ComunicWeb.pages.groups.pages.group = {
     display: function(id, info, target){
 
         //Update page title
-        document.title = info.name;
+        ComunicWeb.common.pageTitle.setTitle(info.name);
 
         //Create page row
         var pageRow = createElem2({

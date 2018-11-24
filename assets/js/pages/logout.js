@@ -20,6 +20,9 @@ ComunicWeb.pages.logout = {
         //Perform logout
         ComunicWeb.user.userLogin.logoutUser();
 
+        //Reset notifications number
+        ComunicWeb.common.pageTitle.setNotificationsNumber(0);
+
         //Clean all caches
         ComunicWeb.common.system.reset(true, "home");
 
