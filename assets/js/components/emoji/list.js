@@ -23,6 +23,7 @@ ComunicWeb.components.emoji.list = {
 		
 		//Objects
 		"(movie)": "&#x1F4FD;",
+		"(w)": " &#x2753;"
 	}
 
 }
