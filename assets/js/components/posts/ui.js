@@ -826,7 +826,7 @@ ComunicWeb.components.posts.ui = {
 			appendTo: postRoot,
 			type: "div",
 			class: "post_content",
-			innerHTML: info.content
+			innerHTML: removeJavascriptEventsFromHTML(info.content)
 		});
 
 		//Parse emojies

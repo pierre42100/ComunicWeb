@@ -593,3 +593,26 @@ function dataURItoBlob(dataURI){
 	return new Blob([ia], {type: mimeString});
 
 }
+
+/**
+ * Satinize some HTML source code by removing all javascript event detectors
+ * from it 
+ * 
+ * @param {string} html The source code to update
+ * @return {string} Secured html
+ */
+function removeJavascriptEventsFromHTML(html){
+	
+	//Check if the string to check is null (we will consider
+	//at safe in this case)
+	if(html == null)
+		return html;
+
+	//Search for unexceptable references
+	while(html.match(/on[a-zA-Z ]+=/i) != null){
+		let match = html.match(/on[a-zA-Z ]+=/i)[0];
+		html = html.replace(match, match.replace("on", "o<block></block>n"))
+	}
+
+	return html;
+}
