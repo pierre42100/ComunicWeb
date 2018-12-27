@@ -99,6 +99,47 @@ ComunicWeb.components.emoji.picker = {
 		var parent = elem.parentNode;
 		parent.className += ' wdt-emoji-picker-parent';
 		elem.className += ' wdt-emoji-bundle-enabled wdt-emoji-picker-ready';
+	},
+
+	/**
+	 * Add a detached picker to a page
+	 * 
+	 * @param {HTMLElement} target Target element that will contains the icon
+	 * @param {(emojie : string) => any} callback Callback function called each time a new
+	 * emojie is selected
+	 */
+	addDetachedPicker: function(target, callback){
+		
+		this.init();
+
+		//Create input text that will received new emojies
+		var input = createElem2({
+			type: "input",
+			appendTo: target,
+			class: "wdt-emoji-bundle-enabled hidden",
+			elemType: "text",
+			style: "display: none;"
+		});
+
+		ComunicWeb.components.emoji.picker.addPicker(input);
+
+		let interval = setInterval(() => {
+			
+			//Check if input has been detached
+			if(!input.isConnected){
+				clearInterval(interval);
+				return;
+			}
+			
+			//Securely send value to callback
+			if(input.value.length > 0){
+				let value = input.value;
+				input.value = "";
+				callback(value);
+			}
+
+
+		}, 500);
 	}
 
 }
