@@ -17,6 +17,9 @@
 	margin-bottom: 10px;
 }
 
+.post-form .new-message-content-container {
+	margin-bottom: 15px;
+}
 
 /**
  * Message type chooser

@@ -117,7 +117,9 @@ ComunicWeb.components.posts.edit = {
 			format: 'bbcode',
 			height: "200px",
 			width: "100%",
-			toolbarExclude: "youtube,image,size,link"
+			icons: "material",
+			style: ComunicWeb.components.posts.form.sceditor_stylsheet,
+			toolbarExclude: "youtube,image,size,link,print,mail,emoticon,maximize"
 		});
 
 		//Create function to close modal

@@ -75,7 +75,7 @@ class Dev {
 		"3rdparty/wdt-emoji/wdt-emoji-bundle.css",
 
 		//SCEditor (BBCode editor)
-		"3rdparty/sceditor/themes/default.min.css"
+		"css/common/custom-sceditor.css"
 	);
 
 	/**
@@ -154,6 +154,7 @@ class Dev {
 		"3rdparty/sceditor/sceditor.min.js",
 		"3rdparty/sceditor/formats/bbcode.js",
 		"3rdparty/sceditor/formats/xhtml.js",
+		"3rdparty/sceditor/icons/material.js",
 
 		//JS BBCode Parser
 		"3rdparty/js-bbcode-parser/bbcode-config.js",

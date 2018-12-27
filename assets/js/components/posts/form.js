@@ -7,6 +7,11 @@
 ComunicWeb.components.posts.form = {
 
 	/**
+	 * SCEDITOR common options
+	 */
+	sceditor_stylsheet: "data:text/css;raw, body {font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;}",
+
+	/**
 	 * Display post creation form
 	 * 
 	 * @param {string} kind The kind of page
@@ -51,16 +56,21 @@ ComunicWeb.components.posts.form = {
 
 		var inputMessageToolbarTarget = createElem2({
 			appendTo: newPostMessageContener,
-			type: "div"
+			type: "div",
+			class: "new-message-content-container"
 		});
 
 		sceditor.create(inputMessageTextarea, {
 			format: 'bbcode',
-			height: "200px",
+			height: "100px",
 			width: "100%",
-			toolbar: 'bold,italic,underline,subscript,superscript|' +
-			'left,center,right,justify|color|' +
-			'bulletlist,orderedlist|table,code,quote|source',
+			toolbar: 'bold,italic,underline,subscript,superscript,' +
+			'left,center,right,justify,color,' +
+			'bulletlist,orderedlist,table,code,quote,source',
+			emoticonsEnabled: false,
+			icons: "material",
+			//Hack : style a little iframe
+			style: this.sceditor_stylsheet,
 			toolbarContainer: inputMessageToolbarTarget
 		});
 

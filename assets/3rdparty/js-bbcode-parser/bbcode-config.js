@@ -285,5 +285,17 @@ var parserTags = {
 		}
 	},
 
+	'hr': {
+		openTag: function(params,content) {
+			return '<hr />';
+		},
+		closeTag: function(params,content) {
+			return '';
+		},
+		content: function(params, content){
+			return '';
+		}
+	},
+
 	//COMUNIC ADD END
 };
