@@ -73,6 +73,9 @@ class Dev {
 
 		//Emoji picker
 		"3rdparty/wdt-emoji/wdt-emoji-bundle.css",
+
+		//SCEditor (BBCode editor)
+		"3rdparty/sceditor/themes/default.min.css"
 	);
 
 	/**
@@ -146,6 +149,15 @@ class Dev {
 
 		//JSZip utils
 		"3rdparty/jszip-utils/jszip-utils.js",
+
+		//SCEditor (BBCode editor)
+		"3rdparty/sceditor/sceditor.min.js",
+		"3rdparty/sceditor/formats/bbcode.js",
+		"3rdparty/sceditor/formats/xhtml.js",
+
+		//JS BBCode Parser
+		"3rdparty/js-bbcode-parser/bbcode-config.js",
+		"3rdparty/js-bbcode-parser/bbcode-parser.js",
 	);
 
 	/**

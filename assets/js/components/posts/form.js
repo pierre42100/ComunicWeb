@@ -42,18 +42,35 @@ ComunicWeb.components.posts.form = {
 		});
 
 		//Create post message textarea
-		var inputMessageDiv = createElem2({
+		var inputMessageTextarea = createElem2({
 			appendTo: newPostMessageContener,
-			type: "div",
-			class: "new-message wdt-emoji-bundle-enabled",
+			type: "textarea",
+			class: "new-message",
 			innerHTML: ""
 		});
 
-		//Enable bootstrap-wysiwyg
-		$(inputMessageDiv).wysiwyg();
+		var inputMessageToolbarTarget = createElem2({
+			appendTo: newPostMessageContener,
+			type: "div"
+		});
+
+		sceditor.create(inputMessageTextarea, {
+			format: 'bbcode',
+			height: "200px",
+			width: "100%",
+			toolbar: 'bold,italic,underline,subscript,superscript|' +
+			'left,center,right,justify|color|' +
+			'bulletlist,orderedlist|table,code,quote|source',
+			toolbarContainer: inputMessageToolbarTarget
+		});
 
 		//Enable emojies picker
-		ComunicWeb.components.emoji.picker.addPicker(inputMessageDiv);
+		ComunicWeb.components.emoji.picker.addDetachedPicker(newPostMessageContener, (emojie) => {
+			
+			//Append new emojie to the instance
+			sceditor.instance(inputMessageTextarea).insertText(emojie);
+
+		});
 
 
 		//Add the different post types
@@ -344,7 +361,7 @@ ComunicWeb.components.posts.form = {
 			var datas = new FormData();
 
 			//Get the message content
-			var message_content = inputMessageDiv.innerHTML;
+			var message_content = sceditor.instance(inputMessageTextarea).getWysiwygEditorValue();
 			datas.append("content", message_content);
 			
 			//Check if the message includes an image

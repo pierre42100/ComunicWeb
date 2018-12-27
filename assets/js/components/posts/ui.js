@@ -826,7 +826,7 @@ ComunicWeb.components.posts.ui = {
 			appendTo: postRoot,
 			type: "div",
 			class: "post_content",
-			innerHTML: removeJavascriptEventsFromHTML(info.content)
+			innerHTML: lineBreakToPTags(BBCodeParser.process(removeHtmlTags(info.content)))
 		});
 
 		//Parse emojies

@@ -106,13 +106,19 @@ ComunicWeb.components.posts.edit = {
 		});
 
 		//Create update editor
-		var editorDiv = createElem2({
+		var editorTextarea = createElem2({
 			appendTo: updateDiv,
-			type: "div",
+			type: "textarea",
 			class: "editor",
-			innerHTML: infos.content
+			value: infos.content
 		});
-		$(editorDiv).wysiwyg();
+		
+		sceditor.create(editorTextarea, {
+			format: 'bbcode',
+			height: "200px",
+			width: "100%",
+			toolbarExclude: "youtube,image,size,link"
+		});
 
 		//Create function to close modal
 		var closeModal = function(){
@@ -131,7 +137,7 @@ ComunicWeb.components.posts.edit = {
 			}
 
 			//Get the new post content
-			var new_content = editorDiv.innerHTML;
+			var new_content = sceditor.instance(editorTextarea).getWysiwygEditorValue();
 
 			//Check the new post content
 			if(!ComunicWeb.components.posts.form._check_message(new_content)){

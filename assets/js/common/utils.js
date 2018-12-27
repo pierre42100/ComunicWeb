@@ -416,6 +416,10 @@ function checkString(value){
  */
 function removeHtmlTags(input){
 	
+	//Check if input string is empty
+	if(input == null)
+		return "";
+
 	//Prepare update
 	var output = input;
 	
@@ -433,6 +437,25 @@ function removeHtmlTags(input){
 	
 	//Return result
 	return output;
+}
+
+/**
+ * Replace all line break with paragraph tags
+ * 
+ * @param {string} input Input string to convert
+ * @return {string} Generated string
+ */
+function lineBreakToPTags(input){
+
+	//Check if the string is empty
+	if(input == null || input == "")
+		return input;
+	
+	//Change string
+	while(input.includes("\n"))
+		input = input.replace("\n", "</p><p>");
+	
+	return "<p>"+input+"</p>";
 }
 
 /**
