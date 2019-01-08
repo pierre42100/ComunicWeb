@@ -1,0 +1,117 @@
+:root {
+    --black: #1119;
+    --black2: #111111;
+    --black3: #000;
+    --black4: #686a6c;
+    --black5: #232426;
+    --black6: #0f0f0f;
+    --white: silver;
+}
+
+.navbar {
+    background-color: var(--black) !important;;
+}
+
+#homeLandingScreen {
+    background-image: none !important;
+    background-color: var(--black5);
+}
+
+#homeLandingScreen #homeMessage {
+    background-color: var(--black);
+}
+
+.btn {
+    color: var(--white);
+}
+
+.btn-primary, .btn-success, .btn-default {
+    background-color: transparent;
+}
+
+p, h1, h2, h3, h4, h5 {
+    color: var(--white);
+}
+
+.form-control {
+    background-color: var(--black);
+    color: var(--white);
+    border-color: var(--black5);
+}
+
+.form-control:focus {
+    background-color:  var(--black5);
+}
+
+.login-page, .register-page {
+    background-color: var(--black2);
+}
+
+.login-box-body {
+    background-color: var(--black3);
+}
+
+.login-logo b, #loginForm label {
+    color: var(--white) !important;
+}
+
+.content-wrapper {
+    background-color: var(--black3);
+}
+
+.create-account-form label {
+    color: var(--white);
+}
+
+.main-footer {
+    background-color: var(--black3);
+}
+
+.main-footer span {
+    color: var(--white);
+}
+
+.box {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.form-group label {
+    color: var(--white);
+}
+
+.modal-primary .modal-header, 
+.modal-primary .modal-footer {
+    background-color: var(--black5) !important;;
+}
+
+.modal-primary .modal-body {
+    background-color: var(--black6) !important;
+}
+
+.attachment-block {
+    background-color: var(--black6);
+}
+
+.post-comments {
+    background-color: var(--black);
+}
+
+.post {
+    color: var(--white);
+}
+
+.box-comments .username, 
+.box-comments .comment-content {
+    color: var(--white);
+}
+
+.link-black {
+    color: var(--white);
+}
+
+
+.comment-creation-form .comment-image-select a, 
+.comment-creation-form .comment-emoji-select a {
+    color: var(--white);
+}
