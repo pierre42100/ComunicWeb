@@ -1,3 +1,6 @@
+/**
+ * General definitions
+ */
 :root {
     --black: #1119;
     --black2: #111111;
@@ -8,31 +11,42 @@
     --white: silver;
 }
 
-.navbar {
-    background-color: var(--black) !important;;
+p, h1, h2, h3, h4, h5, h6 {
+    color: var(--white);
 }
 
-#homeLandingScreen {
-    background-image: none !important;
-    background-color: var(--black5);
+.content-wrapper {
+    background-color: var(--black3);
 }
 
-#homeLandingScreen #homeMessage {
-    background-color: var(--black);
+.link-black {
+    color: var(--white);
 }
 
+
+
+/**
+ * Buttons
+ */
 .btn {
     color: var(--white);
 }
 
-.btn-primary, .btn-success, .btn-default {
+.btn-primary, 
+.btn-success, 
+.btn-default,
+.btn-danger {
     background-color: transparent;
 }
 
-p, h1, h2, h3, h4, h5 {
-    color: var(--white);
+.btn-default:active, .btn-default:focus {
+    background-color: var(--white);
 }
 
+
+/**
+ * Forms
+ */
 .form-control {
     background-color: var(--black);
     color: var(--white);
@@ -43,6 +57,103 @@ p, h1, h2, h3, h4, h5 {
     background-color:  var(--black5);
 }
 
+.form-group label {
+    color: var(--white);
+}
+
+
+
+/**
+ * Navbar
+ */
+.navbar {
+    background-color: var(--black) !important;;
+}
+
+
+
+/**
+ * Footer
+ */
+.main-footer {
+    background-color: var(--black3);
+}
+
+.main-footer span {
+    color: var(--white);
+}
+
+/**
+ * Boxes
+ */
+ .box {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+
+/**
+ * Modals
+ */
+.modal-header,
+.modal-footer {
+    background-color: var(--black5);
+}
+
+.modal-body {
+    background-color: var(--black6);
+}
+
+.modal-primary .modal-header, 
+.modal-primary .modal-footer {
+    background-color: var(--black5) !important;;
+}
+
+.modal-primary .modal-body {
+    background-color: var(--black6) !important;
+}
+
+.modal-danger .modal-header, 
+.modal-danger .modal-footer {
+    background-color: #a22819 !important;
+}
+
+.modal-danger .modal-body {
+    background-color: #872f24 !important;
+}
+
+/**
+ * Dropdown menus
+ */
+.dropdown-menu {
+    background-color: var(--black5);
+}
+
+.dropdown-menu > li > a {
+    color: var(--white) !important;
+}
+
+.dropdown-menu > li > a:hover {
+    background-color: var(--black3);
+}
+
+
+/**
+ * Home page
+ */
+#homeLandingScreen {
+    background-image: none !important;
+    background-color: var(--black5);
+}
+
+#homeLandingScreen #homeMessage {
+    background-color: var(--black);
+}
+
+
+/**
+ * Login page
+ */
 .login-page, .register-page {
     background-color: var(--black2);
 }
@@ -55,46 +166,28 @@ p, h1, h2, h3, h4, h5 {
     color: var(--white) !important;
 }
 
-.content-wrapper {
-    background-color: var(--black3);
-}
 
+/**
+ * Create account page
+ */
 .create-account-form label {
     color: var(--white);
 }
 
-.main-footer {
-    background-color: var(--black3);
-}
 
-.main-footer span {
-    color: var(--white);
-}
 
-.box {
-    background-color: var(--black5);
-    color: var(--white);
-}
 
-.form-group label {
-    color: var(--white);
-}
 
-.modal-primary .modal-header, 
-.modal-primary .modal-footer {
-    background-color: var(--black5) !important;;
-}
-
-.modal-primary .modal-body {
-    background-color: var(--black6) !important;
-}
-
+/**
+ * Posts
+ */
 .attachment-block {
     background-color: var(--black6);
 }
 
 .post-comments {
     background-color: var(--black);
+    border-radius: 2px;
 }
 
 .post {
@@ -106,12 +199,17 @@ p, h1, h2, h3, h4, h5 {
     color: var(--white);
 }
 
-.link-black {
+
+.comment-creation-form .comment-image-select a, 
+.comment-creation-form .comment-emoji-select a {
     color: var(--white);
 }
 
 
-.comment-creation-form .comment-image-select a, 
-.comment-creation-form .comment-emoji-select a {
+/**
+ * Posts edit modal
+ */
+.editor {
+    background-color: var(--black5);
     color: var(--white);
 }
