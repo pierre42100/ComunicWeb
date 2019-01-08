@@ -1,6 +1,6 @@
 /**
- * General definitions
- */
+* General definitions
+*/
 :root {
     --black: #1119;
     --black2: #111111;
@@ -23,11 +23,14 @@ p, h1, h2, h3, h4, h5, h6 {
     color: var(--white);
 }
 
+.table-hover > tbody > tr:hover {
+    background-color: var(--black3);
+}
 
 
 /**
- * Buttons
- */
+* Buttons
+*/
 .btn {
     color: var(--white);
 }
@@ -45,8 +48,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Forms
- */
+* Forms
+*/
 .form-control {
     background-color: var(--black);
     color: var(--white);
@@ -64,37 +67,17 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Navbar
- */
-.navbar {
-    background-color: var(--black) !important;;
-}
-
-
-
-/**
- * Footer
- */
-.main-footer {
-    background-color: var(--black3);
-}
-
-.main-footer span {
-    color: var(--white);
-}
-
-/**
- * Boxes
- */
- .box {
+* Boxes
+*/
+.box {
     background-color: var(--black5);
     color: var(--white);
 }
 
 
 /**
- * Modals
- */
+* Modals
+*/
 .modal-header,
 .modal-footer {
     background-color: var(--black5);
@@ -123,8 +106,8 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /**
- * Dropdown menus
- */
+* Dropdown menus
+*/
 .dropdown-menu {
     background-color: var(--black5);
 }
@@ -137,10 +120,94 @@ p, h1, h2, h3, h4, h5, h6 {
     background-color: var(--black3);
 }
 
+.dropdown {
+    color: var(--white);
+}
+
+
 
 /**
- * Home page
- */
+* Navbar
+*/
+.navbar {
+    background-color: var(--black) !important;;
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li.header,
+.navbar-nav > .messages-menu > .dropdown-menu > li.header,
+.navbar-nav > .tasks-menu > .dropdown-menu > li.header {
+    background-color: var(--black6);
+    color: var(--white);
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
+.navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
+.navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
+    background-color: var(--black6);
+    color: var(--white) !important;
+}
+
+.main-header #navbar-search-input.form-control:focus,
+.main-header #navbar-search-input.form-control:active {
+    background-color: var(--black3);
+}
+
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
+    color: var(--white);
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a:hover {
+    background-color: var(--black6);
+}
+
+
+/**
+* Footer
+*/
+.main-footer {
+    background-color: var(--black3);
+}
+
+.main-footer span {
+    color: var(--white);
+}
+
+
+/**
+* Friends list
+*/
+@media screen and (min-width: 1200px) {
+    
+	#friendsList {
+        background-color: var(--black6);
+    }
+    
+    #friendsList:hover {
+        background-color: var(--black5);
+    }
+}
+
+#friendsList h4 {
+    color: var(--white);
+}
+
+#friendsList li:hover {
+    background-color: var(--black4);
+}
+
+
+/**
+* Conversations
+*/
+.open-conversation-button {
+    background-color: var(--black5);
+}
+
+/**
+* Home page
+*/
 #homeLandingScreen {
     background-image: none !important;
     background-color: var(--black5);
@@ -152,8 +219,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Login page
- */
+* Login page
+*/
 .login-page, .register-page {
     background-color: var(--black2);
 }
@@ -168,19 +235,26 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Create account page
- */
+* Create account page
+*/
 .create-account-form label {
     color: var(--white);
 }
 
 
 
+/**
+* User information
+*/
+.list-group-item {
+    background-color: transparent;
+}
+
 
 
 /**
- * Posts
- */
+* Posts
+*/
 .attachment-block {
     background-color: var(--black6);
 }
@@ -192,6 +266,15 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .post {
     color: var(--white);
+}
+
+.post-image {
+    filter: brightness(50%);
+    transition: filter 1s;
+}
+
+.post-image:hover {
+    filter: brightness(100%);
 }
 
 .box-comments .username, 
@@ -207,8 +290,21 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Posts edit modal
- */
+* Posts creation form
+*/
+.datepicker.dropdown-menu {
+    background-color: var(--black6);
+    color: var(--white);
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: transparent;
+}
+
+
+/**
+* Posts edit modal
+*/
 .editor {
     background-color: var(--black5);
     color: var(--white);
