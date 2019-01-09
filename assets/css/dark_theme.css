@@ -72,6 +72,12 @@ p, h1, h2, h3, h4, h5, h6 {
     color: var(--white);
 }
 
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: var(--black6);
+}
+
 
 
 /**
@@ -80,6 +86,10 @@ p, h1, h2, h3, h4, h5, h6 {
 .box {
     background-color: var(--black5);
     color: var(--white);
+}
+
+.box-footer {
+    background-color: var(--black5);
 }
 
 
@@ -225,12 +235,76 @@ p, h1, h2, h3, h4, h5, h6 {
     background-color: var(--black4);
 }
 
+/**
+ * Emoji picker
+ */
+.wdt-emoji-popup {
+    background-color: var(--black6);
+    border: 1px var(--black6) solid;
+    border-radius: 2;
+}
+
+#wdt-emoji-menu-header {
+    background-color: var(--black5);
+}
+
+#wdt-emoji-footer {
+    background-color: var(--black5);
+}
+
+.wdt-emoji-popup h3 {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+#wdt-emoji-search {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+#wdt-emoji-search:focus {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+.wdt-emoji:hover {
+    background-color: var(--black4) !important;;
+}
 
 /**
 * Conversations
 */
 .open-conversation-button {
     background-color: var(--black5);
+}
+
+.nav-stacked > li > a {
+    color: var(--white);
+}
+
+.conversations-list-box .last-activity {
+    color: var(--white);
+}
+
+.nav > li > a:hover,
+.nav > li > a:active,
+.nav > li > a:focus {
+    color: var(--black5);
+}
+
+.select2-dropdown {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+#conversationsElem .create-message-form .btn.btn-add-emoji:hover,
+#conversationsElem .create-message-form .btn.btn-add-image:hover {
+    color: var(--white);
 }
 
 /**
@@ -297,7 +371,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .post-image {
-    filter: brightness(50%);
+    filter: brightness(80%);
     transition: filter 1s;
 }
 
@@ -353,4 +427,57 @@ p, h1, h2, h3, h4, h5, h6 {
 .editor {
     background-color: var(--black5);
     color: var(--white);
+}
+
+
+/**
+ * Search page
+ */
+.nav > li > a:hover,
+.nav > li > a:active,
+.nav > li > a:focus {
+    background-color: var(--black4);
+}
+
+/**
+ * Conversation page
+ */
+.conversations-page-container a {
+    background-color: var(--black6) !important;;
+}
+
+.conversations-page-container a {
+    color: var(--white) !important;
+}
+
+.conversations-page-container a:hover {
+    background-color: var(--black5) !important;;
+}
+
+.conversations-page-container a:active {
+    background-color: var(--black6) !important;;
+}
+
+.conversations-page-container a.selected {
+    background-color: var(--black5) !important;;
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn {
+    background-color: var(--black5);
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn:hover {
+    background-color: var(--black4);
+    color: var(--black6);
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn:focus,
+.conversations-page-container .box-conversation .input-group-btn .btn:active {
+    color: var(--white);
+}
+
+.big-box-conversation .direct-chat-text .a,
+.big-box-conversation .direct-chat-text a {
+    background-color: transparent !important;
+    color: inherit !important;
 }
