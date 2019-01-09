@@ -1,4 +1,10 @@
 /**
+ * ComunicWeb dark theme
+ *
+ * @author Pierre HUBERT
+ */
+
+/**
 * General definitions
 */
 :root {
@@ -38,7 +44,8 @@ p, h1, h2, h3, h4, h5, h6 {
 .btn-primary, 
 .btn-success, 
 .btn-default,
-.btn-danger {
+.btn-danger,
+.btn-info {
     background-color: transparent;
 }
 
@@ -58,6 +65,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .form-control:focus {
     background-color:  var(--black5);
+    border-color: var(--black4);
 }
 
 .form-group label {
@@ -109,7 +117,7 @@ p, h1, h2, h3, h4, h5, h6 {
 * Dropdown menus
 */
 .dropdown-menu {
-    background-color: var(--black5);
+    background-color: var(--black5) !important;
 }
 
 .dropdown-menu > li > a {
@@ -117,7 +125,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .dropdown-menu > li > a:hover {
-    background-color: var(--black3);
+    background-color: var(--black3) !important;
 }
 
 .dropdown {
@@ -130,7 +138,7 @@ p, h1, h2, h3, h4, h5, h6 {
 * Navbar
 */
 .navbar {
-    background-color: var(--black) !important;;
+    background-color: var(--black6) !important;;
 }
 
 .navbar-nav > .notifications-menu > .dropdown-menu > li.header,
@@ -143,7 +151,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
 .navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
 .navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
-    background-color: var(--black6);
+    background-color: var(--black6) !important;
     color: var(--white) !important;
 }
 
@@ -160,6 +168,20 @@ p, h1, h2, h3, h4, h5, h6 {
 .navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:hover,
 .navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a:hover {
     background-color: var(--black6);
+}
+
+.skin-blue .main-header .navbar .dropdown-user-menu-action .dropdown-menu li a {
+    color: var(--white) !important;;
+}
+
+.skin-blue .main-header .navbar .nav > li > a:hover,
+.skin-blue .main-header .navbar .nav > li > a:active,
+.skin-blue .main-header .navbar .nav > li > a:focus,
+.skin-blue .main-header .navbar .nav .open > a,
+.skin-blue .main-header .navbar .nav .open > a:hover,
+.skin-blue .main-header .navbar .nav .open > a:focus,
+.skin-blue .main-header .navbar .nav > .active > a {
+    background-color: var(--black4);
 }
 
 
@@ -185,6 +207,12 @@ p, h1, h2, h3, h4, h5, h6 {
     }
     
     #friendsList:hover {
+        background-color: var(--black5);
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 513px)  {
+	#friendsList {
         background-color: var(--black5);
     }
 }
@@ -292,6 +320,15 @@ p, h1, h2, h3, h4, h5, h6 {
 /**
 * Posts creation form
 */
+
+.post-form-choice span {
+    color: var(--black4);
+}
+
+.post-form .post-form-choice input:checked ~ span {
+    color: var(--white);
+}
+
 .datepicker.dropdown-menu {
     background-color: var(--black6);
     color: var(--white);
@@ -299,6 +336,14 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .select2-container--default .select2-selection--multiple {
     background-color: transparent;
+}
+
+.post-form .post-visiblity-container span {
+    color: var(--black4);
+}
+
+.post-form .post-visiblity-container input:checked ~ span {
+    color: var(--white);
 }
 
 
