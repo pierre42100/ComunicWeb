@@ -1,0 +1,483 @@
+/**
+ * ComunicWeb dark theme
+ *
+ * @author Pierre HUBERT
+ */
+
+/**
+* General definitions
+*/
+:root {
+    --black: #1119;
+    --black2: #111111;
+    --black3: #000;
+    --black4: #686a6c;
+    --black5: #232426;
+    --black6: #0f0f0f;
+    --white: silver;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    color: var(--white);
+}
+
+.content-wrapper {
+    background-color: var(--black3);
+}
+
+.link-black {
+    color: var(--white);
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: var(--black3);
+}
+
+
+/**
+* Buttons
+*/
+.btn {
+    color: var(--white);
+}
+
+.btn-primary, 
+.btn-success, 
+.btn-default,
+.btn-danger,
+.btn-info {
+    background-color: transparent;
+}
+
+.btn-default:active, .btn-default:focus {
+    background-color: var(--white);
+}
+
+
+/**
+* Forms
+*/
+.form-control {
+    background-color: var(--black);
+    color: var(--white);
+    border-color: var(--black5);
+}
+
+.form-control:focus {
+    background-color:  var(--black5);
+    border-color: var(--black4);
+}
+
+.form-group label {
+    color: var(--white);
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: var(--black6);
+}
+
+
+
+/**
+* Boxes
+*/
+.box {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.box-footer {
+    background-color: var(--black5);
+}
+
+
+/**
+* Modals
+*/
+.modal-header,
+.modal-footer {
+    background-color: var(--black5);
+}
+
+.modal-body {
+    background-color: var(--black6);
+}
+
+.modal-primary .modal-header, 
+.modal-primary .modal-footer {
+    background-color: var(--black5) !important;;
+}
+
+.modal-primary .modal-body {
+    background-color: var(--black6) !important;
+}
+
+.modal-danger .modal-header, 
+.modal-danger .modal-footer {
+    background-color: #a22819 !important;
+}
+
+.modal-danger .modal-body {
+    background-color: #872f24 !important;
+}
+
+/**
+* Dropdown menus
+*/
+.dropdown-menu {
+    background-color: var(--black5) !important;
+}
+
+.dropdown-menu > li > a {
+    color: var(--white) !important;
+}
+
+.dropdown-menu > li > a:hover {
+    background-color: var(--black3) !important;
+}
+
+.dropdown {
+    color: var(--white);
+}
+
+
+
+/**
+* Navbar
+*/
+.navbar {
+    background-color: var(--black6) !important;;
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li.header,
+.navbar-nav > .messages-menu > .dropdown-menu > li.header,
+.navbar-nav > .tasks-menu > .dropdown-menu > li.header {
+    background-color: var(--black6);
+    color: var(--white);
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li.footer > a,
+.navbar-nav > .messages-menu > .dropdown-menu > li.footer > a,
+.navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
+    background-color: var(--black6) !important;
+    color: var(--white) !important;
+}
+
+.main-header #navbar-search-input.form-control:focus,
+.main-header #navbar-search-input.form-control:active {
+    background-color: var(--black3);
+}
+
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
+    color: var(--white);
+}
+
+.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a:hover,
+.navbar-nav > .tasks-menu > .dropdown-menu > li .menu > li > a:hover {
+    background-color: var(--black6);
+}
+
+.skin-blue .main-header .navbar .dropdown-user-menu-action .dropdown-menu li a {
+    color: var(--white) !important;;
+}
+
+.skin-blue .main-header .navbar .nav > li > a:hover,
+.skin-blue .main-header .navbar .nav > li > a:active,
+.skin-blue .main-header .navbar .nav > li > a:focus,
+.skin-blue .main-header .navbar .nav .open > a,
+.skin-blue .main-header .navbar .nav .open > a:hover,
+.skin-blue .main-header .navbar .nav .open > a:focus,
+.skin-blue .main-header .navbar .nav > .active > a {
+    background-color: var(--black4);
+}
+
+
+/**
+* Footer
+*/
+.main-footer {
+    background-color: var(--black3);
+}
+
+.main-footer span {
+    color: var(--white);
+}
+
+
+/**
+* Friends list
+*/
+@media screen and (min-width: 1200px) {
+    
+	#friendsList {
+        background-color: var(--black6);
+    }
+    
+    #friendsList:hover {
+        background-color: var(--black5);
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 513px)  {
+	#friendsList {
+        background-color: var(--black5);
+    }
+}
+
+#friendsList h4 {
+    color: var(--white);
+}
+
+#friendsList li:hover {
+    background-color: var(--black4);
+}
+
+/**
+ * Emoji picker
+ */
+.wdt-emoji-popup {
+    background-color: var(--black6);
+    border: 1px var(--black6) solid;
+    border-radius: 2;
+}
+
+#wdt-emoji-menu-header {
+    background-color: var(--black5);
+}
+
+#wdt-emoji-footer {
+    background-color: var(--black5);
+}
+
+.wdt-emoji-popup h3 {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+#wdt-emoji-search {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+#wdt-emoji-search:focus {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+.wdt-emoji:hover {
+    background-color: var(--black4) !important;;
+}
+
+/**
+* Conversations
+*/
+.open-conversation-button {
+    background-color: var(--black5);
+}
+
+.nav-stacked > li > a {
+    color: var(--white);
+}
+
+.conversations-list-box .last-activity {
+    color: var(--white);
+}
+
+.nav > li > a:hover,
+.nav > li > a:active,
+.nav > li > a:focus {
+    color: var(--black5);
+}
+
+.select2-dropdown {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--black4);
+    color: var(--white);
+}
+
+#conversationsElem .create-message-form .btn.btn-add-emoji:hover,
+#conversationsElem .create-message-form .btn.btn-add-image:hover {
+    color: var(--white);
+}
+
+/**
+* Home page
+*/
+#homeLandingScreen {
+    background-image: none !important;
+    background-color: var(--black5);
+}
+
+#homeLandingScreen #homeMessage {
+    background-color: var(--black);
+}
+
+
+/**
+* Login page
+*/
+.login-page, .register-page {
+    background-color: var(--black2);
+}
+
+.login-box-body {
+    background-color: var(--black3);
+}
+
+.login-logo b, #loginForm label {
+    color: var(--white) !important;
+}
+
+
+/**
+* Create account page
+*/
+.create-account-form label {
+    color: var(--white);
+}
+
+
+
+/**
+* User information
+*/
+.list-group-item {
+    background-color: transparent;
+}
+
+
+
+/**
+* Posts
+*/
+.attachment-block {
+    background-color: var(--black6);
+}
+
+.post-comments {
+    background-color: var(--black);
+    border-radius: 2px;
+}
+
+.post {
+    color: var(--white);
+}
+
+.post-image {
+    filter: brightness(80%);
+    transition: filter 1s;
+}
+
+.post-image:hover {
+    filter: brightness(100%);
+}
+
+.box-comments .username, 
+.box-comments .comment-content {
+    color: var(--white);
+}
+
+
+.comment-creation-form .comment-image-select a, 
+.comment-creation-form .comment-emoji-select a {
+    color: var(--white);
+}
+
+
+/**
+* Posts creation form
+*/
+
+.post-form-choice span {
+    color: var(--black4);
+}
+
+.post-form .post-form-choice input:checked ~ span {
+    color: var(--white);
+}
+
+.datepicker.dropdown-menu {
+    background-color: var(--black6);
+    color: var(--white);
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: transparent;
+}
+
+.post-form .post-visiblity-container span {
+    color: var(--black4);
+}
+
+.post-form .post-visiblity-container input:checked ~ span {
+    color: var(--white);
+}
+
+
+/**
+* Posts edit modal
+*/
+.editor {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+
+/**
+ * Search page
+ */
+.nav > li > a:hover,
+.nav > li > a:active,
+.nav > li > a:focus {
+    background-color: var(--black4);
+}
+
+/**
+ * Conversation page
+ */
+.conversations-page-container a {
+    background-color: var(--black6) !important;;
+}
+
+.conversations-page-container a {
+    color: var(--white) !important;
+}
+
+.conversations-page-container a:hover {
+    background-color: var(--black5) !important;;
+}
+
+.conversations-page-container a:active {
+    background-color: var(--black6) !important;;
+}
+
+.conversations-page-container a.selected {
+    background-color: var(--black5) !important;;
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn {
+    background-color: var(--black5);
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn:hover {
+    background-color: var(--black4);
+    color: var(--black6);
+}
+
+.conversations-page-container .box-conversation .input-group-btn .btn:focus,
+.conversations-page-container .box-conversation .input-group-btn .btn:active {
+    color: var(--white);
+}
+
+.big-box-conversation .direct-chat-text .a,
+.big-box-conversation .direct-chat-text a {
+    background-color: transparent !important;
+    color: inherit !important;
+}
