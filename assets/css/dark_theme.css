@@ -307,6 +307,10 @@ fieldset[disabled] .form-control {
     color: var(--white);
 }
 
+.conversation-settings-pane {
+    background-color: var(--black5) !important;
+}
+
 /**
 * Home page
 */
@@ -480,4 +484,18 @@ fieldset[disabled] .form-control {
 .big-box-conversation .direct-chat-text a {
     background-color: transparent !important;
     color: inherit !important;
+}
+
+/**
+ * Groups logo
+ */
+img[src$="groups_logo/default.png"] {
+    filter: invert(1) brightness(50%);
+}
+
+/**
+ * Read only friends list
+ */
+.friends-list-ro .friend a:hover .friends-name {
+    color: var(--black4);
 }
