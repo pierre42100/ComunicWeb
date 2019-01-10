@@ -57,13 +57,14 @@ ComunicWeb.components.posts.form = {
 
 		sceditor.create(inputMessageTextarea, {
 			format: 'bbcode',
-			height: "100px",
 			width: "100%",
 			toolbar: 'bold,italic,underline,subscript,superscript,' +
 			'left,center,right,justify,color,' +
 			'bulletlist,orderedlist,table,code,quote,source',
 			emoticonsEnabled: false,
 			icons: "material",
+			autoExpand: true,
+			resizeMaxHeight: -1,
 			toolbarContainer: inputMessageToolbarTarget
 		});
 

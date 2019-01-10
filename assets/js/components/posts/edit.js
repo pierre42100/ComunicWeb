@@ -115,9 +115,9 @@ ComunicWeb.components.posts.edit = {
 		
 		sceditor.create(editorTextarea, {
 			format: 'bbcode',
-			height: "200px",
 			width: "100%",
 			icons: "material",
+			height: "200px",
 			toolbarExclude: "youtube,image,size,link,print,mail,emoticon,maximize"
 		});
 

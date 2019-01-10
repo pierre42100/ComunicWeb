@@ -30,4 +30,5 @@ a {
  */
 .sceditor-iframe-body {
     padding: 5px;
+    padding-bottom: 0px;
 }
