@@ -1,8 +1,8 @@
 /**
- * ComunicWeb dark theme
- *
- * @author Pierre HUBERT
- */
+* ComunicWeb dark theme
+*
+* @author Pierre HUBERT
+*/
 
 /**
 * General definitions
@@ -15,6 +15,10 @@
     --black5: #232426;
     --black6: #0f0f0f;
     --white: silver;
+}
+
+body {
+    background-color: var(--black6);
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -33,13 +37,6 @@ p, h1, h2, h3, h4, h5, h6 {
     background-color: var(--black3);
 }
 
-/**
- * Sceditor body
- */
-.sceditor-iframe-body {
-    background-color: var(--black5);
-    color: var(--white);
-}
 
 /**
 * Buttons
@@ -243,8 +240,8 @@ fieldset[disabled] .form-control {
 }
 
 /**
- * Emoji picker
- */
+* Emoji picker
+*/
 .wdt-emoji-popup {
     background-color: var(--black6);
     border: 1px var(--black6) solid;
@@ -276,6 +273,50 @@ fieldset[disabled] .form-control {
 
 .wdt-emoji:hover {
     background-color: var(--black4) !important;;
+}
+
+
+/**
+* Sceditor
+*/
+.sceditor-iframe-body {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.sceditor-container textarea {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.sceditor-button {
+    background-color: var(--black6);
+}
+
+.sceditor-button svg {
+    fill: var(--black4);
+}
+
+.sceditor-button:hover,
+.sceditor-button:active,
+.sceditor-button.active {
+    background-color: var(--black4);
+    color: white;
+}
+
+
+.sceditor-button:hover svg,
+.sceditor-button:active svg,
+.sceditor-button.active svg {
+    fill: var(--black6);
+}
+
+div.sceditor-dropdown {
+    background-color: var(--black5);
+}
+
+div.sceditor-dropdown input {
+    background-color: var(--black4);
 }
 
 /**
@@ -442,8 +483,8 @@ fieldset[disabled] .form-control {
 
 
 /**
- * Search page
- */
+* Search page
+*/
 .nav > li > a:hover,
 .nav > li > a:active,
 .nav > li > a:focus {
@@ -451,8 +492,8 @@ fieldset[disabled] .form-control {
 }
 
 /**
- * Conversation page
- */
+* Conversation page
+*/
 .conversations-page-container a {
     background-color: var(--black6) !important;;
 }
@@ -494,15 +535,15 @@ fieldset[disabled] .form-control {
 }
 
 /**
- * Groups logo
- */
+* Groups logo
+*/
 img[src$="groups_logo/default.png"] {
     filter: invert(1) brightness(50%);
 }
 
 /**
- * Read only friends list
- */
+* Read only friends list
+*/
 .friends-list-ro .friend a:hover .friends-name {
     color: var(--black4);
 }
