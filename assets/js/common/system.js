@@ -81,6 +81,11 @@ ComunicWeb.common.system = {
 		}), 25000);
 		ComunicWeb.common.cacheManager.registerInterval(autoRefresh);
 
+		/**
+		 * Refresh dark theme mode
+		 */
+		ComunicWeb.components.darkTheme.refresh();
+
 		//Success
 		return true;
 	},

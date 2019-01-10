@@ -7,9 +7,9 @@
 ComunicWeb.components.darkTheme = {
 
 	/**
-	 * This variable contains the dark theme status
+	 * Specify whether dark theme has to be enabled or not
 	 */
-	_enabled: false,
+	_local_storage_name: "dark_theme_mode",
 
 	/**
 	 * CSS element that contains dark theme CSS rules
@@ -22,7 +22,7 @@ ComunicWeb.components.darkTheme = {
 	 * @return {boolean} TRUE if enabled / FALSE else
 	 */
 	isEnabled: function(){
-		return this._enabled;
+		return localStorage.getItem(this._local_storage_name) == "true";
 	},
 
 	/**
@@ -31,10 +31,18 @@ ComunicWeb.components.darkTheme = {
 	 * @param {boolean} enable TRUE to enable / FALSE else
 	 */
 	setEnabled: function(enable){
-		this._enabled = enable;
+		localStorage.setItem(this._local_storage_name, enable ? "true" : "false");
+		
+		this.refresh();
+	},
+	
+	/**
+	 * Refresh dark theme state
+	 */
+	refresh: function(){
 
 		//Check if the theme has to be disabled
-		if(!this._enabled){
+		if(!this.isEnabled()){
 			if(this._cssElem != null)
 				this._cssElem.disabled = true;
 			return;
