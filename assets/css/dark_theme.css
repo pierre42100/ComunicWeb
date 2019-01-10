@@ -231,6 +231,12 @@ fieldset[disabled] .form-control {
     }
 }
 
+@media screen and (max-width: 513px)  {
+	#friendsList {
+        background-color: var(--black5);
+    }
+}
+
 #friendsList h4 {
     color: var(--white);
 }
