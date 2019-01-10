@@ -24,18 +24,18 @@ ComunicWeb.components.notifications.service = {
 	init: function(target, auto_hide, target_conversations){
 
 		//Initialize interval
-		var interval = setInterval(() => {
+		var interval = setInterval(function(){
 
 			//Auto-remove interval if the target has been removed
 			if(!target.isConnected){
 				ComunicWeb.common.pageTitle.setNotificationsNumber(0);
-				this.last_notifs_number = -1;
+				ComunicWeb.components.notifications.service.last_notifs_number = -1;
 				return clearInterval(interval);
 			}
 				
 
 			//Get the number of notifications from the API
-			ComunicWeb.components.notifications.interface.getAllUnread(response => {
+			ComunicWeb.components.notifications.interface.getAllUnread(function(response){
 
 				//Continue in case of success
 				if(response.error)
@@ -65,16 +65,17 @@ ComunicWeb.components.notifications.service = {
 				}
 
 				//Sum notification number
-				let total_number_notifs = response.notifications + response.conversations;
+				var total_number_notifs = response.notifications + response.conversations;
 
 				//Update page title too
 				ComunicWeb.common.pageTitle.setNotificationsNumber(total_number_notifs);
 
 				//Play song if required
-				if(this.last_notifs_number != -1 && total_number_notifs > this.last_notifs_number)
+				if(ComunicWeb.components.notifications.service.last_notifs_number != -1 
+					&& total_number_notifs > ComunicWeb.components.notifications.service.last_notifs_number)
 					ComunicWeb.components.notifications.song.play();
 				
-				this.last_notifs_number = total_number_notifs;
+					ComunicWeb.components.notifications.service.last_notifs_number = total_number_notifs;
 			});
 
 		}, 2000);

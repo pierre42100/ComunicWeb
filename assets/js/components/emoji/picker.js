@@ -123,7 +123,7 @@ ComunicWeb.components.emoji.picker = {
 
 		ComunicWeb.components.emoji.picker.addPicker(input);
 
-		let interval = setInterval(() => {
+		var interval = setInterval(function(){
 			
 			//Check if input has been detached
 			if(!input.isConnected){
@@ -133,7 +133,7 @@ ComunicWeb.components.emoji.picker = {
 			
 			//Securely send value to callback
 			if(input.value.length > 0){
-				let value = input.value;
+				var value = input.value;
 				input.value = "";
 				callback(value);
 			}

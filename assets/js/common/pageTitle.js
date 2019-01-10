@@ -40,7 +40,7 @@ ComunicWeb.common.pageTitle = {
 	 * Refresh document title
 	 */
 	__refresh: function(){
-		let title = "";
+		var title = "";
 
 		if(this._curr_notifications_number > 0)
 			title += "(" + this._curr_notifications_number + ") ";

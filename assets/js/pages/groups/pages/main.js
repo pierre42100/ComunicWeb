@@ -88,9 +88,9 @@ ComunicWeb.pages.groups.pages.main = {
         
         var has_group = false;
 
-        for (const i in list) {
+        for (var i in list) {
             if (list.hasOwnProperty(i)) {
-                const group = list[i];
+                var group = list[i];
                 has_group = true;
                 ComunicWeb.pages.groups.pages.main._display_group(group, target);
             }

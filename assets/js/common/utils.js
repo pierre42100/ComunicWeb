@@ -633,7 +633,7 @@ function removeJavascriptEventsFromHTML(html){
 
 	//Search for unexceptable references
 	while(html.match(/on[a-zA-Z ]+=/i) != null){
-		let match = html.match(/on[a-zA-Z ]+=/i)[0];
+		var match = html.match(/on[a-zA-Z ]+=/i)[0];
 		html = html.replace(match, match.replace("on", "o<block></block>n"))
 	}
 

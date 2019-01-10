@@ -75,7 +75,7 @@ ComunicWeb.components.posts.form = {
 		});
 
 		//Enable emojies picker
-		ComunicWeb.components.emoji.picker.addDetachedPicker(newPostMessageContener, (emojie) => {
+		ComunicWeb.components.emoji.picker.addDetachedPicker(newPostMessageContener, function(emojie){
 			
 			//Append new emojie to the instance
 			sceditor.instance(inputMessageTextarea).insertText(emojie);
