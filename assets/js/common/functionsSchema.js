@@ -1094,6 +1094,13 @@ var ComunicWeb = {
 			},
 
 		},
+
+		/**
+		 * Dark Theme component
+		 */
+		darkTheme: {
+			//TODO : implement
+		}
 	},
 
 	/**

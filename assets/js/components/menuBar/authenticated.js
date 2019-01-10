@@ -121,6 +121,9 @@ ComunicWeb.components.menuBar.authenticated = {
 			openPage("settings");
 		};
 
+		//Add dark theme button
+		this.addDarkThemeButton(dropdownContent);
+
 		//Add logout link
 		var logoutButton = createElem("li", dropdownContent);
 		var logoutButtonLink = createElem("a", logoutButton);
@@ -132,10 +135,53 @@ ComunicWeb.components.menuBar.authenticated = {
 	},
 
 	/**
+	 * Add DarkTheme for the button
+	 * 
+	 * @param {HTMLElement} target The target for the button
+	 */
+	addDarkThemeButton: function(target){
+
+		var darkThemeButton = createElem2({
+			appendTo: target,
+			type: "li"
+		});
+
+		var darkThemeLink = createElem2({
+			appendTo: darkThemeButton,
+			type: "a",
+		});
+		
+		var darkThemeIcon = createElem2({
+			appendTo: darkThemeLink,
+			type: "span"
+		});
+
+		createElem2({
+			appendTo: darkThemeLink,
+			type: "span",
+			innerHTML: "Dark Theme"
+		});
+		
+		/**
+		 * Refresh icon states accordingly to
+		 * dark theme status
+		 */
+		var RefreshIcon = function(){
+			darkThemeIcon.className =  "fa " + (ComunicWeb.components.darkTheme.isEnabled() ? "fa-moon-o" : "fa-sun-o");
+		}
+		RefreshIcon();
+
+		darkThemeLink.addEventListener("click", function(){
+			ComunicWeb.components.darkTheme.setEnabled(!ComunicWeb.components.darkTheme.isEnabled());
+			RefreshIcon();
+		});
+	},
+
+	/**
 	 * Add alternate latest posts button 
 	 * (if the screen is too small to display "Comunic")
 	 * 
-	 * @param {HTMLElement} target The target for the ubutton
+	 * @param {HTMLElement} target The target for the button
 	 */
 	addAlternateLatestPostsButton: function(target){
 		//Create button

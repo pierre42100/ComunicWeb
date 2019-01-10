@@ -176,6 +176,7 @@ if(file_exists(OUTPUT_DIRECTORY))
 	delDir(OUTPUT_DIRECTORY);
 mkdir(OUTPUT_DIRECTORY, 0777, true);
 mkdir($path_release_assets, 0777, true);
+mkdir($path_release_assets."/css", 0777, true);
 
 
 
@@ -229,6 +230,9 @@ rcopy($path_debug_assets."3rdparty/adminLTE/plugins/iCheck/flat/icheck-flat-imgs
 rcopy($path_debug_assets."img/", $path_release_assets."img/");
 rcopy($path_debug_assets."templates/", $path_release_assets."templates/");
 
+
+//Copy dark theme
+rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_theme.css");
 
 //Create main HTML file
 notice("Generate PHP root file");

@@ -421,6 +421,9 @@ class Dev {
 			//Virtual directory component
 			"js/components/virtualDirectory/interface.js",
 
+			//Dark theme component
+			"js/components/darkTheme.js",
+
 		//User scripts
 		"js/user/loginTokens.js",
 		"js/user/userLogin.js",
