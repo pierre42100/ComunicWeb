@@ -33,6 +33,13 @@ p, h1, h2, h3, h4, h5, h6 {
     background-color: var(--black3);
 }
 
+/**
+ * Sceditor body
+ */
+.sceditor-iframe-body {
+    background-color: var(--black5);
+    color: var(--white);
+}
 
 /**
 * Buttons

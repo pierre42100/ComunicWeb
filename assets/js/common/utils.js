@@ -639,3 +639,43 @@ function removeJavascriptEventsFromHTML(html){
 
 	return html;
 }
+
+/**
+ * Get and return the DOM of a specified iframe
+ * 
+ * @param {HTMLIFrameElement} iframe The iframe to process
+ * @return {HTMLDocument} DOM of the iframe 
+ */
+function GetIframeDOM(iframe){
+	return iframe.contentWindow
+	 ? iframe.contentWindow.document
+	 : iframe.contentDocument;
+}
+
+/**
+ * Initialize styles for a sceditor textarea
+ * 
+ * @param {HTMLTextAreaElement} textarea Target textarea element that
+ * have sceditor initialized
+ */
+function ApplySceditorStyle(textarea){
+
+	//Get iframe DOM
+	var iframeDOM = GetIframeDOM(textarea.parentNode.getElementsByTagName("iframe")[0]);
+	
+	//Apply stylesheets
+	document.querySelectorAll("link[rel='stylesheet']").forEach(function(entry){
+
+		//Skip the entry if it is disabled
+		if(entry.disabled)
+			return;
+
+		var elem = iframeDOM.createElement("link");
+		elem.rel = "stylesheet";
+		elem.href = entry.href;
+		iframeDOM.head.appendChild(elem);
+	});
+
+	//Apply new styles to body
+	iframeDOM.body.className += " sceditor-iframe-body";
+}

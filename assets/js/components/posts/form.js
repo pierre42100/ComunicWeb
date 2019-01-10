@@ -7,11 +7,6 @@
 ComunicWeb.components.posts.form = {
 
 	/**
-	 * SCEDITOR common options
-	 */
-	sceditor_stylsheet: "data:text/css;raw, body {font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 14px;line-height: 1.42857143;}",
-
-	/**
 	 * Display post creation form
 	 * 
 	 * @param {string} kind The kind of page
@@ -69,10 +64,11 @@ ComunicWeb.components.posts.form = {
 			'bulletlist,orderedlist,table,code,quote,source',
 			emoticonsEnabled: false,
 			icons: "material",
-			//Hack : style a little iframe
-			style: this.sceditor_stylsheet,
 			toolbarContainer: inputMessageToolbarTarget
 		});
+
+		//Apply all stylesheets to the editor iframe
+		ApplySceditorStyle(inputMessageTextarea);
 
 		//Enable emojies picker
 		ComunicWeb.components.emoji.picker.addDetachedPicker(newPostMessageContener, function(emojie){

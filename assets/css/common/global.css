@@ -24,3 +24,10 @@ a {
 .a:focus, .a:hover {
     color: #72afd2;
 }
+
+/**
+ * Sceditor iframe
+ */
+.sceditor-iframe-body {
+    padding: 5px;
+}

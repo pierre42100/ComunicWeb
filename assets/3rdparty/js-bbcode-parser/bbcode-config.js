@@ -92,10 +92,10 @@ var parserTags = {
 	},
 	'quote': {
 		openTag: function(params,content) {
-			return '<q>';
+			return '<blockquote>';
 		},
 		closeTag: function(params,content) {
-			return '</q>';
+			return '</blockquote>';
 		}
 	},
 	's': {

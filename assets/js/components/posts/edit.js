@@ -118,9 +118,10 @@ ComunicWeb.components.posts.edit = {
 			height: "200px",
 			width: "100%",
 			icons: "material",
-			style: ComunicWeb.components.posts.form.sceditor_stylsheet,
 			toolbarExclude: "youtube,image,size,link,print,mail,emoticon,maximize"
 		});
+
+		ApplySceditorStyle(editorTextarea);
 
 		//Create function to close modal
 		var closeModal = function(){
