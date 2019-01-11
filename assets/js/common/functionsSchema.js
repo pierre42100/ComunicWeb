@@ -593,6 +593,13 @@ var ComunicWeb = {
 		bottom: {
 
 			/**
+			 * Bottom links
+			 */
+			links: [
+				//TODO : implement
+			],
+
+			/**
 			 * Main bottom script file
 			 */
 			main: {

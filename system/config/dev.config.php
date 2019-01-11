@@ -339,6 +339,7 @@ class Dev {
 			"js/components/menuBar/authenticated.js",
 
 			//Bottom view
+			"js/components/bottom/links.js",
 			"js/components/bottom/main.js",
 
 			//Language picker
