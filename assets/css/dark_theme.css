@@ -457,6 +457,10 @@ div.sceditor-dropdown input {
     color: var(--black4);
 }
 
+.post-form-choice span span {
+    color: inherit;
+}
+
 .post-form .post-form-choice input:checked ~ span {
     color: var(--white);
 }
