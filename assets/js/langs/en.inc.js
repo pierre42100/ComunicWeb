@@ -57,6 +57,11 @@ ComunicWeb.common.langs.en = {
     menu_bar_action_settings: "Settings",
     _menu_bar_action_logout: "Logout",
 
+    //Bottom bar - links
+    bottom_bar_action_language: "Language",
+    bottom_bar_action_about: "About",
+
+
     //Posts - Actions
     posts_actions_err_get_single: "An error occured while getting information about the post !",
 

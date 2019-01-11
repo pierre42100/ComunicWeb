@@ -49,7 +49,9 @@ ComunicWeb.components.bottom.main = {
 				appendTo: leftElements,
 				type: "a",
 				href: link.href,
-				innerHTML: link.innerHTML
+				innerHTML: link.innerHTML,
+				innerLang: link.innerLang,
+				innerHTMLprefix: "<i class='fa "+link.icon+"'></i> "
 			});
 
 			if(link.target)

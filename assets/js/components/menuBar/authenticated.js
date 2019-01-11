@@ -14,13 +14,15 @@ ComunicWeb.components.menuBar.authenticated = {
 		//Conversations
 		{
 			innerLang: "menu_bar_action_conversations",
-			targetPage: "conversations"
+			targetPage: "conversations",
+			icon: "fa-comments-o"
 		},
 
 		//Groups list
 		{
 			innerLang: "menu_bar_action_groups",
 			targetPage: "groups",
+			icon: "fa-group"
 		},
 
 		//Dark theme
@@ -34,13 +36,15 @@ ComunicWeb.components.menuBar.authenticated = {
 		//Settings list
 		{
 			innerLang: "menu_bar_action_settings",
-			targetPage: "settings"
+			targetPage: "settings",
+			icon: "fa-gear"
 		},
 
 		//Logout link
 		{
 			innerLang: "_menu_bar_action_logout",
-			targetPage: "logout"
+			targetPage: "logout",
+			icon: "fa-sign-out"
 		}
 
 	],
@@ -120,7 +124,7 @@ ComunicWeb.components.menuBar.authenticated = {
 
 
 		//Process links list
-		this.dropdownMenuLinksList.forEach(function(entry){
+		var addMenuOption = function(entry){
 
 			var linkButton = createElem2({
 				appendTo: dropdownContent,
@@ -130,6 +134,7 @@ ComunicWeb.components.menuBar.authenticated = {
 			var link = createElem2({
 				appendTo: linkButton,
 				type: "a",
+				href: entry.href,
 				innerLang: entry.innerLang,
 				innerHTML: entry.innerHTML,
 				innerHTMLprefix: entry.icon ? "<i class='fa " + entry.icon + "'></i> " : undefined,
@@ -142,6 +147,9 @@ ComunicWeb.components.menuBar.authenticated = {
 				};
 			}
 
+			if(entry.target)
+				link.setAttribute("target", entry.target);
+
 			if(entry.onclick){
 				linkButton.addEventListener("click", function(){
 					entry.onclick(link);
@@ -151,8 +159,20 @@ ComunicWeb.components.menuBar.authenticated = {
 			if(entry.oninit){
 				entry.oninit(link);
 			}
+		
 
+		};
+
+		this.dropdownMenuLinksList.forEach(addMenuOption);
+
+		//Add divider
+		createElem2({
+			appendTo: dropdownContent,
+			type: "li",
+			class: "divider"
 		});
+
+		ComunicWeb.components.bottom.links.forEach(addMenuOption);
 	
 
 		//Return dropdown content element

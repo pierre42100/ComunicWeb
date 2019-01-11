@@ -58,6 +58,10 @@ ComunicWeb.common.langs.fr = {
     menu_bar_action_settings: "Param&egrave;tres",
     _menu_bar_action_logout: "Déconnexion",
 
+    //Bottom bar - links
+    bottom_bar_action_language: "Langue",
+    bottom_bar_action_about: "A propos",
+
     //Posts - Actions
     posts_actions_err_get_single: "Une erreur a survenue lors de la r&eacute;cup&eacute;ration d'informations sur le post !",
 
