@@ -234,7 +234,7 @@ rcopy($path_debug_assets."templates/", $path_release_assets."templates/");
 //Copy dark theme
 rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_theme.css");
 
-//Create main HTML file
+//Begin to write root PHP File
 notice("Generate PHP root file");
 $page_src = '<?php
 //We check if it is a redirection to handle 404 errors
@@ -246,11 +246,9 @@ if(isset($_SERVER["REDIRECT_URL"])){
         http_response_code(404);
         exit();
     }
-} ?>';
-$page_src .= load_page($release_conf);
-file_put_contents(OUTPUT_DIRECTORY."index.php", $page_src);
+}';
 
-// Add .htaccess file
+// Begin .htaccess file
 $htaccess = '<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule ^index\.php$ - [L]
@@ -271,11 +269,21 @@ if(defined(get_class($release)."::FORCE_HTTPS")){
 		$htaccess .= "\n\nRewriteCond %{HTTPS} !on\n";
 		$htaccess .= "RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}";
 
+		//Add rules in root PHP file
+		$page_src .= "\n//Force HTTPS connection\n";
+		$page_src .= "if(!isset(\$_SERVER[\"HTTPS\"]) || \$_SERVER[\"HTTPS\"] != \"on\")\n";
+		$page_src .= "\theader('Location: https://'.\$_SERVER['HTTP_HOST'].\$_SERVER['REQUEST_URI']);\n";
 	}
 }
 
+
+//Write .htaccess file
 file_put_contents(OUTPUT_DIRECTORY.".htaccess", $htaccess);
 
+//Write root index file
+$page_src .= ' ?>';
+$page_src .= load_page($release_conf);
+file_put_contents(OUTPUT_DIRECTORY."index.php", $page_src);
 
 //Done
 notice("Done.", TRUE);
