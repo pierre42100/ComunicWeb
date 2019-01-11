@@ -364,6 +364,27 @@ ComunicWeb.components.conversations.interface = {
 	},
 
 	/**
+	 * Intend to delete a single conversation message
+	 * 
+	 * @param {Number} messageID The ID of the message to delete
+	 * @param {(success: Boolean) => any} callback Function to call once the
+	 * conversation message has been deleted
+	 */
+	DeleteSingleMessage: function(messageID, callback){
+		
+		ComunicWeb.common.api.makeAPIrequest(
+			"conversations/deleteMessage",
+			{"messageID": messageID},
+			true,
+			
+			function(result){
+				callback(result.error ? false : true);
+			}
+		);
+
+	},
+
+	/**
 	 * Empty conversations cache
 	 * 
 	 * @param {Boolean} notHard Specify that the object hasn't to be recursively cleaned

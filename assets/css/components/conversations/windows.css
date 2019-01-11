@@ -116,3 +116,7 @@
 #conversationsElem .direct-chat-msg.not-last-message-from-user .direct-chat-img {
 	margin-bottom: -5px;
 }
+
+#conversationsElem .direct-chat-msg.open .dropdown-menu {
+	margin-top: -20px;
+}

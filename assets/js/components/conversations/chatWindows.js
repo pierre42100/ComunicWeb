@@ -910,6 +910,68 @@ ComunicWeb.components.conversations.chatWindows = {
 			element: textMessage,
 		});
 
+
+		//Add message dropdown menu
+		messageContainer.className += " dropdown";
+
+		var dropdownToggle = createElem2({
+			insertBefore: dateElem,
+			type: "i",
+			class: "hidden"
+		});
+		dropdownToggle.setAttribute("data-toggle", "dropdown");
+
+		var dropdownMenu = createElem2({
+			insertBefore: dateElem,
+			type: "ul",
+			class: "dropdown-menu"
+		});
+		dropdownMenu.setAttribute("role", "menu");
+		
+		messageTargetElem.addEventListener("dblclick", function(){
+			$(dropdownToggle).dropdown("toggle");
+		});
+
+		//Add message options
+		if(userIsPoster){
+
+			//Delete the message
+			var deleteLi = createElem2({
+				type: "li",
+				appendTo: dropdownMenu
+			});
+
+			var deleteLink = createElem2({
+				type: "a",
+				appendTo: deleteLi,
+				innerHTML: "Delete"
+			});
+
+			deleteLink.addEventListener("click", function(){
+				ComunicWeb.common.messages.confirm(
+					"Do you really want to delete this message? The operation can not be reverted!",
+					function(confirm){
+						if(!confirm) return;
+
+						//Hide the message
+						messageTargetElem.style.display = "none";
+
+						//Execute the request
+						ComunicWeb.components.conversations.interface.DeleteSingleMessage(
+							message.ID,
+							function(result){
+								if(!result){
+									messageTargetElem.style.display = "block";
+									notify("Could delete conversation message!", "danger");
+								}
+							}
+						);
+					}
+				)
+			});
+
+		}
+
 		//Return information about the message
 		return {
 			userID: message.ID_user,
