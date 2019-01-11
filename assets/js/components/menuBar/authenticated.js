@@ -5,6 +5,46 @@
  */
 
 ComunicWeb.components.menuBar.authenticated = {
+
+	/**
+	 * Dropdown menu links list
+	 */
+	dropdownMenuLinksList: [
+
+		//Conversations
+		{
+			innerLang: "menu_bar_action_conversations",
+			targetPage: "conversations"
+		},
+
+		//Groups list
+		{
+			innerLang: "menu_bar_action_groups",
+			targetPage: "groups",
+		},
+
+		//Dark theme
+		{
+			innerLang: "menu_bar_action_dark_theme",
+			onclick: function(b){ComunicWeb.components.menuBar.authenticated.darkThemeButtonClicked(true, b)},
+			oninit: function(b){ComunicWeb.components.menuBar.authenticated.darkThemeButtonClicked(false, b)},
+			icon: "fa-sun-o"
+		},
+
+		//Settings list
+		{
+			innerLang: "menu_bar_action_settings",
+			targetPage: "settings"
+		},
+
+		//Logout link
+		{
+			innerLang: "_menu_bar_action_logout",
+			targetPage: "logout"
+		}
+
+	],
+
 	/**
 	 * Add authenticated user specific elements
 	 * 
@@ -79,102 +119,64 @@ ComunicWeb.components.menuBar.authenticated = {
 		dropdownContent.setAttribute("role", "menu");
 
 
-		//Add conversations link
-		var conversationsButton = createElem2({
-			appendTo: dropdownContent,
-			type: "li"
-		});
-		var conversationsLink = createElem2({
-			appendTo: conversationsButton,
-			type: "a",
-			innerLang: "menu_bar_action_conversations"
-		});
-		conversationsButton.onclick = function(){
-			openPage("conversations");
-		};
+		//Process links list
+		this.dropdownMenuLinksList.forEach(function(entry){
 
-		//Add groups link
-		var groupsButton = createElem2({
-			appendTo: dropdownContent,
-			type: "li"
-		});
-		createElem2({
-			appendTo: groupsButton,
-			type: "a",
-			innerLang: "menu_bar_action_groups"
-		});
-		groupsButton.onclick = function(){
-			openPage("groups");
-		}
+			var linkButton = createElem2({
+				appendTo: dropdownContent,
+				type: "li"
+			});
 
-		//Add settings link
-		var settingsButton = createElem2({
-			appendTo: dropdownContent,
-			type: "li"
-		});
-		var settingsLink = createElem2({
-			appendTo: settingsButton,
-			type: "a",
-			innerLang: "menu_bar_action_settings"
-		});
-		settingsButton.onclick = function(){
-			openPage("settings");
-		};
+			var link = createElem2({
+				appendTo: linkButton,
+				type: "a",
+				innerLang: entry.innerLang,
+				innerHTML: entry.innerHTML,
+				innerHTMLprefix: entry.icon ? "<i class='fa " + entry.icon + "'></i> " : undefined,
+			});
 
-		//Add dark theme button
-		this.addDarkThemeButton(dropdownContent);
+			
+			if(entry.targetPage){
+				linkButton.onclick = function(){
+					openPage(entry.targetPage);
+				};
+			}
 
-		//Add logout link
-		var logoutButton = createElem("li", dropdownContent);
-		var logoutButtonLink = createElem("a", logoutButton);
-		logoutButtonLink.innerHTML = lang("_menu_bar_action_logout");
-		logoutButton.onclick = function(){openPage("logout")};
+			if(entry.onclick){
+				linkButton.addEventListener("click", function(){
+					entry.onclick(link);
+				});
+			}
+
+			if(entry.oninit){
+				entry.oninit(link);
+			}
+
+		});
+	
 
 		//Return dropdown content element
 		return dropdownContent;
 	},
 
 	/**
-	 * Add DarkTheme for the button
+	 * Called this method each time the dark theme button
+	 * is clicked
 	 * 
-	 * @param {HTMLElement} target The target for the button
+	 * @param {Boolean} invert Specify whether dark theme mode should
+	 * be inverted or not
+	 * @param {HTMLElement} button Button element that has been
+	 * clicked
 	 */
-	addDarkThemeButton: function(target){
+	darkThemeButtonClicked: function(invert, button){
 
-		var darkThemeButton = createElem2({
-			appendTo: target,
-			type: "li"
-		});
-
-		var darkThemeLink = createElem2({
-			appendTo: darkThemeButton,
-			type: "a",
-		});
-		
-		var darkThemeIcon = createElem2({
-			appendTo: darkThemeLink,
-			type: "span"
-		});
-
-		createElem2({
-			appendTo: darkThemeLink,
-			type: "span",
-			innerHTML: "Dark Theme"
-		});
-		
-		/**
-		 * Refresh icon states accordingly to
-		 * dark theme status
-		 */
-		var RefreshIcon = function(){
-			darkThemeIcon.className =  "fa " + (ComunicWeb.components.darkTheme.isEnabled() ? "fa-moon-o" : "fa-sun-o");
-		}
-		RefreshIcon();
-
-		darkThemeLink.addEventListener("click", function(){
+		if(invert)
 			ComunicWeb.components.darkTheme.setEnabled(!ComunicWeb.components.darkTheme.isEnabled());
-			RefreshIcon();
-		});
+
+		//Update icon
+		button.getElementsByTagName("i")[0].className =  
+			"fa " + (ComunicWeb.components.darkTheme.isEnabled() ? "fa-moon-o" : "fa-sun-o");
+
 	},
 
 	/**

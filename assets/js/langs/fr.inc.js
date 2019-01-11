@@ -54,6 +54,7 @@ ComunicWeb.common.langs.fr = {
     _menu_bar_search_placeholder: "Recherche...",
     menu_bar_action_conversations: "Conversations",
     menu_bar_action_groups: "Groupes",
+    menu_bar_action_dark_theme: "Th&egrave;me sombre",
     menu_bar_action_settings: "Param&egrave;tres",
     _menu_bar_action_logout: "Déconnexion",
 

@@ -40,6 +40,7 @@ function createElem(nodeType, appendTo){
  * @info {String} placeholder The placeholder of the new element
  * @info {String} innerHTML Specify the html content of the newly created element
  * @info {String} innerLang Specify the key of the lang to use to fill the element
+ * @info {String} innerHTMLprefix Specify prefix to add at the begining of the content of the element
  * @info {boolean} disabled Set whether the field should be disabled or not (input only)
  * @return {HTMLElement} The newly created element
  */
@@ -105,6 +106,9 @@ function createElem2(infos){
 	
 	if(infos.innerLang)
 		newElem.innerHTML = lang(infos.innerLang);
+	
+	if(infos.innerHTMLprefix)
+		newElem.innerHTML = infos.innerHTMLprefix + newElem.innerHTML;
 
 	//Set field state
 	if(infos.disabled)
