@@ -277,6 +277,11 @@ ComunicWeb.common.page = {
         
         //Call the method related to the page
         eval(pageInfos.methodHandler + ("(additionnalData, pageTarget);"));
+
+        //Propagate information
+        SendEvent("openPage", {
+            page: pageURI
+        });
         
         //Success
         return true;

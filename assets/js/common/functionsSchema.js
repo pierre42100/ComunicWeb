@@ -1107,7 +1107,35 @@ var ComunicWeb = {
 		 */
 		darkTheme: {
 			//TODO : implement
-		}
+		},
+
+		/**
+		 * Incognito mode component
+		 */
+		incognito: {
+
+			/**
+			 * Keyboard catcher
+			 */
+			keyboard: {
+				//TODO : implement
+			},
+
+			/**
+			 * Incognito management
+			 */
+			management: {
+				//TODO : implement
+			},
+
+			/**
+			 * UI management
+			 */
+			ui: {
+				//TODO : implement
+			},
+
+		},
 	},
 
 	/**

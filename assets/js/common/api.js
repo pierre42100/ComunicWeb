@@ -33,6 +33,10 @@ ComunicWeb.common.api = {
 
         }
 
+        //Enable incognito mode if required
+        if(ComunicWeb.components.incognito.management.isEnabled())
+            params.incognito = true;
+
         //Prepare data to send in request
         var count = 0;
         var datas = "";
@@ -90,7 +94,11 @@ ComunicWeb.common.api = {
                 data.append('userToken2', tokens.token2);
             }
 
-        }    
+        }
+        
+        //Enable incognito mode if required
+        if(ComunicWeb.components.incognito.management.isEnabled())
+            data.append("incognito", true);
 
         //Create request
         var apiXHR = new XMLHttpRequest();

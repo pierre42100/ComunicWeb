@@ -683,3 +683,21 @@ function ApplySceditorStyle(textarea){
 	//Apply new styles to body
 	iframeDOM.body.className += " sceditor-iframe-body";
 }
+
+/**
+ * Send a new javascript event
+ * 
+ * @param {String} name The name of the event to create
+ * @param {Object} details Information about the event to create
+ */
+function SendEvent(name, details){
+	
+	var event = new CustomEvent(name, {
+		detail: details,
+		bubbles: true,
+		cancelable: false
+	});
+
+	document.dispatchEvent(event);
+
+}

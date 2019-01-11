@@ -1,0 +1,23 @@
+/**
+ * Incognito mode stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+#incognito-block {
+	position: fixed;
+	left: 10px;
+	bottom: 54px;
+	text-align: center;
+	background-color: #001F3F;
+	padding: 10px;
+	color: white;
+}
+
+#incognito-block i {
+	font-size: 200%;
+}
+
+#incognito-block span {
+	display: block;
+}

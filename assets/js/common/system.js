@@ -49,6 +49,16 @@ ComunicWeb.common.system = {
 		ComunicWeb.common.langs.initLanguages();
 
 		/**
+		 * Initialize incognito mode detection
+		 */
+		ComunicWeb.components.incognito.management.init();
+
+		/**
+		 * Refresh dark theme mode
+		 */
+		ComunicWeb.components.darkTheme.refresh();
+
+		/**
 		 * What to do after login refresh
 		 */
 		var afterLoginRefresh = function(){
@@ -80,11 +90,6 @@ ComunicWeb.common.system = {
 			ComunicWeb.user.userLogin.refreshLoginState();
 		}), 25000);
 		ComunicWeb.common.cacheManager.registerInterval(autoRefresh);
-
-		/**
-		 * Refresh dark theme mode
-		 */
-		ComunicWeb.components.darkTheme.refresh();
 
 		//Success
 		return true;

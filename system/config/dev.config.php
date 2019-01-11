@@ -215,6 +215,9 @@ class Dev {
 			"css/components/notifications/dropdown.css",
 			"css/components/notifications/ui.css",
 
+			//Incognito mode component
+			"css/components/incognito/ui.css",
+
 		//Pages stylesheets
 			//User Page
 			"css/pages/userPage/main.css",
@@ -424,6 +427,11 @@ class Dev {
 
 			//Dark theme component
 			"js/components/darkTheme.js",
+
+			//Incognito mode component
+			"js/components/incognito/ui.js",
+			"js/components/incognito/management.js",
+			"js/components/incognito/keyboard.js",
 
 		//User scripts
 		"js/user/loginTokens.js",
