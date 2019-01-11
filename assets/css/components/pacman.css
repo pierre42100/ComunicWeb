@@ -1,0 +1,16 @@
+/**
+ * Pacman stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.pacman-iframe {
+	width: 342px;
+	height: 426px;
+	margin: auto;
+	display: block;
+}
+
+.pacman-iframe + p {
+	text-align: center;
+}

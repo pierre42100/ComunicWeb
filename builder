@@ -234,6 +234,9 @@ rcopy($path_debug_assets."templates/", $path_release_assets."templates/");
 //Copy dark theme
 rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_theme.css");
 
+//Copy pacman
+rcopy($path_debug_assets."3rdparty/pacman", $path_release_assets."3rdparty/pacman");
+
 //Begin to write root PHP File
 notice("Generate PHP root file");
 $page_src = '<?php

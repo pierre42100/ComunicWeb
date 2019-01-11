@@ -1136,6 +1136,13 @@ var ComunicWeb = {
 			},
 
 		},
+
+		/**
+		 * Easter egg : pacman
+		 */
+		pacman: {
+			//TODO : implement
+		},
 	},
 
 	/**

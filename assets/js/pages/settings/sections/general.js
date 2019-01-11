@@ -79,13 +79,25 @@ ComunicWeb.pages.settings.sections.general = {
 		});
 
 		//Display user ID
-		createFormGroup({
+		var userIDInput = createFormGroup({
 			target: target,
 			label: "User ID",
 			type: "text",
 			value: infos.id,
 			disabled: true,
 			additionalGroupClasses: "input-user-id"
+		});
+
+		//Easter egg : open pacman when clicking 10 times on user ID input label
+		var clicks = 0;
+		userIDInput.parentNode.parentNode.addEventListener("click", function(){
+			clicks++;
+			
+			if(clicks >= 10) {
+				ComunicWeb.components.pacman.open();
+				clicks = 0;
+			}
+				
 		});
 
 		//Display user email

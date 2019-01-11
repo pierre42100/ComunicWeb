@@ -218,6 +218,9 @@ class Dev {
 			//Incognito mode component
 			"css/components/incognito/ui.css",
 
+			//Pacman (easter egg) stylesheet
+			"css/components/pacman.css",
+
 		//Pages stylesheets
 			//User Page
 			"css/pages/userPage/main.css",
@@ -432,6 +435,9 @@ class Dev {
 			"js/components/incognito/ui.js",
 			"js/components/incognito/management.js",
 			"js/components/incognito/keyboard.js",
+
+			//Pacman component (easter egg)
+			"js/components/pacman.js",
 
 		//User scripts
 		"js/user/loginTokens.js",
