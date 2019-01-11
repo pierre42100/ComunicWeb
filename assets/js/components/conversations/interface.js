@@ -364,6 +364,29 @@ ComunicWeb.components.conversations.interface = {
 	},
 
 	/**
+	 * Intend to update the content of a single message
+	 * 
+	 * @param {Number} messageID The ID of the message to update
+	 * @param {String} content New content for the message
+	 * @param {(success : Boolean) => any} callback Function called when
+	 * the request is terminated
+	 */
+	UpdateSingleMessage: function(messageID, content, callback){
+		ComunicWeb.common.api.makeAPIrequest(
+			"conversations/updateMessage",
+			{
+				"messageID": messageID,
+				"content": content
+			},
+			true,
+
+			function(result){
+				callback(result.error ? false : true);
+			}
+		);
+	},
+
+	/**
 	 * Intend to delete a single conversation message
 	 * 
 	 * @param {Number} messageID The ID of the message to delete

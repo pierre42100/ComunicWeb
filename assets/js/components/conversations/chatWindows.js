@@ -935,6 +935,33 @@ ComunicWeb.components.conversations.chatWindows = {
 		//Add message options
 		if(userIsPoster){
 
+			//Update message content
+			var updateLi = createElem2({
+				type: "li",
+				appendTo: dropdownMenu
+			});
+
+			var updateLink = createElem2({
+				type: "a",
+				appendTo: updateLi,
+				innerHTML: "Edit"
+			});
+
+			updateLink.addEventListener("click", function(){
+				ComunicWeb.components.conversations.messageEditor.open(message, function(newContent){
+					
+					//Apply and parse new message
+					textMessage.innerHTML = removeHtmlTags(newContent);
+					ComunicWeb.components.textParser.parse({
+						element: textMessage,
+					});
+
+				});
+			});
+
+
+
+
 			//Delete the message
 			var deleteLi = createElem2({
 				type: "li",

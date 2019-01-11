@@ -370,6 +370,7 @@ class Dev {
 			"js/components/conversations/cachingOpened.js",
 			"js/components/conversations/utils.js",
 			"js/components/conversations/unreadDropdown.js",
+			"js/components/conversations/messageEditor.js",
 			
 			//User selector
 			"js/components/userSelect/userSelect.js",

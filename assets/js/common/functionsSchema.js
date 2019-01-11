@@ -810,7 +810,14 @@ var ComunicWeb = {
 			 */
 			unreadDropdown: {
 				//TODO : implementd
-			}
+			},
+
+			/**
+			 * Conversation message editor
+			 */
+			messageEditor: {
+				//TODO : implement
+			},
 		},
 
 		/**
