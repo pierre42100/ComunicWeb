@@ -115,6 +115,18 @@ function RefreshTabsVisibility(){
 
 	});
 
+	document.querySelectorAll(".sidenav .bold").forEach(el => {
+
+		let isActive = el.querySelector("a").href.includes("#" + hash);
+
+		if(isActive && !el.className.includes(" active"))
+			el.className += " active";
+
+		if(!isActive && el.className.includes(" active"))
+			el.className = el.className.replace(" active", "");
+
+	});
+
 }
 
 /**
