@@ -76,6 +76,7 @@ xhr.onload = function(){
 	ApplyUserInfo();
 	ApplyFriendsList();
 	ApplyPosts();
+	ApplyCommentsList();
 }
 
 xhr.send(null);

@@ -91,3 +91,12 @@ h1 {
 .post .post-end-countdown {
 	text-align: center;
 }
+
+
+/**
+ * Comments rules
+ */
+#all-comments-table .comment-img {
+	width: 100%;
+	max-width: 350px;
+}
