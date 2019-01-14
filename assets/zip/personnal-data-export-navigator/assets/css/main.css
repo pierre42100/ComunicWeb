@@ -80,3 +80,10 @@ h1 {
 .post .post-comments .comment .comment-image {
 	max-width: 100px;
 }
+
+.post .post-btn-pdf {
+	margin: auto;
+	display: block;
+	width: 100%;
+	max-width: 150px;
+}

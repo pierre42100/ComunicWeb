@@ -308,6 +308,20 @@ function ApplyPosts(){
 		}
 
 
+		//Post with PDF
+		if(post.kind == "pdf"){
+
+			createElem2({
+				appendTo: cardContent,
+				type: "a",
+				class: "waves-effect waves-light btn-large post-btn-pdf",
+				innerHTML: '<i class="material-icons left">picture_as_pdf</i> PDF',
+				href: getFilePathFromURL(post.file_path_url)
+			});
+
+		}
+
+
 
 		//Display the list of comments
 		let postComments = createElem2({
