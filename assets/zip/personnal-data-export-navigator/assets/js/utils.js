@@ -143,12 +143,12 @@ function error(message){
 }
 
 /**
- * Get the path to an image
+ * Get the path to a file originally hosted on user data server
  *
- * @param {String} url The original URL of the image
- * @return {String} Locally accessible path to the image
+ * @param {String} url The original URL of the file
+ * @return {String} Locally accessible path to the file
  */
-function getImagePath(url){
+function getFilePathFromURL(url){
 	return STORAGE_URL + url.replace("://", "/");
 }
 
@@ -173,7 +173,7 @@ function timeToStr(time){
  * @param {String} url The original URL of the image
  */
 function applyURLToImage(el, url){
-	el.src = getImagePath(url);
+	el.src = getFilePathFromURL(url);
 	el.className += " responsive-img";
 }
 
