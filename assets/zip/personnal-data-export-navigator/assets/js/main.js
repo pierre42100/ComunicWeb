@@ -334,7 +334,76 @@ function ApplyPosts(){
 
 		}
 
+		//Post with survey
+		if(post.kind == "survey"){
 
+			let infoSurvey = post.data_survey;
+
+			let surveyContainer = createElem2({
+				appendTo: cardContent,
+				type: "div",
+				class: "post-survey card blue"
+			});
+
+			//Survey content
+			let surveyContent = createElem2({
+				appendTo: surveyContainer,
+				type: "div",
+				class: "card-content"
+			});
+
+			//Survey title
+			createElem2({
+				appendTo: surveyContent,
+				type: "h2",
+				class: "survey-title",
+				innerHTML: infoSurvey.question
+			});
+
+			//User choice (if any)
+			if(infoSurvey.user_choice > 0){
+
+				createElem2({
+					appendTo: surveyContent,
+					type: "p",
+					innerHTML: "Your choice : " + infoSurvey.choices[infoSurvey.user_choice].name
+				});
+
+			}
+
+			//Survey choices
+			let surveyChoicesTable = createElem2({
+				appendTo: surveyContainer,
+				type: "table",
+				class: "survey-choices-table"
+			});
+
+			//Table header
+			createElem2({
+				appendTo: surveyChoicesTable,
+				type: "thead",
+				innerHTML: "<tr><th>Choice</th><th>Responses</th></tr>"
+			});
+
+			//Table body
+			let surveyTableBody = createElem2({
+				appendTo: surveyChoicesTable,
+				type: "tbody"
+			});
+
+			for (const key in infoSurvey.choices) {
+				if (!infoSurvey.choices.hasOwnProperty(key))
+					continue;
+				const choice = infoSurvey.choices[key];
+
+				//Add choice
+				createElem2({
+					appendTo: surveyTableBody,
+					type: "tr",
+					innerHTML: "<td>" + choice.name + "</td><td>" + choice.responses + "</td>"
+				});
+			}
+		}
 
 		//Display the list of comments
 		let postComments = createElem2({
