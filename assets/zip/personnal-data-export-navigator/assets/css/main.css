@@ -87,3 +87,7 @@ h1 {
 	width: 100%;
 	max-width: 150px;
 }
+
+.post .post-end-countdown {
+	text-align: center;
+}

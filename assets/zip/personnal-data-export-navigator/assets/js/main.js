@@ -322,6 +322,19 @@ function ApplyPosts(){
 		}
 
 
+		//Post with countdown timer
+		if(post.kind == "countdown"){
+
+			createElem2({
+				appendTo: cardContent,
+				type: "p",
+				class: "post-end-countdown",
+				innerHTML: "Countdown terminates on: " + timeToStr(post.time_end)
+			});
+
+		}
+
+
 
 		//Display the list of comments
 		let postComments = createElem2({
