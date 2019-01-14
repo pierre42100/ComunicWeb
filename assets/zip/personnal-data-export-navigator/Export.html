@@ -9,6 +9,14 @@
 	<link type="text/css" rel="stylesheet" href="assets/materialize/css/materialize.min.css"  media="screen,projection"/>
 
 	<link rel="stylesheet" href="assets/css/main.css" />
+
+	<script>
+			
+		//Project configuration
+		const SOURCE_URL = "./source.json";
+		const STORAGE_URL = "./files/";
+
+	</script>
 </head>
 <body>
 
@@ -38,7 +46,25 @@
 		</div>
 
 		<div id="user-info" class="category container">
-			Loading user information
+			<h1>User information</h1>
+
+			<table class="user-information-table">
+				<tr><td>User ID</td><td id="u-uid"></td></tr>
+				<tr><td>First name</td><td id="u-firstname"></td></tr>
+				<tr><td>Last name</td><td id="u-lastname"></td></tr>
+				<tr><td>Is page public</td><td id="u-pagepublic"></td></tr>
+				<tr><td>Is page open</td><td id="u-pageopen"></td></tr>
+				<tr><td>Virtual directory</td><td id="u-virtualdirectory"></td></tr>
+				<tr><td>Account image</td><td><img id="u-accountimage"></td></tr>
+				<tr><td>Is friend list public</td><td id="u-publicfriendslist"></td></tr>
+				<tr><td>Personnal website</td><td id="u-personnalwebsite"></td></tr>
+				<tr><td>Public note</td><td id="u-publicnote"></td></tr>
+				<tr><td>Comments forbidden</td><td id="u-commentsforbidden"></td></tr>
+				<tr><td>Allow posts from friends</td><td id="u-allowpostsfromfriends"></td></tr>
+				<tr><td>Account creation time</td><td id="u-accountcreationtime"></td></tr>
+				<tr><td>Background image</td><td><img id="u-bgimage" class="background-image" /></td></tr>
+				<tr><td>Page likes</td><td id="u-pagelikes"></td></tr>
+			</table>
 		</div>
 
 		<div id="friends-list" class="category container">
