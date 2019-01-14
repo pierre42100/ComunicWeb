@@ -216,6 +216,7 @@ function ApplyPosts(){
 
 
 		//Process different kind of posts
+		//Post with image
 		if(post.kind == "image") {
 
 			var image = createElem2({
@@ -224,6 +225,19 @@ function ApplyPosts(){
 			});
 
 			applyURLToImage(image, post.file_path_url);
+
+		}
+
+		//Post with YouTube video
+		if(post.kind == "youtube"){
+
+			let youtube_link = "https://www.youtube.com/watch?v=" + post.file_path;
+
+			createElem2({
+				appendTo: cardContent,
+				type: "p",
+				innerHTML: "Target Video : <a href='" + youtube_link + "' target='_blank'>" + youtube_link + "</a>"
+			});
 
 		}
 
