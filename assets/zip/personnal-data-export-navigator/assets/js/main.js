@@ -78,6 +78,7 @@ xhr.onload = function(){
 	ApplyPosts();
 	ApplyCommentsList();
 	ApplyUserLikes();
+	ApplySurveyResponses();
 }
 
 xhr.send(null);
