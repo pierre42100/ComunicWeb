@@ -256,6 +256,59 @@ function ApplyPosts(){
 
 
 
+		//Post with weblink
+		if(post.kind == "weblink"){
+
+			let linkCard = createElem2({
+				appendTo: cardContent,
+				type: "div",
+				class: "card blue-text"
+			});
+
+			let linkCardImage = createElem2({
+				appendTo: linkCard,
+				type: "div",
+				class: "card-image"
+			});
+
+			//Image
+			createElem2({
+				appendTo: linkCardImage,
+				type: "img",
+				src: post.link_image
+			});
+
+			//Title
+			createElem2({
+				appendTo: linkCardImage,
+				type: "span",
+				class: "card-title",
+				innerHTML: post.link_title
+			});
+
+			createElem2({
+				appendTo: linkCard,
+				type: "div",
+				class: "card-content",
+				innerHTML: "<p>"+post.link_description+"</p>"
+			});
+
+			let linkCardActions = createElem2({
+				appendTo: linkCard,
+				type: "div",
+				class: "card-action"
+			});
+
+			createElem2({
+				appendTo: linkCardActions,
+				type: "a",
+				href: post.link_url,
+				innerHTML: post.link_url
+			})
+		}
+
+
+
 		//Display the list of comments
 		let postComments = createElem2({
 			appendTo: cardContent,
