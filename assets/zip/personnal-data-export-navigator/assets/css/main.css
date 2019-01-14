@@ -1,5 +1,19 @@
+/**
+ * Data export result stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
 
 .sidenav.sidenav-fixed {
 	/*transform: unset;*/
 	/*margin-top: 80px;*/
+}
+
+main {
+	margin-left: 300px;
+}
+
+main .container {
+	display: none;
 }
