@@ -25,15 +25,19 @@ h1 {
 }
 
 
+.account-image {
+	width: 50px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+
+
 /**
  * User information rules
  */
 .user-information-table td:first-child {
 	font-weight: bold;
-}
-
-.account-image {
-	width: 50px;
 }
 
 .background-image {

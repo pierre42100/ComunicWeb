@@ -9,94 +9,7 @@
  * once it will have been decoded by the JSON parser
  * of the browser
  */
-let data;
-
-/**
- * Get and return an element specified by its ID
- *
- * @param {String} id The ID of the element to get
- * @return {HTMLElement} Target element
- */
-function byId(id){
-	return document.getElementById(id);
-}
-
-/**
- * Set the content of an HTML element queried by
- * its ID
- *
- * @param {String} id The ID of the element to get
- * @param {String} html HTML content to apply
- */
-function setInnerHTMLById(id, html){
-	byId(id).innerHTML = html;
-}
-
-/**
- * Set the content of an HTML element queried by
- * its ID for a specified boolean
- *
- * @param {String} id The ID of the element to get
- * @param {Boolean} bool The boolean to apply
- */
-function setBoolInnerHTMLById(id, bool){
-	setInnerHTMLById(id, bool == true ? "Yes " : "No")
-}
-
-/**
- * Display an error
- * 
- * @param {String} message The message of the error to display
- */
-function error(message){
-	  M.toast({html: "Error: " + message, classes: 'rounded', length: 1000});
-}
-
-/**
- * Get the path to an image
- *
- * @param {String} url The original URL of the image
- * @return {String} Locally accessible path to the image
- */
-function getImagePath(url){
-	return STORAGE_URL + url.replace("://", "/");
-}
-
-/**
- * Turn a timestamp into a string date
- *
- * @param {Number} time The time to convert
- * @return {String} Matching date
- */
-function timeToStr(time){
-	let date = new Date();
-	date.setTime(time*1000);
-	return date.toGMTString();
-}
-
-/**
- * Apply an orignially remote image to an element
- * of the page
- *
- * @param {HTMLElement} el Image HTML Element that will receive
- * the image
- * @param {String} url The original URL of the image
- */
-function applyURLToImage(el, url){
-	el.src = getImagePath(url);
-	el.className + " responsive-img";
-}
-
-/**
- * Apply a user image to an image object
- *
- * @param {HTMLElement} el Target HTML element
- * @param {Object} info Information about the related object
- */
-function applyUserAccountImage(el, info){
-	applyURLToImage(el, info.accountImage);
-	el.className += " circle account-image"
-}
+var data;
 
 /**
  * Refresh tabs visibility accordingly to the hash of
@@ -153,6 +66,49 @@ function ApplyUserInfo() {
 }
 
 
+/**
+ * Apply friends list
+ */
+function ApplyFriendsList(){
+
+	let target = document.querySelector("#friends-list-table tbody");
+
+	data.friends_list.forEach(friend => {
+
+		let friendInfo = getUserInfo(friend.ID_friend);
+
+		let friendTR = createElem2({
+			appendTo: target,
+			type: "tr"
+		});
+
+		let friendName = createElem2({
+			appendTo: friendTR,
+			type: "td"
+		});
+
+		let friendAccoutImage = createElem2({
+			appendTo: friendName,
+			type: "img"
+		});
+		applyUserAccountImage(friendAccoutImage, friendInfo)
+
+		friendName.innerHTML += friendInfo.full_name;
+
+		let friendAccepted = createElem2({
+			appendTo: friendTR,
+			type: "td",
+			innerHTML: friend.accepted ? "Yes" : "Not yet"
+		});
+
+		let friendLastActive = createElem2({
+			appendTo: friendTR,
+			type: "td",
+			innerHTML: timeToStr(friend.time_last_activity)
+		});
+	});
+}
+
 
 /**
  * Automatically switch the tab when it
@@ -185,6 +141,7 @@ xhr.onload = function(){
 
 	//Now we can apply specific process for each data block
 	ApplyUserInfo();
+	ApplyFriendsList();
 }
 
 xhr.send(null);

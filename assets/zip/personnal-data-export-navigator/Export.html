@@ -45,6 +45,7 @@
 			Please use the navigation bar located at the left of this page to access to the different categories of content.
 		</div>
 
+		<!-- User information -->
 		<div id="user-info" class="category container">
 			<h1>User information</h1>
 
@@ -67,8 +68,17 @@
 			</table>
 		</div>
 
+		<!-- User friends list -->
 		<div id="friends-list" class="category container">
-			Loading friends list
+			<table id="friends-list-table">
+				<thead>
+					<th>Name</th>
+					<th>Accepted</th>
+					<th>Last active</th>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
 
 		<div id="posts" class="category container">
@@ -104,6 +114,7 @@
 
 	<!--JavaScript at end of body for optimized loading-->
 	<script type="text/javascript" src="assets/materialize/js/materialize.min.js"></script>
+	<script src="assets/js/utils.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>
 </html>
