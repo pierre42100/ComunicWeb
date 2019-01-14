@@ -174,7 +174,7 @@ function timeToStr(time){
  */
 function applyURLToImage(el, url){
 	el.src = getImagePath(url);
-	el.className + " responsive-img";
+	el.className += " responsive-img";
 }
 
 /**
@@ -202,4 +202,23 @@ function getUserInfo(id){
 	user_info.full_name = user_info.firstName + " " + user_info.lastName;
 
 	return user_info;
+}
+
+/**
+ * Fill an HTML Element with user information
+ *
+ * @param {HMTLElement} el Target element
+ * @param {Number} id The ID of the user
+ */
+function fillElWithUserInfo(el, id){
+
+	let userInfo = getUserInfo(id);
+
+	let userImage = createElem2({
+		appendTo: el,
+		type: "img"
+	});
+	applyUserAccountImage(userImage, userInfo);
+
+	el.innerHTML += " " + userInfo.full_name;
 }

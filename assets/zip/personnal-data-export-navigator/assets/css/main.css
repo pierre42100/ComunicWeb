@@ -43,3 +43,40 @@ h1 {
 .background-image {
 	max-width: 100px;
 }
+
+
+/**
+ * Posts rules
+ */
+.post .post-metadata {
+	font-style: italic;
+	display: block;
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+}
+
+.post .post-comments {
+	margin-top: 40px;
+}
+
+.post .post-comments .comment {
+	display: flex;
+	align-items: center;
+}
+
+.post .post-comments .comment div {
+	margin: 2px;
+}
+
+.post .post-comments .comment-author {
+	font-weight: bold;
+}
+
+.post .post-comments .comment-metadata {
+	font-size: 80%;
+	font-style: italic;
+}
+
+.post .post-comments .comment .comment-image {
+	max-width: 100px;
+}
