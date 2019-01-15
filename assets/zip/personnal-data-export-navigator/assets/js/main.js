@@ -81,6 +81,7 @@ xhr.onload = function(){
 	ApplySurveyResponses();
 	ApplyMovies();
 	ApplyAllConversationMessages();
+	ApplyConversations();
 }
 
 xhr.send(null);

@@ -222,3 +222,12 @@ function fillElWithUserInfo(el, id){
 
 	el.innerHTML += " " + userInfo.full_name;
 }
+
+/**
+ * Get and return the ID of the current user
+ * 
+ * @return {Number} The ID of the current user
+ */
+function userID() {
+	return data.advanced_info.userID;
+}

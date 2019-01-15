@@ -109,3 +109,60 @@ h1 {
 	width: 100%;
 	max-width: 300px;
 }
+
+
+/**
+ * Conversations rules
+ */
+#conversations-target .conversation h2 {
+	font-size: 150%;
+	margin-top: 10px;
+}
+
+#conversations-target .conversation .conversation-metadata {
+	font-size: 90%;
+	font-style: italic;
+	margin-bottom: 15px;
+}
+
+#conversations-target .conversation .conversation-members {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#conversations-target .conversation .conversation-members > * {
+	margin-left: 10px;
+}
+
+#conversations-target .conversation .conversation-messages {
+	margin-top: 50px;
+}
+
+#conversations-target .conversation .conversation-messages .message {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 90%;
+}
+
+#conversations-target .conversation .conversation-messages .message .user-info {
+	font-weight: bold;
+}
+
+#conversations-target .conversation .conversation-messages .message .message-content {
+	flex: 1;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#conversations-target .conversation .conversation-messages .message .message-image {
+	width: 100%;
+	max-width: 150px;
+}
+
+#conversations-target .conversation .conversation-messages .message .message-date {
+	font-size: 70%;
+	font-style: italic;
+}
