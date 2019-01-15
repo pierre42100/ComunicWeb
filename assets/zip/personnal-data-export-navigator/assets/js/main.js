@@ -80,6 +80,7 @@ xhr.onload = function(){
 	ApplyUserLikes();
 	ApplySurveyResponses();
 	ApplyMovies();
+	ApplyAllConversationMessages();
 }
 
 xhr.send(null);

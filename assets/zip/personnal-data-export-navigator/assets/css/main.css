@@ -100,3 +100,12 @@ h1 {
 	width: 100%;
 	max-width: 350px;
 }
+
+
+/**
+ * All conversation messages rules
+ */
+#all-conversation-messages-table .conversation-img {
+	width: 100%;
+	max-width: 300px;
+}
