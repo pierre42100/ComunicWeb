@@ -79,6 +79,7 @@ xhr.onload = function(){
 	ApplyCommentsList();
 	ApplyUserLikes();
 	ApplySurveyResponses();
+	ApplyMovies();
 }
 
 xhr.send(null);
