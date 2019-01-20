@@ -22,6 +22,9 @@ ComunicWeb.components.conversations.messageEditor = {
 
 			function(content){
 
+				if(!content)
+					return;
+
 				//Intend to update message content
 				ComunicWeb.components.conversations.interface.UpdateSingleMessage(
 					message.ID,

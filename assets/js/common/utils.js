@@ -421,7 +421,7 @@ function checkString(value){
 function removeHtmlTags(input){
 	
 	//Check if input string is empty
-	if(input == null)
+	if(input == null || typeof input !== "string")
 		return "";
 
 	//Prepare update
