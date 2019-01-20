@@ -177,6 +177,7 @@ if(file_exists(OUTPUT_DIRECTORY))
 mkdir(OUTPUT_DIRECTORY, 0777, true);
 mkdir($path_release_assets, 0777, true);
 mkdir($path_release_assets."/css", 0777, true);
+mkdir($path_release_assets."/zip", 0777, true);
 
 
 
@@ -236,6 +237,13 @@ rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_th
 
 //Copy pacman
 rcopy($path_debug_assets."3rdparty/pacman", $path_release_assets."3rdparty/pacman");
+
+
+//Build and copy personnal data navigator
+notice("Build personnal data export navigator and add it to built files");
+exec($path_debug_assets."zip/personnal-data-export-navigator-builder.sh");
+rcopy($path_debug_assets."zip/personnal-data-export-navigator.zip", $path_release_assets."zip/personnal-data-export-navigator.zip");
+
 
 //Begin to write root PHP File
 notice("Generate PHP root file");

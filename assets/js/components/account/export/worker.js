@@ -25,18 +25,51 @@ ComunicWeb.components.account.export.worker = {
 			ComunicWeb.components.account.export.ui.updateMessage("Got text data");
 			ComunicWeb.components.account.export.ui.updateProgress(10);
 
-			//Parse data
-			ComunicWeb.components.account.export.worker.parse(result);
+			//Get explorer
+			ComunicWeb.components.account.export.worker.getExplorer(result);
 		});
 
 	},
 
 	/**
-	 * Parse account text data into ZIP file
+	 * Second step for export : Get and open personnal data explorer
 	 * 
-	 * @param {Object} data Text data about the account
+	 * @param {Object} data Text data about the account (data not modified at this stage)
 	 */
-	parse: function(data){
+	getExplorer: function(data){
+
+		ComunicWeb.components.account.export.ui.updateMessage("Getting data explorer");
+		ComunicWeb.components.account.export.ui.updateProgress(15);
+
+		JSZipUtils.getBinaryContent(ComunicWeb.__config.assetsURL+"zip/personnal-data-export-navigator.zip", function(err, file){
+
+			if(err != null){
+				ComunicWeb.debug.logMessage("Could not get personnal data export navigator!");
+				ComunicWeb.components.account.export.ui.exportFatalError(e);
+				return;
+			}
+
+			JSZip.loadAsync(file).then(function(zip){
+
+				//Ready to parse data
+				ComunicWeb.components.account.export.worker.parse(data, zip);
+
+			}).catch(function(){
+				ComunicWeb.debug.logMessage("Could not parse personnal data export navigator!");
+				ComunicWeb.components.account.export.ui.exportFatalError(e);
+				return;
+			});
+
+		});
+	},
+
+	/**
+	 * Parse account text data into ZIP file
+	 *
+	 * @param {Object} data Text data about the account
+	 * @param {ZIP} zip The ZIP object to fill
+	 */
+	parse: function(data, zip){
 		
 		//Get UI shorcut
 		var ui = ComunicWeb.components.account.export.ui;
@@ -76,9 +109,6 @@ ComunicWeb.components.account.export.worker = {
 
 		//Determine the list of files to download
 		var files_list = this._generate_files_list(data);
-
-		//Create zip file
-		var zip = new JSZip();
 
 		//Add raw json file
 		zip.file("source.json", JSON.stringify(data));
