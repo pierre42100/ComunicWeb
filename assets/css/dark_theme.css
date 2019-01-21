@@ -59,6 +59,14 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
+ * Callouts
+ */
+.callout.callout-info {
+    background-color: var(--black-5) !important;
+}
+
+
+/**
 * Forms
 */
 .form-control {
@@ -556,4 +564,11 @@ img[src$="groups_logo/default.png"] {
 */
 .friends-list-ro .friend a:hover .friends-name {
     color: var(--black4);
+}
+
+/**
+* Account created page
+*/
+.page_account_created .message_container .message {
+    background-color: var(--black5);
 }
