@@ -4,6 +4,10 @@
  * @author Pierre HUBERT
  */
 
+
+/**
+ * Main definition
+ */
 #conversationsElem .box {
 	width: 250px;
 	height: 350px;
@@ -13,6 +17,10 @@
 	margin-left: 5px;
 	text-align: justify;
 	margin-bottom: 0px;
+}
+
+#conversationsElem .chat-window .box-title {
+	font-size: 15px !important;
 }
 
 /**

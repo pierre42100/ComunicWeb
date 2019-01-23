@@ -42,6 +42,29 @@ ComunicWeb.components.calls.controller = {
 			});
 
 		});
+	},
+
+	/**
+	 * Access calls configuration
+	 * 
+	 * @return Cached calls configuration
+	 */
+	getConfig() {
+		return ComunicWeb.components.calls.__config;
+	},
+
+	/**
+	 * Check if the call feature is available or not
+	 */
+	isAvailable: function(){
+
+		//If do not have any call configuration, it is not possible to
+		//make calls
+		if(this.getConfig() == null)
+			return false;
+
+		//Read configuration
+		return this.getConfig().enabled;
 	}
 
 }

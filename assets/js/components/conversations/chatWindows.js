@@ -56,7 +56,7 @@ ComunicWeb.components.conversations.chatWindows = {
 		infosBox.conversationID = infos.conversationID;
 
 		//Change box root class name
-		infosBox.rootElem.className += " direct-chat direct-chat-primary";
+		infosBox.rootElem.className += " chat-window direct-chat direct-chat-primary";
 
 		//Adapt close button behaviour
 		infosBox.closeFunction = function(){
@@ -84,18 +84,21 @@ ComunicWeb.components.conversations.chatWindows = {
 		});
 
 		//Add button to get conversation members
-		infosBox.membersButton = createElem("button");
-		infosBox.closeButton.parentNode.insertBefore(infosBox.membersButton, infosBox.closeButton);
-		infosBox.membersButton.type = "button";
-		infosBox.membersButton.className = "btn btn-box-tool";
+		infosBox.membersButton = createElem2({
+			type: "button",
+			insertBefore: infosBox.closeButton,
+			elemType: "button",
+			class: "btn btn-box-tool",
+			title: "Conversation members"
+		});
 		infosBox.membersButton.setAttribute("data-toggle", "tooltip");
 		infosBox.membersButton.setAttribute("data-widget", "chat-pane-toggle");
-		infosBox.membersButton.title = "Conversation members";
 
 			//Add button icon
 			var buttonIcon = createElem("i", infosBox.membersButton);
 			buttonIcon.className = "fa fa-users";
 
+		
 		//Add conversation members pane
 		var membersPane = createElem("div", infosBox.boxBody);
 		membersPane.className = "direct-chat-contacts";
@@ -318,6 +321,9 @@ ComunicWeb.components.conversations.chatWindows = {
 					//Block page reloading
 					return false;
 				};
+
+				//Add call button (if possible)
+				ComunicWeb.components.conversations.chatWindows.showCallButton(conversationInfos);
 
 			});
 		});
@@ -563,16 +569,43 @@ ComunicWeb.components.conversations.chatWindows = {
 		return true;
 	},
 
+	/**
+	 * Add a call button to the conversation, if possible
+	 * 
+	 * @param {Object} conversation Information about the conversation
+	 */
+	showCallButton: function(conversation){
+
+		//Check if calls are disabled
+		if(!ComunicWeb.components.calls.controller.isAvailable())
+			return;
+
+		//Check if it is a conversation with two members
+		if(conversation.infos.members.length != 2)
+			return; //Currently the call feature is offered just
+			//for conversation of two people
+
+		//Add the call button
+		let button = createElem2({
+			insertBefore: conversation.box.boxTools.firstChild,
+			type: "button",
+			class: "btn btn-box-tool",
+			innerHTML: "<i class='fa fa-phone'></i>"
+		});
+		conversation.box.callButton = button;
+
+	},
+
 
 	/**
 	 * Process submited update conversation form
 	 * 
-	 * @param {Object} conversation Informations about the conversation
+	 * @param {Object} conversation Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
 	submitUpdateForm: function(conversation){
 
-		//Then, get informations about the input
+		//Then, get information about the input
 		var newValues = {
 			conversationID: conversation.infos.ID,
 			following: conversation.settingsForm.followConversationInput.checked,
@@ -621,7 +654,7 @@ ComunicWeb.components.conversations.chatWindows = {
 	/**
 	 * Submit a new message form
 	 * 
-	 * @param {Object} convInfos Informations about the conversation
+	 * @param {Object} convInfos Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
 	submitMessageForm: function(convInfos){
@@ -673,7 +706,7 @@ ComunicWeb.components.conversations.chatWindows = {
 	/**
 	 * Reset a create a message form
 	 * 
-	 * @param {Object} infos Informations about the conversation
+	 * @param {Object} infos Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
 	resetCreateMessageForm: function(infos){
