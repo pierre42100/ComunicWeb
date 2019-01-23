@@ -1145,6 +1145,31 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Calls component
+		 */
+		calls: {
+
+			/**
+			 * Calls configuration
+			 */
+			__config: undefined,
+
+			/**
+			 * Calls interface
+			 */
+			interface: {
+				//TODO : implement
+			},
+
+			/**
+			 * Calls controller
+			 */
+			controller: {
+				//TODO : implement
+			},
+		},
+
+		/**
 		 * Easter egg : pacman
 		 */
 		pacman: {

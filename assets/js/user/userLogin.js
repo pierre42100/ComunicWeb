@@ -77,12 +77,18 @@ ComunicWeb.user.userLogin = {
                 //Perform next action
                 afterGetCurrentUserID(0);
             }
-            else{
+            else
+            {
                 //Update user ID
                 ComunicWeb.user.userLogin.__userID = result.userID;
 
                 //Perform next action
-                afterGetCurrentUserID(result.userID)
+                afterGetCurrentUserID(result.userID);
+
+                //Notify about the event
+                SendEvent("got_user_id", {
+                    userID: result.userID
+                });
             }
 
         };

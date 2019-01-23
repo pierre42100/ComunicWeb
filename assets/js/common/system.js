@@ -59,6 +59,11 @@ ComunicWeb.common.system = {
 		ComunicWeb.components.darkTheme.refresh();
 
 		/**
+		 * Initialize call system
+		 */
+		ComunicWeb.components.calls.controller.init();
+
+		/**
 		 * What to do after login refresh
 		 */
 		var afterLoginRefresh = function(){

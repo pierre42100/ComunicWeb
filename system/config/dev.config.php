@@ -437,6 +437,10 @@ class Dev {
 			"js/components/incognito/management.js",
 			"js/components/incognito/keyboard.js",
 
+			//Calls compontent
+			"js/components/calls/interface.js",
+			"js/components/calls/controller.js",
+
 			//Pacman component (easter egg)
 			"js/components/pacman.js",
 
