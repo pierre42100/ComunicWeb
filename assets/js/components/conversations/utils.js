@@ -55,6 +55,27 @@ ComunicWeb.components.conversations.utils = {
 	},
 
 	/**
+	 * Given a conversation ID, get its name
+	 * 
+	 * @param {number} id The ID of the target conversation
+	 * @param {function} onGotName Function called once we have got the name of the conversation
+	 */
+	getNameForID: function(id, onGotName){
+
+		ComunicWeb.components.conversations.interface.getInfosOne(id, function(info){
+
+			//Check if an error occurred
+			if(info.error)
+				return onGotName(false);
+
+			//Get and return the name of the conversation
+			ComunicWeb.components.conversations.utils.getName(info, onGotName);
+			
+		});
+
+	},
+
+	/**
 	 * Create and display a conversation creation / edition form
 	 * 
 	 * @param {HTMLElement} target The target of the creation form
