@@ -19,7 +19,8 @@ ComunicWeb.components.calls.callWindow = {
 		var call = {
 			info: info,
 			open: true,
-			window: {}
+			window: {},
+			streams: {}
 		};
 
 		//We have to begin to draw conversation UI
@@ -39,7 +40,7 @@ ComunicWeb.components.calls.callWindow = {
 			innerHTML: "<i class='fa fa-clock-o'></i>"
 		});
 
-		call.window.loadingMessageContainer = createElem2({
+		call.window.loadingMessageContent = createElem2({
 			appendTo: call.window.loadingMessageContainer,
 			type: "div",
 			class: "message",
@@ -62,7 +63,7 @@ ComunicWeb.components.calls.callWindow = {
 		 * users
 		 */
 		call.setLoadingMessage = function(message){
-			call.window.loadingMessageContainer.innerHTML = message;
+			call.window.loadingMessageContent.innerHTML = message;
 		}
 
 
@@ -97,6 +98,16 @@ ComunicWeb.components.calls.callWindow = {
 			innerHTML: "<i class='fa fa-times'></i>"
 		});
 
+		//Make close button lives
+		call.close = function(){
+			call.open = false;
+			callContainer.remove();
+		}
+
+		call.window.closeButton.addEventListener("click", function(){
+			call.close();
+		});
+
 
 		//Get information about related conversation to get the name of the call
 		ComunicWeb.components.conversations.interface.getInfosOne(info.conversation_id, function(conv_info){
@@ -112,6 +123,21 @@ ComunicWeb.components.calls.callWindow = {
 
 		//Load user media
 		call.setLoadingMessage("Waiting for your microphone and camera...");
+
+		ComunicWeb.components.calls.userMedia.get().then(function(stream){
+
+			//Mark as connecting
+			call.setLoadingMessage("Connecting...");
+
+			call.streams.local = stream;
+
+			return true;
+
+		}).catch(function(e){
+			console.error("Get user media error: ", e);
+			call.setLoadingMessageVisibility(false);
+			return notify("Could not get your microphone and camera!", "danger");
+		});
 	}
 
 }
