@@ -1167,6 +1167,27 @@ var ComunicWeb = {
 			controller: {
 				//TODO : implement
 			},
+
+			/**
+			 * Call window
+			 */
+			callWindow: {
+				//TODO : implement
+			},
+
+			/**
+			 * Current calls list
+			 */
+			currentList: {
+				//TODO : implement
+			},
+
+			/**
+			 * User media getter
+			 */
+			userMedia: {
+				//TODO : implement
+			},
 		},
 
 		/**

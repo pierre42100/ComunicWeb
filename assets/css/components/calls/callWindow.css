@@ -1,0 +1,54 @@
+/**
+ * Calls window stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.call-window {
+	background-color: white;
+	width: 300px;
+	height: 300px;
+	position: fixed;
+	top: 100px;
+	right: 10px;
+	z-index: 100;
+	border: 1px black solid;
+}
+
+
+/**
+ * Loading message
+ */
+.loading-message-container {
+	position: absolute;
+	height: inherit;
+	width: inherit;
+	display: flex;
+	background: 1px #0009;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+	font-size: 150%;
+	color: white;
+}
+
+
+/**
+ * Toolbar
+ */
+.call-toolbar {
+	height: 20px;
+	background-color: #000000b3;
+	color: white;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+}
+
+.call-toolbar > i:first-child {
+	margin-right: 6px;
+}
+
+.call-title {
+	flex: 1;
+}

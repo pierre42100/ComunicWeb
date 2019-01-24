@@ -218,6 +218,9 @@ class Dev {
 			//Incognito mode component
 			"css/components/incognito/ui.css",
 
+			//Calls component
+			"css/components/calls/callWindow.css",
+
 			//Pacman (easter egg) stylesheet
 			"css/components/pacman.css",
 
@@ -440,6 +443,9 @@ class Dev {
 			//Calls compontent
 			"js/components/calls/interface.js",
 			"js/components/calls/controller.js",
+			"js/components/calls/callWindow.js",
+			"js/components/calls/currentList.js",
+			"js/components/calls/userMedia.js",
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",

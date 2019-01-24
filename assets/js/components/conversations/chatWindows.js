@@ -594,6 +594,9 @@ ComunicWeb.components.conversations.chatWindows = {
 		});
 		conversation.box.callButton = button;
 
+		button.addEventListener("click", function(){
+			ComunicWeb.components.calls.controller.call(conversation.infos.ID);
+		});
 	},
 
 

@@ -14,6 +14,22 @@ ComunicWeb.components.calls.interface = {
 	 */
 	getConfig: function(callback){
 		ComunicWeb.common.api.makeAPIrequest("calls/config", {}, true, callback);
-	}
+	},
 
+	/**
+	 * Create a call for a conversation
+	 * 
+	 * @param {Number} convID The ID of the target conversation
+	 * @param {function} callback
+	 */
+	createForConversation : function(convID, callback){
+		ComunicWeb.common.api.makeAPIrequest(
+			"calls/createForConversation",
+			{
+				conversationID: convID
+			},
+			true,
+			callback
+		);
+	}
 }

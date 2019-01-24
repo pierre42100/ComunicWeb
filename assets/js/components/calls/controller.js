@@ -42,6 +42,33 @@ ComunicWeb.components.calls.controller = {
 			});
 
 		});
+
+		// Each time a page is opened, wec check if we have to create calls target
+		document.addEventListener("openPage", function(){
+
+			//Signed out users can not make calls
+			if(!signed_in())
+				return;
+
+			//Need a wrapper to continue
+			if(!byId("wrapper"))
+				return;
+
+			//Check if calls target already exists
+			if(byId("callsTarget"))
+				return;
+			
+			//Call system must be available
+			if(!ComunicWeb.components.calls.controller.isAvailable())
+				return;
+				
+			//Create call target
+			createElem2({
+				appendTo: byId("wrapper"),
+				type: "div",
+				id: "callsTarget"
+			});
+		});
 	},
 
 	/**
@@ -65,6 +92,28 @@ ComunicWeb.components.calls.controller = {
 
 		//Read configuration
 		return this.getConfig().enabled;
-	}
+	},
 
+	/**
+	 * Initiate a call for a conversation
+	 * 
+	 * @param {Number} conversationID The ID of the target conversation
+	 */
+	call: function(conversationID){
+		
+		//Create / Get call information for the conversation
+		ComunicWeb.components.calls.interface.createForConversation(conversationID, function(call){
+
+			if(call.error)
+				return notify("Could not get a call for this conversation!", "danger");
+			
+			//Add the call to the list of opened calls
+			ComunicWeb.components.calls.currentList.addCallToList(call.id);
+
+			//Initialize call
+			ComunicWeb.components.calls.callWindow.initCall(call);
+
+		});
+
+	}
 }
