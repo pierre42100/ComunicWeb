@@ -29,3 +29,4 @@ ComunicWeb would not exists without the following technologies developped by the
 - SCEditor (BBC WYIWYG editor) (https://github.com/samclarke/SCEditor) (MIT License)
 - JavaScript BBCode Parser (https://github.com/Frug/js-bbcode-parser) (MIT License)
 - Pacman (https://github.com/daleharvey/pacman) (WTFPL License)
+- SimplePeer (https://github.com/feross/simple-peer) (MIT License)
