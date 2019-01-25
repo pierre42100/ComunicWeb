@@ -139,6 +139,12 @@ ComunicWeb.components.calls.callWindow = {
 		});
 
 
+		//Call videos target
+		call.window.videosTarget = createElem2({
+			appendTo: call.window.body,
+			type: "div",
+			class: "streams-target"
+		});
 
 
 		/**
@@ -193,7 +199,7 @@ ComunicWeb.components.calls.callWindow = {
 			//Mark as connecting
 			call.setLoadingMessage("Connecting...");
 
-			call.streams.local = stream;
+			call.localStream = stream;
 
 			//Initialize signaling server connection
 			ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
@@ -306,7 +312,7 @@ ComunicWeb.components.calls.callWindow = {
 
 		//Check if we are connected to signaling server and we have got local
 		//streams
-		if(!call.signalClient || !call.signalClient.isConnected() || !call.streams.local)
+		if(!call.signalClient || !call.signalClient.isConnected() || !call.localStream)
 			return;
 
 		//Check if all other members rejected call
@@ -371,7 +377,7 @@ ComunicWeb.components.calls.callWindow = {
 		//Create peer
 		var peer = new SimplePeer({ 
 			initiator: isInitiator,
-			stream: call.streams.local,
+			stream: call.localStream,
 			trickle: false,
 			config: {
 				'iceServers': [
@@ -384,15 +390,19 @@ ComunicWeb.components.calls.callWindow = {
 		});
 		peerConnection.peer = peer;
 	
-		var removePeerConnection = function(){
+		//Add a function to remove connection
+		peerConnection.removePeerConnection = function(){
 			peer.destroy();
 			delete call.streams["peer-" + member.userID];
+
+			if(peerConnection.video)
+				peerConnection.video.remove();
 		}
 
 
 		peer.on("error", function(err){
 			console.error("Peer error !", err, member);
-			removePeerConnection();
+			peerConnection.removePeerConnection();
 		});
 
 		peer.on("signal", function(data){
@@ -406,11 +416,11 @@ ComunicWeb.components.calls.callWindow = {
 
 
 		peer.on("close", function(){
-			removePeerConnection();
+			peerConnection.removePeerConnection();
 		});
 
 		peer.on("stream", function(stream){
-			alert("Remote stream available!");
+			ComunicWeb.components.calls.callWindow.streamAvailable(call, member, stream);
 		});
 
 		
@@ -464,12 +474,48 @@ ComunicWeb.components.calls.callWindow = {
 	},
 
 	/**
+	 * This method is called when a remote stream becomes available
 	 * 
 	 * @param {Object} call Information about remote call
-	 * @param {*} stream 
+	 * @param {String} member Information about target member
+	 * @param {MediaStream} stream Remote stream available
 	 */
-	streamAvailable: function(call, stream){
+	streamAvailable: function(call, member, stream){
+		
+		call.setLoadingMessageVisibility(false);
 
+		call.streams["peer-" + member.userID].stream = stream;
+
+		call.streams["peer-" + member.userID].video = this.addVideoStream(call, false, stream);
+
+	},
+
+	/**
+	 * Create and set a video object for a stream
+	 * 
+	 * @param {Object} call Target call
+	 * @param {Boolean} muted Specify whether audio should be muted
+	 * or not
+	 * @param {MediaStream} stream Target stream
+	 * @return {HTMLVideoElement} Generated video element
+	 */
+	addVideoStream: function(call, muted, stream){
+
+		/**
+		 * @type {HTMLVideoElement}
+		 */
+		let video = createElem2({
+			appendTo: call.window.videosTarget,
+			type: "video"
+		});
+
+		video.muted = muted;
+
+		//Set target video object and play it
+		video.srcObject = stream;
+		video.play();
+
+		return video;
 	},
 
 	/**
@@ -486,5 +532,12 @@ ComunicWeb.components.calls.callWindow = {
 		if(call.signalClient.isConnected())
 			call.signalClient.close();
 
+		//Close all socket connections
+		for (var key in call.streams) {
+			if (call.streams.hasOwnProperty(key)) {
+				var element = call.streams[key];
+				element.removePeerConnection();
+			}
+		}
 	}
 }
