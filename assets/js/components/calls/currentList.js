@@ -66,4 +66,10 @@ ComunicWeb.components.calls.currentList = {
 
 	},
 
+	/**
+	 * Remove all the calls from the list
+	 */
+	removeAllCalls: function(){
+		this.saveNewCallsList([]);
+	}
 }

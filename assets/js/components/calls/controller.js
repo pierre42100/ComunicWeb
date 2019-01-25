@@ -29,32 +29,14 @@ ComunicWeb.components.calls.controller = {
 
 		ComunicWeb.debug.logMessage("Initialize calls component");
 
-		//We wait the user to be connected before trying to get
-		// call configuration
-		document.addEventListener("got_user_id", function(){
-
-			//Check if we have already the call configuration
-			if(ComunicWeb.components.calls.__config !== undefined)
-				return;
-			
-			ComunicWeb.components.calls.interface.getConfig(function(config){
-
-				//Check if we could not get calls configuration
-				if(config.error)
-					return;
-
-				//Save calls configuration
-				ComunicWeb.components.calls.__config = config;
-			});
-
-		});
-
-		// Each time a page is opened, wec check if we have to create calls target
-		document.addEventListener("openPage", function(){
+		//Initialize call container
+		var initializeCallContainer = function(){
 
 			//Signed out users can not make calls
-			if(!signed_in())
+			if(!signed_in()){
+				ComunicWeb.components.calls.controller.userSignedOut();
 				return;
+			}
 
 			//Need a wrapper to continue
 			if(!byId("wrapper"))
@@ -74,6 +56,36 @@ ComunicWeb.components.calls.controller = {
 				type: "div",
 				id: "callsTarget"
 			});
+
+			//Now we have to reopen current calls
+			ComunicWeb.components.calls.controller.reopenCurrentCalls();
+		}
+
+		//We wait the user to be connected before trying to get
+		// call configuration
+		document.addEventListener("got_user_id", function(){
+
+			//Check if we have already the call configuration
+			if(ComunicWeb.components.calls.__config !== undefined)
+				return;
+			
+			ComunicWeb.components.calls.interface.getConfig(function(config){
+
+				//Check if we could not get calls configuration
+				if(config.error)
+					return;
+
+				//Save calls configuration
+				ComunicWeb.components.calls.__config = config;
+
+				initializeCallContainer();
+			});
+
+		});
+
+		// Each time a page is opened, wec check if we have to create calls target
+		document.addEventListener("openPage", function(){
+			initializeCallContainer();
 		});
 	},
 
@@ -206,6 +218,40 @@ ComunicWeb.components.calls.controller = {
 			ComunicWeb.components.calls.controller.open(call);
 
 		});
+
+	},
+
+	/**
+	 * Reopen all current calls
+	 */
+	reopenCurrentCalls: function(){
+
+		//Process each call to open it
+		ComunicWeb.components.calls.currentList.getCurrentCallsList().forEach(function(entry){
+			
+			ComunicWeb.components.calls.interface.getInfo(entry, function(call){
+
+				if(call.error){
+					ComunicWeb.components.calls.currentList.removeCallFromList(entry);
+					return notify("Could not get information about a call!", "danger");
+				}
+				
+				ComunicWeb.components.calls.controller.open(call);
+
+			});
+
+		});
+
+	},
+
+	/**
+	 * Call this method only if the system is sure that
+	 * nobody is signed in the current tab
+	 */
+	userSignedOut: function(){
+		
+		//Remove all the current calls from the list
+		ComunicWeb.components.calls.currentList.removeAllCalls();
 
 	}
 }

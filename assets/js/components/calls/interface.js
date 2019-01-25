@@ -34,6 +34,23 @@ ComunicWeb.components.calls.interface = {
 	},
 
 	/**
+	 * Get information about a single call
+	 * 
+	 * @param {Number} callID The ID of the target call
+	 * @param {function} callback Function called on request result
+	 */
+	getInfo: function (callID, callback){
+		ComunicWeb.common.api.makeAPIrequest(
+			"calls/getInfo",
+			{
+				call_id: callID
+			},
+			true,
+			callback
+		);
+	},
+
+	/**
 	 * Get and return the next pending call for the
 	 * user
 	 * 
