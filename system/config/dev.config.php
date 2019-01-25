@@ -220,6 +220,7 @@ class Dev {
 
 			//Calls component
 			"css/components/calls/callWindow.css",
+			"css/components/calls/ringScreen.css",
 
 			//Pacman (easter egg) stylesheet
 			"css/components/pacman.css",
@@ -446,6 +447,7 @@ class Dev {
 			"js/components/calls/callWindow.js",
 			"js/components/calls/currentList.js",
 			"js/components/calls/userMedia.js",
+			"js/components/calls/ringScreen.js",
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",

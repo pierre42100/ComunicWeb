@@ -1188,6 +1188,13 @@ var ComunicWeb = {
 			userMedia: {
 				//TODO : implement
 			},
+
+			/**
+			 * Ring screen
+			 */
+			ringScreen: {
+				//TODO : implement
+			}
 		},
 
 		/**
