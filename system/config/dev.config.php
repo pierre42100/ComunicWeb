@@ -159,6 +159,10 @@ class Dev {
 		//JS BBCode Parser
 		"3rdparty/js-bbcode-parser/bbcode-config.js",
 		"3rdparty/js-bbcode-parser/bbcode-parser.js",
+
+		//Simple peer
+		"3rdparty/simplepeer/simplepeer.min.js",
+		"3rdparty/SignalExchangerClient/SignalExchangerClient.js"
 	);
 
 	/**
