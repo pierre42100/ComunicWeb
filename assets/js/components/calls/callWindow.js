@@ -110,16 +110,14 @@ ComunicWeb.components.calls.callWindow = {
 
 
 		//Get information about related conversation to get the name of the call
-		ComunicWeb.components.conversations.interface.getInfosOne(info.conversation_id, function(conv_info){
+		ComunicWeb.components.conversations.utils.getNameForID(info.conversation_id, function(name){
 
-			if(conv_info.error)
+			if(!name)
 				return notify("Could not get information about related conversation!", "danger");
 			
-			ComunicWeb.components.conversations.utils.getName(conv_info, function(name){
-				call.setTitle(name);
-			})
+			call.setTitle(name);
 
-		}, false);
+		});
 
 		//Load user media
 		call.setLoadingMessage("Waiting for your microphone and camera...");
