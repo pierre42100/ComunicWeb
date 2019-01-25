@@ -321,7 +321,7 @@ ComunicWeb.components.calls.callWindow = {
 		//Check if all other members rejected call
 		var allRejected = true;
 		call.info.members.forEach(function(member){
-			if(member.accepted != "rejected" && member.userID != userID())
+			if(member.status != "rejected" && member.userID != userID())
 				allRejected = false;
 		});
 
@@ -340,7 +340,7 @@ ComunicWeb.components.calls.callWindow = {
 		call.info.members.forEach(function(member){
 
 			//Ignores all not accepted connection
-			if(member.userID == userID() || member.accepted !== "accepted")
+			if(member.userID == userID() || member.status !== "accepted")
 				return;
 			
 			//Check if we have not peer information
