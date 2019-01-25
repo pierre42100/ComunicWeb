@@ -47,41 +47,6 @@ ComunicWeb.components.calls.callWindow = {
 		call.window.container = callContainer;
 
 
-		//Create loading message area
-		call.window.loadingMessageContainer = createElem2({
-			appendTo: callContainer,
-			type: "div",
-			class: "loading-message-container",
-			innerHTML: "<i class='fa fa-clock-o'></i>"
-		});
-
-		call.window.loadingMessageContent = createElem2({
-			appendTo: call.window.loadingMessageContainer,
-			type: "div",
-			class: "message",
-			innerHTML: "Loading..."
-		});
-
-		/**
-		 * Set loading message visiblity
-		 * 
-		 * @param {Boolean} visible TRUE to make it visible / FALSE else
-		 */
-		call.setLoadingMessageVisibility = function(visible){
-			call.window.loadingMessageContainer.style.display = visible ? "flex" : "none";
-		}
-
-		/**
-		 * Update call loading message
-		 * 
-		 * @param {String} message The new message to show to the
-		 * users
-		 */
-		call.setLoadingMessage = function(message){
-			call.window.loadingMessageContent.innerHTML = message;
-		}
-
-
 		//Add toolbar
 		call.window.toolbar = createElem2({
 			appendTo: callContainer,
@@ -136,6 +101,56 @@ ComunicWeb.components.calls.callWindow = {
 			call.setTitle(name);
 
 		});
+
+
+		//Call box body
+		call.window.body = createElem2({
+			appendTo: callContainer,
+			type: "div",
+			class: "call-window-body"
+		});
+
+
+
+		
+		/**
+		 * Create loading message area
+		 */
+		call.window.loadingMessageContainer = createElem2({
+			appendTo: call.window.body,
+			type: "div",
+			class: "loading-message-container",
+			innerHTML: "<i class='fa fa-clock-o'></i>"
+		});
+
+		call.window.loadingMessageContent = createElem2({
+			appendTo: call.window.loadingMessageContainer,
+			type: "div",
+			class: "message",
+			innerHTML: "Loading..."
+		});
+
+		/**
+		 * Set loading message visiblity
+		 * 
+		 * @param {Boolean} visible TRUE to make it visible / FALSE else
+		 */
+		call.setLoadingMessageVisibility = function(visible){
+			call.window.loadingMessageContainer.style.display = visible ? "flex" : "none";
+		}
+
+		/**
+		 * Update call loading message
+		 * 
+		 * @param {String} message The new message to show to the
+		 * users
+		 */
+		call.setLoadingMessage = function(message){
+			call.window.loadingMessageContent.innerHTML = message;
+		}
+
+
+
 
 		//Load user media
 		call.setLoadingMessage("Waiting for your microphone and camera...");
