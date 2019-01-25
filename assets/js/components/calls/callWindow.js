@@ -151,7 +151,7 @@ ComunicWeb.components.calls.callWindow = {
 		 * Create loading message area
 		 */
 		call.window.loadingMessageContainer = createElem2({
-			appendTo: call.window.body,
+			insertBefore: call.window.body.firstChild,
 			type: "div",
 			class: "loading-message-container",
 			innerHTML: "<i class='fa fa-clock-o'></i>"
@@ -196,13 +196,16 @@ ComunicWeb.components.calls.callWindow = {
 			if(!call.open)
 				return;
 
-			//Mark as connecting
-			call.setLoadingMessage("Connecting...");
-
 			call.localStream = stream;
 
 			//Initialize signaling server connection
 			ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
+
+			//Add local stream to the list of visible stream
+			ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
+
+			//Mark as connecting
+			call.setLoadingMessage("Connecting...");
 
 			return true;
 

@@ -7,7 +7,6 @@
 .call-window {
 	background-color: white;
 	width: 300px;
-	height: 300px;
 	position: fixed;
 	top: 100px;
 	right: 10px;
@@ -46,7 +45,7 @@
 /**
  * Loading message
  */
- .loading-message-container {
+.loading-message-container {
 	position: absolute;
 	min-height: 110px;
 	width: 100%;
@@ -57,4 +56,18 @@
 	text-align: center;
 	font-size: 150%;
 	color: white;
+}
+
+
+/**
+ * Stream target
+ */
+.call-window .streams-target {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.call-window .streams-target video {
+	width: 149px;
 }
