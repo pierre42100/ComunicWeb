@@ -35,7 +35,8 @@ ComunicWeb.components.notifications.service = {
 				
 
 			//Get the number of notifications from the API
-			ComunicWeb.components.notifications.interface.getAllUnread(function(response){
+			ComunicWeb.components.notifications.interface.getAllUnread(
+				ComunicWeb.components.calls.controller.isAvailable(), function(response){
 
 				//Continue in case of success
 				if(response.error)
@@ -76,6 +77,11 @@ ComunicWeb.components.notifications.service = {
 					ComunicWeb.components.notifications.song.play();
 				
 					ComunicWeb.components.notifications.service.last_notifs_number = total_number_notifs;
+				
+				
+				//Process the number of calls if possible
+				if(response.calls && response.calls > 0)
+					ComunicWeb.components.calls.controller.newCallsAvailable(response.calls);
 			});
 
 		}, 2000);

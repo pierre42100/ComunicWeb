@@ -13,6 +13,12 @@ ComunicWeb.components.calls.controller = {
 	_is_init: false,
 
 	/**
+	 * This variable contains whether the user is being
+	 * notified of a call or not
+	 */
+	_is_processing_call: false,
+
+	/**
 	 * Initialize calls component
 	 */
 	init: function(){
@@ -107,11 +113,97 @@ ComunicWeb.components.calls.controller = {
 			if(call.error)
 				return notify("Could not get a call for this conversation!", "danger");
 			
-			//Add the call to the list of opened calls
-			ComunicWeb.components.calls.currentList.addCallToList(call.id);
+			ComunicWeb.components.calls.controller.open(call);
 
-			//Initialize call
-			ComunicWeb.components.calls.callWindow.initCall(call);
+		});
+
+	},
+
+	/**
+	 * Call this method to initialize a call for a call we have information about
+	 * 
+	 * @param {Object} call Information about the call
+	 */
+	open: function(call){
+
+		//Add the call to the list of opened calls
+		ComunicWeb.components.calls.currentList.addCallToList(call.id);
+
+		//Initialize call
+		ComunicWeb.components.calls.callWindow.initCall(call);
+	},
+
+	/**
+	 * This method is called each time the notification service
+	 * detect that the number of pending calls has increased. It
+	 * must in fact be "thread-safe" to avoid to do twice things
+	 * that should be one only once
+	 * 
+	 * @param {number} number The number of pending calls
+	 */
+	newCallsAvailable: function(number){
+
+		//Check if user is already processing a call
+		if(this._is_processing_call)
+			return;
+		this._is_processing_call = true;
+		
+		/**
+		 * Switch processing call to false
+		 */
+		var undoIsProcessing = function(){
+			ComunicWeb.components.calls.controller._is_processing_call = false;
+		}
+
+		//Get information about the next pending call
+		ComunicWeb.components.calls.interface.getNextPendingCall(function(call){
+			
+			//Check if there is no pending call
+			if(call.notice)
+				return undoIsProcessing();
+			
+			ComunicWeb.components.conversations.utils.getNameForID(call.conversation_id, function(name){
+
+				//Check for errors
+				if(!name){
+					ComunicWeb.debug.logMessage("Could not get the name of the conversation for a call, cannot process it!");
+					undoIsProcessing();
+					return;
+				}
+
+				//Show ring screen
+				ComunicWeb.components.calls.ringScreen.show(name, 30, function(accept){
+					
+					undoIsProcessing();
+
+					ComunicWeb.components.calls.controller.applyReponseForCall(call, accept);
+
+				});
+			});
+
+		});
+	},
+
+	/**
+	 * Apply a response for the call
+	 * 
+	 * @param {Object} call Information about the target call
+	 * @param {Boolean} accept TRUE to accept call / FALSE else
+	 */
+	applyReponseForCall: function(call, accept){
+
+		//Send response to server
+		ComunicWeb.components.calls.interface.respondToCall(call.id, accept, function(r){
+
+			//Check for error
+			if(r.error)
+				return notify("Could not send response to call to server!", "danger");
+
+			if(!accept)
+				return;
+			
+			//We may start the call now
+			ComunicWeb.components.calls.controller.open(call);
 
 		});
 
