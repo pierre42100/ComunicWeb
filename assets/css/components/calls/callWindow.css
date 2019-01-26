@@ -125,3 +125,31 @@
 .call-window .call-footer .call-option-button.hang-up-button {
 	color: #dd4b39;
 }
+
+
+/**
+ * Responsive mode
+ */
+@media screen and (max-width: 730px) {
+
+	#callsTarget {
+		z-index: 1030;
+	}
+
+	.streams-target {
+		flex-direction: column !important;
+	}
+
+	.streams-target video {
+		max-width: 100%;
+	}
+
+	.call-window {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0px !important;
+		left: 0px !important;
+	}
+
+}
