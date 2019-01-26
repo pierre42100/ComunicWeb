@@ -488,6 +488,12 @@ ComunicWeb.components.calls.callWindow = {
 		 */
 		var interval = setInterval(function(){
 
+			//Check if call is not visible anymore
+			if(!callContainer.isConnected){
+				call.close();
+				return;
+			}
+
 			if(!call.open)
 				return clearInterval(interval);
 
@@ -809,6 +815,13 @@ ComunicWeb.components.calls.callWindow = {
 				var element = call.streams[key];
 				element.removePeerConnection();
 			}
+		}
+
+		//Close local stream
+		if(call.localStream){
+			call.localStream.getTracks().forEach(function(track){
+				track.stop();
+			});
 		}
 
 		//Notify server
