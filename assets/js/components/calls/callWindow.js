@@ -172,7 +172,13 @@ ComunicWeb.components.calls.callWindow = {
 		}
 
 		call.window.closeButton.addEventListener("click", function(){
-			call.close();
+			
+			//Check if the call is in full screen mode
+			if(IsFullScreen())
+				RequestFullScreen(null)
+			else
+				call.close();
+			
 		});
 
 
@@ -346,12 +352,33 @@ ComunicWeb.components.calls.callWindow = {
 		/**
 		 * Make the call window draggable
 		 */
+
+		function checkWindowMinPosition(){
+
+			if(window.innerHeight < callContainer.style.top.replace("px", ""))
+				callContainer.style.top = "0px";
+			
+			if(window.innerWidth < callContainer.style.left.replace("px", ""))
+				callContainer.style.left = "0px";
+
+			if(callContainer.style.left.replace("px", "") < 0)
+				callContainer.style.left = "0px";
+
+			if(callContainer.style.top.replace("px", "") < 49)
+				callContainer.style.top = "50px";
+		}
+
+		//Enable dragging
 		{
 			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
 			call.window.title.onmousedown = function(e){
 				e = e || window.event;
 				e.preventDefault();
+
+				//Check if the window is currently in full screen mode
+				if(IsFullScreen())
+					return; 
 
 				//get the mouse cursor position at startup
 				pos3 = e.clientX;
@@ -373,6 +400,8 @@ ComunicWeb.components.calls.callWindow = {
 				//Set element new position
 				callContainer.style.top = (callContainer.offsetTop - pos2) + "px";
 				callContainer.style.left = (callContainer.offsetLeft - pos1) + "px";
+
+				checkWindowMinPosition();
 			}
 
 			function closeDragElement(){
@@ -382,6 +411,10 @@ ComunicWeb.components.calls.callWindow = {
 				document.onmousemove = null;
 			}
 		}
+
+		window.addEventListener("resize", function(){
+			checkWindowMinPosition();
+		});
 
 
 
