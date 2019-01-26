@@ -33,6 +33,11 @@ ComunicWeb.components.calls.callWindow = {
 			streams: {},
 
 			/**
+			 * @type {MediaStream}
+			 */
+			localStream: undefined,
+
+			/**
 			 * @type {SignalExchangerClient}
 			 */
 			signalClient: undefined
@@ -44,6 +49,7 @@ ComunicWeb.components.calls.callWindow = {
 		 * Initialize utilities
 		 */
 
+		
 		/**
 		 * Get member information based on call ID
 		 * 
@@ -60,6 +66,56 @@ ComunicWeb.components.calls.callWindow = {
 
 			});
 			return memberInfo;
+		}
+
+		/**
+		 * Check out whether local stream audio is enabled or not
+		 * 
+		 * @return {Boolean} TRUE if local stream is enabled / FALSE else
+		 */
+		call.isLocalAudioEnabled = function(){
+			
+			//Default behaviour : local stream not enabled
+			if(!call.localStream)
+				return true;
+			
+			return call.localStream.getAudioTracks()[0].enabled;
+
+		}
+
+		/**
+		 * Set audio mute status of local stream
+		 * 
+		 * @param {Boolean} enabled New enabled status
+		 */
+		call.setLocalAudioEnabled = function(enabled){
+			if(call.localStream)
+				call.localStream.getAudioTracks()[0].enabled = enabled;
+		}
+
+
+		/**
+		 * Check if the local video is enabled or not
+		 * 
+		 * @return {Boolean} TRUE to mute video / FALSE else
+		 */
+		call.isLocalVideoEnabled = function(){
+			
+			//Default behaviour : video not enabled
+			if(!call.localStream)
+				return true;
+			
+			return call.localStream.getVideoTracks()[0].enabled;
+		}
+
+		/**
+		 * Update mute status of local video stream
+		 * 
+		 * @param {Boolean} enabled New mute status
+		 */
+		call.setLocalVideoEnabled = function(enabled){
+			if(call.localStream)
+				call.localStream.getVideoTracks()[0].enabled = enabled;
 		}
 
 
@@ -147,6 +203,10 @@ ComunicWeb.components.calls.callWindow = {
 		});
 
 
+
+
+
+
 		/**
 		 * Create loading message area
 		 */
@@ -185,6 +245,88 @@ ComunicWeb.components.calls.callWindow = {
 		}
 
 
+
+
+		//Call footer
+		call.window.footer = createElem2({
+			appendTo: callContainer,
+			type: "div",
+			class: "call-footer"
+		});
+
+		/**
+		 * This function is used to toggle selection state
+		 * of one of the call toolbar button
+		 * 
+		 * @param {HTMLElement} btn Target button
+		 * @param {Boolean} selected Selection state of the button
+		 */
+		var togglButtonSelectedStatus = function(btn, selected){
+
+			if(!selected){
+				while(btn.className.includes(" selected"))
+					btn.className = btn.className.replace(" selected", "");
+			}
+
+			else if(selected && !btn.className.includes(" selected"))
+				btn.className += " selected";
+		}
+
+		var buttonsList = [
+
+			//Mute button
+			{
+				icon: "fa-microphone",
+				selected: true,
+				onclick: function(btn){
+					call.setLocalAudioEnabled(!call.isLocalAudioEnabled());
+					togglButtonSelectedStatus(btn, call.isLocalAudioEnabled());
+				}
+			},
+
+			//Hang up button
+			{
+				icon: "fa-phone",
+				class: "hang-up-button",
+				selected: false,
+				onclick: function(){
+					call.close();
+				}
+			},
+
+			//Stop video button
+			{
+				icon: "fa-video-camera",
+				selected: true,
+				onclick: function(btn){
+					call.setLocalVideoEnabled(!call.isLocalVideoEnabled());
+					togglButtonSelectedStatus(btn, call.isLocalVideoEnabled());
+					console.log(call);
+				}
+			}
+		];
+
+		//Add buttons
+		buttonsList.forEach(function(button){
+
+			var buttonEl = createElem2({
+				appendTo: call.window.footer,
+				type: "div",
+				class: "call-option-button",
+				innerHTML: "<i class='fa " + button.icon + "'></i>"
+			});
+
+			//Add button optionnal class
+			if(button.class)
+				buttonEl.className += " " + button.class;
+
+			buttonEl.addEventListener("click", function(){
+				button.onclick(buttonEl);
+			});
+
+			togglButtonSelectedStatus(buttonEl, button.selected);
+
+		});
 
 
 		//Load user media

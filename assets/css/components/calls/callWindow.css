@@ -14,6 +14,7 @@
 	border: 1px black solid;
 	display: flex;
 	flex-direction: column;
+	background-color: #000000b3;
 }
 
 .call.window.body {
@@ -47,7 +48,7 @@
  */
 .loading-message-container {
 	position: absolute;
-	min-height: 110px;
+	min-height: 112px;
 	width: 100%;
 	display: flex;
 	background: 1px #0009;
@@ -70,4 +71,41 @@
 
 .call-window .streams-target video {
 	width: 149px;
+}
+
+
+/**
+ * Footer
+ */
+.call-window .call-footer {
+	height: 40px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.call-window .call-footer .call-option-button {
+	color: #fff6;
+	flex: 1;
+	text-align: center;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+
+.call-window .call-footer .call-option-button.selected {
+	color: white;
+}
+
+.call-window .call-footer .call-option-button:hover {
+	background-color: #ffffff4d;
+}
+
+.call-window .call-footer .call-option-button:active {
+	background-color: #fff3;
+}
+
+.call-window .call-footer .call-option-button.hang-up-button {
+	color: #dd4b39;
 }
