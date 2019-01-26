@@ -320,6 +320,7 @@ class Dev {
 		"js/common/formChecker.js",
 		"js/common/date.js",
 		"js/common/system.js",
+		"js/common/songPlayer.js",
 
 		//Languages
 		"js/langs/en.inc.js",

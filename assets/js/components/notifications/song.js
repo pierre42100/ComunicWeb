@@ -18,24 +18,13 @@ ComunicWeb.components.notifications.song = {
 		
 		//Create song element if required
 		if(this.songElem == null){
-			this.songElem = createElem2({
-				type: "audio"
-			});
-
-			createElem2({
-				type: "source",
-				appendTo: this.songElem,
-				src: ComunicWeb.__config.assetsURL + "audio/notif_song.mp3"
-			});
-
-			createElem2({
-				type: "source",
-				appendTo: this.songElem,
-				src: ComunicWeb.__config.assetsURL + "audio/notif_song.ogg"
-			});
+			this.songElem = new SongPlayer([
+				ComunicWeb.__config.assetsURL + "audio/notif_song.mp3",
+				ComunicWeb.__config.assetsURL + "audio/notif_song.ogg"
+			]);
 		}
 
 		//Play song
-		this.songElem.play();
+		this.songElem.playOnce();
 	}
 }
