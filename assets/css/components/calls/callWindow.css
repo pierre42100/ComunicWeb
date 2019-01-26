@@ -27,8 +27,9 @@
 	visibility: visible;
 }
 
-.call.window.body {
+.call-window .call-window-body{
 	flex: 1;
+	display: flex;
 }
 
 
@@ -74,13 +75,16 @@
  * Stream target
  */
 .call-window .streams-target {
+	flex: 1;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
+	max-width: 100%;
 }
 
 .call-window .streams-target video {
-	width: 149px;
+	flex: 1;
+	flex-shrink: 1;
 }
 
 

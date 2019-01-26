@@ -701,3 +701,56 @@ function SendEvent(name, details){
 	document.dispatchEvent(event);
 
 }
+
+/**
+ * Request full screen for an HTML element
+ * 
+ * Note : this function must be called inside of an event of
+ * the user like a click, otherwise it will not work
+ * 
+ * This function source code is based on this StackOverFlow Answer
+ *     https://stackoverflow.com/a/32100295/3781411
+ * 
+ * @param {HTMLElement} elem The element for which we want
+ * full screen
+ */
+function RequestFullScreen(element){
+	if (
+		document.fullscreenElement ||
+		document.webkitFullscreenElement ||
+		document.mozFullScreenElement ||
+		document.msFullscreenElement
+	) {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	} else {
+		if (element.requestFullscreen) {
+			element.requestFullscreen();
+		} else if (element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();
+		} else if (element.webkitRequestFullscreen) {
+			element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+		} else if (element.msRequestFullscreen) {
+			element.msRequestFullscreen();
+		}
+	}
+}
+
+/**
+ * Check out whether Comunic has grabbed full screen or not
+ * 
+ * @return {Boolean} TRUE if the window is in full screen / FALSE else
+ */
+function IsFullScreen(){
+	return document.fullscreenElement ||
+		document.webkitFullscreenElement ||
+		document.mozFullScreenElement ||
+		document.msFullscreenElement;
+}

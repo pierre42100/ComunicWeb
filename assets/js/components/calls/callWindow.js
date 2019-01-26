@@ -303,6 +303,19 @@ ComunicWeb.components.calls.callWindow = {
 					togglButtonSelectedStatus(btn, call.isLocalVideoEnabled());
 					console.log(call);
 				}
+			},
+
+
+			//Full screen button
+			{
+				icon: "fa-expand",
+				selected: false,
+				onclick: function(btn){
+					RequestFullScreen(callContainer);
+					setTimeout(function(){
+						togglButtonSelectedStatus(btn, IsFullScreen());
+					}, 1000);
+				}
 			}
 		];
 
