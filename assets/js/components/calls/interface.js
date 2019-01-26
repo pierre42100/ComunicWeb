@@ -82,5 +82,22 @@ ComunicWeb.components.calls.interface = {
 			true,
 			callback
 		);
+	},
+
+	/**
+	 * Hang up a call
+	 * 
+	 * @param {Number} call_id The ID of the target call
+	 * @param {function} callback Function to call on call callback
+	 */
+	hangUp: function(call_id, callback){
+		ComunicWeb.common.api.makeAPIrequest(
+			"calls/hangUp",
+			{
+				call_id: call_id,
+			},
+			true,
+			callback
+		);
 	}
 }

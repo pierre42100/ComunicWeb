@@ -319,19 +319,19 @@ ComunicWeb.components.calls.callWindow = {
 			return;
 
 		//Check if all other members rejected call
-		var allRejected = true;
+		var allDisconnected = true;
 		call.info.members.forEach(function(member){
-			if(member.status != "rejected" && member.userID != userID())
-				allRejected = false;
+			if(member.status != "rejected" && member.status != "hang_up" && member.userID != userID())
+				allDisconnected = false;
 		});
 
 		//Check if all call peer rejected the call
-		if(allRejected){
-			call.setLoadingMessage("All other peers rejected the call !");
+		if(allDisconnected){
+			call.setLoadingMessage("Conversation terminated.");
 
 			setTimeout(function(){
 				call.close();
-			}, 20000);
+			}, 5000);
 
 			return;
 		}
@@ -542,5 +542,8 @@ ComunicWeb.components.calls.callWindow = {
 				element.removePeerConnection();
 			}
 		}
+
+		//Notify server
+		ComunicWeb.components.calls.interface.hangUp(call.info.id, function(){});
 	}
 }
