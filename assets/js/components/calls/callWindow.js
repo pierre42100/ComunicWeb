@@ -593,11 +593,7 @@ ComunicWeb.components.calls.callWindow = {
 			return;
 
 		//Check if all other members rejected call
-		var allDisconnected = true;
-		call.info.members.forEach(function(member){
-			if(member.status != "rejected" && member.status != "hang_up" && member.userID != userID())
-				allDisconnected = false;
-		});
+		var allDisconnected = ComunicWeb.components.calls.utils.hasEveryoneLeft(call.info);
 
 		//Check if all call peer rejected the call
 		if(allDisconnected){

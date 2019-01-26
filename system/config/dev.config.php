@@ -453,6 +453,7 @@ class Dev {
 			"js/components/calls/currentList.js",
 			"js/components/calls/userMedia.js",
 			"js/components/calls/ringScreen.js",
+			"js/components/calls/utils.js",
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",

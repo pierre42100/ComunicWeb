@@ -1194,7 +1194,14 @@ var ComunicWeb = {
 			 */
 			ringScreen: {
 				//TODO : implement
-			}
+			},
+
+			/**
+			 * Calls utilities
+			 */
+			utils: {
+				//TODO : implement
+			},
 		},
 
 		/**
