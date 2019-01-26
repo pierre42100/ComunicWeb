@@ -574,8 +574,16 @@ img[src$="groups_logo/default.png"] {
 }
 
 /**
- * Call window
+ * Call system
  */
 .call-window {
     border: 1px var(--black4) solid;
+}
+
+.ring-call-container {
+    background-color: var(--black5);
+}
+
+.call-message-box {
+    background-color: var(--black6);
 }
