@@ -10,6 +10,13 @@
 ComunicWeb.components.calls.ringScreen = {
 
 	/**
+	 * Song object
+	 * 
+	 * @type {SongPlayer}
+	 */
+	_song: undefined,
+
+	/**
 	 * Notify user about an incoming call and offer him to respond it
 	 * 
 	 * @param {String} title The title of the conversation
@@ -18,6 +25,14 @@ ComunicWeb.components.calls.ringScreen = {
 	 * @param {(accept : boolean) => any} callback Callback function
 	 */
 	show: function(title, timeout, callback){
+
+		//Initialize song first
+		if(this._song == undefined)
+			this._song = new SongPlayer([
+				ComunicWeb.__config.assetsURL + "audio/phone_ring.mp3",
+				ComunicWeb.__config.assetsURL + "audio/phone_ring.ogg"
+			]);
+		this._song.playForever();
 
 		var callContainer = createElem2({
 			appendTo: document.body,
@@ -58,6 +73,8 @@ ComunicWeb.components.calls.ringScreen = {
 		var hasResponded = false;
 		var respond = function(accept){
 			
+			ComunicWeb.components.calls.ringScreen._song.stop();
+
 			if(hasResponded)
 				return;
 			hasResponded = true;
