@@ -532,7 +532,7 @@ ComunicWeb.components.calls.callWindow = {
 		ComunicWeb.components.calls.currentList.removeCallFromList(call.info.id);
 
 		//Close the connection to the server
-		if(call.signalClient.isConnected())
+		if(call.signalClient && call.signalClient.isConnected())
 			call.signalClient.close();
 
 		//Close all socket connections
