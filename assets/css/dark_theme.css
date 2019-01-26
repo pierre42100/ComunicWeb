@@ -572,3 +572,10 @@ img[src$="groups_logo/default.png"] {
 .page_account_created .message_container .message {
     background-color: var(--black5);
 }
+
+/**
+ * Call window
+ */
+.call-window {
+    border: 1px var(--black4) solid;
+}
