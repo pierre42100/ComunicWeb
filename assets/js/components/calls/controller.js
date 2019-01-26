@@ -184,13 +184,36 @@ ComunicWeb.components.calls.controller = {
 				}
 
 				//Show ring screen
-				ComunicWeb.components.calls.ringScreen.show(name, 30, function(accept){
+				var prompting = true;
+				var ringScreenInfo = ComunicWeb.components.calls.ringScreen.show(name, 30, function(accept){
 					
+					prompting = false;
+
 					undoIsProcessing();
 
 					ComunicWeb.components.calls.controller.applyReponseForCall(call, accept);
 
 				});
+
+				//Regulary check if the call is still valid
+				var interval = setInterval(function(){
+
+					if(!prompting)
+						return clearInterval(interval);
+
+					ComunicWeb.components.calls.interface.getInfo(call.id, function(info){
+
+						//Check for errors
+						if(info.error)
+							return;
+
+						//Refuse the call if everyone has left it
+						if(ComunicWeb.components.calls.utils.hasEveryoneLeft(info))
+						ringScreenInfo.respond(false);
+					});
+				}, 2000);
+
+
 			});
 
 		});

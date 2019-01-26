@@ -23,6 +23,7 @@ ComunicWeb.components.calls.ringScreen = {
 	 * @param {number} timeout Timeout after which the call is automatically
 	 * considered as rejected
 	 * @param {(accept : boolean) => any} callback Callback function
+	 * @return {Object} Information about the window
 	 */
 	show: function(title, timeout, callback){
 
@@ -98,6 +99,15 @@ ComunicWeb.components.calls.ringScreen = {
 		setTimeout(function(){
 			respond(false);
 		}, timeout*1000);
+
+		return {
+
+			/**
+			 * A function to programmatically respond to call
+			 */
+			respond: respond
+
+		};
 	}
 
 }
