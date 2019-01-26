@@ -38,6 +38,11 @@ ComunicWeb.components.calls.callWindow = {
 			localStream: undefined,
 
 			/**
+			 * @type {HTMLVideoElement}
+			 */
+			localStreamVideo: undefined,
+
+			/**
 			 * @type {SignalExchangerClient}
 			 */
 			signalClient: undefined
@@ -118,6 +123,27 @@ ComunicWeb.components.calls.callWindow = {
 				call.localStream.getVideoTracks()[0].enabled = enabled;
 		}
 
+		/**
+		 * Set local stream video visibility
+		 * 
+		 * @param {Boolean} visible TRUE to make it visible / FALSE else
+		 */
+		call.setLocalStreamVisibility = function(visible){
+			if(call.localStreamVideo)
+				call.localStreamVideo.style.display = visible ? "block" : "none";
+		}
+
+		/**
+		 * Get local stream visibility
+		 * 
+		 * @return {Boolean} TRUE if local stream is visible / FALSE else
+		 */
+		call.isLocalStreamVisible = function(){
+			if(!call.localStreamVideo)
+				return true;
+			
+			return call.localStreamVideo.style.display !== "none";
+		}
 
 
 		/**
@@ -280,6 +306,16 @@ ComunicWeb.components.calls.callWindow = {
 
 		var buttonsList = [
 
+			//Show current user camera
+			{
+				icon: "fa-eye",
+				selected: true,
+				onclick: function(btn){
+					call.setLocalStreamVisibility(!call.isLocalStreamVisible());
+					togglButtonSelectedStatus(btn, call.isLocalStreamVisible());
+				}
+			},
+
 			//Mute button
 			{
 				icon: "fa-microphone",
@@ -434,7 +470,7 @@ ComunicWeb.components.calls.callWindow = {
 			ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
 
 			//Add local stream to the list of visible stream
-			ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
+			call.localStreamVideo = ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
 
 			//Mark as connecting
 			call.setLoadingMessage("Connecting...");

@@ -30,6 +30,7 @@
 .call-window .call-window-body{
 	flex: 1;
 	display: flex;
+	max-height: calc(100% - 62px);
 }
 
 
@@ -85,6 +86,7 @@
 .call-window .streams-target video {
 	flex: 1;
 	flex-shrink: 1;
+	max-height: 100%;
 }
 
 
