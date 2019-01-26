@@ -29,6 +29,23 @@ class SongPlayer {
 	 * Play audio just once
 	 */
 	playOnce(){
+		this.songElem.loop = false;
 		this.songElem.play();
+	}
+
+	/**
+	 * Play song forever
+	 */
+	playForever(){
+		this.songElem.loop = true;
+		this.songElem.play();
+	}
+
+	/**
+	 * Stop song
+	 */
+	stop(){
+		this.songElem.pause();
+		this.songElem.currentTime = 0;
 	}
 }
