@@ -29,6 +29,11 @@ ComunicWeb.components.calls.callWindow = {
 			 */
 			open: true,
 
+			/**
+			 * @type {Boolean}
+			 */
+			stopped: false,
+
 			window: {},
 			streams: {},
 
@@ -190,7 +195,13 @@ ComunicWeb.components.calls.callWindow = {
 
 		//Make close button lives
 		call.close = function(){
+
+			//Avoid to call this several times
+			if(call.stopped)
+				return;
+
 			call.open = false;
+			call.stopped = true;
 			callContainer.remove();
 
 			//Close sockets connections too
