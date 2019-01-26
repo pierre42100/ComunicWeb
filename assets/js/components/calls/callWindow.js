@@ -694,7 +694,7 @@ ComunicWeb.components.calls.callWindow = {
 			call.signalClient.sendSignal(member.user_call_id, JSON.stringify(data));
 		});
 
-		peer.on("message", message => {
+		peer.on("message", function(message){
 			console.log("Message from remote peer: " + message);
 		});
 
@@ -788,7 +788,7 @@ ComunicWeb.components.calls.callWindow = {
 		/**
 		 * @type {HTMLVideoElement}
 		 */
-		let video = createElem2({
+		var video = createElem2({
 			appendTo: call.window.videosTarget,
 			type: "video"
 		});

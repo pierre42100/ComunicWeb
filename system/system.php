@@ -134,6 +134,10 @@ function src_inc_list_js(string $assets_url, array $files) : string {
 
     //Process the list of files
     foreach($files as $file){
+
+        if(is_array($file))
+            $file = $file["path"];
+
         $source .= src_inc_js($assets_url.$file)."\n\t\t";
     }
 

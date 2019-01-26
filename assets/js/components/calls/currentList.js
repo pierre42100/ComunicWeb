@@ -42,7 +42,7 @@ ComunicWeb.components.calls.currentList = {
 	 * @param {number} id The ID of the call to add
 	 */
 	addCallToList: function(id){
-		let list = this.getCurrentCallsList();
+		var list = this.getCurrentCallsList();
 
 		if(!list.includes(""+id))
 			list.push(id);
@@ -57,7 +57,7 @@ ComunicWeb.components.calls.currentList = {
 	 */
 	removeCallFromList: function(id){
 
-		let list = this.getCurrentCallsList();
+		var list = this.getCurrentCallsList();
 
 		while(list.includes(""+id))
 			list.splice(list.indexOf(""+id), 1);

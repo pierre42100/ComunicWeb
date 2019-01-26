@@ -94,7 +94,7 @@ ComunicWeb.components.calls.controller = {
 	 * 
 	 * @return Cached calls configuration
 	 */
-	getConfig() {
+	getConfig: function() {
 		return ComunicWeb.components.calls.__config;
 	},
 

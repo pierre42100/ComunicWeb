@@ -161,8 +161,8 @@ class Dev {
 		"3rdparty/js-bbcode-parser/bbcode-parser.js",
 
 		//Simple peer
-		"3rdparty/simplepeer/simplepeer.min.js",
-		"3rdparty/SignalExchangerClient/SignalExchangerClient.js"
+		array("path" => "3rdparty/simplepeer/simplepeer.min.js", "uglifyjs" => false),
+		array("path" => "3rdparty/SignalExchangerClient/SignalExchangerClient.js", "uglifyjs" => false)
 	);
 
 	/**
@@ -320,7 +320,7 @@ class Dev {
 		"js/common/formChecker.js",
 		"js/common/date.js",
 		"js/common/system.js",
-		"js/common/songPlayer.js",
+		array("path" => "js/common/songPlayer.js", "uglifyjs" => false),
 
 		//Languages
 		"js/langs/en.inc.js",

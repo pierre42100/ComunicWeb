@@ -63,11 +63,12 @@ function files_to_file(array $files, string $target) : bool {
 /**
  * Copy an array of files into a specific target file using uglifyJS
  * 
+ * @param string $begin_path The begining of each path
  * @param array $files The name of the source file
  * @param string $target The target file
  * @return bool TRUE in case of success / FALSE in case of failure
  */
-function js_files_to_file(array $files, string $target){
+function js_files_to_file(string $begin_path, array $files, string $target){
 
 	$source = "";
 
@@ -77,17 +78,46 @@ function js_files_to_file(array $files, string $target){
 
 	foreach($files as $file){
 
-		//Compress file
-		notice("Parsing with UGLIFYJS: ".$file);
-		exec("/usr/bin/uglifyjs '".$file."' -c -o ".TEMP_FILE, $output, $exit_code);
-		
-		//Get the content of the file
-		$source .= "\n".file_get_contents(TEMP_FILE);
+		$uglifyjs = true;
 
-		if($exit_code != 0){
-			notice("An error (".$exit_code.") occured while parsing file ".$file, TRUE);
-			exit(10);
+		//Check if file entry is an array or a string
+		if(is_string($file))
+			$file = $begin_path.$file;
+
+		//It is an array
+		else if(is_array($file)) {
+
+			//Check if we have special information for uglifyjs
+			if(isset($file["uglifyjs"]))
+				$uglifyjs = $file["uglifyjs"];
+			
+			$file = $begin_path.$file["path"];
 		}
+
+		//Else the kind of entry is not supported
+		else
+			throw new Exception("Excepted string or array, got something else for javascript entry!");
+
+		//Compress file
+		if($uglifyjs){
+			notice("Parsing with UGLIFYJS: ".$file);
+			exec("/usr/bin/uglifyjs '".$file."' -c -o ".TEMP_FILE, $output, $exit_code);
+
+			//Get the content of the file
+			$source .= "\n".file_get_contents(TEMP_FILE);
+
+			if($exit_code != 0){
+				notice("An error (".$exit_code.") occured while parsing file ".$file, TRUE);
+				exit(10);
+			}
+
+		}
+
+		//Else we take the file as is
+		else 
+			$source .= "\n".file_get_contents($file);
+	
+		
 	}
 
 	//Delete the temp file
@@ -192,9 +222,8 @@ files_to_file($thirdPartyDebugFiles, $targetThirdPartyCSS);
 
 //3rd party JS
 notice("Third Party JS");
-$thirdPartyDebugFiles = array_put_begining($path_debug_assets, $debug::THIRD_PARTY_JS);
 $targetThirdPartyJS = $path_release_assets.$release::THIRD_PARTY_JS;
-js_files_to_file($thirdPartyDebugFiles, $targetThirdPartyJS);
+js_files_to_file($path_debug_assets, $debug::THIRD_PARTY_JS, $targetThirdPartyJS);
 
 //App CSS
 notice("App CSS");
@@ -204,9 +233,8 @@ files_to_file($appDebugFiles, $targetAppCSS);
 
 //App JS
 notice("App JS");
-$appDebugFiles = array_put_begining($path_debug_assets, $debug::APP_JS);
 $targetAppJS = $path_release_assets.$release::APP_JS;
-js_files_to_file($appDebugFiles, $targetAppJS);
+js_files_to_file($path_debug_assets, $debug::APP_JS, $targetAppJS);
 
 
 //Make some adpations on third party files
@@ -231,6 +259,8 @@ rcopy($path_debug_assets."3rdparty/adminLTE/plugins/iCheck/flat/icheck-flat-imgs
 rcopy($path_debug_assets."img/", $path_release_assets."img/");
 rcopy($path_debug_assets."templates/", $path_release_assets."templates/");
 
+//Copy songs
+rcopy($path_debug_assets."audio/", $path_release_assets."audio/");
 
 //Copy dark theme
 rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_theme.css");

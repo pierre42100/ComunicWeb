@@ -586,7 +586,7 @@ ComunicWeb.components.conversations.chatWindows = {
 			//for conversation of two people
 
 		//Add the call button
-		let button = createElem2({
+		var button = createElem2({
 			insertBefore: conversation.box.boxTools.firstChild,
 			type: "button",
 			class: "btn btn-box-tool",
