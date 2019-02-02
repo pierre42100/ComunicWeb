@@ -580,10 +580,10 @@ ComunicWeb.components.conversations.chatWindows = {
 		if(!ComunicWeb.components.calls.controller.isAvailable())
 			return;
 
-		//Check if it is a conversation with two members
-		if(conversation.infos.members.length != 2)
-			return; //Currently the call feature is offered just
-			//for conversation of two people
+		//Check if it is a conversation with an exceptable number of members
+		if(conversation.infos.members.length < 2 
+			|| conversation.infos.members.length > ComunicWeb.components.calls.controller.getConfig().maximum_number_members)
+			return; 
 
 		//Add the call button
 		var button = createElem2({
