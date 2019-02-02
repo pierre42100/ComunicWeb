@@ -21,6 +21,11 @@ ComunicWeb.common.date = {
 	 * @return {String} The generated date
 	 */
 	diffToStr: function(difference){
+
+		//Check if difference is less than one second
+		if(difference < 0)
+			difference = 0;
+
 		//Calculate seconds
 		var seconds = difference-Math.floor(difference/60)*60;
 		var difference = (difference - seconds)/60;
