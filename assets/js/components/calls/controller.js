@@ -103,6 +103,10 @@ ComunicWeb.components.calls.controller = {
 	 */
 	isAvailable: function(){
 
+		//First, check if this browser support webrtc
+		if(!SimplePeer.WEBRTC_SUPPORT)
+			return false;
+
 		//If do not have any call configuration, it is not possible to
 		//make calls
 		if(this.getConfig() == null)
