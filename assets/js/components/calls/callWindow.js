@@ -535,7 +535,8 @@ ComunicWeb.components.calls.callWindow = {
 		call.signalClient = new SignalExchangerClient(
 			config.signal_server_name,
 			config.signal_server_port,
-			call.localPeerID
+			call.localPeerID,
+			config.is_signal_server_secure
 		);
 
 

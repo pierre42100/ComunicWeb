@@ -75,15 +75,16 @@ class SignalExchangerClient {
      * @param {String} domain The name of the signal server
      * @param {Number} port The port of the server to use
      * @param {String} clientID The ID of current client
+     * @param {Boolean} secure Specify whether connection to the socket should be secure or not
      */
-    constructor(domain, port, clientID) {
+    constructor(domain, port, clientID, secure) {
         
         //Save information
         this.domain = domain,
         this.port = port;
         this.clientID = clientID;
 
-        this.socket = new WebSocket("ws://" + this.domain + ":" + this.port + "/socket");
+        this.socket = new WebSocket((secure ? "wss" : "ws") + "://" + this.domain + ":" + this.port + "/socket");
 
         //Add a few events listeners
         this.socket.addEventListener("open", () => {
