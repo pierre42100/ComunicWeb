@@ -663,7 +663,7 @@ ComunicWeb.components.calls.callWindow = {
 		var peer = new SimplePeer({ 
 			initiator: isInitiator,
 			stream: call.localStream,
-			trickle: false,
+			trickle: true,
 			config: {
 				'iceServers': [
 					{ urls: config.stun_server },
