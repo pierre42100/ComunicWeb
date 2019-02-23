@@ -28,6 +28,15 @@ ComunicWeb.components.calls.currentList = {
 	},
 
 	/**
+	 * Check if a call ID is in the list of opened calls
+	 * 
+	 * @param {Number} id The ID of the call to check
+	 */
+	isCallInList: function(id){
+		return this.getCurrentCallsList().includes(""+id);
+	},
+
+	/**
 	 * Save a new list of calls
 	 * 
 	 * @param {number[]} list The new list of calls to save

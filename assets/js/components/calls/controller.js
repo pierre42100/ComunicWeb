@@ -142,6 +142,10 @@ ComunicWeb.components.calls.controller = {
 	 */
 	open: function(call){
 
+		//Check if the call is already in the list of calls
+		if(ComunicWeb.components.calls.currentList.isCallInList(call.id))
+			return;
+
 		//Add the call to the list of opened calls
 		ComunicWeb.components.calls.currentList.addCallToList(call.id);
 
