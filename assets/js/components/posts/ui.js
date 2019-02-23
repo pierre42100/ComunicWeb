@@ -424,17 +424,53 @@ ComunicWeb.components.posts.ui = {
 		//In case of YouTube video
 		else if(info.kind == "youtube"){
 
-			//Create iframe
-			var youtube_iframe = createElem2({
+			//Create frame placeholder
+			var youtube_placeholder = createElem2({
 				appendTo: postRoot,
-				type: "iframe",
-				class: "post-youtube",
-				src: "https://www.youtube-nocookie.com/embed/"+info.file_path+"?rel=0"
+				type: "div",
+				class: "post-youtube post-youtube-placeholder"
 			});
-			youtube_iframe.setAttribute("frameborder", 0);
-			youtube_iframe.setAttribute("gesture", "media");
-			youtube_iframe.setAttribute("allow", "encrypted-media");
-			youtube_iframe.setAttribute("allowfullscreen", "");
+
+			//Title 
+			createElem2({
+				appendTo: youtube_placeholder,
+				type: "div",
+				class: "title",
+				innerHTML: "<i class='fa fa-youtube-play'></i> YouTube Movie"
+			});
+
+			createElem2({
+				appendTo: youtube_placeholder,
+				type: "a",
+				class: "btn btn-default",
+				innerHTML: "Open on YouTube",
+				href: "https://youtube.com/watch?v=" + info.file_path,
+			}).target = "_blank";
+
+			var openHere = createElem2({
+				appendTo: youtube_placeholder,
+				type: "div",
+				class: "cursor-pointer",
+				innerHTML: "Open here"
+			});
+
+			openHere.addEventListener("click", function(){
+
+				//Create iframe
+				var youtube_iframe = createElem2({
+					insertBefore: youtube_placeholder,
+					type: "iframe",
+					class: "post-youtube",
+					src: "https://www.youtube-nocookie.com/embed/"+info.file_path+"?rel=0"
+				});
+				youtube_iframe.setAttribute("frameborder", 0);
+				youtube_iframe.setAttribute("gesture", "media");
+				youtube_iframe.setAttribute("allow", "encrypted-media");
+				youtube_iframe.setAttribute("allowfullscreen", "");
+
+				youtube_placeholder.remove();
+
+			});
 
 		}
 

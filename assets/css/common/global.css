@@ -25,6 +25,10 @@ a {
     color: #72afd2;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 /**
  * Sceditor iframe
  */
