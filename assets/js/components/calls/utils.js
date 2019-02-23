@@ -22,6 +22,23 @@ ComunicWeb.components.calls.utils = {
 
 		return allDisconnected;
 
+	},
+
+	/**
+	 * Get the current user response to a call
+	 * 
+	 * @param {Call} call Current call information
+	 * @return The response of the current user to the call
+	 */
+	getCurrentUserState: function(call){
+
+		var userstate = undefined;
+		call.members.forEach(function(member){
+			if(member.userID == userID())
+				userstate = member.status
+		});
+
+		return userstate;
 	}
 
 };

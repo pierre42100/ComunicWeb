@@ -71,20 +71,26 @@ ComunicWeb.components.calls.ringScreen = {
 			innerHTML: "Accept"
 		});
 
+		var close = function(){
+
+			ComunicWeb.components.calls.ringScreen._song.stop();
+
+			//Remove elem
+			emptyElem(callContainer);
+			callContainer.remove();
+			
+		}
+
 		var hasResponded = false;
 		var respond = function(accept){
 			
-			ComunicWeb.components.calls.ringScreen._song.stop();
+			close();
 
 			if(hasResponded)
 				return;
 			hasResponded = true;
 
 			callback(accept);
-
-			//Remove elem
-			emptyElem(callContainer);
-			callContainer.remove();
 		}
 
 		rejectButton.addEventListener("click", function() {
@@ -101,6 +107,12 @@ ComunicWeb.components.calls.ringScreen = {
 		}, timeout*1000);
 
 		return {
+
+			/**
+			 * A function to close the current ringscreen, without
+			 * calling callback
+			 */
+			close: close,
 
 			/**
 			 * A function to programmatically respond to call

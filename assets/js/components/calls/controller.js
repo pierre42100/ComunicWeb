@@ -213,7 +213,12 @@ ComunicWeb.components.calls.controller = {
 
 						//Refuse the call if everyone has left it
 						if(ComunicWeb.components.calls.utils.hasEveryoneLeft(info))
-						ringScreenInfo.respond(false);
+							ringScreenInfo.respond(false);
+						
+						//Close ring screen if user responded to the call on another Comunic client
+						if(ComunicWeb.components.calls.utils.getCurrentUserState(info) != "unknown")
+							ringScreenInfo.close();
+
 					});
 				}, 2000);
 
