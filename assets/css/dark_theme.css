@@ -59,8 +59,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 
 /**
- * Callouts
- */
+* Callouts
+*/
 .callout.callout-info {
     background-color: var(--black-5) !important;
 }
@@ -354,9 +354,14 @@ div.sceditor-dropdown input {
     color: var(--black5);
 }
 
-.select2-dropdown {
-    background-color: var(--black5);
+.select2-dropdown, .select2-selection, 
+.select2-search__field {
+    background-color: var(--black5) !important;
     color: var(--white);
+}
+
+.select2-selection__rendered {
+    color: var(--white) !important;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
@@ -443,6 +448,10 @@ div.sceditor-dropdown input {
 
 .post-image:hover {
     filter: brightness(100%);
+}
+
+.post-youtube-placeholder {
+    background-color: var(--black6) !important;
 }
 
 .box-comments .username, 
@@ -574,8 +583,8 @@ img[src$="groups_logo/default.png"] {
 }
 
 /**
- * Call system
- */
+* Call system
+*/
 .call-window {
     border: 1px var(--black4) solid;
 }
@@ -586,4 +595,32 @@ img[src$="groups_logo/default.png"] {
 
 .call-message-box {
     background-color: var(--black6);
+}
+
+/**
+* Groups list page
+*/
+.groups-main-page {
+    color: var(--white);
+}
+
+/**
+* Groups members page
+*/
+.group-members-page {
+    color: var(--white);
+}
+
+/**
+* Pick a movie modal
+*/
+.pick-movie-modal {
+    color: var(--white);
+}
+
+/**
+* Group settings page
+*/
+.group-settings-container label {
+    color: var(--white);
 }
