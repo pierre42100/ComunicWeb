@@ -139,11 +139,13 @@ ComunicWeb.components.calls.controller = {
 	 * Call this method to initialize a call for a call we have information about
 	 * 
 	 * @param {Object} call Information about the call
+	 * @param {Boolean} force Specify whether call should be forced to be open, 
+	 * even if they are already reported as open
 	 */
-	open: function(call){
+	open: function(call, force){
 
 		//Check if the call is already in the list of calls
-		if(ComunicWeb.components.calls.currentList.isCallInList(call.id))
+		if(!force && ComunicWeb.components.calls.currentList.isCallInList(call.id))
 			return;
 
 		//Add the call to the list of opened calls
@@ -272,7 +274,7 @@ ComunicWeb.components.calls.controller = {
 					return notify("Could not get information about a call!", "danger");
 				}
 				
-				ComunicWeb.components.calls.controller.open(call);
+				ComunicWeb.components.calls.controller.open(call, true);
 
 			});
 
