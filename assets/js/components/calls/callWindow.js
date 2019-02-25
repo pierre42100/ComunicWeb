@@ -50,7 +50,19 @@ ComunicWeb.components.calls.callWindow = {
 			/**
 			 * @type {SignalExchangerClient}
 			 */
-			signalClient: undefined
+			signalClient: undefined,
+
+			/**
+			 * @type {Boolean}
+			 */
+			isRequestingUserMedia: false,
+
+			/**
+			 * @type {() : any}
+			 * 
+			 * Request user media again
+			 */
+			requestUserMedia: undefined
 		};
 
 
@@ -126,6 +138,10 @@ ComunicWeb.components.calls.callWindow = {
 		call.setLocalVideoEnabled = function(enabled){
 			if(call.localStream)
 				call.localStream.getVideoTracks()[0].enabled = enabled;
+
+			//Request user media
+			else if(!call.isRequestingUserMedia)
+				call.requestUserMedia();
 		}
 
 		/**
@@ -136,6 +152,10 @@ ComunicWeb.components.calls.callWindow = {
 		call.setLocalStreamVisibility = function(visible){
 			if(call.localStreamVideo)
 				call.localStreamVideo.style.display = visible ? "block" : "none";
+			
+			//Request user media
+			else if(!call.isRequestingUserMedia)
+				call.requestUserMedia();
 		}
 
 		/**
@@ -469,30 +489,8 @@ ComunicWeb.components.calls.callWindow = {
 		//Load user media
 		call.setLoadingMessage("Waiting for your microphone and camera...");
 
-		ComunicWeb.components.calls.userMedia.get().then(function(stream){
-
-			//Check if connection has already been closed
-			if(!call.open)
-				return;
-
-			call.localStream = stream;
-
-			//Initialize signaling server connection
-			ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
-
-			//Add local stream to the list of visible stream
-			call.localStreamVideo = ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
-
-			//Mark as connecting
-			call.setLoadingMessage("Connecting...");
-
-			return true;
-
-		}).catch(function(e){
-			console.error("Get user media error: ", e);
-			call.setLoadingMessageVisibility(false);
-			return notify("Could not get your microphone and camera!", "danger");
-		});
+		//Initialize signaling server connection
+		ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
 
 		/**
 		 * Start to automaticaly refresh information about the call
@@ -512,6 +510,43 @@ ComunicWeb.components.calls.callWindow = {
 
 		}, 4000);
 
+
+		//Request user media
+		call.requestUserMedia = function(){
+
+			call.isRequestingUserMedia = true;
+
+			ComunicWeb.components.calls.userMedia.get().then(function(stream){
+
+				call.isRequestingUserMedia = false;
+				
+				//Check if connection has already been closed
+				if(!call.open)
+					return;
+
+				call.localStream = stream;
+
+				//Add stream to existing peer connections
+				for (var s in call.streams) {
+					if (call.streams.hasOwnProperty(s)) {
+						call.streams[s].peer.addStream(stream);
+					}
+				}
+
+				//Add local stream to the list of visible stream
+				call.localStreamVideo = ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
+
+				return true;
+
+			}).catch(function(e){
+				call.isRequestingUserMedia = false;
+				console.error("Get user media error: ", e);
+				call.setLoadingMessageVisibility(false);
+				return notify("Could not get your microphone and camera!", "danger");
+			});
+		};
+
+		call.requestUserMedia();
 	},
 
 
@@ -539,6 +574,14 @@ ComunicWeb.components.calls.callWindow = {
 			config.is_signal_server_secure
 		);
 
+
+		/**
+		 * Connection established
+		 */
+		call.signalClient.onConnected = function(){
+			//Mark as connecting
+			call.setLoadingMessage("Connecting...");
+		}
 
 		/**
 		 * Error when connecting to signaling server
@@ -601,7 +644,7 @@ ComunicWeb.components.calls.callWindow = {
 
 		//Check if we are connected to signaling server and we have got local
 		//streams
-		if(!call.signalClient || !call.signalClient.isConnected() || !call.localStream)
+		if(!call.signalClient || !call.signalClient.isConnected())
 			return;
 
 		//Check if all other members rejected call
