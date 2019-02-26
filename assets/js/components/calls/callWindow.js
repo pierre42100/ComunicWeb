@@ -489,9 +489,6 @@ ComunicWeb.components.calls.callWindow = {
 		//Load user media
 		call.setLoadingMessage("Waiting for your microphone and camera...");
 
-		//Initialize signaling server connection
-		ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
-
 		/**
 		 * Start to automaticaly refresh information about the call
 		 */
@@ -535,6 +532,9 @@ ComunicWeb.components.calls.callWindow = {
 
 				//Add local stream to the list of visible stream
 				call.localStreamVideo = ComunicWeb.components.calls.callWindow.addVideoStream(call, true, stream);
+
+				//Initialize signaling server connection
+				ComunicWeb.components.calls.callWindow.initializeConnectionToSignalingServer(call);
 
 				return true;
 
