@@ -679,6 +679,10 @@ ComunicWeb.components.calls.callWindow = {
 				//Else we have to create peer
 				ComunicWeb.components.calls.callWindow.createPeerConnection(call, member, false);
 			}
+			
+			//Send ready message if the connection is not established yet
+			if(!call.streams["peer-" + member.userID].connected)
+				call.signalClient.sendReadyMessage(member.user_call_id);
 
 		});
 	
@@ -695,7 +699,8 @@ ComunicWeb.components.calls.callWindow = {
 	createPeerConnection: function(call, member, isInitiator){
 
 		var peerConnection = {
-			peer: undefined
+			peer: undefined,
+			connected: false
 		};
 		call.streams["peer-" + member.userID] = peerConnection;
 
@@ -727,6 +732,10 @@ ComunicWeb.components.calls.callWindow = {
 				peerConnection.video.remove();
 		}
 
+		peer.on("connect", function(){
+			peerConnection.connected = true;
+		});
+
 
 		peer.on("error", function(err){
 			console.error("Peer error !", err, member);
@@ -750,11 +759,6 @@ ComunicWeb.components.calls.callWindow = {
 		peer.on("stream", function(stream){
 			ComunicWeb.components.calls.callWindow.streamAvailable(call, member, stream);
 		});
-
-		
-		//If this peer does not initialize connection, inform other peer we are ready
-		if(!isInitiator)
-			call.signalClient.sendReadyMessage(member.user_call_id);
 	},
 
 
@@ -774,6 +778,10 @@ ComunicWeb.components.calls.callWindow = {
 		//It the user with the smallest ID who send the ready message
 		//else it would mess everything up
 		if(member.userID > userID())
+			return;
+
+		//Check if peer connection is already being created
+		if(call.streams.hasOwnProperty("peer-" + member.userID))
 			return;
 
 		this.createPeerConnection(call, member, true);
