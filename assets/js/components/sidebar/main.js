@@ -67,5 +67,40 @@ ComunicWeb.components.sideBar.main = {
 				]
 			});
 		});
+
+
+
+		// Search form
+		var searchForm = createElem2({
+			appendTo: section,
+			type: "form",
+			class: "sidebar-form",
+			children: [
+				createElem2({
+					type: "div",
+					class: "input-group",
+					children: [
+						createElem2({
+							type: "input",
+							class: "form-control",
+							elemType: "text",
+							placeholder: "Search...",
+						}),
+		
+						createElem2({
+							type: "span",
+							class: "input-group-btn",
+							innerHTML: '<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>',
+						}),
+					]
+				})
+			]
+		});
+
+		searchForm.addEventListener("submit", function(e){
+			e.preventDefault();
+
+			openPage("search?q=" + searchForm.getElementsByTagName("input")[0].value);
+		});
 	}
 }

@@ -90,7 +90,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		navbarCollapseElemList.className = "nav navbar-nav";
 
 		//Add search form
-		this.addSearchForm(navbarCollapseElemList);
+		//this.addSearchForm(navbarCollapseElemList);
 
 		//Navbar right elements
 		var navbarRight = createElem("div", navBar);
