@@ -247,7 +247,7 @@ ComunicWeb.common.page = {
             
 
             //Set body class
-            document.body.className="hold-transition fixed skin-blue " + (signed_in() ? "" : "layout-top-nav");
+            document.body.className="hold-transition fixed skin-blue " + (signed_in() ? "sidebar-mini" : "layout-top-nav");
 
             //We load the menubar
             ComunicWeb.components.menuBar.common.display();
