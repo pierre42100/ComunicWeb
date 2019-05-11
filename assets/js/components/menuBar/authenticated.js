@@ -55,8 +55,33 @@ ComunicWeb.components.menuBar.authenticated = {
 	 * @param {HTMLElement} container The container element of the Menubar
 	 */
 	addElements: function(container){
+
+		// Site logo
+		createElem2({
+			appendTo: container,
+			type: "a",
+			class: "logo",
+			internalHref: "#",
+			innerHTML: "<span class='logo-mini'>C</span><span class='logo-lg'>Comunic</span>"
+		});
+
+		// Navbar
+		var navBar = createElem2({
+			appendTo: container,
+			type: "nav",
+			class: "navbar navbar-static-top"
+		});
+
+		// Sidebar toggle
+		createElem2({
+			appendTo: navBar,
+			type: "a",
+			class: "sidebar-toggle",
+			href: "#",
+		}).setAttribute("data-toggle", "offcanvas");
+
 		//Create an auto-collapsed element
-		var navbarCollapse = createElem("div", container);
+		var navbarCollapse = createElem("div", navBar);
 		navbarCollapse.id = "navbar-collapse";
 		navbarCollapse.className = "navbar-collapse pull-left collapse";
 
@@ -68,7 +93,7 @@ ComunicWeb.components.menuBar.authenticated = {
 		this.addSearchForm(navbarCollapseElemList);
 
 		//Navbar right elements
-		var navbarRight = createElem("div", container);
+		var navbarRight = createElem("div", navBar);
 		navbarRight.className = "navbar-custom-menu";
 		var navbarRightElemList = createElem("ul", navbarRight);
 		navbarRightElemList.className = "nav navbar-nav";

@@ -8,9 +8,45 @@ ComunicWeb.components.menuBar.notAuthenticated = {
 	/**
 	 * Add not-authenticated user specific elements
 	 * 
-	 * @param {HTMLElement} container The container element of the Menubar
+	 * @param {HTMLElement} menuHeader The container element of the Menubar
 	 */
-	addElements: function(container){
+	addElements: function(menuHeader){
+
+		//Create main menu
+		var menuElem = createElem("div", menuHeader);
+		menuElem.className = "navbar navbar-static-top";
+
+		//Create nav element
+		var navElem = createElem("nav", menuElem);
+		navElem.className = "navbar navbar-static-top";
+
+		//Create conatiner
+		var container = createElem("div", navElem);
+		container.className = "container";
+
+		//Create navbar header
+		var navbarHeader = createElem("div", container);
+		navbarHeader.className = "navbar-header";
+
+		//Create site name link
+		var siteNameElem = createElem("a", navbarHeader);
+		siteNameElem.className = "navbar-brand";
+		siteNameElem.innerText = "Comunic";
+		siteNameElem.onclick = (function(){
+			ComunicWeb.common.page.openPage("home");
+		});
+
+		//Create navbar collapsed button
+		var navbarCollapsedButton = createElem("button", navbarHeader);
+		navbarCollapsedButton.type = "button";
+		navbarCollapsedButton.className = "navbar-toggle collapsed";
+		navbarCollapsedButton.setAttribute("data-toggle", "collapse");
+		navbarCollapsedButton.setAttribute("data-target", "#navbar-collapse");
+
+		//Create navbar icon
+		var navbarCollapsIcon = createElem("i", navbarCollapsedButton);
+		navbarCollapsIcon.className = "fa fa-bars";
+
 
 		//Create an auto-collapsed element
 		var navbarCollapse = createElem("div", container);

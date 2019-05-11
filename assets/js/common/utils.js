@@ -34,6 +34,7 @@ function createElem(nodeType, appendTo){
  * @info {String} title The title of the new element
  * @info {String} src The src attribute of the new element
  * @info {String} href href attribute for the src element
+ * @info {String} internalHref Link to application page
  * @info {string} name The name of the new element
  * @info {String} elemType The type attribute of the new element
  * @info {String} value The value of the new element
@@ -83,6 +84,13 @@ function createElem2(infos){
 		newElem.src = infos.src;
 	if(infos.href)
 		newElem.href = infos.href;
+	
+	if(infos.internalHref){
+		newElem.addEventListener("click", function(e){
+			e.preventDefault(); 
+			openPage(infos.internalHref);
+		});
+	}
 
 	//Specify the name of the new element
 	if(infos.name)

@@ -38,6 +38,7 @@ ComunicWeb.components.menuBar.common = {
 		var menuBar = createElem("header");
 		byId("wrapper").insertBefore(menuBar, byId("wrapper").childNodes[0]);
 		menuBar.id = "menuBar";
+		menuBar.className = "main-header";
 
 		//Initializate the menubar
 		return this.init(menuBar);
@@ -52,45 +53,7 @@ ComunicWeb.components.menuBar.common = {
 	init: function(menuContainer){
 		//Log action
 		ComunicWeb.debug.logMessage("Info: Initializate a menuBar in element : '"+menuContainer.id+"'");
-
-		//Change menu container informations
-		menuContainer.className = "main-header";
-
-		//Create main menu
-		var menuElem = createElem("div", menuContainer);
-		menuElem.className = "navbar navbar-static-top";
-
-		//Create nav element
-		var navElem = createElem("nav", menuElem);
-		navElem.className = "navbar navbar-static-top";
-
-		//Create conatiner
-		var containerElem = createElem("div", navElem);
-		containerElem.className = "container";
-
-		//Create navbar header
-		var navbarHeader = createElem("div", containerElem);
-		navbarHeader.className = "navbar-header";
-
-			//Create site name link
-			var siteNameElem = createElem("a", navbarHeader);
-			siteNameElem.className = "navbar-brand";
-			siteNameElem.innerText = "Comunic";
-			siteNameElem.onclick = (function(){
-				ComunicWeb.common.page.openPage("home");
-			});
-
-			//Create navbar collapsed button
-			var navbarCollapsedButton = createElem("button", navbarHeader);
-			navbarCollapsedButton.type = "button";
-			navbarCollapsedButton.className = "navbar-toggle collapsed";
-			navbarCollapsedButton.setAttribute("data-toggle", "collapse");
-			navbarCollapsedButton.setAttribute("data-target", "#navbar-collapse");
-
-				//Create navbar icon
-				var navbarCollapsIcon = createElem("i", navbarCollapsedButton);
-				navbarCollapsIcon.className = "fa fa-bars";
-
+		
 
 		//Save login information in menubar before continuing
 		menuContainer.setAttribute("forActiveUser", signed_in());
@@ -98,11 +61,11 @@ ComunicWeb.components.menuBar.common = {
 		//Call specific menu
 		if(signed_in()){
 			//Call authenticated menubar
-			ComunicWeb.components.menuBar.authenticated.addElements(containerElem);
+			ComunicWeb.components.menuBar.authenticated.addElements(menuContainer);
 		}
-		else{
+		else {
 			//Call not-logged-in menubar
-			ComunicWeb.components.menuBar.notAuthenticated.addElements(containerElem);
+			ComunicWeb.components.menuBar.notAuthenticated.addElements(menuContainer);
 		}
 	},
 
