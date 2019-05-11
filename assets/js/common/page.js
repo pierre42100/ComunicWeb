@@ -257,6 +257,9 @@ ComunicWeb.common.page = {
 
             //We load specific components for logged in users
             if(ComunicWeb.user.userLogin.getUserLoginState()){
+
+                // Sidebar
+                ComunicWeb.components.sideBar.main.show();
                 
                 //We load friends list (if user is logged in)
                 ComunicWeb.components.friends.bar.display();

@@ -43,6 +43,7 @@ function createElem(nodeType, appendTo){
  * @info {String} innerLang Specify the key of the lang to use to fill the element
  * @info {String} innerHTMLprefix Specify prefix to add at the begining of the content of the element
  * @info {boolean} disabled Set whether the field should be disabled or not (input only)
+ * @info {HTMLElement[]} children Children for the new object
  * @return {HTMLElement} The newly created element
  */
 function createElem2(infos){
@@ -121,6 +122,12 @@ function createElem2(infos){
 	//Set field state
 	if(infos.disabled)
 		infos.disabled = true;
+
+	if(infos.children){
+		infos.children.forEach(function(i){
+			newElem.appendChild(i);
+		});
+	}
 
 	//Return newly created element
 	return newElem;

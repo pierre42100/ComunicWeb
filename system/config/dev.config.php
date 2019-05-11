@@ -353,6 +353,9 @@ class Dev {
 			"js/components/menuBar/notAuthenticated.js",
 			"js/components/menuBar/authenticated.js",
 
+			// Main side bar
+			"js/components/sidebar/main.js",
+
 			//Bottom view
 			"js/components/bottom/links.js",
 			"js/components/bottom/main.js",

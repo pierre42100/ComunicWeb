@@ -588,6 +588,19 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Sidebar
+		 */
+		sideBar: {
+
+			/**
+			 * Main sidebar file
+			 */
+			main: {
+				//TODO : implement
+			}
+		},
+
+		/**
 		 * Pages bottom
 		 */
 		bottom: {

@@ -7,7 +7,7 @@
 /**
  * <a> elements
  */
-a {
+a, .cursor-pointer {
     cursor: pointer;
 }
 

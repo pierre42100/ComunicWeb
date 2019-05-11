@@ -121,6 +121,18 @@ function getMultipleUsersInfos(usersID, afterGetUserInfos, forceRequest){
 }
 
 /**
+ * Get information about a single user
+ * 
+ * @param {int} userID User on which to make request
+ * @param {function} afterGetUserInfo What to do once users informations are available
+ * @param {Boolean} forceRequest Force the request to be made
+ * @return {Boolean} True for a success
+ */
+function getUserInfo(usersID, afterGetUserInfo, forceRequest){
+	ComunicWeb.user.userInfos.getUserInfos(usersID, afterGetUserInfo, forceRequest);
+}
+
+/**
  * Display message on browser console
  * 
  * @param {String} message The message to show on browser console
