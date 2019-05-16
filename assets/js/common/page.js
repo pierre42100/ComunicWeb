@@ -236,7 +236,7 @@ ComunicWeb.common.page = {
                 var pageTarget = createElem("div", mainContainerElem);
                 pageTarget.id = "pageTarget";
             }
-            else{
+            else {
                 //We can empty page target (much faster)
                 pageTarget.innerHTML = "";
             }

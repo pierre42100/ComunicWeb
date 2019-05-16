@@ -1218,6 +1218,20 @@ var ComunicWeb = {
 		},
 
 		/**
+		 * Web application interface
+		 */
+		webApp: {
+
+			/**
+			 * Web app interface
+			 */
+			interface: {
+				//TODO : implement
+			},
+
+		},
+
+		/**
 		 * Easter egg : pacman
 		 */
 		pacman: {

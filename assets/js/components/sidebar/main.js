@@ -11,7 +11,8 @@ ComunicWeb.components.sideBar.main = {
 		var sideBar = createElem2({
 			appendTo: byId("wrapper"),
 			type: "aside",
-			class: "main-sidebar"
+			class: "main-sidebar",
+			id: "main-sidebar",
 		});
 
 		var section = createElem2({
@@ -36,7 +37,7 @@ ComunicWeb.components.sideBar.main = {
 				appendTo: userPanel,
 				type: "div",
 				class: "pull-left image cursor-pointer",
-				internalHref: userIDorPath(info),
+				onclick: () => openUserPage(info),
 				children: [
 					createElem2({
 						type: "img",
@@ -56,7 +57,7 @@ ComunicWeb.components.sideBar.main = {
 						type: "p",
 						class: "cursor-pointer",
 						innerHTML: userFullName(info),
-						internalHref: userIDorPath(info),
+						onclick: () => userIDorPath(info),
 					}),
 
 					createElem2({
@@ -102,5 +103,126 @@ ComunicWeb.components.sideBar.main = {
 
 			openPage("search?q=" + searchForm.getElementsByTagName("input")[0].value);
 		});
-	}
+
+
+		// User memberships
+		let userMemberships = createElem2({
+			appendTo: section,
+			type: "ul",
+			class: "sidebar-menu memberships-list" 
+		});
+
+		this.refreshMemberships(userMemberships);
+	},
+
+	/**
+	 * Refresh user memberships
+	 * 
+	 * @param {HTMLElement} target 
+	 */
+	refreshMemberships: function(target){
+		ComunicWeb.components.webApp.interface.getMemberships(
+			() => notify("Could not refresh your memberships!", "error"), 
+			(m, u, g) => this.applyMemberships(target, m, u, g)
+		);
+
+
+	},
+
+	/**
+	 * Apply memberships
+	 * 
+	 * @param {HTMLElement} target
+	 * @param {*} memberships 
+	 * @param {*} users 
+	 * @param {*} groups 
+	 */
+	applyMemberships: function(target, memberships, users, groups) {
+
+		// Empty liste
+		target.innerHTML = "";
+
+		memberships.forEach(e => {
+
+			if(e.type == "friend")
+				this.applyFriend(target, e.friend, users["user-"+e.friend.ID_friend]);
+			
+			if(e.type == "group")
+				this.applyGroup(target, groups[e.id], e.last_activity);
+		});
+	},
+
+
+	/**
+	 * Apply a friend object
+	 * 
+	 * @param {HTMLElement} target 
+	 * @param {*} friend 
+	 * @param {*} user 
+	 */
+	applyFriend: function(target, friend, user) {
+
+		let li = createElem2({
+			appendTo: target,
+			type: "li"
+		});
+
+		let a = createElem2({
+			appendTo: li,
+			onclick: () => openUserPage(user),
+			type: "a"
+		});
+
+		// User icon
+		createElem2({
+			appendTo: a,
+			type: "img",
+			class: "img-circle",
+			src: user.accountImage
+		});
+
+		// User name
+		createElem2({
+			appendTo: a,
+			type: "span",
+			innerHTML: userFullName(user)
+		});
+
+	},
+
+	/**
+	 * Apply group information
+	 * 
+	 * @param {HTMLElement} target 
+	 * @param {*} group 
+	 * @param {*} lastactive 
+	 */
+	applyGroup: function(target, group, lastactive) {
+		
+		let li = createElem2({
+			appendTo: target,
+			type: "li"
+		});
+
+		let a = createElem2({
+			appendTo: li,
+			type: "a",
+			onclick: () => openGroupPage(group)
+		});
+
+		// Group icon
+		createElem2({
+			appendTo: a,
+			type: "img",
+			src: group.icon_url
+		});
+
+		// Group name
+		createElem2({
+			appendTo: a,
+			type: "span",
+			innerHTML: group.name
+		});
+
+	},
 }

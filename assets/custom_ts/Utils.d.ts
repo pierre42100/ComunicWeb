@@ -14,6 +14,7 @@ declare interface CreateElem2Args {
 	title ?: string,
 	src ?: string,
 	href ?: string,
+	internalHref ?: string,
 	name ?: string,
 	elemType ?: string,
 	value ?: string,
@@ -22,6 +23,8 @@ declare interface CreateElem2Args {
 	innerLang ?: string,
 	innerHTMLprefix ?: string,
 	disabled ?: boolean,
+	children ?: HTMLElement[],
+	onclick ?: Function
 }
 
 declare function createElem(nodeType : string, appendTo : string) : HTMLElement;

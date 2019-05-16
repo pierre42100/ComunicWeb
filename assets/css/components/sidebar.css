@@ -1,0 +1,11 @@
+/**
+ * Sidebar stylesheet
+ *
+ * @author Pierre HUBERT
+ */
+
+.sidebar-menu.memberships-list img {
+	width: 20px;
+	margin-right: 10px;
+	margin-left: -4px;
+}

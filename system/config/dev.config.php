@@ -226,6 +226,9 @@ class Dev {
 			"css/components/calls/callWindow.css",
 			"css/components/calls/ringScreen.css",
 
+			//Sidebar component
+			"css/components/sidebar.css",
+
 			//Pacman (easter egg) stylesheet
 			"css/components/pacman.css",
 
@@ -457,6 +460,9 @@ class Dev {
 			"js/components/calls/userMedia.js",
 			"js/components/calls/ringScreen.js",
 			"js/components/calls/utils.js",
+
+			// Web app component
+			"js/components/webApp/interface.js",
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",
