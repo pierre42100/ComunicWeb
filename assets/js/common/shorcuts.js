@@ -145,11 +145,16 @@ function log(message){
  * Open a conversation specified by its ID
  * 
  * @param {number} id The ID of the conversation to open
+ * @param {bool} fullscreen Specify whether the conversation has to
+ * appear in full screen or not
  */
-function openConversation(id){
-    ComunicWeb.components.conversations.manager.addConversation({
-        conversationID: id
-    });
+function openConversation(id, fullscreen = false){
+    if(!fullscreen)
+        ComunicWeb.components.conversations.manager.addConversation({
+            conversationID: id
+        });
+    else
+        openPage("conversations/" + id);
 }
 
 /**

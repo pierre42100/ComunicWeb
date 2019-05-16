@@ -63,6 +63,15 @@ ComunicWeb.pages.conversations.conversation = {
 			class: "box-header"
 		});
 
+		// Box icon
+		createElem2({
+			appendTo: boxHeader,
+			type: "span",
+			class: "box-title",
+			innerHTML: "<i class='fa fa-comments'></i> ",
+			ondblclick: () => openConversation(convID, false)
+		});
+
 		//Box title
 		var boxTitle = createElem2({
 			appendTo: boxHeader,

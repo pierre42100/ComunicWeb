@@ -386,24 +386,32 @@ ComunicWeb.components.conversations.chatWindows = {
 	 * Change the name of the converation at the top of the windows
 	 * 
 	 * @param {String} newName The new name for the conversation window
-	 * @param {Ojbect} infos Informations about the conversation window
+	 * @param {Ojbect} info Information about the conversation window
 	 * @return {Boolean} True for a success
 	 */
-	changeName: function(newName, infos){
+	changeName: function(newName, info){
 
 		//Reduce new name
 		if(newName.length > 18)
 			newName = newName.slice(0, 17) + "...";
 
 		//Empty name field
-		emptyElem(infos.boxTitle);
+		emptyElem(info.boxTitle);
 		
 		//Create conversation icon 
-		var conversationIcon = createElem("i", infos.boxTitle);
-		conversationIcon.className = "fa fa-comments";
+		createElem2({
+			type: "i",
+			appendTo: info.boxTitle,
+			class: "fa fa-comments",
+			ondblclick: () => {
+				openConversation(info.conversationID, true);
+				info.closeFunction();
+			}
+		});
+		
 
 		//Add conversation title
-		var conversationTitle = createElem("span", infos.boxTitle);
+		var conversationTitle = createElem("span", info.boxTitle);
 		conversationTitle.innerHTML = " " + newName;
 
 		//Success

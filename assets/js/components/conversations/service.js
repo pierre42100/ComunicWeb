@@ -153,7 +153,7 @@ ComunicWeb.components.conversations.service = {
 			for(i in result){
 
 				//Check if new entries are available
-				if(result[i].length === 0)
+				if(result[i].length === 0 || !this.__serviceCache[i])
 					continue; //Nothing to be done
 				
 				//Extract conversation ID

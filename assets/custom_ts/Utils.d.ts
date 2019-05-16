@@ -24,7 +24,8 @@ declare interface CreateElem2Args {
 	innerHTMLprefix ?: string,
 	disabled ?: boolean,
 	children ?: HTMLElement[],
-	onclick ?: Function
+	onclick ?: Function,
+	ondblclick ?: Function
 }
 
 declare function createElem(nodeType : string, appendTo : string) : HTMLElement;

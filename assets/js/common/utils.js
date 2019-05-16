@@ -45,6 +45,7 @@ function createElem(nodeType, appendTo){
  * @info {boolean} disabled Set whether the field should be disabled or not (input only)
  * @info {HTMLElement[]} children Children for the new object
  * @info {Function} onclick
+ * @info {Function} ondblclick
  * @return {HTMLElement} The newly created element
  */
 function createElem2(infos){
@@ -132,6 +133,9 @@ function createElem2(infos){
 
 	if(infos.onclick)
 		newElem.addEventListener("click", infos.onclick);
+	
+	if(infos.ondblclick)
+		newElem.addEventListener("dblclick", infos.ondblclick);
 
 	//Return newly created element
 	return newElem;
