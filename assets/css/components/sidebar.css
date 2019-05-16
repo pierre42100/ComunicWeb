@@ -1,8 +1,8 @@
 /**
- * Sidebar stylesheet
- *
- * @author Pierre HUBERT
- */
+* Sidebar stylesheet
+*
+* @author Pierre HUBERT
+*/
 
 .main-sidebar > .sidebar {
 	display: flex;
@@ -31,14 +31,38 @@ body.sidebar-collapse .main-sidebar > .sidebar .hide-on-collapse {
 	overflow: hidden;
 }
 
-body.sidebar-collapse .memberships-list {
-	overflow: unset;
+body.sidebar-collapse .memberships-list,
+body.sidebar-collapse .slimScrollDiv,
+body.sidebar-collapse .sidebar-menu {
+	overflow: unset !important;
 }
 
 .main-sidebar .memberships-list img {
 	width: 20px;
 	margin-right: 10px;
 	margin-left: -4px;
+}
+
+.main-sidebar .memberships-list .subinfo {
+	margin-left: 24px;
+	font-size: 90%;
+}
+
+body.sidebar-collapse .main-sidebar .memberships-list .subinfo {
+	display: none;
+}
+
+body.sidebar-collapse .main-sidebar .memberships-list li:hover .subinfo {
+	display: block;
+	background: #2c3b41;
+	position: absolute;
+	width: 180px;
+	left: 50px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom-right-radius: 4px;
+	margin: 7px -3px;
+	padding-left: 20px;
 }
 
 .main-sidebar .recents-conversations-list {

@@ -254,5 +254,27 @@ ComunicWeb.components.sideBar.main = {
 			innerHTML: group.name
 		});
 
+		let subInfoEl = createElem2({
+			appendTo: a,
+			type: "div",
+			class: "subinfo",
+			onclick: (e) => e.stopImmediatePropagation()
+		});
+
+		if(group.membership == "pending") {
+
+			// Show requested state
+			subInfoEl.innerHTML = "Requested";
+		}
+		else if(group.membership == "invited") {
+
+			// Show invited state
+			subInfoEl.innerHTML = "<i class='fa fa-question'></i> Invited";
+			
+		}
+		else
+			// Group last activity
+			subInfoEl.innerHTML = timeDiffToStr(lastactive);
+
 	},
 }

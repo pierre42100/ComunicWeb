@@ -184,3 +184,14 @@ function getInfoGroup(id, callback){
 function getInfoMultipleGroups(IDs, callback, force){
     ComunicWeb.components.groups.info.getInfoMultiple(IDs, callback, force);
 }
+
+/**
+ * Get the difference of time from now to a specified
+ * timestamp and return it as a string
+ * 
+ * @param {Integer} time The base time
+ * @return {String} Computed difference
+ */
+function timeDiffToStr(time) {
+    return ComunicWeb.common.date.timeDiffToStr(time);
+}
