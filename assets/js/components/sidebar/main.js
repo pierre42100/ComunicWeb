@@ -218,6 +218,49 @@ ComunicWeb.components.sideBar.main = {
 			innerHTML: userFullName(user)
 		});
 
+		// Supplementary information
+		let subInfoEl = createElem2({
+			appendTo: a,
+			type: "div",
+			class: "subinfo",
+			onclick: (e) => e.stopImmediatePropagation()
+		});
+
+		if(friend.accepted == 1)
+			subInfoEl.innerHTML = timeDiffToStr(friend.time_last_activity);
+		else {
+
+			const respondRequest = function(accept) {
+
+				// Update UI
+				subInfoEl.innerHTML = accept ? lang("friends_bar_accepted") 
+					: lang("friends_bar_rejected");
+				if(!accept) li.remove();
+
+				// Perform the request the server
+				ComunicWeb.components.friends.list.respondRequest(friend.ID_friend, accept);
+
+			}
+
+			// Offer the user to accept or reject the invitation
+			createElem2({
+				appendTo: subInfoEl, 
+				type: "span",
+				class: "btn btn-success btn-xs",
+				innerHTML: "<i class='fa fa-check'></i>",
+				onclick: (e) => respondRequest(true)
+			});
+
+			add_space(subInfoEl);
+
+			createElem2({
+				appendTo: subInfoEl, 
+				type: "span",
+				class: "btn btn-danger btn-xs",
+				innerHTML: "<i class='fa fa-close'></i>",
+				onclick: (e) => respondRequest(false)
+			});
+		}
 	},
 
 	/**
@@ -270,7 +313,7 @@ ComunicWeb.components.sideBar.main = {
 
 			// Show invited state
 			subInfoEl.innerHTML = "<i class='fa fa-question'></i> Invited";
-			
+
 		}
 		else
 			// Group last activity
