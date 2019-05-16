@@ -226,8 +226,14 @@ ComunicWeb.components.sideBar.main = {
 			onclick: (e) => e.stopImmediatePropagation()
 		});
 
-		if(friend.accepted == 1)
-			subInfoEl.innerHTML = timeDiffToStr(friend.time_last_activity);
+		// Check if friendship request has been accepted or not
+		if(friend.accepted == 1) {
+			if(ComunicWeb.common.date.time() - friend.time_last_activity < 30)
+				subInfoEl.innerHTML = "<span style='color: green;'>Online</span>";
+			else
+				subInfoEl.innerHTML = timeDiffToStr(friend.time_last_activity);
+		}
+
 		else {
 
 			const respondRequest = function(accept) {
