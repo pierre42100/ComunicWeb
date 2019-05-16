@@ -57,7 +57,7 @@ ComunicWeb.components.sideBar.main = {
 						type: "p",
 						class: "cursor-pointer",
 						innerHTML: userFullName(info),
-						onclick: () => userIDorPath(info),
+						onclick: () => openUserPage(info),
 					}),
 
 					createElem2({
