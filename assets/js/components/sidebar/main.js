@@ -182,6 +182,12 @@ ComunicWeb.components.sideBar.main = {
 				this.applyGroup(friendsTarget, groups[e.id], e.last_activity);
 		});
 
+		createElem2({
+			appendTo: friendsTarget,
+			type: "li",
+			innerHTML: "<div style='height: 50px'></div>",
+		});
+
 		$(friendsTarget).slimscroll({
 			flex: 2,
 			height: "100%"
