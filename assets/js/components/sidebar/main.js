@@ -230,6 +230,18 @@ ComunicWeb.components.sideBar.main = {
 			innerHTML: userFullName(user)
 		});
 
+		// Private conversation
+		createElem2({
+			appendTo: a,
+			type: "span",
+			class: "pull-right-container",
+			innerHTML: "<small class='label pull-right'><i class='fa fa-comments'></i></small>",
+			onclick: (e) => {
+				e.stopImmediatePropagation();
+				ComunicWeb.components.conversations.manager.openPrivate(user.userID);
+			}
+		});
+
 		// Supplementary information
 		let subInfoEl = createElem2({
 			appendTo: a,
