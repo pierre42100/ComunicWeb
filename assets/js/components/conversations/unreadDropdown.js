@@ -124,7 +124,7 @@ ComunicWeb.components.conversations.unreadDropdown = {
 			}
 
 			//Get informations about the users
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(usersID, function(usersInfos){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(usersInfos){
 
 				//Check for errors
 				if(usersInfos.error){

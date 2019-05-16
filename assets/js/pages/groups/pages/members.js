@@ -211,7 +211,7 @@ ComunicWeb.pages.groups.pages.members = {
 			var membersIDs = ComunicWeb.components.groups.utils.getMembersIDs(members);
 
 			//Get information about the members of the group
-			getMultipleUsersInfos(membersIDs, function(users){
+			getMultipleUsersInfo(membersIDs, function(users){
 
 				//Check for errors
 				if(users.error){

@@ -112,7 +112,7 @@ ComunicWeb.components.userSelect = {
 	pushEntries: function(inputSelect, usersID){
 
 		//Get informations about the entries
-		getMultipleUsersInfos(usersID, function(usersInfos){
+		getMultipleUsersInfo(usersID, function(usersInfos){
 			
 			//Check for errors
 			if(usersInfos.error){

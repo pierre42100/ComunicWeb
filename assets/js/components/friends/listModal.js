@@ -170,7 +170,7 @@ ComunicWeb.components.friends.listModal = {
 		});
 
 		//Get informations about the users
-		ComunicWeb.user.userInfos.getMultipleUsersInfos(ids, function(users){
+		ComunicWeb.user.userInfos.getMultipleUsersInfo(ids, function(users){
 
 			//Check for errors
 			if(users.error){
@@ -244,7 +244,7 @@ ComunicWeb.components.friends.listModal = {
 		});
 
 		//Get informations about the users
-		ComunicWeb.user.userInfos.getMultipleUsersInfos(usersID, function(users){
+		ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(users){
 
 			//Check for errors
 			if(users.error){

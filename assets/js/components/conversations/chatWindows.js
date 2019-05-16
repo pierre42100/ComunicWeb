@@ -279,7 +279,7 @@ ComunicWeb.components.conversations.chatWindows = {
 			}
 
 			//Get informations about the members of the conversation
-			getMultipleUsersInfos(informations.members, function(membersInfos){
+			getMultipleUsersInfo(informations.members, function(membersInfos){
 
 				//Quit in case of error
 				if(informations.error){

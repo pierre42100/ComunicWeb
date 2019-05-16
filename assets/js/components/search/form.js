@@ -87,7 +87,7 @@ ComunicWeb.components.search.form = {
 				return false;
 			
 			//Get information about related groups and users
-			getMultipleUsersInfos(ComunicWeb.components.search.utils.getUsersId(results), function(usersInfo){
+			getMultipleUsersInfo(ComunicWeb.components.search.utils.getUsersId(results), function(usersInfo){
 
 				//Check for errors
 				if(usersInfo.error)

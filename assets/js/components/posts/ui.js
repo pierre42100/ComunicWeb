@@ -109,7 +109,7 @@ ComunicWeb.components.posts.ui = {
 			if(info.user_page_id != info.userID)
 				usersToFetch.push(info.user_page_id)
 
-			getMultipleUsersInfos(usersToFetch, function(result){
+			getMultipleUsersInfo(usersToFetch, function(result){
 				if(result.error) {
 					ComunicWeb.debug.logMessage("Could not get some users info!");
 					userName.innerHTML = lang("posts_ui_error");

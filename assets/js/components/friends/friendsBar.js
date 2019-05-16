@@ -106,7 +106,7 @@ ComunicWeb.components.friends.bar = {
 			}
 			
 			//Get users ID informations
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(usersID, function(usersInfos){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(usersInfos){
 				
 				//Clean the area
 				listFriendsElem.innerHTML = "";

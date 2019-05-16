@@ -116,8 +116,8 @@ function userIDorPath(infos){
  * @param {Boolean} forceRequest Force the request to be made
  * @return {Boolean} True for a success
  */
-function getMultipleUsersInfos(usersID, afterGetUserInfos, forceRequest){
-	ComunicWeb.user.userInfos.getMultipleUsersInfos(usersID, afterGetUserInfos, forceRequest);
+function getMultipleUsersInfo(usersID, afterGetUserInfos, forceRequest){
+	ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, afterGetUserInfos, forceRequest);
 }
 
 /**

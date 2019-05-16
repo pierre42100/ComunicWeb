@@ -25,10 +25,10 @@ ComunicWeb.user.userInfos = {
 		if(userID == "current")
 			userID = ComunicWeb.user.userLogin.getUserID();
 
-		//getMultipleUsersInfos mirror
+		//getMultipleUsersInfo mirror
 		var usersID = [userID];
 
-		return this.getMultipleUsersInfos(usersID, function(result){
+		return this.getMultipleUsersInfo(usersID, function(result){
 			//We check if an error occured
 			if(result.error)
 				afterGetUserInfos(result);
@@ -48,7 +48,7 @@ ComunicWeb.user.userInfos = {
 	 * @param {Boolean} forceRequest Force the request to be made
 	 * @return {Boolean} True for a success
 	 */
-	getMultipleUsersInfos: function(usersID, afterGetUserInfos, forceRequest){
+	getMultipleUsersInfo: function(usersID, afterGetUserInfos, forceRequest){
 
 		//First, check if informations are already available in the cache for some users
 		var cachedInformations = {};
@@ -159,7 +159,7 @@ ComunicWeb.user.userInfos = {
 			}
 			
 			//Preload users informations
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(response, function(usersInfos){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(response, function(usersInfos){
 				//Go to next action
 				afterSearch(usersInfos);
 			});
@@ -175,7 +175,7 @@ ComunicWeb.user.userInfos = {
 	 */
 	getNames: function(usersID, afterNames){
 		//Get users informations
-		this.getMultipleUsersInfos(usersID, function(usersInfo){
+		this.getMultipleUsersInfo(usersID, function(usersInfo){
 
 			//Check for errors
 			if(usersInfo.error){

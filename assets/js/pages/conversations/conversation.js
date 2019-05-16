@@ -105,7 +105,7 @@ ComunicWeb.pages.conversations.conversation = {
 			ComunicWeb.pages.conversations.conversation._conv_info.conversation = result;
 
 			//Time to load user information
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(result.members, function(membersInfo){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(result.members, function(membersInfo){
 
 				//Check for errors
 				if(membersInfo.error)

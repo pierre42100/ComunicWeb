@@ -440,7 +440,7 @@ var ComunicWeb = {
 			/**
 			 * Get multiple users informations
 			 */
-			getMultipleUsersInfos: function(usersID, afterGetUserInfos, forceRequest){},
+			getMultipleUsersInfo: function(usersID, afterGetUserInfos, forceRequest){},
 
 			/**
 			 * Empty user informations cache

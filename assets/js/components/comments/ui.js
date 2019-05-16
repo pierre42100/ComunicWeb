@@ -19,7 +19,7 @@ ComunicWeb.components.comments.ui = {
 		var usersID = ComunicWeb.components.comments.utils.get_users_id(infos);
 		
 		//Get informations about the users
-		var usersInfo = ComunicWeb.user.userInfos.getMultipleUsersInfos(usersID, function(result){
+		var usersInfo = ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(result){
 			
 			//Check for errors
 			if(result.error){

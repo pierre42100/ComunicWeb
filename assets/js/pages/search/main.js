@@ -104,7 +104,7 @@ ComunicWeb.pages.search.main = {
 			}
 
 			//Get information about related users
-			getMultipleUsersInfos(ComunicWeb.components.search.utils.getUsersId(result), function(usersInfo){
+			getMultipleUsersInfo(ComunicWeb.components.search.utils.getUsersId(result), function(usersInfo){
 
 				if(usersInfo.error){
 					return target.appendChild(ComunicWeb.common.messages.createCalloutElem(

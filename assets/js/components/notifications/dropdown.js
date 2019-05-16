@@ -158,7 +158,7 @@ ComunicWeb.components.notifications.dropdown = {
 			var users_id = ComunicWeb.components.notifications.utils.get_users_id(result);
 			
 			//Get informations about the users
-			ComunicWeb.user.userInfos.getMultipleUsersInfos(users_id, function(users){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(users_id, function(users){
 
 				//Check for errors
 				if(users.error){
