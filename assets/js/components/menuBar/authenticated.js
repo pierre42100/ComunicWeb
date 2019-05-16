@@ -99,13 +99,13 @@ ComunicWeb.components.menuBar.authenticated = {
 		navbarRightElemList.className = "nav navbar-nav";
 
 		//Add user name
-		this.addUserName(navbarRightElemList);
+		//this.addUserName(navbarRightElemList);
 
 		//Alternate latest posts button
 		this.addAlternateLatestPostsButton(navbarRightElemList);
 
 		//Add friends list button
-		this.addFriendListButton(navbarRightElemList);
+		//this.addFriendListButton(navbarRightElemList);
 
 		//Add notifications dropdown
 		ComunicWeb.components.notifications.dropdown.display(navbarRightElemList);

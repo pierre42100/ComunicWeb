@@ -264,7 +264,7 @@ ComunicWeb.common.page = {
                 ComunicWeb.components.sideBar.main.show();
                 
                 //We load friends list (if user is logged in)
-                ComunicWeb.components.friends.bar.display();
+                //ComunicWeb.components.friends.bar.display();
 
                 //We load conversations manager (login required)
                 ComunicWeb.components.conversations.manager.display();
