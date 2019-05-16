@@ -68,7 +68,7 @@ ComunicWeb.pages.conversations.conversation = {
 			appendTo: boxHeader,
 			type: "span",
 			class: "box-title",
-			innerHTML: "<i class='fa fa-comments'></i> ",
+			innerHTML: "<i class='fa fa-comments'></i>&nbsp;",
 			ondblclick: () => openConversation(convID, false)
 		});
 
