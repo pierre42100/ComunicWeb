@@ -118,9 +118,15 @@ ComunicWeb.components.sideBar.main = {
 		});
 
 		this.refreshMemberships(userMemberships);
+		let interval = setInterval(() => {
+			if(userMemberships.isConnected)
+				this.refreshMemberships(userMemberships);
+			else
+				clearInterval(interval);
+		}, 15000);
 
 
-		// Recent conversations
+		/*// Recent conversations
 		createElem2({
 			appendTo: section,
 			type: "div",
@@ -132,7 +138,7 @@ ComunicWeb.components.sideBar.main = {
 			type: "ul",
 			class: "sidebar-menu recents-conversations-list hide-on-collapse",
 			innerHTML: "<li><a>TO COME</a></li>"
-		});
+		});*/
 
 	},
 
@@ -223,7 +229,7 @@ ComunicWeb.components.sideBar.main = {
 			appendTo: a,
 			type: "div",
 			class: "subinfo",
-			onclick: (e) => e.stopImmediatePropagation()
+			onclick: friend.accepted != 1 ? (e) => e.stopImmediatePropagation() : undefined
 		});
 
 		// Check if friendship request has been accepted or not
@@ -307,7 +313,7 @@ ComunicWeb.components.sideBar.main = {
 			appendTo: a,
 			type: "div",
 			class: "subinfo",
-			onclick: (e) => e.stopImmediatePropagation()
+			//onclick: (e) => e.stopImmediatePropagation()
 		});
 
 		if(group.membership == "pending") {
