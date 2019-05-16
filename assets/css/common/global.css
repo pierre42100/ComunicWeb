@@ -36,3 +36,12 @@ a, .cursor-pointer {
     padding: 5px;
     padding-bottom: 0px;
 }
+
+/**
+ * Adapt menu bar to small screens
+ */
+@media screen and (max-width: 767px) {
+    #pageTarget {
+        margin-top: 50px;
+    }
+}

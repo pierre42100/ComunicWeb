@@ -25,7 +25,7 @@ ComunicWeb.components.sideBar.main = {
 		var userPanel = createElem2({
 			appendTo: section,
 			type: "div",
-			class: "user-panel"
+			class: "user-panel hidden-xs"
 		});
 
 		getUserInfo(userID(), function(info){
@@ -104,15 +104,36 @@ ComunicWeb.components.sideBar.main = {
 			openPage("search?q=" + searchForm.getElementsByTagName("input")[0].value);
 		});
 
-
 		// User memberships
+		createElem2({
+			appendTo: section,
+			type: "div",
+			class: "intermediate-label hide-on-collapse",
+			innerHTML: "FRIENDS & GROUPS"
+		});
 		let userMemberships = createElem2({
 			appendTo: section,
-			type: "ul",
-			class: "sidebar-menu memberships-list" 
+			type: "div",
+			class: "memberships-list" 
 		});
 
 		this.refreshMemberships(userMemberships);
+
+
+		// Recent conversations
+		createElem2({
+			appendTo: section,
+			type: "div",
+			class: "intermediate-label hide-on-collapse",
+			innerHTML: "CONVERSATIONS"
+		});
+		let conversationsList = createElem2({
+			appendTo: section,
+			type: "ul",
+			class: "sidebar-menu recents-conversations-list hide-on-collapse",
+			innerHTML: "<li><a>TO COME</a></li>"
+		});
+
 	},
 
 	/**
@@ -125,8 +146,6 @@ ComunicWeb.components.sideBar.main = {
 			() => notify("Could not refresh your memberships!", "error"), 
 			(m, u, g) => this.applyMemberships(target, m, u, g)
 		);
-
-
 	},
 
 	/**
@@ -142,13 +161,24 @@ ComunicWeb.components.sideBar.main = {
 		// Empty liste
 		target.innerHTML = "";
 
+		let friendsTarget = createElem2({
+			appendTo: target,
+			type: "ul", 
+			class: "sidebar-menu"
+		});
+
 		memberships.forEach(e => {
 
 			if(e.type == "friend")
-				this.applyFriend(target, e.friend, users["user-"+e.friend.ID_friend]);
+				this.applyFriend(friendsTarget, e.friend, users["user-"+e.friend.ID_friend]);
 			
 			if(e.type == "group")
-				this.applyGroup(target, groups[e.id], e.last_activity);
+				this.applyGroup(friendsTarget, groups[e.id], e.last_activity);
+		});
+
+		$(friendsTarget).slimscroll({
+			flex: 2,
+			height: "100%"
 		});
 	},
 

@@ -4,8 +4,43 @@
  * @author Pierre HUBERT
  */
 
-.sidebar-menu.memberships-list img {
+.main-sidebar > .sidebar {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	height: 100%;
+}
+
+body.sidebar-collapse .main-sidebar > .sidebar {
+	position: unset;
+}
+
+
+body.sidebar-collapse .main-sidebar > .sidebar .hide-on-collapse {
+	display: none;
+}
+
+.main-sidebar .intermediate-label {
+	color: #c3c3c3;
+	padding: 10px 25px 0px 15px;
+	font-size: 12px;
+}
+
+.main-sidebar .memberships-list {
+	flex: 2;
+	overflow: hidden;
+}
+
+body.sidebar-collapse .memberships-list {
+	overflow: unset;
+}
+
+.main-sidebar .memberships-list img {
 	width: 20px;
 	margin-right: 10px;
 	margin-left: -4px;
+}
+
+.main-sidebar .recents-conversations-list {
+	flex: 1;
 }
