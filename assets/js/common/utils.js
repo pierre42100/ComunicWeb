@@ -547,15 +547,21 @@ window.location.changed = function(e){};
 
 (function() //create a scope so 'location' is not global
 {
-    var m_loc = window.location.href;
-    setInterval(function()
+	/*var m_loc = window.location.href;
+	
+	const doCheckup = function()
     {
         if(m_loc != window.location.href)
         {
 			m_loc = window.location.href;
 			window.location.changed(window.location);
         }
-    }, 900);
+    };*/
+    
+	
+	window.addEventListener("popstate", 
+		e => window.location.changed(window.location));
+	
 })();
 
 
