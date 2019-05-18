@@ -141,7 +141,7 @@ ComunicWeb.pages.userPage.main = {
 		var leftColumn = createElem2({
 			appendTo: row,
 			type: "div",
-			class: "col-md-3"
+			class: "col-md-4"
 		});
 
 		//Display profile informations
@@ -151,7 +151,7 @@ ComunicWeb.pages.userPage.main = {
 		var rightColumn = createElem2({
 			appendTo: row,
 			type: "div",
-			class: "col-md-6"
+			class: "col-md-8"
 		});
 
 		//Display post creation form if the user is allowed to do so
