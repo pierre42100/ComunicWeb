@@ -208,6 +208,26 @@ fieldset[disabled] .form-control {
 
 
 /**
+* Sidebar
+*/
+.sidebar-form input[type="text"]:focus,
+.sidebar-form input[type="text"]:focus + .input-group-btn,
+.sidebar-form input[type="text"]:focus + .input-group-btn .btn  {
+    background-color: var(--black6) !important;
+    color: var(--white);
+}
+
+.sidebar-form input[type="text"] {
+    color: white !important;
+}
+
+.sidebar-search-results .results-container {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+
+/**
 * Footer
 */
 .main-footer {
