@@ -57,6 +57,7 @@ body.sidebar-collapse .main-sidebar > .sidebar .hide-on-collapse {
 
 .sidebar-search-results  .results-container > div img {
 	height: 30px;
+	margin-right: 5px;
 }
 
 /**
