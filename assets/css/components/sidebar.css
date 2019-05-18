@@ -26,6 +26,42 @@ body.sidebar-collapse .main-sidebar > .sidebar .hide-on-collapse {
 	font-size: 12px;
 }
 
+
+/**
+ * Search form
+ */
+.sidebar-search-results {
+	display: flex;
+	height: 200px;
+	background-color: white;
+	position: absolute;
+	z-index: 2;
+	width: 90%;
+	margin-top: -2px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.sidebar-search-results  .results-container {
+	flex: 1;
+}
+
+.sidebar-search-results  .results-container > div {
+	padding: 10px;
+	cursor: pointer;
+}
+
+.sidebar-search-results  .results-container > div:hover {
+	background-color: #0003;
+}
+
+.sidebar-search-results  .results-container > div img {
+	height: 30px;
+}
+
+/**
+ * Memberships
+ */
 .main-sidebar .memberships-list {
 	flex: 2;
 	overflow: hidden;
@@ -65,6 +101,10 @@ body.sidebar-collapse .main-sidebar .memberships-list li:hover .subinfo {
 	padding-left: 20px;
 }
 
+
+/**
+ * Conversations
+ */
 .main-sidebar .recents-conversations-list {
 	flex: 1;
 }

@@ -72,37 +72,7 @@ ComunicWeb.components.sideBar.main = {
 
 
 		// Search form
-		var searchForm = createElem2({
-			appendTo: section,
-			type: "form",
-			class: "sidebar-form",
-			children: [
-				createElem2({
-					type: "div",
-					class: "input-group",
-					children: [
-						createElem2({
-							type: "input",
-							class: "form-control",
-							elemType: "text",
-							placeholder: "Search...",
-						}),
-		
-						createElem2({
-							type: "span",
-							class: "input-group-btn",
-							innerHTML: '<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>',
-						}),
-					]
-				})
-			]
-		});
-
-		searchForm.addEventListener("submit", function(e){
-			e.preventDefault();
-
-			openPage("search?q=" + searchForm.getElementsByTagName("input")[0].value);
-		});
+		this.addSearchForm(section);
 
 		// User memberships
 		createElem2({
@@ -141,6 +111,197 @@ ComunicWeb.components.sideBar.main = {
 		});*/
 
 	},
+
+
+
+	// **************************************
+	// 				Search
+	// **************************************
+
+
+	/**
+	 * Add search form to sidebar
+	 * 
+	 * @param {HTMLElement} target The target for the search form
+	 */
+	addSearchForm: function(target) {
+
+
+		// Search input
+
+		/**
+		 * @type {HTMLInputElement}
+		 */
+		let searchInput = createElem2({
+			type: "input",
+			class: "form-control",
+			elemType: "text",
+			id: "sidebarSearchInput",
+			placeholder: "Search...",
+		});
+
+		let searchForm = createElem2({
+			appendTo: target,
+			type: "form",
+			class: "sidebar-form",
+			children: [
+				createElem2({
+					type: "div",
+					class: "input-group",
+					children: [
+						searchInput,
+		
+						createElem2({
+							type: "span",
+							class: "input-group-btn",
+							innerHTML: '<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>',
+						}),
+					]
+				})
+			]
+		});
+
+		// Search results target
+		let searchResults = createElem2({
+			appendTo: searchForm,
+			type: "div",
+			class: "sidebar-search-results"
+		});
+		searchResults.style.display = "none";
+
+
+		searchInput.addEventListener("keyup", e => {
+			
+			//Update UI
+			searchResults.style.display
+				 = searchInput.value.length < 3 ? "none" : "unset";
+
+			if(searchInput.value.length < 3)
+				return;
+
+			// Perform the search on the server
+			ComunicWeb.components.search.interface.global(searchInput.value, results => {
+				if(results.error) return;
+				
+				//Get information about related groups and users
+				getMultipleUsersInfo(ComunicWeb.components.search.utils.getUsersId(results), usersInfo => {
+					if(usersInfo.error) return;
+					
+					getInfoMultipleGroups(ComunicWeb.components.search.utils.getGroupsId(results), groupsInfo => {
+						if(groupsInfo.error) return;
+
+						this.applySearchResults(searchResults, results, usersInfo, groupsInfo);
+					});
+				});
+			});
+
+		})
+
+		searchForm.addEventListener("submit", e => {
+			e.preventDefault();
+
+			openPage("search?q=" + searchForm.getElementsByTagName("input")[0].value);
+		});
+	},
+
+
+	/**
+	 * Put search form back to its initial state
+	 */
+	resetSearchFrom: function(){
+		byId("sidebarSearchInput").value = "";
+		document.querySelector(".sidebar-search-results").style.display = "none";
+	},
+
+	/**
+	 * Apply search results
+	 * 
+	 * @param {HTMLElement} target 
+	 * @param {Array} results 
+	 * @param {*} users 
+	 * @param {*} groups 
+	 */
+	applySearchResults: function(target, results, users, groups) {
+		emptyElem(target);
+
+		let resultsTarget = createElem2({
+			appendTo: target,
+			type: "div",
+			class: "results-container"
+		});
+
+		results.forEach(el => {
+			
+			if(el.kind == "user")
+				this.applyUserResult(resultsTarget, users["user-" + el.id]);
+			
+			else
+				this.applyGroupResult(resultsTarget, groups[el.id]);
+
+		});
+
+		$(resultsTarget).slimScroll({
+			height: '100%'
+		});
+	},
+
+
+	applyUserResult: function(target, user) {
+
+		createElem2({
+			appendTo: target,
+			type: "div",
+			children: [
+				createElem2({
+					type: "img",
+					class: "img-circle",
+					src: user.accountImage
+				}),
+
+				createElem2({
+					type: "span",
+					innerHTML: userFullName(user)
+				}),
+			],
+			onclick: () => {
+				openUserPage(user);
+				this.resetSearchFrom();
+			}
+		});
+
+	},
+
+
+	applyGroupResult: function(target, group) {
+		createElem2({
+			appendTo: target,
+			type: "div",
+			children: [
+				createElem2({
+					type: "img",
+					src: group.icon_url
+				}),
+
+				createElem2({
+					type: "span",
+					innerHTML: group.name
+				}),
+			],
+			onclick: () => {
+				openGroupPage(group);
+				this.resetSearchFrom();
+			}
+		});
+	},
+
+
+
+
+
+
+	// **************************************
+	// 				Memberships
+	// **************************************
 
 	/**
 	 * Refresh user memberships
