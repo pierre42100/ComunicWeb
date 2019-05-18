@@ -174,9 +174,9 @@ ComunicWeb.components.sideBar.main = {
 			
 			//Update UI
 			searchResults.style.display
-				 = searchInput.value.length < 3 ? "none" : "unset";
+				 = searchInput.value.length < 2 ? "none" : "unset";
 
-			if(searchInput.value.length < 3)
+			if(searchInput.value.length < 2)
 				return;
 
 			// Perform the search on the server
