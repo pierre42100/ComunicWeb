@@ -440,6 +440,7 @@ class Dev {
 			"js/components/groups/interface.js",
 			"js/components/groups/utils.js",
 			"js/components/groups/info.js",
+			"js/components/groups/GroupsList.js",
 
 			//Virtual directory component
 			"js/components/virtualDirectory/interface.js",

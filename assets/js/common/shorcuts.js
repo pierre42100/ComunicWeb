@@ -138,7 +138,7 @@ function getMultipleUsersInfo(usersID, afterGetUserInfos, forceRequest){
  * 
  * @param {Array~Object} users The list of users to get
  * @param {Boolean} force
- * @returns {Promise}
+ * @returns {Promise<UsersList>}
  */
 function getUsers(users, force) {
     return new Promise((resolve, error) => {
@@ -146,7 +146,7 @@ function getUsers(users, force) {
 
             if(result.error) 
                 error(result.error);
-                
+
             else
                 resolve(new UsersList(result));
 
@@ -222,6 +222,22 @@ function getInfoGroup(id, callback){
  */
 function getInfoMultipleGroups(IDs, callback, force){
     ComunicWeb.components.groups.info.getInfoMultiple(IDs, callback, force);
+}
+
+/**
+ * Get information about multiple groups
+ * 
+ * @param {Number[]} list The ID of the groups to get
+ * @param {Boolean} force Specify whether to force or not the request
+ * @return {Promise<GroupsList>}
+ */
+function getGroups(list, force){
+    return new Promise((resolve, reject) => {
+        getInfoMultipleGroups(list, result => {
+            if(result.error) reject(result.error);
+            else resolve(new GroupsList(result));
+        }, force);
+    });
 }
 
 /**
