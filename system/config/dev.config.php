@@ -471,6 +471,7 @@ class Dev {
 		"js/user/loginTokens.js",
 		"js/user/userLogin.js",
 		"js/user/userInfos.js",
+		"js/user/usersList.js",
 			
 
 		//Pages scripts

@@ -134,6 +134,27 @@ function getMultipleUsersInfo(usersID, afterGetUserInfos, forceRequest){
 }
 
 /**
+ * Get information about multiple users
+ * 
+ * @param {Array~Object} users The list of users to get
+ * @param {Boolean} force
+ * @returns {Promise}
+ */
+function getUsers(users, force) {
+    return new Promise((resolve, error) => {
+        getMultipleUsersInfo(users, result => {
+
+            if(result.error) 
+                error(result.error);
+                
+            else
+                resolve(new UsersList(result));
+
+        }, force);
+    });
+}
+
+/**
  * Get information about a single user
  * 
  * @param {int} userID User on which to make request
