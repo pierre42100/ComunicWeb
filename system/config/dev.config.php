@@ -207,6 +207,7 @@ class Dev {
 			"css/components/posts/ui.css",
 			"css/components/posts/form.css",
 			"css/components/posts/edit.css",
+			"css/components/posts/targetPicker.css",
 
 			//Movies picker
 			"css/components/movies/picker.css",
@@ -406,6 +407,7 @@ class Dev {
 			"js/components/posts/ui.js",
 			"js/components/posts/form.js",
 			"js/components/posts/edit.js",
+			"js/components/posts/targetPicker.js",
 
 			//Comments component
 			"js/components/comments/ui.js",

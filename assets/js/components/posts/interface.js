@@ -123,6 +123,13 @@ ComunicWeb.components.posts.interface = {
 	},
 
 	/**
+	 * Get the list of available targets where user can create posts
+	 */
+	getAvailableTargets: function(){
+		return api("posts/getAvailableTargets", null, true);
+	},
+
+	/**
 	 * Change post visibility level
 	 * 
 	 * @param {int} postID The ID of the post

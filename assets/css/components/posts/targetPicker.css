@@ -1,0 +1,47 @@
+/**
+ * Post target picker
+ *
+ * @author Pierre HUBERT
+ */
+
+.posts-target-picker {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: start;
+}
+
+.posts-target-picker .title {
+	width: 100%;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+.posts-target-picker .title:first-child {
+	margin-top: 0px;
+}
+
+.posts-target-picker > div {
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 95px;
+	text-align: center;
+}
+
+.posts-target-picker > div:hover {
+	background-color: #0003;
+}
+
+.posts-target-picker > div:active {
+	background-color: black;
+	color: white;
+}
+
+.posts-target-picker img {
+	height: 30px;
+	width: 30px;
+	margin-right: 5px;
+}
