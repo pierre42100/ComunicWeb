@@ -644,3 +644,15 @@ img[src$="groups_logo/default.png"] {
 .group-settings-container label {
     color: var(--white);
 }
+
+
+/**
+* Post target picker
+*/
+.posts-target-picker {
+    color: var(--white);
+}
+
+.posts-target-picker > div:hover {
+    background-color: var(--black4);
+}
