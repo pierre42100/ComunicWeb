@@ -43,6 +43,9 @@ ComunicWeb.pages.latestPosts.main = {
 			class: "col-md-5"
 		});
 
+		// Display create posts form
+		ComunicWeb.components.posts.form.display("user", userID(), column);
+
 		//Create post box
 		var postBox = createElem2({
 			appendTo: column,
