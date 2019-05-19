@@ -47,6 +47,12 @@ var ComunicWeb = {
 		 * API functions
 		 */
 		api: {
+
+			/**
+			 * Make an asynchronous request
+			 */
+			exec: function(apiURI, args, withLogin){},
+
 			/**
 			 * Make an API request
 			 */

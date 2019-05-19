@@ -5,6 +5,19 @@
  */
 
 /**
+ * Perform an API request
+ * 
+ * @param {String} uri The URI of the request on the API
+ * @param {Object} args The list of arguments to pass with the request
+ * @param {Bool} withLogin Specify whether login is required or not to
+ * achieve the request
+ * @return {Promise}
+ */
+function api(uri, args, withLogin){
+    return ComunicWeb.common.api.exec(uri, args, withLogin);
+}
+
+/**
  * Create a quick language access function shorcut
  * 
  * @param {String} stringName The name of the string to show

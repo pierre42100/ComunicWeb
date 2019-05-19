@@ -4,6 +4,31 @@
  * @author Pierre HUBERT
  */
 ComunicWeb.common.api = {
+
+    /**
+     * Make an asynchronous request over the API
+     * 
+     * @returns {Promise}
+     */
+    exec:  function(apiURI, args, withLogin){
+
+        if(!args)
+            args = {};
+
+        return new Promise((resolve, reject) => {
+
+            this.makeAPIrequest(apiURI, args, withLogin, result => {
+            
+                if(result.error)
+                    reject(result.error);
+            
+                else
+                    resolve(result);
+
+            });
+        });
+    },
+
     /**
      * Make an API request
      * 
