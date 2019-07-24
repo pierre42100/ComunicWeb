@@ -99,7 +99,7 @@ function js_files_to_file(string $begin_path, array $files, string $target){
 			throw new Exception("Excepted string or array, got something else for javascript entry!");
 
 		//Compress file
-		if($uglifyjs){
+		if(FALSE && $uglifyjs){
 			notice("Parsing with UGLIFYJS: ".$file);
 			exec("/usr/bin/uglifyjs '".$file."' -c -o ".TEMP_FILE, $output, $exit_code);
 
