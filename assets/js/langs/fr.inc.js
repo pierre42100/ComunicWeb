@@ -219,7 +219,7 @@ ComunicWeb.common.langs.fr = {
     form_create_account_err_create_account_title: "La cr&eacute;ation de compte a &eacute;chou&eacute;e",
 
     //Account created page
-    account_created_message_title: "F&eacute;liciations!",
+    account_created_message_title: "F&eacute;licitations!",
     account_created_message_body: "Votre compte a bien &eacute;t&eacute; cr&eacute;&eacute; ! <br /> Connectez-vous maintenant pour utiliser toute les fonctionnalit&eacute;s du r&eacute;seau !",
     account_created_message_login: "Connexion",
 
