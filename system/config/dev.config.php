@@ -10,7 +10,7 @@ class Dev {
 	/**
 	 * API access and credentials
 	 */
-	const API_URL = "http://devweb.local/comunic/api/";
+	const API_URL = "http://127.0.0.1:3000/"; //"http://devweb.local/comunic/api/";
 	const API_SERVICE_NAME = "ComunicWeb";
 	const API_SERVICE_TOKEN = "12XU67pJUlnNQ";
 
