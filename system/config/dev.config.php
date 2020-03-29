@@ -325,6 +325,7 @@ class Dev {
 		"js/common/date.js",
 		"js/common/system.js",
 		array("path" => "js/common/songPlayer.js", "uglifyjs" => false),
+		array("path" => "js/common/ws.js", "uglifyjs" => false),
 
 		//Languages
 		"js/langs/en.inc.js",

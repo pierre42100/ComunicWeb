@@ -176,6 +176,9 @@ ComunicWeb.user.userLogin = {
 
                 //Save email address
                 ComunicWeb.components.mailCaching.set(usermail);
+
+                // Initialize websocket
+                UserWebSocket.Connect();
             }
 
             //Perform next action if login failed
@@ -213,7 +216,10 @@ ComunicWeb.user.userLogin = {
      * 
      * @param {Function} afterLogout What to do once user is logged out
      */
-    logoutUser: function(afterLogout){
+    logoutUser: async function(afterLogout){
+
+        await UserWebSocket.Disconnect();
+
         //Prepare and make an API request
         var apiURI = "user/disconnectUSER";
         var params = {};

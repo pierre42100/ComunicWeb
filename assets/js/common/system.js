@@ -79,6 +79,10 @@ ComunicWeb.common.system = {
 				//Open specified page
 				ComunicWeb.common.page.openPage(openPage);
 
+			// Initialize Websocket if user is connect
+			if(signed_in())
+				UserWebSocket.Connect();
+
 			//End of init
 			ComunicWeb.debug.logMessage("Application is ready !");
 		}
@@ -91,6 +95,7 @@ ComunicWeb.common.system = {
 		/**
 		 * Automaticaly refresh login state
 		 */
+		// TODO : remove when websockets are implemented
 		var autoRefresh = setInterval((function(){
 			ComunicWeb.user.userLogin.refreshLoginState();
 		}), 25000);
