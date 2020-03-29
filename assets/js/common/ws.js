@@ -19,7 +19,7 @@ class UserWebSocket {
 			const token = (await api("ws/token", null, true)).token;
 
 			// Determine websocket URL
-			const url = ComunicWeb.__config.apiURL.replace("http", "ws") + "ws?key=" + token
+			const url = ComunicWeb.__config.apiURL.replace("http", "ws") + "ws?token=" + token
 
 			// Connect to websocket
 			this.ws = new WebSocket(url);
