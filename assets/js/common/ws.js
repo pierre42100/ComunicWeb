@@ -27,7 +27,7 @@ class UserWebSocket {
 			// Wait for connection
 			this.ws.addEventListener("open", () => console.log("Connected to websocket!"))
 			this.ws.addEventListener("error", (e) => this.Error(e))
-			this.ws.addEventListener("close", (e) => this.Error(e));
+			this.ws.addEventListener("close", (e) => this.Closed(e));
 
 		} catch(e) {
 			this.Error(e);
@@ -45,9 +45,14 @@ class UserWebSocket {
 	/**
 	 * When we get disconnected from the websocket
 	 */
-	static async Disconnected(e) {
-		console.error(e)
-		alert("Disconnected from the server !");
+	static async Closed(e) {
+		console.error("WS closed", e)
+		
+		const num_seconds = ComunicWeb.__config.productionMode ? 5 : 0.5;
+
+		notify("Disconnected from the server, page will be reloaded in "+num_seconds+" seconds !", "danger");
+
+		setTimeout(() => ComunicWeb.common.system.restart(), num_seconds*1000);
 	}
 
 	/**
