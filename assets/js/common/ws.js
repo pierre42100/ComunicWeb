@@ -29,6 +29,11 @@ class UserWebSocket {
 			this.ws.addEventListener("error", (e) => this.Error(e))
 			this.ws.addEventListener("close", (e) => this.Closed(e));
 
+			// Handle incoming messages
+			this.ws.addEventListener("message", (e) => {
+				this.ProcessMessage(JSON.parse(e.data));
+			})
+
 		} catch(e) {
 			this.Error(e);
 		}
@@ -73,5 +78,14 @@ class UserWebSocket {
 				this.ws.close()
 			delete this.ws
 		}
+	}
+
+	/**
+	 * Process an incoming message
+	 * 
+	 * @param {any} msg The incoming message
+	 */
+	static async ProcessMessage(msg) {
+		console.error("WS message", msg)
 	}
 }
