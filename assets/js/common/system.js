@@ -92,15 +92,6 @@ ComunicWeb.common.system = {
 		 */
 		ComunicWeb.user.userLogin.refreshLoginState(afterLoginRefresh);
 
-		/**
-		 * Automaticaly refresh login state
-		 */
-		// TODO : remove when websockets are implemented
-		var autoRefresh = setInterval((function(){
-			ComunicWeb.user.userLogin.refreshLoginState();
-		}), 25000);
-		ComunicWeb.common.cacheManager.registerInterval(autoRefresh);
-
 		//Success
 		return true;
 	},
