@@ -48,11 +48,17 @@ class UserWebSocket {
 	static async Closed(e) {
 		console.error("WS closed", e)
 		
+		// Check if the server was gracefully stopped
+		if(!this.hasOwnProperty("ws"))
+			return;
+
 		const num_seconds = ComunicWeb.__config.productionMode ? 5 : 0.5;
 
 		notify("Disconnected from the server, page will be reloaded in "+num_seconds+" seconds !", "danger");
 
-		setTimeout(() => ComunicWeb.common.system.restart(), num_seconds*1000);
+		setTimeout(() => {
+			ComunicWeb.common.system.restart();
+		}, num_seconds*1000);
 	}
 
 	/**
