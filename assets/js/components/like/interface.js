@@ -14,16 +14,12 @@ ComunicWeb.components.like.interface = {
 	 * @param {Boolean} like New like status
 	 */
 	update: function(type, id, like){
-
-		//Perform an API request
-		var apiURI = "likes/update";
-		var params = {
+		//Perform an API request through websocket
+		return ws("likes/update", {
 			type: type,
 			id: id,
 			like: like
-		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true);
-
+		});
 	}
 
 }
