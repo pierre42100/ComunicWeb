@@ -34,7 +34,7 @@ ComunicWeb.components.notifications.service = {
 			target.innerHTML = this.count_unread_notifications;
 
 			//If the number of notifications equals 0, hide the target if required
-			target.style.display = this.count_unread_conv == 0 && auto_hide ? "none" : "block";
+			target.style.display = this.count_unread_notifications == 0 && auto_hide ? "none" : "block";
 			
 			//Update the number of conversations if possible too
 			if(target_conversations){
