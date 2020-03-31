@@ -18,6 +18,21 @@ function api(uri, args, withLogin){
 }
 
 /**
+ * Perform a requests through the WebSocket
+ * 
+ * @param {String} title The title of the request
+ * @param {Object} data Data to include to request
+ * @return {Promise}
+ */
+function ws(title, data = {}) {
+
+    if(typeof data != "object")
+        throw new Error("Invalid data for websocket request!");
+
+    return UserWebSocket.SendRequest(title, data);
+}
+
+/**
  * Create a quick language access function shorcut
  * 
  * @param {String} stringName The name of the string to show
