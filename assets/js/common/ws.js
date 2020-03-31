@@ -17,6 +17,9 @@ class WsMessage {
 	}
 }
 
+let requests = {};
+let reqCounter = 0;
+
 class UserWebSocket {
 
 	/**
@@ -95,6 +98,38 @@ class UserWebSocket {
 	}
 
 	/**
+	 * Send a request to the server through the socket
+	 * 
+	 * @param {String} title The title of the request
+	 * @param {any} data Information associated to the request
+	 */
+	static SendRequest(title, data) {
+		// Send request
+		return new Promise((res, err) => {
+			if(this.ws.readyState != WebSocket.OPEN)
+				throw new Error("WebSocket is not open!");
+
+			// Determine unique request ID
+			const req_id = "r-"+reqCounter++;
+
+			// Send the message
+			this.ws.send(JSON.stringify(new WsMessage({
+				id: req_id,
+				title: title,
+				data: data
+			})))
+
+			// Add promise information to the queue
+			requests[req_id] = {
+				res: res,
+				err: err
+			};
+		})
+
+		
+	}
+
+	/**
 	 * Process an incoming message
 	 * 
 	 * @param {WsMessage} msg The incoming message
@@ -106,7 +141,7 @@ class UserWebSocket {
 			this.ProcessDetachedMessage(msg)
 		
 		else
-			throw Error("Attached message to request are not supported yet!");
+			this.ProcessResponse(msg);
 
 	}
 
@@ -128,5 +163,32 @@ class UserWebSocket {
 
 		}
 
+	}
+
+	/**
+	 * Process response message
+	 * 
+	 * @param {WsMessage} msg The message
+	 */
+	static ProcessResponse(msg) {
+
+		// Check for attached request
+		if(!requests.hasOwnProperty(msg.id)) {
+			console.error("WS error: received unattended message! ", msg)
+			return;
+		}
+
+		const queue = requests[msg.id];
+		delete requests[msg.id];
+		
+		// Check for error
+		if(msg.title !== "success") {
+			console.error("WS error", msg.data);
+			queue.err(msg)
+			return;
+		}
+		
+		// It is a success
+		queue.res(msg.data);
 	}
 }
