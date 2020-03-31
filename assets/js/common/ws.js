@@ -62,7 +62,7 @@ class UserWebSocket {
 		notify("Disconnected from the server, page will be reloaded in "+num_seconds+" seconds !", "danger");
 
 		setTimeout(() => {
-			ComunicWeb.common.system.restart();
+			ComunicWeb.common.system.reset();
 		}, num_seconds*1000);
 	}
 
