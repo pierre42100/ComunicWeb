@@ -57,7 +57,7 @@ class UserWebSocket {
 		if(!this.hasOwnProperty("ws"))
 			return;
 
-		const num_seconds = ComunicWeb.__config.productionMode ? 5 : 0.5;
+		const num_seconds = ComunicWeb.__config.productionMode ? 5 : 0.8;
 
 		notify("Disconnected from the server, page will be reloaded in "+num_seconds+" seconds !", "danger");
 
