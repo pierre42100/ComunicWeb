@@ -25,7 +25,7 @@ ComunicWeb.components.notifications.service = {
 	 */
 	init: async function(target, auto_hide, target_conversations){
 
-		processResponse = () => {
+		const processResponse = () => {
 			
 			if(!target.isConnected || this.count_unread_notifications < 0 || this.count_unread_conv < 0)
 				return;
@@ -74,6 +74,17 @@ ComunicWeb.components.notifications.service = {
 			console.error("Could not get the number of unread notifications!")
 			console.error(e);
 		}
+
+		// Register to events
+		document.addEventListener("newNumberNotifs", e => {
+			this.count_unread_notifications = e.detail;
+			processResponse();
+		});
+
+		document.addEventListener("newNumberUnreadConvs", e => {
+			this.count_unread_conv = e.detail;
+			processResponse();
+		});
 	},
 
 }

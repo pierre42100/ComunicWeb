@@ -3,6 +3,20 @@
  * 
  * @author Pierre HUBERT
  */
+
+
+class WsMessage {
+	constructor(info) {
+		this.title = info.title
+		this.id = info.id
+		this.data = info.data
+	}
+
+	get hasId() {
+		return this.id.length > 0
+	}
+}
+
 class UserWebSocket {
 
 	/**
@@ -31,7 +45,7 @@ class UserWebSocket {
 
 			// Handle incoming messages
 			this.ws.addEventListener("message", (e) => {
-				this.ProcessMessage(JSON.parse(e.data));
+				this.ProcessMessage(new WsMessage(JSON.parse(e.data)));
 			})
 
 		} catch(e) {
@@ -83,9 +97,36 @@ class UserWebSocket {
 	/**
 	 * Process an incoming message
 	 * 
-	 * @param {any} msg The incoming message
+	 * @param {WsMessage} msg The incoming message
 	 */
 	static async ProcessMessage(msg) {
-		console.error("WS message", msg)
+		
+		// Check if the message is not associated if any request
+		if(!msg.hasId)
+			this.ProcessDetachedMessage(msg)
+		
+		else
+			throw Error("Attached message to request are not supported yet!");
+
+	}
+
+	/**
+	 * Process detached message
+	 * @param {WsMessage} msg Incoming message
+	 */
+	static async ProcessDetachedMessage(msg) {
+
+		switch(msg.title) {
+
+			case "number_notifs":
+				SendEvent("newNumberNotifs", msg.data)
+				break;
+
+			case "number_unread_conversations":
+				SendEvent("newNumberUnreadConvs", msg.data)
+				break;
+
+		}
+
 	}
 }
