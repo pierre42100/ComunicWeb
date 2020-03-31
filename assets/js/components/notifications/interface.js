@@ -43,6 +43,18 @@ ComunicWeb.components.notifications.interface = {
 
 	},
 
+	// ASync version of previous request
+	asyncGetAllUnread: async function(getCalls) {
+		return await new Promise((res, err) => {
+			this.getAllUnread(getCalls, (data) => {
+				if(data.error)
+					err(data.error);
+				else
+					res(data)
+			})
+		});
+	},
+
 	/**
 	 * Get the list of unread notifications
 	 * 
