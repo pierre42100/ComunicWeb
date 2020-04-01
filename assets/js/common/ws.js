@@ -94,6 +94,9 @@ class UserWebSocket {
 	static async Closed(e) {
 		console.error("WS closed", e)
 
+		// Notify the application
+		SendEvent("wsClosed");
+
 		// Reset requests queue
 		requests = {};
 		

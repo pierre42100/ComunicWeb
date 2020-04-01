@@ -12,6 +12,11 @@ ComunicWeb.components.conversations.interface = {
 	__conversationsList: {},
 
 	/**
+	 * @var {any} __registeredList The list of conversatins
+	 */
+	__registeredList: {},
+
+	/**
 	 * Get and return the list of available conversations
 	 * 
 	 * @param {Function} onceGotList What to do next
@@ -364,6 +369,62 @@ ComunicWeb.components.conversations.interface = {
 	},
 
 	/**
+	 * Asynchronoulsy refresh a single conversation
+	 * 
+	 * @param convID The ID of the target conversation
+	 * @param lastMessageID The ID of the last known message
+	 */
+	asyncRefreshSingle: function(convID, lastMessageID) {
+		return new Promise((res, err) => {
+			this.refreshSingleConversation(convID, lastMessageID, (list) => {
+				if(list.error)
+					err(list.error);
+				else
+					res(list);
+			})
+		});
+	},
+
+	/**
+	 * Register a conversation remotly
+	 * 
+	 * @param {Number} convID 
+	 */
+	register: async function(convID) {
+		if(this.__registeredList.hasOwnProperty(convID))
+			this.__registeredList[convID]++;
+		
+		else {
+			this.__registeredList[convID] = 1;
+
+			await ws("$main/register_conv", {
+				convID: convID
+			});
+		}
+	},
+
+	/**
+	 * Unregister to new messages of a conversation
+	 * 
+	 * @param {Number} convID 
+	 */
+	unregister: async function(convID) {
+
+		if(!this.__registeredList.hasOwnProperty(convID))
+			return;
+		
+		this.__registeredList[convID]--;
+		
+		if(this.__registeredList[convID] == 0) {
+			delete this.__registeredList[convID];
+
+			await ws("$main/unregister_conv", {
+				convID: convID
+			});
+		}
+	},
+
+	/**
 	 * Intend to update the content of a single message
 	 * 
 	 * @param {Number} messageID The ID of the message to update
@@ -427,3 +488,7 @@ ComunicWeb.components.conversations.interface = {
 
 //Register conversations cache cleaning function
 ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conversations.interface.emptyCache");
+
+document.addEventListener("wsClosed", () => {
+	ComunicWeb.components.conversations.interface.__registeredList = {};
+})
