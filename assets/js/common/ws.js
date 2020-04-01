@@ -190,6 +190,10 @@ class UserWebSocket {
 			case "number_unread_conversations":
 				SendEvent("newNumberUnreadConvs", msg.data)
 				break;
+			
+			case "new_conv_message":
+				SendEvent("newConvMessage", msg.data);
+				break;
 
 			default:
 				console.error("WS Unspported kind of message!", msg);

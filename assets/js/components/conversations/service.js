@@ -6,7 +6,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.conversations.service = {
+const ConvService = {
 
 	/**
 	 * @var {Object} __serviceCache The service cache
@@ -130,6 +130,15 @@ ComunicWeb.components.conversations.service = {
 	},
 }
 
+ComunicWeb.components.conversations.service = ConvService;
+
 //Register service cache
 ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conversations.service.emptyCache");
 
+// Register to new messages
+document.addEventListener("newConvMessage", (e) => {
+	const msg = e.detail;
+	
+	if(ConvService.__serviceCache.hasOwnProperty("conversation-" + msg.convID))
+		ComunicWeb.components.conversations.chatWindows.addMessage(msg.convID, msg);
+})
