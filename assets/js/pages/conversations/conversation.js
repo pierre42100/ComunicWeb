@@ -138,70 +138,62 @@ ComunicWeb.pages.conversations.conversation = {
 	 * 
 	 * @param {Object} info Information about the conversation
 	 */
-	onGotInfo: function(info){
+	onGotInfo: async function(info){
 
-		//Get and apply the name of the conversation
-		ComunicWeb.components.conversations.utils.getName(info, function(name){
-			ComunicWeb.pages.conversations.conversation._conv_info.window.title.innerHTML = name;
-		});
+		try {
+			//Get and apply the name of the conversation
+			ComunicWeb.components.conversations.utils.getName(info, function(name){
+				ComunicWeb.pages.conversations.conversation._conv_info.window.title.innerHTML = name;
+			});
 
-		//Add send message form
-		this.addSendMessageForm();
+			//Add send message form
+			this.addSendMessageForm();
 
-		//Defines an intervall to refresh the conversation
-		var windowBody = this._conv_info.window.body;
-		var locker = this._conv_info.locker;
-		var interval = setInterval(function(){
+			//Defines an intervall to refresh the conversation
+			const windowBody = this._conv_info.window.body;
 
-			//Check if the conversation body element is still connected or not on the screen
-			if(!windowBody.isConnected){
-				clearInterval(interval);
-				return;
-			}
+			// Register the conversation
+			await ComunicWeb.components.conversations.interface.register(this._conv_info.id);
 
-			//Check if the system is locked
-			if(locker.locked){
-				ComunicWeb.debug.logMessage("Skip conversation refresh : locked");
-				return;
-			}
+			// Get the last message
+			const list = await ComunicWeb.components.conversations.interface.asyncRefreshSingle(this._conv_info.id, 0);
 
-			//Lock the system
-			locker.locked = true;
+			// Apply the list of messages
+			this.applyMessages(list)
 
-			//Refresh the conversation
-			ComunicWeb.pages.conversations.conversation.refresh();
+			// Automatically unregister conversations when it becoms required
+			let reg = true;
+			const convID = this._conv_info.id;
+			document.addEventListener("changeURI", async () => {
+				if(reg) {
+					reg = false;
+					await ComunicWeb.components.conversations.interface.unregister(convID);
+				}
+			})
+			
 
-		}, 1500);
+		} catch(e) {
+			console.error(e)
+			notify("Could not refresh conversation!", "danger")
+		}
 	},
 
 	/**
-	 * Refresh the current conversation
+	 * Apply a new list of messages
 	 */
-	refresh: function(){
+	applyMessages: function(list){
 
-		//Peform the request over the API
-		ComunicWeb.components.conversations.interface.refreshSingleConversation(this._conv_info.id, this._conv_info.last_message_id, function(response){
+		//Check if there are responses to process
+		if(list.length == 0)
+			return; //Do not process messages list (avoid unwanted scrolling)
 
-			//Unlock service
-			ComunicWeb.pages.conversations.conversation._conv_info.locker.locked = false;
-
-			//Check for errors
-			if(response.error)
-				return notify("Could not get the latest messages of the conversation!", "danger");
-
-			//Check if there are responses to process
-			if(response.length == 0)
-				return; //Do not process messages list (avoid unwanted scrolling)
-
-			//Process the list of messages
-			response.forEach(function(message){
-				ComunicWeb.pages.conversations.conversation.addMessage(message);
-			});
-
-			//Init top scroll detection (if available)
-			ComunicWeb.pages.conversations.conversation.initTopScrollDetection();
-			
+		//Process the list of messages
+		list.forEach(function(message){
+			ComunicWeb.pages.conversations.conversation.addMessage(message);
 		});
+
+		//Init top scroll detection (if available)
+		ComunicWeb.pages.conversations.conversation.initTopScrollDetection();
 	},
 
 	/**
@@ -558,7 +550,7 @@ ComunicWeb.pages.conversations.conversation = {
 
 				//Check for errors
 				if(response.error)
-					return notify("An error occured while trying to retrive older messages !", "danger");
+					return notify("An error occured while trying to retrieve older messages !", "danger");
 				
 				//Check if there is not any message to display
 				if(response.length == 0){
@@ -594,3 +586,11 @@ ComunicWeb.pages.conversations.conversation = {
 	},
 
 };
+
+// Register to new messages
+document.addEventListener("newConvMessage", (e) => {
+	const msg = e.detail;
+	
+	if(ComunicWeb.pages.conversations.conversation._conv_info.id == msg.convID)
+	ComunicWeb.pages.conversations.conversation.applyMessages([msg]);
+})

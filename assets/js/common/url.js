@@ -36,6 +36,8 @@ ComunicWeb.common.url = {
         //Apply it
 		window.history.pushState("object or string", newTitle, newURL);
 
+        SendEvent("changeURI");
+
         //Everything is OK 
         return true;
 	},
