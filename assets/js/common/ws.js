@@ -73,6 +73,14 @@ class UserWebSocket {
 	}
 
 	/**
+	 * Get current connection status with the server 
+	 */
+	static get IsConnected() {
+		return this.hasOwnProperty("ws") 
+			&& this.ws.readyState == WebSocket.OPEN;
+	}
+
+	/**
 	 * Handles websocket errors
 	 */
 	static async Error(e) {
@@ -211,3 +219,10 @@ class UserWebSocket {
 		queue.res(msg.data);
 	}
 }
+
+
+// Register some events
+document.addEventListener("incognitoStatusChanged", (e) => {
+	if(UserWebSocket.IsConnected)
+		ws("$main/set_incognito", {enable: e.detail.enabled})
+})
