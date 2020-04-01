@@ -188,6 +188,9 @@ class UserWebSocket {
 				SendEvent("newNumberUnreadConvs", msg.data)
 				break;
 
+			default:
+				console.error("WS Unspported kind of message!", msg);
+				break;
 		}
 
 	}
