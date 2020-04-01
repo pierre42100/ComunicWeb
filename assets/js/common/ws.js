@@ -143,6 +143,7 @@ class UserWebSocket {
 			const req_id = "r-"+reqCounter++;
 
 			// Send the message
+			console.info("WS request", req_id, title, data);
 			this.ws.send(JSON.stringify(new WsMessage({
 				id: req_id,
 				title: title,
@@ -166,6 +167,8 @@ class UserWebSocket {
 	 */
 	static async ProcessMessage(msg) {
 		
+		console.info("WS remote message", msg);
+
 		// Check if the message is not associated if any request
 		if(!msg.hasId)
 			this.ProcessDetachedMessage(msg)
