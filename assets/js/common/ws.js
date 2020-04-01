@@ -197,6 +197,10 @@ class UserWebSocket {
 			case "new_conv_message":
 				SendEvent("newConvMessage", msg.data);
 				break;
+			
+			case "new_comment":
+				SendEvent("new_comment", msg.data);
+				break;
 
 			default:
 				console.error("WS Unspported kind of message!", msg);

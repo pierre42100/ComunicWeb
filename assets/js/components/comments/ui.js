@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.comments.ui = {
+const CommentsUI = {
 
 	/**
 	 * Display a list comments
@@ -19,7 +19,7 @@ ComunicWeb.components.comments.ui = {
 		var usersID = ComunicWeb.components.comments.utils.get_users_id(infos);
 		
 		//Get informations about the users
-		var usersInfo = ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(result){
+		ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(result){
 			
 			//Check for errors
 			if(result.error){
@@ -44,11 +44,12 @@ ComunicWeb.components.comments.ui = {
 	_process_comments: function(infos, usersInfos, postID, target){
 
 		//Create comments container
-		var container = createElem2({
+		const container = createElem2({
 			appendTo: target,
 			type: "div",
 			class: "box-comments post-comments"
 		});
+		container.setAttribute("data-for-post-id", postID);
 
 		//Process the list of comments
 		for(i in infos){
@@ -288,3 +289,27 @@ ComunicWeb.components.comments.ui = {
 	},
 
 }
+
+ComunicWeb.components.comments.ui = CommentsUI;
+
+// Register to new comments events
+document.addEventListener("new_comment", async (e) => {
+	const comment = e.detail;
+
+	const target = document.querySelector("[data-for-post-id='"+comment.postID+"'].post-comments");
+
+	if(target == null)
+		return;
+	
+	// Check if there is comment form to avoid or not
+	const insertBefore = target.querySelector(".comment-creation-form");
+
+	const newCommentTarget = createElem2({
+		insertBefore: insertBefore,
+		appendTo: insertBefore ? null : target,
+		type: "div",
+		class: "box-comment"
+	});
+
+	CommentsUI._show_comment(comment, await userInfo(comment.userID), newCommentTarget)
+})
