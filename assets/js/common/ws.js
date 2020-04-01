@@ -136,7 +136,7 @@ class UserWebSocket {
 	static SendRequest(title, data) {
 		// Send request
 		return new Promise((res, err) => {
-			if(this.ws.readyState != WebSocket.OPEN)
+			if(!this.hasOwnProperty("ws") || this.ws.readyState != WebSocket.OPEN)
 				throw new Error("WebSocket is not open!");
 
 			// Determine unique request ID

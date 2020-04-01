@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.posts.interface = {
+const PostsInterface = {
 
 	/**
 	 * Get user posts
@@ -227,6 +227,49 @@ ComunicWeb.components.posts.interface = {
 		//Perform the request
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 
-	}
+	},
 
+	_registerCount: {},
+
+	/**
+	 * Register for post updates
+	 * 
+	 * @param {Number} postID Target post ID
+	 */
+	register: async function(postID) {
+		if(!this._registerCount.hasOwnProperty(postID)) {
+			await ws("$main/register_post", {postID: postID});
+			this._registerCount[postID] = 1;
+		}
+		else
+			this._registerCount[postID]++;
+	},
+
+	/**
+	 * Unregister of post updates
+	 * 
+	 * @param {Number} postID Target post ID
+	 */
+	unregister: async function(postID) {
+
+		// Auto unregister all remaining registered posts if websocket is closed
+		if(!UserWebSocket.IsConnected)
+			this._registerCount = {}
+
+		if(!this._registerCount.hasOwnProperty(postID))
+			return;
+		
+		this._registerCount[postID]--;
+
+		if(this._registerCount[postID] == 0) {
+			await ws("$main/unregister_post", {postID: postID});
+			delete this._registerCount[postID];
+		}
+	},
 }
+
+ComunicWeb.components.posts.interface = PostsInterface;
+
+document.addEventListener("wsClosed", () => {
+	PostsInterface._registerCount = {}
+});

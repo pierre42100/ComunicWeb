@@ -12,7 +12,7 @@ ComunicWeb.components.posts.ui = {
 	 * @param {Object} infos Informations about the post
 	 * @param {HTMLElement} target The target for the post
 	 */
-	display_post: function(info, target){
+	display_post: function(info, target) {
 
 		//Check if it is required to create a post root element or not
 		if(target.className.includes("post"))
@@ -900,6 +900,20 @@ ComunicWeb.components.posts.ui = {
 		//Load comments (if possible)
 		if(info.comments != null)
 			ComunicWeb.components.comments.ui.display(info.comments, info.ID, postRoot);
+		
+		// Register for post updates
+		PostsInterface.register(info.ID);
+
+		// Auto-unregister when the post goes out of scope
+		const ev = async (e) => {
+			if(postRoot.isConnected)
+				return;
+			
+			document.removeEventListener("openPage", ev);
+
+			PostsInterface.unregister(info.ID);
+		}
+		document.addEventListener("openPage", ev);
 	},
 
 	/**
