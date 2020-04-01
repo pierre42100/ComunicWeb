@@ -57,6 +57,22 @@ class UserWebSocket {
 	}
 
 	/**
+	 * Wait for the socket to be connected (if not already)
+	 */
+	static WaitForConnected() {
+		return new Promise((res, err) => {
+
+			// Check if we are already connected
+			if(this.ws.readyState == WebSocket.OPEN) {
+				res();
+				return;
+			}
+
+			this.ws.addEventListener("open", () => res());
+		});
+	}
+
+	/**
 	 * Handles websocket errors
 	 */
 	static async Error(e) {
@@ -69,6 +85,9 @@ class UserWebSocket {
 	 */
 	static async Closed(e) {
 		console.error("WS closed", e)
+
+		// Reset requests queue
+		requests = {};
 		
 		// Check if the server was gracefully stopped
 		if(!this.hasOwnProperty("ws"))

@@ -11,7 +11,7 @@ ComunicWeb.common.system = {
 	 * @param {String} openPage Specify a page to open
 	 * @return {Boolean} True for a success
 	 */
-	init: function(openPage){
+	init: async function(openPage){
 
 		//Display Comunic logo
 		ComunicWeb.debug.displayComunicLogo();
@@ -66,8 +66,14 @@ ComunicWeb.common.system = {
 		/**
 		 * What to do after login refresh
 		 */
-		var afterLoginRefresh = function(){
+		var afterLoginRefresh = async function(){
 			
+			// Initialize Websocket if user is connected
+			if(signed_in()) {
+				await UserWebSocket.Connect();
+				await UserWebSocket.WaitForConnected();
+			}
+
 			/**
 			 * Open a page
 			 */
@@ -78,10 +84,6 @@ ComunicWeb.common.system = {
 			else
 				//Open specified page
 				ComunicWeb.common.page.openPage(openPage);
-
-			// Initialize Websocket if user is connect
-			if(signed_in())
-				UserWebSocket.Connect();
 
 			//End of init
 			ComunicWeb.debug.logMessage("Application is ready !");

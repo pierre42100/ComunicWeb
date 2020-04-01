@@ -151,7 +151,7 @@ ComunicWeb.user.userLogin = {
         };
 
         //What to do after the request is completed
-        var afterAPIrequest = function(result){
+        const afterAPIrequest = async function(result){
             //Prepare data return
             var loginstate = false;
             
@@ -178,7 +178,8 @@ ComunicWeb.user.userLogin = {
                 ComunicWeb.components.mailCaching.set(usermail);
 
                 // Initialize websocket
-                UserWebSocket.Connect();
+                await UserWebSocket.Connect();
+                await UserWebSocket.WaitForConnected();
             }
 
             //Perform next action if login failed
