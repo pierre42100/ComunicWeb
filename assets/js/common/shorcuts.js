@@ -182,6 +182,22 @@ function getUserInfo(usersID, afterGetUserInfo, forceRequest){
 }
 
 /**
+ * Get information about a single user asynchronously
+ * 
+ * @param {Number} userID Target user ID
+ */
+function userInfo(userID) {
+    return new Promise((res, err) => {
+        getUserInfo(userID, (data) => {
+            if(data.error)
+                err(data.error)
+            else
+                res(data)
+        }, false);
+    });
+}
+
+/**
  * Display message on browser console
  * 
  * @param {String} message The message to show on browser console
