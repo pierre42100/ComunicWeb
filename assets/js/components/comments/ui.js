@@ -214,10 +214,6 @@ const CommentsUI = {
 							ComunicWeb.common.notificationSystem.showNotification(lang("comments_ui_err_delete_comment"), "danger");
 							return;
 						}
-
-						//Delete the comment node
-						emptyElem(commentContainer);
-						commentContainer.remove();
 					});
 
 				});
@@ -327,3 +323,15 @@ document.addEventListener("commentUpdated", async (e) => {
 
 	CommentsUI._show_comment(comment, await userInfo(comment.userID), target)	
 })
+
+// Register to comments deletion events
+document.addEventListener("commentDeleted", async (e) => {
+	const commentID = e.detail;
+
+	const target = document.querySelector("[data-comment-id='"+commentID+"']");
+
+	if(target == null)
+		return;
+	
+	target.remove();
+});
