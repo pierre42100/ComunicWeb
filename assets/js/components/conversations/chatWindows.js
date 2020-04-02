@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.conversations.chatWindows = {
+const ConvChatWindow = {
 
 	/**
 	 * @var {Object} __conversationsCache Chat windows cache
@@ -850,10 +850,11 @@ ComunicWeb.components.conversations.chatWindows = {
 		var userIsPoster = message.ID_user == userID();
 
 		//Create message element
-		var messageContainer = createElem2({
+		const messageContainer = createElem2({
 			type: "div",
 			class: "direct-chat-msg " + (userIsPoster ? "right" : "")
 		});
+		messageContainer.setAttribute("data-chatwin-msg-id", message.ID)
 
 		//Display message header
 		var messageHeader = createElem2({
@@ -1160,6 +1161,8 @@ ComunicWeb.components.conversations.chatWindows = {
 		});
 	}
 }
+
+ComunicWeb.components.conversations.chatWindows = ConvChatWindow;
 
 //Register conversations cache cleaning function
 ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conversations.chatWindows.unloadAll");
