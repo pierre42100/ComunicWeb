@@ -995,11 +995,15 @@ const ConvChatWindow = {
 			updateLink.addEventListener("click", function(){
 				ComunicWeb.components.conversations.messageEditor.open(message, function(newContent){
 					
+					/*
+					
+					DEPRECATED WITH WEBSOCKETS
+
 					//Apply and parse new message
 					textMessage.innerHTML = removeHtmlTags(newContent);
 					ComunicWeb.components.textParser.parse({
 						element: textMessage,
-					});
+					});*/
 
 				});
 			});
@@ -1166,3 +1170,22 @@ ComunicWeb.components.conversations.chatWindows = ConvChatWindow;
 
 //Register conversations cache cleaning function
 ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conversations.chatWindows.unloadAll");
+
+// Register to messages update events
+document.addEventListener("updatedConvMessage", (e) => {
+	const msg = e.detail;
+
+	// Get message target
+	const target = document.querySelector("[data-chatwin-msg-id='"+msg.ID+"']");
+	if(!target)
+		return;
+
+	
+	// Get conversation info
+	const convInfo = ConvChatWindow.__conversationsCache["conversation-"+msg.convID];
+	if(!convInfo)
+		return;
+
+
+	target.replaceWith(ConvChatWindow._get_message_element(convInfo, msg).rootElem)
+});
