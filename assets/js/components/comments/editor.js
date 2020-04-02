@@ -29,10 +29,6 @@ ComunicWeb.components.comments.editor = {
 					ComunicWeb.common.notificationSystem.showNotification(lang("comments_editor_err_update"), "danger");
 					return;
 				}
-
-				//Else perform next actions
-				//Reload the comment
-				ComunicWeb.components.comments.actions.reload(infos.ID, root);
 			});
 
 		}

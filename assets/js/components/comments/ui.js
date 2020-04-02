@@ -112,6 +112,9 @@ const CommentsUI = {
 			emptyElem(target);
 			var commentContainer = target;
 		}
+
+		// Save comment ID for later use
+		commentContainer.setAttribute("data-comment-id", infos.ID)
 		
 
 		//Add user image
@@ -312,4 +315,15 @@ document.addEventListener("new_comment", async (e) => {
 	});
 
 	CommentsUI._show_comment(comment, await userInfo(comment.userID), newCommentTarget)
+})
+
+// Register to comments updates events
+document.addEventListener("commentUpdated", async (e) => {
+	const comment = e.detail;
+	const target = document.querySelector("[data-comment-id='"+comment.ID+"']");
+
+	if(target == null)
+		return;
+
+	CommentsUI._show_comment(comment, await userInfo(comment.userID), target)	
 })

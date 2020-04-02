@@ -202,6 +202,10 @@ class UserWebSocket {
 				SendEvent("new_comment", msg.data);
 				break;
 
+			case "comment_updated":
+				SendEvent("commentUpdated", msg.data);
+				break;
+
 			default:
 				console.error("WS Unspported kind of message!", msg);
 				break;
