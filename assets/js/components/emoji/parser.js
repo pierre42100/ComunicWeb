@@ -33,7 +33,7 @@ ComunicWeb.components.emoji.parser = {
 
 		// Parse custom semicolons
 		if(info.user)
-			console.log(info.user);//info.element.innerHTML = this.parseCustomEmojis(infos.elements.innerHTML)
+			info.element.innerHTML = this.parseCustomEmojis(info.user, info.element.innerHTML)
 		else
 			console.error("User information are missing!")
 
@@ -103,7 +103,19 @@ ComunicWeb.components.emoji.parser = {
 
 		//Return result
 		return string;
-	}
+	},
 
+	/**
+	 * Apply custom emojies
+	 * 
+	 * @param {User} user Information about the user
+	 * @param {String} input Text to transform
+	 */
+	parseCustomEmojis: function(user, input) {
+		for(const e  of user.customEmojis) {
+			input = input.replace(new RegExp(e.shorcut, "g"), "<img src='"+e.url+"' class='emoji' alt='"+e.shorcut+"' title='"+e.shorcut+"'/>")
+		}
 
+		return input
+	},
 }
