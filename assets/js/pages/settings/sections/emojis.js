@@ -209,6 +209,10 @@ class EmojiesSection {
 
 				cb()
 
+				// Recreate form
+				box.remove();
+				this.AddUploadForm(target, cb);
+
 			} catch(e) {
 				console.error(e);
 				notify("Could not upload new emoji!", "danger");
