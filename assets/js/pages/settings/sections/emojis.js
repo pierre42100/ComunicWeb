@@ -56,7 +56,7 @@ class EmojiesSection {
 			const emojies = (await userInfo(userID(), true)).customEmojis;
 
 			if(emojies.length == 0) {
-				target.innerHTML = "<p>There is no custom emojis yet</p>"
+				target.innerHTML = "<tr><td>There is no custom emojis yet</td></tr>"
 			}
 
 			for(const e of emojies) {
