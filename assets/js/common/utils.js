@@ -783,3 +783,12 @@ function IsFullScreen(){
 		document.mozFullScreenElement ||
 		document.msFullscreenElement;
 }
+
+/**
+ * Check an emoji code
+ * 
+ * @param s The emoji code to check
+ */
+function checkEmojiCode(s) {
+	return s.match(/^:[a-zA-Z0-9]+:$/) != null
+}

@@ -158,5 +158,21 @@ ComunicWeb.components.settings.interface = {
 			visibility: visibility
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
-	}
+	},
+
+	/**
+	 * Upload a new custom emoji on the server
+	 * 
+	 * @param {FormData} form Associated form
+	 */
+	uploadEmoji: async function(form) {
+		return new Promise((res, err) => {
+			ComunicWeb.common.api.makeFormDatarequest("settings/upload_custom_emoji", form, true, (data) => {
+				if(data.error)
+					err(data.error);
+				else
+					res(data)
+			})
+		})
+	},
 }
