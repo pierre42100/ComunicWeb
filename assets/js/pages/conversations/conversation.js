@@ -622,3 +622,14 @@ document.addEventListener("updatedConvMessage", (e) => {
 
 	target.replaceWith(newMessageContent)
 })
+
+// Register to conversation message deletion event
+document.addEventListener("deletedConvMessage", (e) => {
+	const msgID = e.detail;
+
+	const target = document.querySelector("[data-chatpage-msg-text-id='"+msgID+"']")
+	if(!target)
+		return;
+	
+	target.parentNode.remove()
+})
