@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.settings.interface = {
+const SettingsInterface = {
 
 	/**
 	 * Get general account settings
@@ -175,4 +175,17 @@ ComunicWeb.components.settings.interface = {
 			})
 		})
 	},
+
+	/**
+	 * Delete a custom emoji
+	 * 
+	 * @param {Number} id The ID of the emoji to delete
+	 */
+	deleteEmoji: async function(id) {
+		await api("settings/delete_custom_emoji", {
+			emojiID: id
+		}, true);
+	},
 }
+
+ComunicWeb.components.settings.interface = SettingsInterface;

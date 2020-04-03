@@ -72,10 +72,36 @@ class EmojiesSection {
 
 
 				line.innerHTML += "<td><img class='e' src='"+e.url+"' /></td>" +
-					"<td>"+e.shorcut+"</td>" 
+					"<td>"+e.shorcut+"</td><td></td>" 
 				
 
+				// Add delete button
+				const deleteBtnTarget = line.querySelector("td:last-of-type")
 
+				const deleteButtonLink = createElem2({
+					appendTo: deleteBtnTarget,
+					type: "a",
+					innerHTML: "<i class='fa fa-trash'></i>"
+				});
+	
+				deleteButtonLink.addEventListener("click", () => {
+
+					ComunicWeb.common.messages.confirm("Do you really want to delete this emoji ?", async (confirm) => {
+						if(!confirm)
+							return;
+
+						try {
+							await SettingsInterface.deleteEmoji(e.id)
+						
+							this.RefreshList(target);
+						} catch(e) {
+							console.error(e);
+							notify("Could not delete emoji!", "danger")
+						}
+
+					})
+
+				})
 			}
 
 		} catch (error) {
@@ -179,7 +205,7 @@ class EmojiesSection {
 				fd.append("shorcut", shorcut)
 				fd.append("image", associatedImage.files[0])
 
-				await ComunicWeb.components.settings.interface.uploadEmoji(fd)
+				await SettingsInterface.uploadEmoji(fd)
 
 				cb()
 
