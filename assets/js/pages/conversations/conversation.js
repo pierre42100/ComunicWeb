@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.pages.conversations.conversation = {
+const ConversationPageConvPart = {
 
 	/**
 	 * Conversation information
@@ -274,16 +274,18 @@ ComunicWeb.pages.conversations.conversation = {
 		});
 
 		//Add message content container
-		var messageContentContainer = createElem2({
+		const messageContentContainer = createElem2({
 			appendTo: messageContainer,
 			type: "div",
 			class: "direct-chat-text",
 		});
+		messageContentContainer.setAttribute("data-chatpage-msg-text-id",  info.ID)
 
 		//Message content
 		var messageContent = createElem2({
 			appendTo: messageContentContainer,
 			type: "div",
+			class: "txt",
 			innerHTML: removeHtmlTags(info.message)
 		});
 
@@ -587,10 +589,36 @@ ComunicWeb.pages.conversations.conversation = {
 
 };
 
+ComunicWeb.pages.conversations.conversation = ConversationPageConvPart;
+
 // Register to new messages
 document.addEventListener("newConvMessage", (e) => {
 	const msg = e.detail;
 	
 	if(ComunicWeb.pages.conversations.conversation._conv_info.id == msg.convID)
 	ComunicWeb.pages.conversations.conversation.applyMessages([msg]);
+})
+
+// Register to message update events
+document.addEventListener("updatedConvMessage", (e) => {
+	const msg = e.detail;
+
+	const target = document.querySelector("[data-chatpage-msg-text-id='"+msg.ID+"'] .txt")
+	if(!target)
+		return;
+	
+	
+	//Message content
+	const newMessageContent = createElem2({
+		type: "div",
+		class: "txt",
+		innerHTML: removeHtmlTags(msg.message)
+	});
+
+	//Parse message content
+	ComunicWeb.components.textParser.parse({
+		element: newMessageContent
+	});
+
+	target.replaceWith(newMessageContent)
 })
