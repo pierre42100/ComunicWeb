@@ -26,16 +26,22 @@ ComunicWeb.components.emoji.parser = {
 	 * @info {HTMLElement} element The element to parse
 	 * @return {Boolean} True for a success
 	 */
-	parse: function(infos){
+	parse: function(info){
 
 		//Peform string parsing
-		infos.element.innerHTML = this.shorcutToHTMLcode(infos.element.innerHTML);
+		info.element.innerHTML = this.shorcutToHTMLcode(info.element.innerHTML);
+
+		// Parse custom semicolons
+		if(info.user)
+			console.log(info.user);//info.element.innerHTML = this.parseCustomEmojis(infos.elements.innerHTML)
+		else
+			console.error("User information are missing!")
 
 		//Perform colon conversion
-		infos.element.innerHTML = this.colonConversion(infos.element.innerHTML);
+		info.element.innerHTML = this.colonConversion(info.element.innerHTML);
 
 		//Perform Twitter parsing
-		this.twitterEmojiesParsing(infos.element);
+		this.twitterEmojiesParsing(info.element);
 
 		//Success
 		return true;

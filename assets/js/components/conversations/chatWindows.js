@@ -891,10 +891,11 @@ const ConvChatWindow = {
 		});
 
 		//Load user informations
+		let userInfos;
 		if(conversationInfo.membersInfos["user-" + message.ID_user]){
 
 			//Get informations
-			var userInfos = conversationInfo.membersInfos["user-" + message.ID_user];
+			userInfos = conversationInfo.membersInfos["user-" + message.ID_user];
 
 			//Replace poster name
 			usernameElem.innerHTML = userInfos.firstName + " " + userInfos.lastName;
@@ -953,6 +954,7 @@ const ConvChatWindow = {
 		//Parse emojies in text message
 		ComunicWeb.components.textParser.parse({
 			element: textMessage,
+			user: userInfos,
 		});
 
 

@@ -231,7 +231,8 @@ const CommentsUI = {
 
 		//Parse emojies
 		ComunicWeb.components.textParser.parse({
-			element: commentContent
+			element: commentContent,
+			user: user
 		});
 
 		//Add comment image (if any)

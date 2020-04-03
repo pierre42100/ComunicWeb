@@ -291,7 +291,8 @@ const ConversationPageConvPart = {
 
 		//Parse message content
 		ComunicWeb.components.textParser.parse({
-			element: messageContent
+			element: messageContent,
+			user: this._conv_info.users["user-" + info.ID_user]
 		});
 
 		//Message image (if any)
@@ -600,7 +601,7 @@ document.addEventListener("newConvMessage", (e) => {
 })
 
 // Register to message update events
-document.addEventListener("updatedConvMessage", (e) => {
+document.addEventListener("updatedConvMessage", async (e) => {
 	const msg = e.detail;
 
 	const target = document.querySelector("[data-chatpage-msg-text-id='"+msg.ID+"'] .txt")
@@ -617,7 +618,8 @@ document.addEventListener("updatedConvMessage", (e) => {
 
 	//Parse message content
 	ComunicWeb.components.textParser.parse({
-		element: newMessageContent
+		element: newMessageContent,
+		user: await userInfo(info.ID_user)
 	});
 
 	target.replaceWith(newMessageContent)

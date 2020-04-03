@@ -262,7 +262,8 @@ ComunicWeb.pages.userPage.profileInfos = {
 
 			//Parse text
 			ComunicWeb.components.textParser.parse({
-				element: publicNotes
+				element: publicNotes,
+				user: infos
 			});
 
 			//Add separator

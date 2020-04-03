@@ -25,7 +25,8 @@ ComunicWeb.components.textParser = {
 
 		//Parse emojies
 		ComunicWeb.components.emoji.parser.parse({
-			element: info.element
+			element: info.element,
+			user: info.user
 		});
 
 		//Parse users tags

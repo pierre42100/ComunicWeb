@@ -12,7 +12,7 @@ ComunicWeb.components.posts.ui = {
 	 * @param {Object} infos Informations about the post
 	 * @param {HTMLElement} target The target for the post
 	 */
-	display_post: function(info, target) {
+	display_post: async function(info, target) {
 
 		//Check if it is required to create a post root element or not
 		if(target.className.includes("post"))
@@ -867,7 +867,8 @@ ComunicWeb.components.posts.ui = {
 
 		//Parse emojies
 		ComunicWeb.components.textParser.parse({
-			element: postContent
+			element: postContent,
+			user: await userInfo(info.userID)
 		});
 
 		//Add bottom elements container
