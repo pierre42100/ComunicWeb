@@ -186,14 +186,14 @@ function getUserInfo(usersID, afterGetUserInfo, forceRequest){
  * 
  * @param {Number} userID Target user ID
  */
-function userInfo(userID) {
+function userInfo(userID, force = false) {
     return new Promise((res, err) => {
         getUserInfo(userID, (data) => {
             if(data.error)
                 err(data.error)
             else
                 res(data)
-        }, false);
+        }, force);
     });
 }
 

@@ -78,6 +78,20 @@ ComunicWeb.pages.settings.navigationPane = {
 			openPage("settings/language");
 		};
 
+		// Custom emojies
+		const sectionEmojies = createElem2({
+			appendTo: elemList,
+			type: "li",
+		});
+		var sectionEmojiesLink = createElem2({
+			appendTo: sectionEmojies,
+			type: "a",
+			innerHTML: "<i class='fa fa-smile-o'></i> Custom emojis"
+		});
+		sectionEmojiesLink.onclick = function(){
+			openPage("settings/emojies");
+		};
+
 		//Account security
 		var sectionSecurity = createElem2({
 			appendTo: elemList,

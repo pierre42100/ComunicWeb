@@ -1,0 +1,15 @@
+/**
+ * Custom emojis settings
+ *
+ * @author Pierre Hubert
+ */
+
+.box-emojis-settings td {
+	height: 69px;
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.box-emojis-settings img.e {
+	height: 2em;
+}

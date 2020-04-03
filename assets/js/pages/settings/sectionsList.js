@@ -23,6 +23,14 @@ ComunicWeb.pages.settings.sectionsList = {
 	},
 
 	/**
+	 * Custom emojies
+	 */
+	emojies: {
+		title: "Custom emojis",
+		handler: "EmojiesSection.Open"
+	},
+
+	/**
 	 * Security settings
 	 */
 	security: {
