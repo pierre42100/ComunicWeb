@@ -1189,3 +1189,15 @@ document.addEventListener("updatedConvMessage", (e) => {
 
 	target.replaceWith(ConvChatWindow._get_message_element(convInfo, msg).rootElem)
 });
+
+// Register to message deletion events
+document.addEventListener("deletedConvMessage", (e) => {
+	const msgID = e.detail;
+
+	// Get message target
+	const target = document.querySelector("[data-chatwin-msg-id='"+msgID+"'] .direct-chat-text");
+	if(!target)
+		return;
+	
+	target.style.display = "none";
+})

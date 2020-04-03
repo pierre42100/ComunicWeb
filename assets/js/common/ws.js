@@ -202,6 +202,10 @@ class UserWebSocket {
 				SendEvent("updatedConvMessage", msg.data);
 				break;
 			
+			case "deleted_conv_message":
+				SendEvent("deletedConvMessage", msg.data.ID);
+				break;
+			
 			case "new_comment":
 				SendEvent("new_comment", msg.data);
 				break;
