@@ -357,6 +357,9 @@ const SidebarMain = {
 			flex: 2,
 			height: "100%"
 		});
+
+		// Highlight active element
+		SidebarMain.refreshActiveElement()
 	},
 
 
@@ -373,6 +376,8 @@ const SidebarMain = {
 			appendTo: target,
 			type: "li"
 		});
+		li.setAttribute("data-membership-user-id", user.id)
+
 
 		let a = createElem2({
 			appendTo: li,
@@ -471,6 +476,7 @@ const SidebarMain = {
 			appendTo: target,
 			type: "li"
 		});
+		li.setAttribute("data-membership-group-id", group.id)
 
 		let a = createElem2({
 			appendTo: li,
@@ -579,6 +585,14 @@ const SidebarMain = {
 		const currPage = ComunicWeb.common.url.getCurrentWebsiteURL();
 
 		let query = false;
+
+		// Friends
+		if(currPage.startsWith("user/"))
+			query = "[data-membership-user-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
+
+		// Groups
+		if(currPage.startsWith("groups/"))
+			query = "[data-membership-group-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
 
 		// Conversations
 		if(currPage.startsWith("conversations/"))
