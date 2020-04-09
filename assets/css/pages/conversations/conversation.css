@@ -4,6 +4,14 @@
  * @author Pierre HUBERT
  */
 
+.big-box-conversation .direct-chat-info span {
+	margin-right: 10px;
+}
+
+.big-box-conversation .direct-chat-msg {
+	margin-bottom: 15px;
+}
+
 .big-box-conversation .direct-chat-text {
 	display: inline-block;
 	margin-left: 10px;
@@ -11,9 +19,15 @@
 	word-wrap: break-word;
 }
 
-.big-box-conversation .right .direct-chat-text {
-	float: right;
-	margin-right: 10px;
+.big-box-conversation .direct-chat-msg.curruser .direct-chat-text::after,
+.big-box-conversation .direct-chat-msg.curruser .direct-chat-text::before {
+	border-right-color: #3c8dbc;
+}
+
+.big-box-conversation .direct-chat-msg.curruser .direct-chat-text {
+	background: #3c8dbc;
+	border-color: #3c8dbc;
+	color: white;
 }
 
 .big-box-conversation .direct-chat-text .message-img {

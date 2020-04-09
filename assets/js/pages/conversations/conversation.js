@@ -229,7 +229,7 @@ const ConversationPageConvPart = {
 		//Create message container
 		var messageContainer = createElem2({
 			type: "div",
-			class: "direct-chat-msg " + (userIsOwner ? "right" : "")
+			class: "direct-chat-msg " + (userIsOwner ? "curruser" : "")
 		});
 
 		//Apply message container
@@ -253,7 +253,7 @@ const ConversationPageConvPart = {
 		var nameContainer = createElem2({
 			appendTo: topInformation,
 			type: "span",
-			class: "direct-chat-name pull-right",
+			class: "direct-chat-name",
 			innerHTML: "Loading"
 		});
 
@@ -261,7 +261,7 @@ const ConversationPageConvPart = {
 		createElem2({
 			appendTo: topInformation,
 			type: "span",
-			class: "direct-chat-timestamp pull-left",
+			class: "direct-chat-timestamp",
 			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.time_insert)
 		});
 
