@@ -3,7 +3,7 @@
  * 
  * @author Pierre HUBERT
  */
-ComunicWeb.components.sideBar.main = {
+const SidebarMain = {
 	show: function() {
 
 		if(byId("main-sidebar")) return;
@@ -403,7 +403,7 @@ ComunicWeb.components.sideBar.main = {
 			innerHTML: "<small class='label pull-right'><i class='fa fa-comments'></i></small>",
 			onclick: (e) => {
 				e.stopImmediatePropagation();
-				ComunicWeb.components.conversations.manager.openPrivate(user.userID);
+				ComunicWeb.components.conversations.manager.openPrivate(user.id);
 			}
 		});
 
@@ -530,6 +530,7 @@ ComunicWeb.components.sideBar.main = {
 			type: "li",
 			class: "conversation_memberhsip"
 		});
+		li.setAttribute("data-membership-conv-id", conv.ID)
 
 		let a = createElem2({
 			appendTo: li,
@@ -558,5 +559,44 @@ ComunicWeb.components.sideBar.main = {
 			innerHTML: timeDiffToStr(conv.last_active)
 		});
 
-	}
+	},
+
+	/**
+	 * Refresh currently active element in the sidebar
+	 */
+	refreshActiveElement: function() {
+		// Search for target
+		const list = document.querySelector(".memberships-list");
+		if(!list)
+			return;
+		
+		// Remove previously active element (if any)
+		const activeElem = list.querySelector("li.active");
+		if(activeElem)
+			activeElem.classList.remove("active")
+		
+		// Check for target element
+		const currPage = ComunicWeb.common.url.getCurrentWebsiteURL();
+
+		let query = false;
+
+		// Conversations
+		if(currPage.startsWith("conversations/"))
+			query = "[data-membership-conv-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
+		
+
+
+
+		// Query element
+		const target = list.querySelector(query);
+		if(target)
+			target.classList.add("active");
+	},
 }
+
+ComunicWeb.components.sideBar.main = SidebarMain
+
+// Register to page change events (to refresh active element)
+document.addEventListener("openPage", (e) => {
+	SidebarMain.refreshActiveElement()
+})

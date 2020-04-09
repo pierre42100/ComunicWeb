@@ -67,7 +67,7 @@ function openPage(pageURI, additionnalData){
  */
 function openUserPage(user){
     if(user.virtualDirectory == "")
-        openUserPageFromID(user.userID);
+        openUserPageFromID(user.userID ? user.userID : user.id);
     else
         openPage(user.virtualDirectory);
 }
