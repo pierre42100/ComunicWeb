@@ -75,12 +75,12 @@ const SidebarMain = {
 		this.addSearchForm(section);
 
 		// User memberships
-		createElem2({
+		/*createElem2({
 			appendTo: section,
 			type: "div",
 			class: "intermediate-label hide-on-collapse",
 			innerHTML: "FRIENDS & GROUPS"
-		});
+		});*/
 		let userMemberships = createElem2({
 			appendTo: section,
 			type: "div",
@@ -543,6 +543,11 @@ const SidebarMain = {
 			class: "conversation_memberhsip"
 		});
 		li.setAttribute("data-membership-conv-id", conv.ID)
+
+		// Check for unread messages
+		if(!conv.saw_last_message) {
+			li.classList.add("has-unread-msg");
+		}
 
 		let a = createElem2({
 			appendTo: li,
