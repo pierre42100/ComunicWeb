@@ -15,9 +15,8 @@ ComunicWeb.pages.conversations.listPane = {
 	 * Display the list of conversation
 	 * 
 	 * @param {HTMLElement} target The target of the page
-	 * @param {Object} args Additional arguments
 	 */
-	display: function(target, args){
+	display: function(target){
 
 		//Create the box
 		var listBox = createElem2({
@@ -58,13 +57,13 @@ ComunicWeb.pages.conversations.listPane = {
 			}
 
 			//Load the list of conversations
-			ComunicWeb.pages.conversations.listPane.refresh_list(boxBody, args);
+			ComunicWeb.pages.conversations.listPane.refresh_list(boxBody);
 
 		}, 5000);
 
 		//Force load the list of conversations
 		ComunicWeb.pages.conversations.listPane._curr_list = null;
-		ComunicWeb.pages.conversations.listPane.refresh_list(boxBody, args);
+		ComunicWeb.pages.conversations.listPane.refresh_list(boxBody);
 		
 	},
 
@@ -72,9 +71,8 @@ ComunicWeb.pages.conversations.listPane = {
 	 * Refresh the list of conversations
 	 * 
 	 * @param {HTMLElement} target The target for the list
-	 * @param {Object} args Additionnal arguments
 	 */
-	refresh_list: function(target, args){
+	refresh_list: function(target){
 
 		//Loading message, if required
 		if(target.childElementCount == 0){
@@ -110,7 +108,7 @@ ComunicWeb.pages.conversations.listPane = {
 			emptyElem(target); //Remove any previously shown list
 
 			//Display the list of conversations
-			ComunicWeb.pages.conversations.listPane._display_list(target, result, args);
+			ComunicWeb.pages.conversations.listPane._display_list(target, result);
 		});
 
 	},
@@ -121,9 +119,8 @@ ComunicWeb.pages.conversations.listPane = {
 	 * 
 	 * @param {HTMLElement} target The target for the list
 	 * @param {Object} list The list of conversations
-	 * @param {Object} args Additional arguments
 	 */
-	_display_list: function(target, list, args){
+	_display_list: function(target, list){
 
 		//Create the conversations container
 		var conversationsContainer = createElem2({
@@ -132,16 +129,13 @@ ComunicWeb.pages.conversations.listPane = {
 			class: "nav nav-pills nav-stacked"
 		});
 
-		//Make sure there isn't any selected conversation currently
-		args.selected_conversation = null;
-
 		//Process the list of conversations
 		for (var num in list) {
 			if (list.hasOwnProperty(num)) {
 				var conversation = list[num];
 				
 				//Display conversation element
-				args = this._display_entry(conversationsContainer, conversation, args);
+				this._display_entry(conversationsContainer, conversation);
 			}
 		}
 		
@@ -149,21 +143,7 @@ ComunicWeb.pages.conversations.listPane = {
 		ComunicWeb.pages.conversations.utils.enableSlimScroll(
 			conversationsContainer, 
 			ComunicWeb.pages.conversations.utils.getAvailableHeight(), 
-			0);
-
-		//Scroll to selected conversation, if possible
-		if(args.selected_conversation != null){
-			var newScrollPos = args.selected_conversation.offsetTop - 30;
-			if(newScrollPos < 0)
-				newScrollPos = 0;
-
-			//Enable slimscroll again
-			ComunicWeb.pages.conversations.utils.enableSlimScroll(
-				conversationsContainer, 
-				ComunicWeb.pages.conversations.utils.getAvailableHeight() + 55, 
-				newScrollPos);
-		}
-		
+			0);	
 	},
 
 	/**
@@ -171,10 +151,8 @@ ComunicWeb.pages.conversations.listPane = {
 	 * 
 	 * @param {HTMLElement} target The target for the conversation
 	 * @param {Object} info Information about the conversation to display
-	 * @param {Object} args Additional arguments
-	 * @return Additional arguments (may be modified)
 	 */
-	_display_entry: function(target, info, args) {
+	_display_entry: function(target, info) {
 
 		//Create conversation container element
 		var convContainer = createElem2({
@@ -196,16 +174,9 @@ ComunicWeb.pages.conversations.listPane = {
 			convLink.className += " selected";
 
 			//Open the conversation
-			args.opener(info.ID);
+			openPage("conversations/"+info.ID)
 		});
 
-		//Check if it is the current conversation
-		if(args.getCurrentID() == info.ID){
-			convLink.className += " selected";
-
-			//Save selected conversation link
-			args.selected_conversation = convContainer;
-		}
 
 		//Add conversation last activity on the rigth
 		var lastActivityContainer = createElem2({
@@ -249,9 +220,6 @@ ComunicWeb.pages.conversations.listPane = {
 			type: "span",
 			innerHTML: (info.members.length === 1 ? "1 member" : info.members.length + " members")
 		});
-
-		//Return the list of arguments
-		return args;
 	}
 
 }

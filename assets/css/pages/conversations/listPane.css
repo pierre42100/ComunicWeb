@@ -6,6 +6,8 @@
 
 .conversations-page-container .conversations-list-box {
 	max-height: 100%;
+	max-width: 300px;
+	margin: auto;
 }
 
 .conversations-page-container .conversations-list-box ul {
