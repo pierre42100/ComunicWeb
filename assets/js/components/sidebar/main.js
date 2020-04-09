@@ -534,7 +534,7 @@ ComunicWeb.components.sideBar.main = {
 		let a = createElem2({
 			appendTo: li,
 			type: "a",
-			onclick: () => alert("implement me")  // TODO implement
+			onclick: () => openConversation(conv.ID, true)
 		});
 
 		// Icon
