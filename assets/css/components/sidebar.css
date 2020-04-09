@@ -85,6 +85,24 @@ body.sidebar-collapse .sidebar-menu {
 	font-size: 90%;
 }
 
+
+/**
+ * Conversations entries
+ */
+
+.main-sidebar .memberships-list .conversation_memberhsip a {
+	padding: 5px 5px 5px 15px;
+}
+
+.main-sidebar .memberships-list .conversation_memberhsip span {
+	font-size: 90%;
+}
+
+.main-sidebar .memberships-list .conversation_memberhsip .subinfo {
+	font-size: 80%;
+}
+
+
 body.sidebar-collapse .main-sidebar .memberships-list .subinfo {
 	display: none;
 }
@@ -101,7 +119,6 @@ body.sidebar-collapse .main-sidebar .memberships-list li:hover .subinfo {
 	margin: 7px -3px;
 	padding-left: 20px;
 }
-
 
 /**
  * Conversations

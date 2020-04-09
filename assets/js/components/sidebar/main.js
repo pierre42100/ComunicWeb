@@ -322,7 +322,7 @@ ComunicWeb.components.sideBar.main = {
 	 * @param {*} memberships 
 	 * @param {*} users 
 	 * @param {*} groups 
-	 * @param {*} convs
+	 * @param {Map<number, String>} convs
 	 */
 	applyMemberships: function(target, memberships, users, groups, convs) {
 
@@ -342,6 +342,9 @@ ComunicWeb.components.sideBar.main = {
 			
 			if(e.type == "group")
 				this.applyGroup(friendsTarget, groups.get(e.id), e.last_activity);
+			
+			if(e.type == "conversation")
+				this.applyConversation(friendsTarget, e.conv, convs.get(e.conv.ID));
 		});
 
 		createElem2({
@@ -512,4 +515,48 @@ ComunicWeb.components.sideBar.main = {
 			subInfoEl.innerHTML = timeDiffToStr(lastactive);
 
 	},
+
+	/**
+	 * Apply a conversation
+	 * 
+	 * @param {HTMLElement} target
+	 * @param {Array<any>} conv
+	 * @param {String} name
+	 */
+	applyConversation: function(target, conv, name) {
+
+		let li = createElem2({
+			appendTo: target,
+			type: "li",
+			class: "conversation_memberhsip"
+		});
+
+		let a = createElem2({
+			appendTo: li,
+			type: "a",
+			onclick: () => alert("implement me")  // TODO implement
+		});
+
+		// Icon
+		createElem2({
+			appendTo: a,
+			type: "i",
+			class: "fa fa-comments"
+		});
+
+		// Conversation name
+		createElem2({
+			appendTo: a,
+			type: "span",
+			innerHTML: name
+		});
+
+		let subInfoEl = createElem2({
+			appendTo: a,
+			type: "div",
+			class: "subinfo",
+			innerHTML: timeDiffToStr(conv.last_active)
+		});
+
+	}
 }
