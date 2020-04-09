@@ -311,7 +311,7 @@ ComunicWeb.components.sideBar.main = {
 	refreshMemberships: function(target){
 		ComunicWeb.components.webApp.interface.getMemberships(
 			() => notify("Could not refresh your memberships!", "error"), 
-			(m, u, g) => this.applyMemberships(target, m, u, g)
+			(m, u, g, c) => this.applyMemberships(target, m, u, g, c)
 		);
 	},
 
@@ -322,8 +322,9 @@ ComunicWeb.components.sideBar.main = {
 	 * @param {*} memberships 
 	 * @param {*} users 
 	 * @param {*} groups 
+	 * @param {*} convs
 	 */
-	applyMemberships: function(target, memberships, users, groups) {
+	applyMemberships: function(target, memberships, users, groups, convs) {
 
 		// Empty liste
 		target.innerHTML = "";
@@ -337,10 +338,10 @@ ComunicWeb.components.sideBar.main = {
 		memberships.forEach(e => {
 
 			if(e.type == "friend")
-				this.applyFriend(friendsTarget, e.friend, users["user-"+e.friend.ID_friend]);
+				this.applyFriend(friendsTarget, e.friend, users.get(e.friend.ID_friend));
 			
 			if(e.type == "group")
-				this.applyGroup(friendsTarget, groups[e.id], e.last_activity);
+				this.applyGroup(friendsTarget, groups.get(e.id), e.last_activity);
 		});
 
 		createElem2({
@@ -381,7 +382,7 @@ ComunicWeb.components.sideBar.main = {
 			appendTo: a,
 			type: "img",
 			class: "img-circle",
-			src: user.accountImage
+			src: user.image
 		});
 
 		// User name

@@ -10,46 +10,41 @@ ComunicWeb.components.webApp.interface = {
 	 * Get all the membership of the user
 	 * 
 	 * @param {Function} err Function called in case of errors
-	 * @param {Function(memberships, usersInfo, groupsInfo) : void} success Function called in case of success
+	 * @param {Function(memberships, usersInfo, groupsInfo, convNames) : void} success Function called in case of success
 	 */
-	getMemberships: function(err, success) {
+	getMemberships: async function(err, success) {
 
-		// Peform the request on the server
-		ComunicWeb.common.api.makeAPIrequest(
-			"webApp/getMemberships", 
-			{}, 
-			true,
-			memberships => {
-				
-				// Check for error
-				if(memberships.error)
-					return err(memberships.error);
-				
-				// Get users & groups ID in case of success
-				let usersID = [];
-				let groupsID = [];
+		try {
 
-				memberships.forEach(el => {
-					if(el.type == "friend")
-						usersID.push(el.friend.ID_friend);
-					else
-						groupsID.push(el.id);
-				});
+			// Get the list of memberships
+			const memberships = await api("webApp/getMemberships", {}, true);
 
-				getMultipleUsersInfo(usersID, users => {
-					if(users.error)
-						return err(memberships.error);
-					
-					getInfoMultipleGroups(groupsID, groupsInfo => {
-						if(groupsInfo.error)
-							return err(groupsInfo.error);
-						
-						success(memberships, users, groupsInfo);
-					});
-				});
+			// Get users & groups ID in case of success
+			const usersID = [];
+			const groupsID = [];
 
-			}
-		);
+			memberships.forEach(el => {
+				if(el.type == "friend")
+					usersID.push(el.friend.ID_friend);
+				else if(el.type == "group")
+					groupsID.push(el.id);
+			});
+
+			const usersInfo = await getUsers(usersID);
+			const groupsInfo = await getGroups(groupsID);
+
+			// Get conversations name
+			const convNames = new Map()
+			for(const el of memberships.filter(el => el.type == "conversation"))
+				convNames.set(el.conv.ID, await getConvName(el.conv))
+
+			success(memberships, usersInfo, groupsInfo, convNames);
+
+		} catch(e) {
+			console.error("Get memberships error", e)
+			err();
+		}
+
 
 	}
 

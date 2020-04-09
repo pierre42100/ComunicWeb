@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.conversations.utils = {
+const ConversationsUtils = {
 
 	/**
 	 * Given conversation informations, returns its name
@@ -128,4 +128,19 @@ ComunicWeb.components.conversations.utils = {
 		//Return result
 		return form;
 	},
+}
+
+ComunicWeb.components.conversations.utils = ConversationsUtils;
+
+
+/**
+ * Get information about a conversation
+ * 
+ * @param {Conversation} conv Information about the
+ * target conversation
+ */
+async function getConvName(conv) {
+	return new Promise((res, rej) => {
+		ConversationsUtils.getName(conv, (name) => res(name));
+	})
 }
