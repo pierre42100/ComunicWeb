@@ -17,6 +17,10 @@ class Group {
 		this.virtual_directory = info.virtual_directory;
 		this.visibility = info.visibility;
 	}
+
+	get hasVirtualDirectory() {
+		return this.virtual_directory;
+	}
 }
 
 class GroupsList {

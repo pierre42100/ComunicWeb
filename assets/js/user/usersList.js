@@ -21,10 +21,24 @@ class User {
 	}
 
 	/**
+	 * Backward compatibility
+	 */
+	get userID() {
+		return this.id
+	}
+
+	/**
 	 * Get the full name of the user
 	 */
 	get fullName() {
 		return this.firstName + " " + this.lastName;
+	}
+
+	/**
+	 * Check out whether a given user has a virtual directory or not
+	 */
+	get hasVirtualDirectory() {
+		return this.virtualDirectory;
 	}
 }
 

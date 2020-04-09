@@ -368,7 +368,7 @@ const SidebarMain = {
 	 * 
 	 * @param {HTMLElement} target 
 	 * @param {*} friend 
-	 * @param {*} user 
+	 * @param {User} user 
 	 */
 	applyFriend: function(target, friend, user) {
 
@@ -377,6 +377,9 @@ const SidebarMain = {
 			type: "li"
 		});
 		li.setAttribute("data-membership-user-id", user.id)
+
+		if(user.hasVirtualDirectory)
+			li.setAttribute("data-membership-dir", user.virtualDirectory)
 
 
 		let a = createElem2({
@@ -467,7 +470,7 @@ const SidebarMain = {
 	 * Apply group information
 	 * 
 	 * @param {HTMLElement} target 
-	 * @param {*} group 
+	 * @param {Group} group 
 	 * @param {*} lastactive 
 	 */
 	applyGroup: function(target, group, lastactive) {
@@ -477,6 +480,9 @@ const SidebarMain = {
 			type: "li"
 		});
 		li.setAttribute("data-membership-group-id", group.id)
+
+		if(group.hasVirtualDirectory)
+			li.setAttribute("data-membership-dir", group.virtual_directory)
 
 		let a = createElem2({
 			appendTo: li,
@@ -591,14 +597,17 @@ const SidebarMain = {
 			query = "[data-membership-user-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
 
 		// Groups
-		if(currPage.startsWith("groups/"))
+		else if(currPage.startsWith("groups/"))
 			query = "[data-membership-group-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
 
 		// Conversations
-		if(currPage.startsWith("conversations/"))
+		else if(currPage.startsWith("conversations/"))
 			query = "[data-membership-conv-id=\""+currPage.split("/")[1].split("#")[0]+"\"]"
 		
-
+		// Search by virtual directory
+		else {
+			query = "[data-membership-dir=\""+currPage.split("/")[0].split("?")[0].split("#")[0]+"\"]";
+		}
 
 
 		// Query element
