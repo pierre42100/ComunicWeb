@@ -585,13 +585,8 @@ const ConvChatWindow = {
 	showCallButton: function(conversation){
 
 		//Check if calls are disabled
-		if(!ComunicWeb.components.calls.controller.isAvailable())
+		if(/*TODO : implement */false)
 			return;
-
-		//Check if it is a conversation with an exceptable number of members
-		if(conversation.infos.members.length < 2 
-			|| conversation.infos.members.length > ComunicWeb.components.calls.controller.getConfig().maximum_number_members)
-			return; 
 
 		//Add the call button
 		var button = createElem2({
@@ -603,7 +598,7 @@ const ConvChatWindow = {
 		conversation.box.callButton = button;
 
 		button.addEventListener("click", function(){
-			ComunicWeb.components.calls.controller.call(conversation.infos.ID);
+			// TODO : implement
 		});
 	},
 

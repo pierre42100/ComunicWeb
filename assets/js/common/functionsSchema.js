@@ -1164,66 +1164,6 @@ var ComunicWeb = {
 		},
 
 		/**
-		 * Calls component
-		 */
-		calls: {
-
-			/**
-			 * Calls configuration
-			 */
-			__config: undefined,
-
-			/**
-			 * Calls interface
-			 */
-			interface: {
-				//TODO : implement
-			},
-
-			/**
-			 * Calls controller
-			 */
-			controller: {
-				//TODO : implement
-			},
-
-			/**
-			 * Call window
-			 */
-			callWindow: {
-				//TODO : implement
-			},
-
-			/**
-			 * Current calls list
-			 */
-			currentList: {
-				//TODO : implement
-			},
-
-			/**
-			 * User media getter
-			 */
-			userMedia: {
-				//TODO : implement
-			},
-
-			/**
-			 * Ring screen
-			 */
-			ringScreen: {
-				//TODO : implement
-			},
-
-			/**
-			 * Calls utilities
-			 */
-			utils: {
-				//TODO : implement
-			},
-		},
-
-		/**
 		 * Web application interface
 		 */
 		webApp: {

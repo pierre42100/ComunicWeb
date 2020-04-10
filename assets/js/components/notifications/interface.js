@@ -25,18 +25,13 @@ ComunicWeb.components.notifications.interface = {
 	/**
 	 * Get the number of unread news such as notifications or conversations
 	 * 
-	 * @param {boolean} get_calls Get the number of pending calls
 	 * @param {function} callback
 	 */
-	getAllUnread: function(get_calls, callback){
+	getAllUnread: function(callback){
 
 		//Perform API request
 		var apiURI = "notifications/count_all_news";
 		var params = {};
-
-		//Check if we have to get the number of pending calls
-		if(get_calls)
-			params.include_calls = true;
 
 		//Perform the request
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
@@ -44,9 +39,9 @@ ComunicWeb.components.notifications.interface = {
 	},
 
 	// ASync version of previous request
-	asyncGetAllUnread: async function(getCalls) {
+	asyncGetAllUnread: async function() {
 		return await new Promise((res, err) => {
-			this.getAllUnread(getCalls, (data) => {
+			this.getAllUnread((data) => {
 				if(data.error)
 					err(data.error);
 				else

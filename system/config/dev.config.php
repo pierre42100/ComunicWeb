@@ -162,7 +162,6 @@ class Dev {
 
 		//Simple peer
 		array("path" => "3rdparty/simplepeer/simplepeer.min.js", "uglifyjs" => false),
-		array("path" => "3rdparty/SignalExchangerClient/SignalExchangerClient.js", "uglifyjs" => false)
 	);
 
 	/**
@@ -224,8 +223,7 @@ class Dev {
 			"css/components/incognito/ui.css",
 
 			//Calls component
-			"css/components/calls/callWindow.css",
-			"css/components/calls/ringScreen.css",
+			
 
 			//Sidebar component
 			"css/components/sidebar.css",
@@ -457,14 +455,8 @@ class Dev {
 			"js/components/incognito/management.js",
 			"js/components/incognito/keyboard.js",
 
-			//Calls compontent
-			"js/components/calls/interface.js",
-			"js/components/calls/controller.js",
-			"js/components/calls/callWindow.js",
-			"js/components/calls/currentList.js",
-			"js/components/calls/userMedia.js",
-			"js/components/calls/ringScreen.js",
-			"js/components/calls/utils.js",
+			//Calls component
+
 
 			// Web app component
 			"js/components/webApp/interface.js",
