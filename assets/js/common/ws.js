@@ -42,7 +42,10 @@ class UserWebSocket {
 			this.ws = new WebSocket(url);
 			
 			// Wait for connection
-			this.ws.addEventListener("open", () => console.log("Connected to websocket!"))
+			this.ws.addEventListener("open", () => {
+				console.info("Connected to websocket!");
+				SendEvent("wsOpen")
+			})
 			this.ws.addEventListener("error", (e) => this.Error(e))
 			this.ws.addEventListener("close", (e) => this.Closed(e));
 

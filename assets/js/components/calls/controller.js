@@ -25,6 +25,67 @@ class CallsController {
 		// Create a new window for the conversation
 		const window = new CallWindow(conv);
 		OpenConversations.set(conv.ID, window)
+		this.AddToLocalStorage(conv.ID);
+
+		window.on("close", () => {
+			OpenConversations.delete(conv.ID)
+			this.RemoveFromLocalStorage(conv.ID)
+		})
 	}
 
+
+	/**
+	 * Add the conversation to local storage
+	 * 
+	 * @param {number} convID Target conversation ID
+	 */
+	static AddToLocalStorage(convID) {
+		const list = this.GetListLocalStorage();
+		if(!list.includes(convID))
+			list.push(convID)
+		this.SetListLocalStorage(list)
+	}
+
+	/**
+	 * @param {number} convID Target conversation ID
+	 */
+	static RemoveFromLocalStorage(convID) {
+		this.SetListLocalStorage(
+			this.GetListLocalStorage().filter(e => e != convID)
+		)
+	}
+
+	/**
+	 * @return {number[]} The ID of the opened conversations
+	 */
+	static GetListLocalStorage() {
+		const content = localStorage.getItem("calls")
+		if(content == null)
+			return []
+		else
+			return JSON.parse(content).filter(e => e != null);
+	}
+
+	/**
+	 * Update the list of open calls
+	 * 
+	 * @param {number[]} list New list
+	 */
+	static SetListLocalStorage(list) {
+		localStorage.setItem("calls", JSON.stringify(list))
+	}
 }
+
+document.addEventListener("wsClosed", () => {
+	// Close all the current conversations
+	OpenConversations.forEach((v) => v.Close(false))
+
+	OpenConversations = new Map();
+})
+
+
+document.addEventListener("wsOpen", () => {
+	CallsController.GetListLocalStorage().forEach(async c => {
+		CallsController.Open(await getSingleConversation(c))
+	})
+})

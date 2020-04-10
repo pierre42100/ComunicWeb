@@ -5,7 +5,7 @@
  */
 
 
-class CallWindow {
+class CallWindow extends CustomEvents {
 
 	/**
 	 * Create a new call window
@@ -13,6 +13,7 @@ class CallWindow {
 	 * @param {Conversation} conv Information about the target conversation
 	 */
 	constructor(conv) {
+		super()
 		this.construct(conv);
 	}
 
@@ -48,8 +49,22 @@ class CallWindow {
 		this.closeButton = createElem2({
 			appendTo: windowHead.querySelector(".pull-right"),
 			type: "a",
-			innerHTML: "<i class='fa fa-cross'></i>"
+			innerHTML: "<i class='fa fa-cross'></i>",
+			onclick: () => this.Close()
 		})
+
 	}
 
+	/**
+	 * Close this window & cancel the call
+	 * 
+	 * @param {boolean} propagate Set to true to propagate
+	 * the event
+	 */
+	Close(propagate = true) {
+		this.rootEl.remove();
+
+		if(propagate)
+			this.emitEvent("closed");
+	}
 }

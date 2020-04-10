@@ -223,7 +223,7 @@ class Dev {
 			"css/components/incognito/ui.css",
 
 			//Calls component
-			
+			"css/components/calls/window.css",
 
 			//Sidebar component
 			"css/components/sidebar.css",
@@ -299,6 +299,7 @@ class Dev {
 
 		//Utilities
 		"js/common/utils.js",
+		"js/common/customEvents.js",
 
 		//Functions schema
 		"js/common/functionsSchema.js",

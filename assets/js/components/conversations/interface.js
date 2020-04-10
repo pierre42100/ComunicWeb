@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.conversations.interface = {
+const ConversationsInterface = {
 
 	/**
 	 * @var {Object} __conversationsList Cached list of conversations
@@ -485,6 +485,26 @@ ComunicWeb.components.conversations.interface = {
 		return true;
 	},
 }
+
+ComunicWeb.components.conversations.interface = ConversationsInterface;
+
+
+/**
+ * Get information about a single conversation
+ * 
+ * @param {number} convID The ID of the target conversation
+ */
+async function getSingleConversation(convID) {
+	return new Promise((res, err) => {
+		ConversationsInterface.getInfosOne(convID, (info) => {
+			if(info.error)
+				err(info.error)
+			else
+				res(info)
+		}, false)
+	})
+}
+
 
 //Register conversations cache cleaning function
 ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conversations.interface.emptyCache");
