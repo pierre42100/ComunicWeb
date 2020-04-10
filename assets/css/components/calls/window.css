@@ -41,3 +41,16 @@
 .call-window .head a {
 	color: inherit;
 }
+
+.call-window .members-area {
+	color: white;
+	font-size: 80%;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.call-window .members-area span {
+	margin: 0px 5px;
+}

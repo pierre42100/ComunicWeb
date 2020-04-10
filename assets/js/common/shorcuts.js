@@ -198,6 +198,16 @@ function userInfo(userID, force = false) {
 }
 
 /**
+ * Get information about a user (new User class)
+ * 
+ * @param {Number} userID target user id
+ * @returns {Promise<User>} Information about the user
+ */
+async function user(userID) {
+    return new User(await userInfo(userID))
+}
+
+/**
  * Display message on browser console
  * 
  * @param {String} message The message to show on browser console

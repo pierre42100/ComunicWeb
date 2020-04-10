@@ -58,10 +58,30 @@ class CallWindow extends CustomEvents {
 
 			this.makeWindowDraggable();
 
+
+			// Create members area
+			this.membersArea = createElem2({
+				appendTo: this.rootEl,
+				type: "div",
+				class: "members-area"
+			})
+
+
+
 			// Join the call
 			await ws("calls/join", {
 				convID: this.conv.ID
 			})
+
+			// Get the list of members of the call
+			const currMembersList = await ws("calls/members", {
+				callID: this.conv.ID
+			})
+
+			// Apply this list of user
+			for(const user of currMembersList)
+				if(user != userID())
+					await this.AddMember(user)
 
 		} catch(e) {
 			console.error(e)
@@ -155,5 +175,21 @@ class CallWindow extends CustomEvents {
 
 		if(propagate)
 			this.emitEvent("close");
+	}
+
+	/**
+	 * Add a member to this call
+	 * 
+	 * @param {number} userID The ID of the target member
+	 */
+	async AddMember(userID) {
+		
+		// Apply user information
+		createElem2({
+			appendTo: this.membersArea,
+			type: "span",
+			innerHTML: (await user(userID)).fullName
+		});
+
 	}
 }
