@@ -49,7 +49,7 @@ class CallWindow extends CustomEvents {
 		this.closeButton = createElem2({
 			appendTo: windowHead.querySelector(".pull-right"),
 			type: "a",
-			innerHTML: "<i class='fa fa-cross'></i>",
+			innerHTML: "<i class='fa fa-times'></i>",
 			onclick: () => this.Close()
 		})
 
@@ -65,6 +65,6 @@ class CallWindow extends CustomEvents {
 		this.rootEl.remove();
 
 		if(propagate)
-			this.emitEvent("closed");
+			this.emitEvent("close");
 	}
 }

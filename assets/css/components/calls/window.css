@@ -25,3 +25,19 @@
 	background-color: #000000b3;
 	visibility: visible;
 }
+
+.call-window .head {
+	color: white;
+	padding: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.call-window .head .fa-phone {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.call-window .head a {
+	color: inherit;
+}
