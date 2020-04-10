@@ -24,7 +24,7 @@ function createElem(nodeType, appendTo){
 /**
  * Create a new HTML node (version2)
  * 
- * @param {Object} infos Informations about the HTML node to create
+ * @param {CreateElem2Args} infos Informations about the HTML node to create
  * @info {String} type The type of the new node
  * @info {HTMLElement} appendTo HTML Element that will receive the new node
  * @info {HTMLElement} insertBefore Insert before specified HTML element
