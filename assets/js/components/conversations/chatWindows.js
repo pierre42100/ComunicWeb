@@ -585,11 +585,11 @@ const ConvChatWindow = {
 	showCallButton: function(conversation){
 
 		//Check if calls are disabled
-		if(/*TODO : implement */false)
+		if(!conversation.infos.can_have_call)
 			return;
 
 		//Add the call button
-		var button = createElem2({
+		const button = createElem2({
 			insertBefore: conversation.box.boxTools.firstChild,
 			type: "button",
 			class: "btn btn-box-tool",
@@ -598,7 +598,7 @@ const ConvChatWindow = {
 		conversation.box.callButton = button;
 
 		button.addEventListener("click", function(){
-			// TODO : implement
+			CallsController.Open(conversation.infos)
 		});
 	},
 

@@ -456,7 +456,7 @@ class Dev {
 			"js/components/incognito/keyboard.js",
 
 			//Calls component
-
+			"js/components/calls/controller.js",
 
 			// Web app component
 			"js/components/webApp/interface.js",
