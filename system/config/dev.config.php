@@ -457,6 +457,7 @@ class Dev {
 
 			//Calls component
 			"js/components/calls/controller.js",
+			"js/components/calls/window.js",
 
 			// Web app component
 			"js/components/webApp/interface.js",
