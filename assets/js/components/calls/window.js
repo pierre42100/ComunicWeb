@@ -14,46 +14,59 @@ class CallWindow extends CustomEvents {
 	 */
 	constructor(conv) {
 		super()
+		this.conv = conv;
 		this.construct(conv);
 	}
 
 	async construct(conv) {
-		// Check if calls target exists or not
-		if(!byId("callsTarget"))
-			createElem2({
-				appendTo: byId("wrapper"),
+
+		try {
+			// Check if calls target exists or not
+			if(!byId("callsTarget"))
+				createElem2({
+					appendTo: byId("wrapper"),
+					type: "div",
+					id: "callsTarget",
+				})
+			
+			this.conv = conv;
+
+			this.rootEl = createElem2({
+				appendTo: byId("callsTarget"),
 				type: "div",
-				id: "callsTarget",
+				class: "call-window"
 			})
-		
-		this.conv = conv;
 
-		this.rootEl = createElem2({
-			appendTo: byId("callsTarget"),
-			type: "div",
-			class: "call-window"
-		})
+			
+			// Construct head
+			this.windowHead = createElem2({
+				appendTo: this.rootEl,
+				type: "div",
+				class: "head",
+				innerHTML: "<i class='fa fa-phone'></i>" +
+					await getConvName(conv) + 
+					" <span class='pull-right'></span>"
+			})
 
-		
-		// Construct head
-		this.windowHead = createElem2({
-			appendTo: this.rootEl,
-			type: "div",
-			class: "head",
-			innerHTML: "<i class='fa fa-phone'></i>" +
-				await getConvName(conv) + 
-				" <span class='pull-right'></span>"
-		})
+			// Close button
+			this.closeButton = createElem2({
+				appendTo: this.windowHead.querySelector(".pull-right"),
+				type: "a",
+				innerHTML: "<i class='fa fa-times'></i>",
+				onclick: () => this.Close()
+			})
 
-		// Close button
-		this.closeButton = createElem2({
-			appendTo: this.windowHead.querySelector(".pull-right"),
-			type: "a",
-			innerHTML: "<i class='fa fa-times'></i>",
-			onclick: () => this.Close()
-		})
+			this.makeWindowDraggable();
 
-		this.makeWindowDraggable()	
+			// Join the call
+			await ws("calls/join", {
+				convID: this.conv.ID
+			})
+
+		} catch(e) {
+			console.error(e)
+			notify("Could not initialize call!", "danger");
+		}
 	}
 
 	/**
@@ -131,8 +144,13 @@ class CallWindow extends CustomEvents {
 	 * @param {boolean} propagate Set to true to propagate
 	 * the event
 	 */
-	Close(propagate = true) {
+	async Close(propagate = true) {
 		this.rootEl.remove();
+
+		// Leave the call
+		await ws("calls/leave", {
+			convID: this.conv.ID
+		})
 
 		if(propagate)
 			this.emitEvent("close");
