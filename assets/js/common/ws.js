@@ -221,6 +221,14 @@ class UserWebSocket {
 				SendEvent("commentDeleted", msg.data);
 				break;
 
+			case "user_joined_call":
+				SendEvent("userJoinedCall", msg.data);
+				break;
+
+			case "user_left_call":
+				SendEvent("userLeftCall", msg.data);
+				break;
+
 			default:
 				console.error("WS Unspported kind of message!", msg);
 				break;

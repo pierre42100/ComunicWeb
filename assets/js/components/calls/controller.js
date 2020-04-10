@@ -76,6 +76,21 @@ class CallsController {
 	}
 }
 
+document.addEventListener("userJoinedCall", (e) => {
+	const detail = e.detail;
+
+	if(OpenConversations.has(detail.callID))
+		OpenConversations.get(detail.callID).AddMember(detail.userID)
+})
+
+document.addEventListener("userLeftCall", (e) => {
+	const detail = e.detail;
+
+	if(OpenConversations.has(detail.callID))
+		OpenConversations.get(detail.callID).RemoveMember(detail.userID)
+})
+
+
 document.addEventListener("wsClosed", () => {
 	// Close all the current conversations
 	OpenConversations.forEach((v) => v.Close(false))

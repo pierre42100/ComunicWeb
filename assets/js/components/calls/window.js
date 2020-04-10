@@ -185,11 +185,27 @@ class CallWindow extends CustomEvents {
 	async AddMember(userID) {
 		
 		// Apply user information
-		createElem2({
+		const el = createElem2({
 			appendTo: this.membersArea,
 			type: "span",
 			innerHTML: (await user(userID)).fullName
 		});
+		el.setAttribute("data-call-member-name-id", userID)
+
+	}
+
+
+	/**
+	 * Remove a user from a call
+	 * 
+	 * @param {number} userID The ID of the target user
+	 */
+	async RemoveMember(userID) {
+		
+		// Remove user name
+		const el = this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]")
+		if(el)
+			el.remove()
 
 	}
 }
