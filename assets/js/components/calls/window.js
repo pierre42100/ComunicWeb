@@ -148,9 +148,10 @@ class CallWindow extends CustomEvents {
 		this.rootEl.remove();
 
 		// Leave the call
-		await ws("calls/leave", {
-			convID: this.conv.ID
-		})
+		if(UserWebSocket.IsConnected)
+			await ws("calls/leave", {
+				convID: this.conv.ID
+			})
 
 		if(propagate)
 			this.emitEvent("close");

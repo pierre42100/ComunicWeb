@@ -80,7 +80,7 @@ document.addEventListener("wsClosed", () => {
 	// Close all the current conversations
 	OpenConversations.forEach((v) => v.Close(false))
 
-	OpenConversations = new Map();
+	OpenConversations.clear();
 })
 
 
