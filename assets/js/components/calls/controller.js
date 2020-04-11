@@ -97,6 +97,13 @@ document.addEventListener("newCallSignal", (e) => {
 		OpenConversations.get(detail.callID).NewSignal(detail.peerID, detail.data)
 });
 
+document.addEventListener("callPeerReady", (e) => {
+	const detail = e.detail;
+
+	if(OpenConversations.has(detail.callID))
+		OpenConversations.get(detail.callID).PeerReady(detail.peerID)
+})
+
 
 document.addEventListener("wsClosed", () => {
 	// Close all the current conversations

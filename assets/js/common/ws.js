@@ -232,6 +232,11 @@ class UserWebSocket {
 			case "new_call_signal":
 				SendEvent("newCallSignal", msg.data);
 				break;
+			
+			case "call_peer_ready":
+				SendEvent("callPeerReady", msg.data);
+				break;
+
 
 			default:
 				console.error("WS Unspported kind of message!", msg);

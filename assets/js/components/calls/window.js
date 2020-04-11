@@ -96,6 +96,11 @@ class CallWindow extends CustomEvents {
 				callID: this.conv.ID
 			})
 
+			// Start to connect to ready pears
+			for(const user of currMembersList)
+				if(user.userID != userID() && user.ready)
+					await this.PeerReady(user.userID)
+
 			// Start to stream audio & video
 			await this.startStreaming();
 
@@ -194,6 +199,10 @@ class CallWindow extends CustomEvents {
 			await ws("calls/leave", {
 				convID: this.conv.ID
 			})
+
+		
+		if(this.mainPeer)
+			this.mainPeer.destroy();
 
 		if(propagate)
 			this.emitEvent("close");
@@ -323,6 +332,10 @@ class CallWindow extends CustomEvents {
 			console.log("mainPeer stream", stream)
 			alert("Stream on main peer!!!")
 		});
+	}
+
+	async PeerReady(peerID) {
+		alert("Start to receive " + peerID)
 	}
 
 	/**
