@@ -102,8 +102,8 @@ class CallWindow extends CustomEvents {
 
 			// Apply this list of user
 			for(const user of currMembersList)
-				if(user != userID())
-					await this.AddMember(user)
+				if(user.userID != userID())
+					await this.AddMember(user.userID)
 
 		} catch(e) {
 			console.error(e)
@@ -329,7 +329,8 @@ class CallWindow extends CustomEvents {
 	NewSignal(peerID, data) {
 
 		if(peerID == userID())
-			this.mainPeer.signal(data)
+			if(this.mainPeer)
+				this.mainPeer.signal(data)
 		
 		else
 			console.error("Unsupported type of signal!")
