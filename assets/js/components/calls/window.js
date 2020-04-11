@@ -381,8 +381,9 @@ class CallWindow extends CustomEvents {
 		});
 
 		peer.on("stream", stream => {
-			console.log("go remote peer stream", stream)
-			alert("Stream on remote peer!!!")
+			console.log("Got remote peer stream", stream)
+			
+			this.addVideoStream(peerID, false, stream)
 		});
 	}
 
