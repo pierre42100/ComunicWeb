@@ -206,6 +206,10 @@ class CallWindow extends CustomEvents {
 		
 		if(this.mainPeer)
 			this.mainPeer.destroy();
+		
+		// Destroy peer connections
+		for(const el of this.peersEls)
+			el[1].destroy()
 
 		if(propagate)
 			this.emitEvent("close");
