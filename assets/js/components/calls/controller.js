@@ -99,8 +99,9 @@ document.addEventListener("wsClosed", () => {
 })
 
 
-document.addEventListener("wsOpen", () => {
+document.addEventListener("openPage", () => {
 	CallsController.GetListLocalStorage().forEach(async c => {
-		CallsController.Open(await getSingleConversation(c))
+		if(!OpenConversations.has(c))
+			CallsController.Open(await getSingleConversation(c))
 	})
 })
