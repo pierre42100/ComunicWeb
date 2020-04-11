@@ -19,6 +19,9 @@ class CallWindow extends CustomEvents {
 		this.conv = conv;
 		this.callID = conv.ID;
 
+		/** @type {Map<number, Peer>} */
+		this.peersEls = new Map()
+
 		/** @type {Map<number, HTMLVideoElement>} */
 		this.videoEls = new Map()
 
@@ -237,7 +240,6 @@ class CallWindow extends CustomEvents {
 		const el = this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]")
 		if(el)
 			el.remove()
-
 		
 		// Remove video (if any)
 		if(this.videoEls.has(userID)) {
@@ -246,6 +248,12 @@ class CallWindow extends CustomEvents {
 
 			el.pause()
 			el.remove()
+		}
+		
+		// Remove peer connection (if any)
+		if(this.peersEls.has(userID)) {
+			this.peersEls.get(userID).destroy()
+			this.peersEls.delete(userID)
 		}
 	}
 
@@ -278,6 +286,23 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Send a signal back to the proxy
+	 * 
+	 * @param {Number} peerID Target peer ID
+	 * @param {data} data The signal to send
+	 */
+	async SendSignal(peerID, data) {
+		const type = data.hasOwnProperty("sdp") ? "SDP" : "CANDIDATE";
+			
+		await ws("calls/signal", {
+			callID: this.callID,
+			peerID: peerID,
+			type: type,
+			data: type == "SDP" ? JSON.stringify(data) : JSON.stringify(data.candidate)
+		})
+	}
+
+	/**
 	 * Start to send this client audio & video
 	 */
 	async startStreaming() {
@@ -300,15 +325,7 @@ class CallWindow extends CustomEvents {
 
 		// Forward signals
 		this.mainPeer.on("signal", data => {
-			
-			const type = data.hasOwnProperty("sdp") ? "SDP" : "CANDIDATE";
-			
-			ws("calls/signal", {
-				callID: this.callID,
-				peerID: userID(),
-				type: type,
-				data: type == "SDP" ? JSON.stringify(data) : JSON.stringify(data.candidate)
-			})
+			this.SendSignal(userID(), data)
 		})
 
 		// Return errors
@@ -334,8 +351,37 @@ class CallWindow extends CustomEvents {
 		});
 	}
 
+	/**
+	 * Start to receive video from remote peer
+	 * 
+	 * @param {number} peerID Target peer ID
+	 */
 	async PeerReady(peerID) {
-		alert("Start to receive " + peerID)
+		const peer = new SimplePeer({
+			initiator: true,
+			trickle: true, // Allow exchange of multiple ice candidates
+			config: this.callConfig()
+		})
+
+		peer.on("signal", data => this.SendSignal(peerID, data))
+
+		peer.on("error", err => {
+			console.error("Peer error! (peer: " + peerID + ")", err);
+			notify("An error occured while trying to to a peer !", "danger", 5)
+		});
+
+		peer.on("connect", () =>  {
+			console.info("Connected to a remote peer ("+peerID+") !")
+		})
+
+		peer.on("message", message => {
+			console.log("Message from remote peer: " + message);
+		});
+
+		peer.on("stream", stream => {
+			console.log("mainPeer stream", stream)
+			alert("Stream on remote peer!!!")
+		});
 	}
 
 	/**
@@ -350,8 +396,9 @@ class CallWindow extends CustomEvents {
 			if(this.mainPeer)
 				this.mainPeer.signal(data)
 		
-		else
-			console.error("Unsupported type of signal!")
+		else if(this.peersEls.has(peerID)) {
+			this.peersEls.get(peerID).signal(data)
+		}
 
 	}
 }
