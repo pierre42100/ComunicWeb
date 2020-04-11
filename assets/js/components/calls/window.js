@@ -253,12 +253,23 @@ class CallWindow extends CustomEvents {
 			config: this.callConfig()
 		})
 
+		// Forward signals
 		this.mainPeer.on("signal", data => {
-			ws("call/signal", {
+			
+			const type = data.hasOwnProperty("sdp") ? "SDP" : "CANDIDATE";
+			
+			ws("calls/signal", {
 				callID: this.callID,
 				peerID: userID(),
-				data: data
+				type: type,
+				data: type == "SDP" ? JSON.stringify(data) : JSON.stringify(data.candidate)
 			})
 		})
+
+		// Return errors
+		this.mainPeer.on("error", err => {
+			console.error("Peer error!", err);
+			notify("An error occured while trying to connect!", "danger", 5)
+		});
 	}
 }
