@@ -362,10 +362,9 @@ class CallWindow extends CustomEvents {
 	 */
 	async PeerReady(peerID) {
 		const peer = new SimplePeer({
-			initiator: true,
+			initiator: false,
 			trickle: true, // Allow exchange of multiple ice candidates
 			config: this.callConfig(),
-			stream: await navigator.mediaDevices.getUserMedia({audio: true, video: true}) // TODO : find a way to use fake strem
 		})
 		this.peersEls.set(peerID, peer)
 
@@ -389,6 +388,12 @@ class CallWindow extends CustomEvents {
 			
 			this.addVideoStream(peerID, false, stream)
 		});
+
+		// Request an offer from proxy
+		await ws("calls/request_offer", {
+			callID: this.callID,
+			peerID: peerID,
+		})
 	}
 
 	/**
