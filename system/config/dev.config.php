@@ -10,14 +10,14 @@ class Dev {
 	/**
 	 * API access and credentials
 	 */
-	const API_URL = "http://127.0.0.1:3000/"; //"http://devweb.local/comunic/api/";
+	const API_URL = "https://devweb.local/comunic/api-v2/"; //"http://devweb.local/comunic/api/";
 	const API_SERVICE_NAME = "ComunicWeb";
 	const API_SERVICE_TOKEN = "12XU67pJUlnNQ";
 
 	/**
 	 * Site URL
 	 */
-	const SITE_URL = "http://devweb.local/comunic/v2/";
+	const SITE_URL = "https://devweb.local/comunic/v2/";
 
 	/**
 	 * About website access
@@ -37,7 +37,7 @@ class Dev {
 	/**
 	 * URL to assets
 	 */
-	const ASSETS_URL = "http://devweb.local/comunic/v2/assets/";
+	const ASSETS_URL = "https://devweb.local/comunic/v2/assets/";
 
 	/**
 	 * Third party CSS files
