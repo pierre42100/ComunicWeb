@@ -54,3 +54,12 @@
 .call-window .members-area span {
 	margin: 0px 5px;
 }
+
+.call-window .videos-area {
+	display: flex;
+	flex-direction: row;
+}
+
+.call-window .videos-area video {
+
+}

@@ -14,8 +14,15 @@ class CallWindow extends CustomEvents {
 	 */
 	constructor(conv) {
 		super()
+		
+		// Initialize variables
 		this.conv = conv;
 		this.callID = conv.ID;
+
+		/** @type {Map<number, HTMLVideoElement>} */
+		this.videoEls = new Map()
+
+
 		this.construct(conv);
 	}
 
@@ -67,6 +74,13 @@ class CallWindow extends CustomEvents {
 				class: "members-area"
 			})
 
+
+			// Create videos area
+			this.videosArea = createElem2({
+				appendTo: this.rootEl,
+				type: "div",
+				class: "videos-area"
+			})
 
 
 			// Join the call
@@ -215,6 +229,15 @@ class CallWindow extends CustomEvents {
 		if(el)
 			el.remove()
 
+		
+		// Remove video (if any)
+		if(this.videoEls.has(userID)) {
+			const el = this.videoEls.get(userID);
+			this.videoEls.delete(userID)
+
+			el.pause()
+			el.remove()
+		}
 	}
 
 	/**
@@ -229,10 +252,20 @@ class CallWindow extends CustomEvents {
 	/**
 	 * Add video stream to the user
 	 * 
-	 * 
+	 * @param {number} peerID Remove peer ID
+	 * @param {boolean} muted True to mute video
+	 * @param {MediaStream} stream Target stream
 	 */
-	addVideoStream(video) {
+	addVideoStream(peerID, muted, stream) {
+		const videoEl = document.createElement("video");
+		this.videosArea.appendChild(videoEl)
 
+		videoEl.muted = muted;
+
+		videoEl.srcObject = stream
+		videoEl.play()
+
+		this.videoEls.set(peerID, videoEl)
 	}
 
 	/**
@@ -245,6 +278,9 @@ class CallWindow extends CustomEvents {
 			video: true,
 			audio: true
 		})
+
+		// Show user video
+		this.addVideoStream(userID(), true, stream)
 
 		this.mainPeer = new SimplePeer({
 			initiator: true,
