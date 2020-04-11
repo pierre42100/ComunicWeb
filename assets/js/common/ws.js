@@ -229,6 +229,10 @@ class UserWebSocket {
 				SendEvent("userLeftCall", msg.data);
 				break;
 
+			case "new_call_signal":
+				SendEvent("newCallSignal", msg.data);
+				break;
+
 			default:
 				console.error("WS Unspported kind of message!", msg);
 				break;

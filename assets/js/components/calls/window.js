@@ -271,5 +271,32 @@ class CallWindow extends CustomEvents {
 			console.error("Peer error!", err);
 			notify("An error occured while trying to connect!", "danger", 5)
 		});
+
+		this.mainPeer.on("connect", () => console.info("Connected to remote peer!"))
+
+		this.mainPeer.on("message", message => {
+			console.log("Message from remote peer: " + message);
+		});
+
+		this.mainPeer.on("stream", stream => {
+			console.log("mainPeer stream", stream)
+			alert("Stream on main peer!!!")
+		});
+	}
+
+	/**
+	 * Handles new signals
+	 * 
+	 * @param {Number} peerID Target peer ID
+	 * @param {any} data Signal data
+	 */
+	NewSignal(peerID, data) {
+
+		if(peerID == userID())
+			this.mainPeer.signal(data)
+		
+		else
+			console.error("Unsupported type of signal!")
+
 	}
 }

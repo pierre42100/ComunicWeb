@@ -90,6 +90,13 @@ document.addEventListener("userLeftCall", (e) => {
 		OpenConversations.get(detail.callID).RemoveMember(detail.userID)
 })
 
+document.addEventListener("newCallSignal", (e) => {
+	const detail = e.detail
+
+	if(OpenConversations.has(detail.callID))
+		OpenConversations.get(detail.callID).NewSignal(detail.peerID, detail.data)
+});
+
 
 document.addEventListener("wsClosed", () => {
 	// Close all the current conversations
