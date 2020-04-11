@@ -903,7 +903,8 @@ ComunicWeb.components.posts.ui = {
 			ComunicWeb.components.comments.ui.display(info.comments, info.ID, postRoot);
 		
 		// Register for post updates
-		PostsInterface.register(info.ID);
+		if(UserWebSocket.IsConnected)
+			PostsInterface.register(info.ID);
 
 		// Auto-unregister when the post goes out of scope
 		const ev = async (e) => {
