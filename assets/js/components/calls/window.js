@@ -15,6 +15,7 @@ class CallWindow extends CustomEvents {
 	constructor(conv) {
 		super()
 		this.conv = conv;
+		this.callID = conv.ID;
 		this.construct(conv);
 	}
 
@@ -73,10 +74,17 @@ class CallWindow extends CustomEvents {
 				convID: this.conv.ID
 			})
 
+			// Get call configuration
+			this.callsConfig = await ws("calls/config");
+
 			// Get the list of members of the call
 			const currMembersList = await ws("calls/members", {
 				callID: this.conv.ID
 			})
+
+			// Start to stream audio & video
+			await this.startStreaming();
+
 
 			// Apply this list of user
 			for(const user of currMembersList)
@@ -207,5 +215,50 @@ class CallWindow extends CustomEvents {
 		if(el)
 			el.remove()
 
+	}
+
+	/**
+	 * Get call configuration
+	 */
+	callConfig() {
+		return {
+			iceServers: this.callsConfig.iceServers.map((e) => {return {urls: e}})
+		};
+	}
+
+	/**
+	 * Add video stream to the user
+	 * 
+	 * 
+	 */
+	addVideoStream(video) {
+
+	}
+
+	/**
+	 * Start to send this client audio & video
+	 */
+	async startStreaming() {
+
+		// First, query user media
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: true,
+			audio: true
+		})
+
+		this.mainPeer = new SimplePeer({
+			initiator: true,
+			trickle: true, // Allow exchange of multiple ice candidates
+			stream: stream,
+			config: this.callConfig()
+		})
+
+		this.mainPeer.on("signal", data => {
+			ws("call/signal", {
+				callID: this.callID,
+				peerID: userID(),
+				data: data
+			})
+		})
 	}
 }
