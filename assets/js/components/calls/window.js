@@ -308,7 +308,12 @@ class CallWindow extends CustomEvents {
 			notify("An error occured while trying to connect!", "danger", 5)
 		});
 
-		this.mainPeer.on("connect", () => console.info("Connected to remote peer!"))
+		this.mainPeer.on("connect", () =>  {
+			console.info("Connected to remote peer!")
+			ws("calls/mark_ready", {
+				callID: this.callID
+			})
+		})
 
 		this.mainPeer.on("message", message => {
 			console.log("Message from remote peer: " + message);
