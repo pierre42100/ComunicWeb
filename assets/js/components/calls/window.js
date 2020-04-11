@@ -360,8 +360,10 @@ class CallWindow extends CustomEvents {
 		const peer = new SimplePeer({
 			initiator: true,
 			trickle: true, // Allow exchange of multiple ice candidates
-			config: this.callConfig()
+			config: this.callConfig(),
+			stream: await navigator.mediaDevices.getUserMedia({audio: true, video: true}) // TODO : find a way to use fake strem
 		})
+		this.peersEls.set(peerID, peer)
 
 		peer.on("signal", data => this.SendSignal(peerID, data))
 
@@ -379,7 +381,7 @@ class CallWindow extends CustomEvents {
 		});
 
 		peer.on("stream", stream => {
-			console.log("mainPeer stream", stream)
+			console.log("go remote peer stream", stream)
 			alert("Stream on remote peer!!!")
 		});
 	}
@@ -392,10 +394,10 @@ class CallWindow extends CustomEvents {
 	 */
 	NewSignal(peerID, data) {
 
-		if(peerID == userID())
+		if(peerID == userID()) {
 			if(this.mainPeer)
 				this.mainPeer.signal(data)
-		
+		}
 		else if(this.peersEls.has(peerID)) {
 			this.peersEls.get(peerID).signal(data)
 		}
