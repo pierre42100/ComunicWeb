@@ -120,6 +120,15 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Check if this conversation window is open or not
+	 * 
+	 * @returns {boolean}
+	 */
+	get isOpen() {
+		return this.rootEl.isConnected
+	}
+
+	/**
 	 * Make the call window draggable
 	 */
 	makeWindowDraggable() {
