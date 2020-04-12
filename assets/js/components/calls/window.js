@@ -85,12 +85,26 @@ class CallWindow extends CustomEvents {
 				class: "videos-area"
 			})
 
+
+
+
 			// Contruct bottom area
 			const bottomArea = createElem2({
 				appendTo: this.rootEl,
 				type: "div",
 				class: "window-bottom"
 			})
+
+			/**
+			 * @param {HTMLElement} btn 
+			 * @param {boolean} selected 
+			 */
+			const setButtonSelected = (btn, selected) => {
+				if(selected)
+					btn.classList.add("selected")
+				else
+					btn.classList.remove("selected")
+			}
 
 			// Display the list of buttons
 			const buttonsList = [
@@ -103,19 +117,20 @@ class CallWindow extends CustomEvents {
 					onclick: () => {
 						this.Close(true)
 					}
+				},
+
+				//Full screen button
+				{
+					icon: "fa-expand",
+					selected: false,
+					onclick: (btn) => {
+						RequestFullScreen(this.rootEl);
+						setTimeout(() => {
+							setButtonSelected(btn, IsFullScreen());
+						}, 1000);
+					}
 				}
 			]
-
-			/**
-			 * @param {HTMLElement} btn 
-			 * @param {boolean} selected 
-			 */
-			const setButtonSelected = (btn, selected) => {
-				if(selected)
-					btn.classList.add("selected")
-				else
-					btn.classList.remove("selected")
-			}
 
 			//Add buttons
 			buttonsList.forEach((button) => {
@@ -140,6 +155,11 @@ class CallWindow extends CustomEvents {
 			});
 
 
+
+
+
+
+			
 			// Join the call
 			await ws("calls/join", {
 				convID: this.conv.ID

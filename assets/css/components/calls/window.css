@@ -64,8 +64,9 @@
 	display: flex;
 	flex-direction: row;
 	max-width: 100%;
-	height: 126px;
 	flex-wrap: wrap;
+	flex: 1;
+	justify-content: center;
 }
 
 .call-window .videos-area video {
