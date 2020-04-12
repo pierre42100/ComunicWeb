@@ -283,14 +283,15 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
-	 * Add video stream to the user
+	 * Add audio / video stream to the user
 	 * 
 	 * @param {number} peerID Remove peer ID
 	 * @param {boolean} muted True to mute video
 	 * @param {MediaStream} stream Target stream
 	 */
 	addVideoStream(peerID, muted, stream) {
-		const videoEl = document.createElement("video");
+
+		const videoEl = document.createElement(stream.getVideoTracks().length > 0 ?  "video" : "audio");
 		this.videosArea.appendChild(videoEl)
 
 		videoEl.muted = muted;
@@ -325,7 +326,7 @@ class CallWindow extends CustomEvents {
 
 		// First, query user media
 		const stream = await navigator.mediaDevices.getUserMedia({
-			video: true,
+			video: this.conv.can_have_video_call,
 			audio: true
 		})
 
