@@ -92,9 +92,16 @@ document.addEventListener("userLeftCall", (e) => {
 
 document.addEventListener("newCallSignal", (e) => {
 	const detail = e.detail
+	let signal = detail.data
+
+	// Fix candidate format
+	if(signal.hasOwnProperty("candidate"))
+		signal = {
+			candidate: signal
+		}
 
 	if(OpenConversations.has(detail.callID))
-		OpenConversations.get(detail.callID).NewSignal(detail.peerID, detail.data)
+		OpenConversations.get(detail.callID).NewSignal(detail.peerID, signal)
 });
 
 document.addEventListener("callPeerReady", (e) => {
