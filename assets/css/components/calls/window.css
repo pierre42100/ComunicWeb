@@ -12,8 +12,9 @@
 }
 
 .call-window {
-	width: 300px;
+	width: 338px;
 	min-width: 300px;
+	max-width: 100%;
 	min-height: 174px;
 	position: absolute;
 	top: 100px;
@@ -62,12 +63,14 @@
 .call-window .videos-area {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
 	max-width: 100%;
+	height: 126px;
+	flex-wrap: wrap;
 }
 
 .call-window .videos-area video {
 	flex-shrink: 1;
 	flex: 1;
 	max-height: 100%;
+	max-width: 100%;
 }
