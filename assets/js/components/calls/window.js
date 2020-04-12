@@ -99,6 +99,11 @@ class CallWindow extends CustomEvents {
 				callID: this.conv.ID
 			})
 
+			// Apply this list of user
+			for(const user of currMembersList)
+				if(user.userID != userID())
+					await this.AddMember(user.userID)
+
 			// Start to connect to ready pears
 			for(const user of currMembersList)
 				if(user.userID != userID() && user.ready)
@@ -107,11 +112,6 @@ class CallWindow extends CustomEvents {
 			// Start to stream audio & video
 			await this.startStreaming();
 
-
-			// Apply this list of user
-			for(const user of currMembersList)
-				if(user.userID != userID())
-					await this.AddMember(user.userID)
 
 		} catch(e) {
 			console.error(e)
@@ -235,11 +235,25 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Get the name element of a member
+	 * 
+	 * @param {number} userID The ID of the user to get
+	 * @return {HTMLElement|null}
+	 */
+	getMemberNameEl(userID) {
+		return this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]");
+	}
+
+	/**
 	 * Remove a member connection
 	 * 
 	 * @param {number} userID Target user ID
 	 */
 	async RemoveMemberConnection(userID) {
+
+		const el = this.getMemberNameEl(userID)
+		if(el)
+			el.classList.remove("ready")
 
 		// Remove video (if any)
 		if(this.videoEls.has(userID)) {
@@ -266,7 +280,7 @@ class CallWindow extends CustomEvents {
 	async RemoveMember(userID) {
 		
 		// Remove user name
-		const el = this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]")
+		const el = this.getMemberNameEl(userID)
 		if(el)
 			el.remove()
 		
@@ -290,6 +304,11 @@ class CallWindow extends CustomEvents {
 	 * @param {MediaStream} stream Target stream
 	 */
 	addVideoStream(peerID, muted, stream) {
+
+		// Remove any previous video stream
+		if(this.videoEls.has(peerID)) {
+			this.videoEls.get(peerID).remove()
+		}
 
 		const videoEl = document.createElement(stream.getVideoTracks().length > 0 ?  "video" : "audio");
 		this.videosArea.appendChild(videoEl)
@@ -367,11 +386,16 @@ class CallWindow extends CustomEvents {
 			alert("Stream on main peer!!!")
 		});
 
+		/*
+
+		DO NOT DO THIS !!! On configuration change it would close
+		the call window...
+
 		this.mainPeer.on("close", () => {
 			console.log("Connection to main peer was closed.")
 			if(this.mainPeer)
 				this.Close(false);
-		});
+		});*/
 	}
 
 	/**
@@ -380,6 +404,18 @@ class CallWindow extends CustomEvents {
 	 * @param {number} peerID Target peer ID
 	 */
 	async PeerReady(peerID) {
+
+		// Mark the peer as ready
+		const el = this.getMemberNameEl(peerID)
+		if(el)
+			el.classList.add("ready")
+
+		
+		// Remove any previous connection
+		if(this.peersEls.has(peerID)) {
+			this.peersEls.get(peerID).destroy()
+		}
+
 		const peer = new SimplePeer({
 			initiator: false,
 			trickle: true, // Allow exchange of multiple ice candidates
@@ -404,7 +440,7 @@ class CallWindow extends CustomEvents {
 
 		peer.on("stream", stream => {
 			console.log("Got remote peer stream", stream)
-			
+
 			this.addVideoStream(peerID, false, stream)
 		});
 
