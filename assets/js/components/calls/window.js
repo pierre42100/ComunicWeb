@@ -204,8 +204,10 @@ class CallWindow extends CustomEvents {
 			})
 
 		
-		if(this.mainPeer)
+		if(this.mainPeer) {
 			this.mainPeer.destroy();
+			delete this.mainPeer;
+		}
 		
 		// Destroy peer connections
 		for(const el of this.peersEls)
@@ -232,19 +234,13 @@ class CallWindow extends CustomEvents {
 
 	}
 
-
 	/**
-	 * Remove a user from a call
+	 * Remove a member connection
 	 * 
-	 * @param {number} userID The ID of the target user
+	 * @param {number} userID Target user ID
 	 */
-	async RemoveMember(userID) {
-		
-		// Remove user name
-		const el = this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]")
-		if(el)
-			el.remove()
-		
+	async RemoveMemberConnection(userID) {
+
 		// Remove video (if any)
 		if(this.videoEls.has(userID)) {
 			const el = this.videoEls.get(userID);
@@ -259,6 +255,22 @@ class CallWindow extends CustomEvents {
 			this.peersEls.get(userID).destroy()
 			this.peersEls.delete(userID)
 		}
+
+	}
+
+	/**
+	 * Remove a user from a call
+	 * 
+	 * @param {number} userID The ID of the target user
+	 */
+	async RemoveMember(userID) {
+		
+		// Remove user name
+		const el = this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]")
+		if(el)
+			el.remove()
+		
+		this.RemoveMemberConnection(userID);
 	}
 
 	/**
@@ -353,6 +365,12 @@ class CallWindow extends CustomEvents {
 			console.log("mainPeer stream", stream)
 			alert("Stream on main peer!!!")
 		});
+
+		this.mainPeer.on("close", () => {
+			console.log("Connection to main peer was closed.")
+			if(this.mainPeer)
+				this.Close(true);
+		});
 	}
 
 	/**
@@ -389,11 +407,18 @@ class CallWindow extends CustomEvents {
 			this.addVideoStream(peerID, false, stream)
 		});
 
+		peer.on("close", () => {
+			console.info("Connection to peer " + peerID + " closed");
+			this.RemoveMemberConnection(peerID)
+		})
+
 		// Request an offer from proxy
 		await ws("calls/request_offer", {
 			callID: this.callID,
 			peerID: peerID,
 		})
+
+		console.log(peer)
 	}
 
 	/**
