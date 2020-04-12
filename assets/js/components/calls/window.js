@@ -369,7 +369,7 @@ class CallWindow extends CustomEvents {
 		this.mainPeer.on("close", () => {
 			console.log("Connection to main peer was closed.")
 			if(this.mainPeer)
-				this.Close(true);
+				this.Close(false);
 		});
 	}
 

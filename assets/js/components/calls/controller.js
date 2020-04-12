@@ -17,7 +17,7 @@ class CallsController {
 	 * @param {Conversation} conv Information about the target conversation
 	 */
 	static Open(conv) {
-		if(OpenConversations.has(conv.ID))
+		if(OpenConversations.has(conv.ID) && OpenConversations.get(conv.ID).rootEl.isConnected)
 			return;
 		
 		console.info("Open call for conversation " + conv.ID);
