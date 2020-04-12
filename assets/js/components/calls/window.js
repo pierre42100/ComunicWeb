@@ -405,16 +405,15 @@ class CallWindow extends CustomEvents {
 	 */
 	async PeerReady(peerID) {
 
-		// Mark the peer as ready
-		const el = this.getMemberNameEl(peerID)
-		if(el)
-			el.classList.add("ready")
-
-		
 		// Remove any previous connection
 		if(this.peersEls.has(peerID)) {
 			this.peersEls.get(peerID).destroy()
 		}
+
+		// Mark the peer as ready
+		const el = this.getMemberNameEl(peerID)
+		if(el)
+			el.classList.add("ready")
 
 		const peer = new SimplePeer({
 			initiator: false,
