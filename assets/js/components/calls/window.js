@@ -85,6 +85,60 @@ class CallWindow extends CustomEvents {
 				class: "videos-area"
 			})
 
+			// Contruct bottom area
+			const bottomArea = createElem2({
+				appendTo: this.rootEl,
+				type: "div",
+				class: "window-bottom"
+			})
+
+			// Display the list of buttons
+			const buttonsList = [
+				
+				// Hang up button
+				{
+					icon: "fa-phone",
+					class: "hang-up-button",
+					selected: false,
+					onclick: () => {
+						this.Close(true)
+					}
+				}
+			]
+
+			/**
+			 * @param {HTMLElement} btn 
+			 * @param {boolean} selected 
+			 */
+			const setButtonSelected = (btn, selected) => {
+				if(selected)
+					btn.classList.add("selected")
+				else
+					btn.classList.remove("selected")
+			}
+
+			//Add buttons
+			buttonsList.forEach((button) => {
+
+				const buttonEl = createElem2({
+					appendTo: bottomArea,
+					type: "div",
+					innerHTML: "<i class='fa " + button.icon + "'></i>"
+				});
+
+				//Add button optionnal class
+				if(button.class)
+					buttonEl.classList.add(button.class);
+
+				buttonEl.addEventListener("click", () => {
+					button.onclick(buttonEl);
+				});
+
+
+				setButtonSelected(buttonEl, button.selected)
+
+			});
+
 
 			// Join the call
 			await ws("calls/join", {

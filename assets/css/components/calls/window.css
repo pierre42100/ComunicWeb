@@ -74,3 +74,36 @@
 	max-height: 100%;
 	max-width: 100%;
 }
+
+.call-window .window-bottom {
+	height: 40px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.call-window .window-bottom div {
+	color: #fff6;
+	flex: 1;
+	text-align: center;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+
+.call-window .window-bottom div.selected {
+	color: white;
+}
+
+.call-window .window-bottom div:hover {
+	background-color: #ffffff4d;
+}
+
+.call-window .window-bottom div:active {
+	background-color: #fff3;
+}
+
+.call-window .window-bottom div.hang-up-button {
+	color: #dd4b39;
+}
