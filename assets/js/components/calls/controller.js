@@ -7,7 +7,7 @@
 /**
  * @type {Map<number, CallWindow>}
  */
-let OpenConversations = new Map();
+let OpenCalls = new Map();
 
 class CallsController {
 
@@ -17,18 +17,18 @@ class CallsController {
 	 * @param {Conversation} conv Information about the target conversation
 	 */
 	static Open(conv) {
-		if(OpenConversations.has(conv.ID) && OpenConversations.get(conv.ID).rootEl.isConnected)
+		if(OpenCalls.has(conv.ID) && OpenCalls.get(conv.ID).rootEl.isConnected)
 			return;
 		
 		console.info("Open call for conversation " + conv.ID);
 		
 		// Create a new window for the conversation
 		const window = new CallWindow(conv);
-		OpenConversations.set(conv.ID, window)
+		OpenCalls.set(conv.ID, window)
 		this.AddToLocalStorage(conv.ID);
 
 		window.on("close", () => {
-			OpenConversations.delete(conv.ID)
+			OpenCalls.delete(conv.ID)
 			this.RemoveFromLocalStorage(conv.ID)
 		})
 	}
@@ -79,15 +79,15 @@ class CallsController {
 document.addEventListener("userJoinedCall", (e) => {
 	const detail = e.detail;
 
-	if(OpenConversations.has(detail.callID))
-		OpenConversations.get(detail.callID).AddMember(detail.userID)
+	if(OpenCalls.has(detail.callID))
+		OpenCalls.get(detail.callID).AddMember(detail.userID)
 })
 
 document.addEventListener("userLeftCall", (e) => {
 	const detail = e.detail;
 
-	if(OpenConversations.has(detail.callID))
-		OpenConversations.get(detail.callID).RemoveMember(detail.userID)
+	if(OpenCalls.has(detail.callID))
+		OpenCalls.get(detail.callID).RemoveMember(detail.userID)
 })
 
 document.addEventListener("newCallSignal", (e) => {
@@ -100,29 +100,29 @@ document.addEventListener("newCallSignal", (e) => {
 			candidate: signal
 		}
 
-	if(OpenConversations.has(detail.callID))
-		OpenConversations.get(detail.callID).NewSignal(detail.peerID, signal)
+	if(OpenCalls.has(detail.callID))
+		OpenCalls.get(detail.callID).NewSignal(detail.peerID, signal)
 });
 
 document.addEventListener("callPeerReady", (e) => {
 	const detail = e.detail;
 
-	if(OpenConversations.has(detail.callID))
-		OpenConversations.get(detail.callID).PeerReady(detail.peerID)
+	if(OpenCalls.has(detail.callID))
+		OpenCalls.get(detail.callID).PeerReady(detail.peerID)
 })
 
 
 document.addEventListener("wsClosed", () => {
 	// Close all the current conversations
-	OpenConversations.forEach((v) => v.Close(false))
+	OpenCalls.forEach((v) => v.Close(false))
 
-	OpenConversations.clear();
+	OpenCalls.clear();
 })
 
 
 document.addEventListener("openPage", () => {
 	CallsController.GetListLocalStorage().forEach(async c => {
-		if(!OpenConversations.has(c))
+		if(!OpenCalls.has(c))
 			CallsController.Open(await getSingleConversation(c))
 	})
 })
