@@ -358,6 +358,10 @@ class CallWindow extends CustomEvents {
 			audio: true
 		})
 
+		// Check if the window was closed in the mean time
+		if(!this.isOpen)
+			return
+
 		// Show user video
 		this.addVideoStream(userID(), true, stream)
 
