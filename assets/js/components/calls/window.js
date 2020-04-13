@@ -673,14 +673,13 @@ class CallWindow extends CustomEvents {
 	 */
 	async startStreaming(includeVideo, shareScreen = false) {
 
-		let videoConstraints = this.conv.can_have_video_call && includeVideo;
-
 		let stream;
 
 		// Get user screen
 		if(includeVideo && shareScreen) {
 			stream = await requestUserScreen(true)
 
+			// Ask for audio separatly
 			const second_stream = await navigator.mediaDevices.getUserMedia({
 				audio: true
 			})
@@ -692,7 +691,7 @@ class CallWindow extends CustomEvents {
 		else {
 			// First, query user media
 			stream = await navigator.mediaDevices.getUserMedia({
-				video: videoConstraints,
+				video: this.conv.can_have_video_call && includeVideo,
 				audio: true,
 			})
 		}
