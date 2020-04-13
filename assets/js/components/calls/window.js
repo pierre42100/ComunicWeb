@@ -203,6 +203,15 @@ class CallWindow extends CustomEvents {
 					}
 				},
 
+				// Record streams
+				{
+					icon: "fa-save",
+					text: "Start / Stop recording",
+					onclick: () => {
+						this.startRecording()
+					}
+				},
+
 			]
 
 			//Add buttons
@@ -884,5 +893,42 @@ class CallWindow extends CustomEvents {
 			this.peersEls.get(peerID).signal(data)
 		}
 
+	}
+
+	/**
+	 * Start / stop recording the streams
+	 */
+	startRecording() {
+
+		const onDataAvailable = blob => {
+			console.info("New record  available", blob)
+
+			// = GET URL = const url = URL.createObjectURL(blob)
+
+			// Save file
+			saveAs(blob, new Date().getTime() + ".webm")
+		}
+
+		// Start recording
+		if(!this.recorder) {
+			// Determine the list of streams to save
+			const streams = []
+
+			if(this.mainStream)
+				streams.push(this.mainStream)
+			this.streamsEls.forEach(v => streams.push(v))
+
+			// Create & start recorder
+			this.recorder = new MultiStreamRecorder(streams);
+			this.recorder.ondataavailable = onDataAvailable
+			this.recorder.start(30*60*1000); // Ask for save every 30min
+		}
+
+
+		// Stop recording
+		else {
+			this.recorder.stop(onDataAvailable)
+			delete this.recorder
+		}
 	}
 }

@@ -165,6 +165,9 @@ class Dev {
 
 		// Share screen
 		"3rdparty/getScreenId.js",
+
+		// Record MediaStream
+		"3rdparty/MediaStreamRecorder.min.js"
 	);
 
 	/**
