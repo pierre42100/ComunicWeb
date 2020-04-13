@@ -516,6 +516,13 @@ class CallWindow extends CustomEvents {
 		})
 		this.mainStream = stream;
 
+		if(includeVideo)
+			stream.getVideoTracks()[0].applyConstraints({
+				width: {max: 320},
+				height: {max: 240},
+				frameRate: {max: 24}
+			})
+
 		// Check if the window was closed in the mean time
 		if(!this.isOpen)
 			return
