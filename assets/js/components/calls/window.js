@@ -212,6 +212,15 @@ class CallWindow extends CustomEvents {
 					}
 				},
 
+				// Stop streaming
+				{
+					icon: "fa-stop",
+					text: "Stop streaming",
+					onclick: () => {
+						this.closeMainPeer()
+					}
+				}
+
 			]
 
 			//Add buttons
@@ -511,8 +520,10 @@ class CallWindow extends CustomEvents {
 		const el = this.videoEls.get(peerID);
 		this.videoEls.delete(peerID)
 
-		el.pause()
-		el.parentNode.remove()
+		if(el) {
+			el.pause()
+			el.parentNode.remove()	
+		}
 	}
 
 	/**
@@ -818,6 +829,9 @@ class CallWindow extends CustomEvents {
 			this.mainStream.getTracks().forEach(e => e.stop())
 			delete this.mainStream
 		}
+
+		this.removeVideoElement(userID())
+		this.refreshButtonsState()
 	}
 
 	/**
