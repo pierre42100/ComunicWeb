@@ -923,6 +923,22 @@ class CallWindow extends CustomEvents {
 			this.recorder = new MultiStreamRecorder(streams);
 			this.recorder.ondataavailable = onDataAvailable
 			this.recorder.start(30*60*1000); // Ask for save every 30min
+			
+
+			// Add notice
+			this.recordLabel = createElem2({
+				appendTo: this.windowHead,
+				type: "span",
+				class: "record-label",
+				innerHTML: "Recording"
+			});
+
+			createElem2({
+				appendTo: this.recordLabel,
+				type: "a",
+				innerHTML: "STOP",
+				onclick: () => this.startRecording()
+			})
 		}
 
 
@@ -930,6 +946,9 @@ class CallWindow extends CustomEvents {
 		else {
 			this.recorder.stop(onDataAvailable)
 			delete this.recorder
+
+			// Remove notice
+			this.recordLabel.remove()
 		}
 	}
 }

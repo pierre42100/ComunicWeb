@@ -64,6 +64,17 @@
 	color: inherit;
 }
 
+.call-window .head .record-label {
+	color: red;
+	margin-left: 10px;
+}
+
+.call-window .head .record-label a {
+	margin-left: 5px;
+	background-color: darkred !important;
+	font-weight: bold;
+}
+
 .call-window .members-area {
 	color: white;
 	font-size: 80%;
