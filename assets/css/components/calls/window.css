@@ -137,8 +137,24 @@
 	background-color: #fff3;
 }
 
+.call-window .window-bottom div i {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .call-window .window-bottom div.hang-up-button {
 	color: #dd4b39;
+}
+
+.call-window .window-bottom .dropdown-menu {
+	left: -95px;
+}
+
+.call-window .window-bottom .dropdown-menu i {
+	display: inline;
 }
 
 /**

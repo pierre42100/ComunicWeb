@@ -156,18 +156,29 @@ class CallWindow extends CustomEvents {
 				},
 
 
+				// Submenu button
+				{
+					subMenu: true,
+					icon: "fa-ellipsis-v",
+					selected: true,
+					label: "submenu",
+					onclick: () => {}
+				},
+			]
+
+			// Sub-menu entries
+			const menuEntries = [
+
 				//Full screen button
 				{
 					icon: "fa-expand",
-					selected: false,
+					text: "Toggle fullscreen",
 					needVideo: true,
-					onclick: (btn) => {
+					onclick: () => {
 						RequestFullScreen(this.rootEl);
-						setTimeout(() => {
-							setButtonSelected(btn, IsFullScreen());
-						}, 1000);
 					}
 				},
+
 			]
 
 			//Add buttons
@@ -175,6 +186,7 @@ class CallWindow extends CustomEvents {
 
 				if(button.needVideo && !this.allowVideo)
 					return;
+
 
 				const buttonEl = createElem2({
 					appendTo: bottomArea,
@@ -219,6 +231,49 @@ class CallWindow extends CustomEvents {
 			this.on("localVideo", () => {
 				setButtonSelected(bottomArea.querySelector("[data-label=\"toggle-camera-visibility\"]"), true)
 			})
+
+
+
+
+
+			// Process sub menu
+			const menu = bottomArea.querySelector("[data-label=\"submenu\"]");
+			menu.classList.add("dropup");
+
+
+			const menuButton = menu.firstChild;
+			menuButton.classList.add("dropdown-toggle");
+			menuButton.setAttribute("data-toggle", "dropdown")
+
+			const menuEntriesTarget = createElem2({
+				appendTo: menu,
+				type: "ul",
+				class: "dropdown-menu"
+			})
+
+			// Parse list of menu entries
+			for(const entry of menuEntries) {
+
+				const a = createElem2({
+					appendTo: menuEntriesTarget,
+					type: "li",
+					innerHTML: "<a></a>"
+				}).firstChild;
+
+				// Add icon
+				createElem2({
+					appendTo: a,
+					type: "i",
+					class: "fa " + entry.icon,
+				})
+
+				// Add label
+				a.innerHTML += entry.text
+
+				a.addEventListener("click", () => entry.onclick())
+			}
+
+
 
 
 
