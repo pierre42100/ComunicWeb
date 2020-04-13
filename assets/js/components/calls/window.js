@@ -48,6 +48,9 @@ class CallWindow extends CustomEvents {
 				class: "call-window"
 			})
 
+			if(!this.conv.can_have_video_call)
+				this.rootEl.classList.add("audio-only")
+
 			
 			// Construct head
 			this.windowHead = createElem2({
@@ -475,7 +478,7 @@ class CallWindow extends CustomEvents {
 	async toggleStream(isVideo) {
 
 		if(isVideo && !this.conv.can_have_video_call) {
-			notify("Video calls can not be perfomed on this conversations!", "danger")
+			notify("Video calls can not be done on this conversations!", "danger")
 			return;
 		}
 

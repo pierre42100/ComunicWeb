@@ -27,6 +27,10 @@
 	visibility: visible;
 }
 
+.call-window.audio-only {
+	min-height: unset;
+}
+
 /* This could be moved to conversation page stylesheet also */
 .call-window.embedded {
 	position: unset;
@@ -35,6 +39,9 @@
 	width: 90%;
 	height: 150px;
 	margin: 10px auto;
+}
+.call-window.embedded.audio-only {
+	height: 90px;
 }
 
 .call-window .head {
