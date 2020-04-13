@@ -56,6 +56,10 @@
 	vertical-align: middle;
 }
 
+.call-window .head .title {
+	cursor: default;
+}
+
 .call-window .head a {
 	color: inherit;
 }

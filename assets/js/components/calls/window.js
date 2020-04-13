@@ -59,7 +59,7 @@ class CallWindow extends CustomEvents {
 				type: "div",
 				class: "head",
 				innerHTML: "<i class='fa fa-phone'></i>" +
-					await getConvName(conv) + 
+					"<span class='title'>"+ await getConvName(conv) + "</span>" + 
 					" <span class='pull-right'></span>"
 			})
 
