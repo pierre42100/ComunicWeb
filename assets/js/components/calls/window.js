@@ -109,6 +109,15 @@ class CallWindow extends CustomEvents {
 			// Display the list of buttons
 			const buttonsList = [
 				
+				// Toggle current user camera
+				{
+					icon: "fa-eye",
+					selected: true,
+					onclick: (btn) => {
+						setButtonSelected(btn, this.toggleMainStreamVisibility())
+					}
+				},
+
 				// Audio button
 				{
 					icon: "fa-microphone",
@@ -473,6 +482,30 @@ class CallWindow extends CustomEvents {
 		}
 
 		this.refreshButtonsState()
+	}
+
+	/**
+	 * Toggle current peer stream visibility
+	 * 
+	 * @return {boolean} New state
+	 */
+	toggleMainStreamVisibility() {
+		const el = this.videoEls.get(userID())
+		
+		if(!el || el.nodeName !== "VIDEO")
+			return true;
+		
+		// Show again element
+		if(el.parentNode.style.display == "none") {
+			el.parentNode.style.display = ""
+			return true
+		}
+
+		// Hide element
+		else {
+			el.parentNode.style.display = "none"
+			return false
+		}
 	}
 
 	/**
