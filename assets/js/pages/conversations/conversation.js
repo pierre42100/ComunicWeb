@@ -558,16 +558,20 @@ const ConversationPageConvPart = {
 				//Reverse messages order
 				response.reverse();
 
-				//Save the current oldest message
-				var oldestMessage = convInfo.window.messagesTarget.firstChild;
-
 				//Process the list of messages in reverse order
 				response.forEach(function(message){
 					ComunicWeb.pages.conversations.conversation.addMessage(message);
 				});
 
 				//Scroll to newest message
-				document.querySelector("[data-chatpage-msg-text-id=\""+response[0].ID+"\"]").scrollIntoView()
+				let el = document.querySelector("[data-chatpage-msg-text-id=\""+response[0].ID+"\"]")
+				if(el) {
+					el = el.parentNode
+					/** @type {HTMLDivElement} */
+					const parent = el.parentNode;
+					parent.scrollTop = el.offsetTop
+					console.log(parent, parent.scrollTop, el.offsetTop)
+				}
 				
 			});
 		});
