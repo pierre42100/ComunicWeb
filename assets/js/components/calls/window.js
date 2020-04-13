@@ -23,6 +23,9 @@ class CallWindow extends CustomEvents {
 		/** @type {Map<number, Peer>} */
 		this.peersEls = new Map()
 
+		/** @type {Map<number, SimplePeer>} */
+		this.streamsEls = new Map()
+
 		/** @type {Map<number, HTMLVideoElement>} */
 		this.videoEls = new Map()
 
@@ -524,6 +527,11 @@ class CallWindow extends CustomEvents {
 			this.peersEls.delete(userID)
 		}
 
+		// Remove associated stream
+		if(this.streamsEls.has(userID)) {
+			this.streamsEls.delete(userID)
+		}
+
 	}
 
 	/**
@@ -844,6 +852,7 @@ class CallWindow extends CustomEvents {
 		peer.on("stream", stream => {
 			console.log("Got remote peer stream", stream)
 
+			this.streamsEls.set(peerID, stream)
 			this.applyStream(peerID, false, stream)
 		});
 
