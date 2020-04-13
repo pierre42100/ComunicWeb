@@ -18,6 +18,7 @@ class CallWindow extends CustomEvents {
 		// Initialize variables
 		this.conv = conv;
 		this.callID = conv.ID;
+		this.allowVideo = conv.can_have_video_call;
 
 		/** @type {Map<number, Peer>} */
 		this.peersEls = new Map()
@@ -117,6 +118,7 @@ class CallWindow extends CustomEvents {
 					icon: "fa-eye",
 					selected: false,
 					label: "toggle-camera-visibility",
+					needVideo: true,
 					onclick: (btn) => {
 						setButtonSelected(btn, this.toggleMainStreamVisibility())
 					}
@@ -147,6 +149,7 @@ class CallWindow extends CustomEvents {
 					icon: "fa-video-camera",
 					label: "camera",
 					selected: false,
+					needVideo: true,
 					onclick: () => {
 						this.toggleStream(true)
 					}
@@ -157,6 +160,7 @@ class CallWindow extends CustomEvents {
 				{
 					icon: "fa-expand",
 					selected: false,
+					needVideo: true,
 					onclick: (btn) => {
 						RequestFullScreen(this.rootEl);
 						setTimeout(() => {
@@ -168,6 +172,9 @@ class CallWindow extends CustomEvents {
 
 			//Add buttons
 			buttonsList.forEach((button) => {
+
+				if(button.needVideo && !this.allowVideo)
+					return;
 
 				const buttonEl = createElem2({
 					appendTo: bottomArea,
