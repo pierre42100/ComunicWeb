@@ -18,7 +18,7 @@ const ConversationPageConvPart = {
 	 * @param {HTMLElement} target The target where the conversation will be
 	 * applied
 	 */
-	open: function(convID, target){
+	open: async function(convID, target){
 
 		//Reset conversation information
 		this._conv_info = {
@@ -81,6 +81,13 @@ const ConversationPageConvPart = {
 		});
 		this._conv_info.window.title = boxTitle;
 
+		// Box tools
+		const boxTools = createElem2({
+			appendTo: boxHeader,
+			type: "div",
+			class: "box-tools pull-right"
+		})
+
 		//Box body
 		var boxBody = createElem2({
 			appendTo: box,
@@ -103,18 +110,15 @@ const ConversationPageConvPart = {
 			innerHTML: "Please wait, loading..."
 		});
 
-		//Get information about the conversation
-		ComunicWeb.components.conversations.interface.getInfosOne(convID, function(result){
-
-			//Check for errors
-			if(result.error)
-				return loadingMsg.innerHTML = "An error occurred while loading conversation information !";
-		
+		try {
+			//Get information about the conversation
+			const convInfo = await getSingleConversation(convID);
+			
 			//Save conversation information
-			ComunicWeb.pages.conversations.conversation._conv_info.conversation = result;
+			ComunicWeb.pages.conversations.conversation._conv_info.conversation = convInfo;
 
 			//Time to load user information
-			ComunicWeb.user.userInfos.getMultipleUsersInfo(result.members, function(membersInfo){
+			ComunicWeb.user.userInfos.getMultipleUsersInfo(convInfo.members, function(membersInfo){
 
 				//Check for errors
 				if(membersInfo.error)
@@ -127,10 +131,27 @@ const ConversationPageConvPart = {
 				loadingMsg.remove();
 
 				//Perform next steps
-				ComunicWeb.pages.conversations.conversation.onGotInfo(result);
+				ComunicWeb.pages.conversations.conversation.onGotInfo(convInfo);
 
 			});
-		});
+
+			// Add call button (if possible)
+			if(convInfo.can_have_call) {
+				const button = createElem2({
+					appendTo: boxTools,
+					type: "button",
+					class: "btn btn-box-tool",
+					innerHTML: "<i class='fa fa-phone'></i>"
+				});		
+				button.addEventListener("click", function(){
+					CallsController.Open(convInfo)
+				});
+			}
+
+		} catch(e) {
+			console.error(e);
+			return loadingMsg.innerHTML = "An error occurred while loading conversation information !";
+		}
 	},
 
 	/**
