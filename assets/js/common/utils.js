@@ -792,3 +792,30 @@ function IsFullScreen(){
 function checkEmojiCode(s) {
 	return s.match(/^:[a-zA-Z0-9]+:$/) != null
 }
+
+/**
+ * Request user screen as stream
+ * 
+ * @return {Promise<MediaStream>}
+ */
+function requestUserScreen() {
+	return new Promise((onSuccess, onFailure) => {
+		getScreenId(function (error, sourceId, screen_constraints) {
+			
+			if(error != null)
+				return onFailure(error)
+			
+			// error    == null || 'permission-denied' || 'not-installed' || 'installed-disabled' || 'not-chrome'
+			// sourceId == null || 'string' || 'firefox'
+			
+			if(navigator.getDisplayMedia) {
+				navigator.getDisplayMedia(screen_constraints).then(onSuccess, onFailure);
+			}
+			else {
+				navigator.mediaDevices.getUserMedia(screen_constraints).then(onSuccess).catch(onFailure);
+			}
+		
+		});
+	})
+	
+}

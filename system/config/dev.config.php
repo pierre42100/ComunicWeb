@@ -162,6 +162,9 @@ class Dev {
 
 		//Simple peer
 		array("path" => "3rdparty/simplepeer/simplepeer.min.js", "uglifyjs" => false),
+
+		// Share screen
+		"3rdparty/getScreenId.js",
 	);
 
 	/**

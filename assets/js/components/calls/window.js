@@ -254,6 +254,9 @@ class CallWindow extends CustomEvents {
 			// Parse list of menu entries
 			for(const entry of menuEntries) {
 
+				if(entry.needVideo && !this.allowVideo)
+					continue
+
 				const a = createElem2({
 					appendTo: menuEntriesTarget,
 					type: "li",
@@ -666,14 +669,33 @@ class CallWindow extends CustomEvents {
 	 * Start to send this client audio & video
 	 * 
 	 * @param {boolean} includeVideo
+	 * @param {boolean} shareScreen
 	 */
-	async startStreaming(includeVideo) {
+	async startStreaming(includeVideo, shareScreen = false) {
 
-		// First, query user media
-		const stream = await navigator.mediaDevices.getUserMedia({
-			video: this.conv.can_have_video_call && includeVideo,
-			audio: true
-		})
+		let videoConstraints = this.conv.can_have_video_call && includeVideo;
+
+		let stream;
+
+		// Get user screen
+		if(includeVideo && shareScreen) {
+			stream = await requestUserScreen(true)
+
+			const second_stream = await navigator.mediaDevices.getUserMedia({
+				audio: true
+			})
+
+			stream.addTrack(second_stream.getAudioTracks()[0])
+		}
+
+		// Use regular webcam
+		else {
+			// First, query user media
+			stream = await navigator.mediaDevices.getUserMedia({
+				video: videoConstraints,
+				audio: true,
+			})
+		}
 		this.mainStream = stream;
 
 		if(includeVideo)
