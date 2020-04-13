@@ -477,20 +477,22 @@ class CallWindow extends CustomEvents {
 	 * @param {boolean} muted True to mute video
 	 * @param {MediaStream} stream Target stream
 	 */
-	addVideoStream(peerID, muted, stream) {
+	applyStream(peerID, muted, stream) {
 
 		// Remove any previous video stream
 		if(this.videoEls.has(peerID)) {
 			this.removeVideoElement(peerID)
 		}
 
+		const isVideo = stream.getVideoTracks().length > 0;
+
 		const videoContainer = createElem2({
 			appendTo: this.videosArea,
 			type: "div",
-			class: "video"
+			class: isVideo ? "video" : undefined
 		})
 
-		const videoEl = document.createElement(stream.getVideoTracks().length > 0 ?  "video" : "audio");
+		const videoEl = document.createElement(isVideo ?  "video" : "audio");
 		videoContainer.appendChild(videoEl)
 
 		videoEl.muted = muted;
@@ -544,7 +546,7 @@ class CallWindow extends CustomEvents {
 			return
 
 		// Show user video
-		this.addVideoStream(userID(), true, stream)
+		this.applyStream(userID(), true, stream)
 
 		this.mainPeer = new SimplePeer({
 			initiator: true,
@@ -634,7 +636,7 @@ class CallWindow extends CustomEvents {
 		peer.on("stream", stream => {
 			console.log("Got remote peer stream", stream)
 
-			this.addVideoStream(peerID, false, stream)
+			this.applyStream(peerID, false, stream)
 		});
 
 		peer.on("close", () => {
