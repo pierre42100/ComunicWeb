@@ -112,6 +112,7 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	background-color: black;
 }
 
 .call-window .window-bottom div {
