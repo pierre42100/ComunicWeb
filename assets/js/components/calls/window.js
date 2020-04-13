@@ -169,13 +169,34 @@ class CallWindow extends CustomEvents {
 			// Sub-menu entries
 			const menuEntries = [
 
-				//Full screen button
+				// Full screen button
 				{
 					icon: "fa-expand",
 					text: "Toggle fullscreen",
 					needVideo: true,
 					onclick: () => {
 						RequestFullScreen(this.rootEl);
+					}
+				},
+
+
+				// Share screen button
+				{
+					icon: "fa-tv",
+					text: "Share screen",
+					needVideo: true,
+					onclick: () => {
+						this.startStreaming(true, true)
+					}
+				},
+
+				// Share camera button
+				{
+					icon: "fa-video-camera",
+					text: "Share webcam",
+					needVideo: true,
+					onclick: () => {
+						this.startStreaming(true, false)
 					}
 				},
 
