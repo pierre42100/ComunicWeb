@@ -27,6 +27,15 @@
 	visibility: visible;
 }
 
+.call-window.embedded {
+	position: relative;
+	top: unset !important;
+	left: unset !important;
+	width: unset;
+	height: 150px;
+	margin: 20px;
+}
+
 .call-window .head {
 	color: white;
 	padding: 5px;

@@ -23,6 +23,14 @@ ComunicWeb.pages.conversations.main = {
 
 		//Check if a conversation has to be opened
 		if(args.subfolder){
+
+			// Add a target for video calls
+			createElem2({
+				appendTo: container,
+				type: "div",
+				id: "target-for-video-call-"+this.getCurrentConversationID()
+			})
+
 			ComunicWeb.pages.conversations.conversation.open(this.getCurrentConversationID(), container);
 		}
 

@@ -4,6 +4,30 @@
  * @author Pierre HUBERT
  */
 
+.big-box-conversation {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 90%;
+	margin: auto;
+}
+
+.big-box-conversation .box-body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.big-box-conversation .box-body .slimScrollDiv {
+	flex: 1;
+}
+
+.big-box-conversation .direct-chat-messages {
+	flex: 1 1 auto;
+	height: 0px;
+	overflow: auto;
+}
+
 .big-box-conversation .direct-chat-info span {
 	margin-right: 10px;
 }

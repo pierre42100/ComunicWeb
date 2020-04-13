@@ -334,7 +334,7 @@ const ConversationPageConvPart = {
 				//Enable / update slimscroll
 				var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
 				var scrollBottom = $(target).prop("scrollHeight")+"px";
-				ComunicWeb.pages.conversations.utils.enableSlimScroll(target, ComunicWeb.pages.conversations.utils.getAvailableHeight(), scrollBottom);
+				//ComunicWeb.pages.conversations.utils.enableSlimScroll(target, "100%", scrollBottom);
 
 			}, 100);
 		}
@@ -580,10 +580,10 @@ const ConversationPageConvPart = {
 				newScrollPos = oldestMessage.offsetTop - 30;
 				if(newScrollPos < 0)
 					newScrollPos = 0;
-				ComunicWeb.pages.conversations.utils.enableSlimScroll(
-					convInfo.window.messagesTarget, 
-					ComunicWeb.pages.conversations.utils.getAvailableHeight(), 
-					newScrollPos);
+				/*ComunicWeb.pages.conversations.utils.enableSlimScroll(
+					convInfo.window.messagesTarget,
+					"100%", 
+					newScrollPos);*/
 			});
 		});
 	},

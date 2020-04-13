@@ -131,4 +131,9 @@ document.addEventListener("openPage", () => {
 		if(!OpenCalls.has(c))
 			CallsController.Open(await getSingleConversation(c))
 	})
+	
+	// Check if a conversation can be integrated inside the page
+	for(const call of OpenCalls.values()) {
+		call.CheckNewTargetForWindow()
+	}
 })

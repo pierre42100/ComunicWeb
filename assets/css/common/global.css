@@ -37,6 +37,11 @@ a, .cursor-pointer {
     padding-bottom: 0px;
 }
 
+#pageTarget {
+    display: flex;
+    flex-direction: column;
+}
+
 /**
  * Adapt menu bar to small screens
  */

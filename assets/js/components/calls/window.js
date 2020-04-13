@@ -212,6 +212,9 @@ class CallWindow extends CustomEvents {
 
 
 
+			// Check for anchors
+			this.CheckNewTargetForWindow()
+
 
 			
 			// Join the call
@@ -241,6 +244,25 @@ class CallWindow extends CustomEvents {
 		} catch(e) {
 			console.error(e)
 			notify("Could not initialize call!", "danger");
+		}
+	}
+
+	/**
+	 * Check if current call window can be applied somewhere on the screen
+	 */
+	CheckNewTargetForWindow() {
+		const target = byId("target-for-video-call-"+this.callID)
+
+		this.rootEl.remove()
+
+		if(target) {
+			target.appendChild(this.rootEl)
+			this.rootEl.classList.add("embedded")
+		}
+
+		else {
+			byId("callsTarget").appendChild(this.rootEl)
+			this.rootEl.classList.remove("embedded")
 		}
 	}
 

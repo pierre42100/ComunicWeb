@@ -10,14 +10,14 @@ ComunicWeb.pages.conversations.utils = {
 	 * Enable slimscroll for the conversation element
 	 * 
 	 * @param {HMTLElement} target The target for slimscroll
-	 * @param {Number} height The available height for the element
+	 * @param {Number|String} height The available height for the element
 	 * @param {Number} pos Scroll position to go to
 	 */
 	enableSlimScroll: function(target, height, pos){
 
 		$(target).slimScroll({
 			scrollTo: pos + "px",
-			height: height + "px",
+			height: height + (typeof height == "number" ? "px" : ""),
 		});
 	},
 
