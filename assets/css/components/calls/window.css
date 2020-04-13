@@ -67,6 +67,7 @@
 	flex-wrap: wrap;
 	flex: 1;
 	justify-content: center;
+	overflow: hidden;
 }
 
 .call-window .videos-area .video {
@@ -77,10 +78,12 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
 
 .call-window .videos-area .video video {
 	max-width: 100%;
+	flex: 1;
 }
 
 .call-window .window-bottom {
