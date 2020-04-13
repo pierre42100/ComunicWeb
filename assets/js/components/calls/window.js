@@ -254,11 +254,12 @@ class CallWindow extends CustomEvents {
 				)
 
 				// Video button
-				setButtonSelected(
-					bottomArea.querySelector("[data-label=\"camera\"]"),
-					this.mainStream && this.mainStream.getVideoTracks().length > 0 && 
-						this.mainStream.getVideoTracks()[0].enabled
-				)
+				if(this.allowVideo)
+					setButtonSelected(
+						bottomArea.querySelector("[data-label=\"camera\"]"),
+						this.mainStream && this.mainStream.getVideoTracks().length > 0 && 
+							this.mainStream.getVideoTracks()[0].enabled
+					)
 			}
 
 			this.on("localVideo", () => {
