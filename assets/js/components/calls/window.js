@@ -364,15 +364,9 @@ class CallWindow extends CustomEvents {
 
 		
 		if(this.mainPeer) {
-			this.mainPeer.destroy();
-			delete this.mainPeer;
+			this.closeMainPeer()
 		}
 		
-		// Release user media
-		if(this.mainStream) {
-			this.mainStream.getTracks().forEach(e => e.stop())
-		}
-
 		// Destroy peer connections
 		for(const el of this.peersEls)
 			el[1].destroy()
@@ -486,12 +480,18 @@ class CallWindow extends CustomEvents {
 		const hasVideo = (this.mainPeer && !this.mainPeer.destroyed && this.mainStream && this.mainStream.getVideoTracks().length > 0) === true;
 
 		// Check if current stream is not enough
-		if(hasAudio && isVideo && !hasVideo)
-			this.mainPeer.destroy()
+		if(hasAudio && isVideo && !hasVideo) {
+			this.closeMainPeer()
+		}
 
 		// Check if we have to start stream or just to mute them
 		if(!hasAudio || (isVideo && !hasVideo)) {
-			await this.startStreaming(isVideo)
+			try {
+				await this.startStreaming(isVideo)
+			} catch(e) {
+				notify("Could not start streaming ! (did you block access to your camera / microphone ?)", "danger")
+				console.error(e)
+			}
 		}
 
 		// Toggle mute
@@ -675,6 +675,25 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Close main peer connection
+	 */
+	async closeMainPeer() {
+
+
+		// Close peer connection
+		if(this.mainPeer) {
+			this.mainPeer.destroy();
+			delete this.mainPeer;
+		}
+
+		// Release user media
+		if(this.mainStream) {
+			this.mainStream.getTracks().forEach(e => e.stop())
+			delete this.mainStream
+		}
+	}
+
+	/**
 	 * Start to receive video from remote peer
 	 * 
 	 * @param {number} peerID Target peer ID
@@ -729,8 +748,6 @@ class CallWindow extends CustomEvents {
 			callID: this.callID,
 			peerID: peerID,
 		})
-
-		console.log(peer)
 	}
 
 	/**
