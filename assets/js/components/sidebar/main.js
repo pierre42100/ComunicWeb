@@ -576,6 +576,25 @@ const SidebarMain = {
 			innerHTML: timeDiffToStr(conv.last_active)
 		});
 
+
+		// Check if there is an ongoing call on the conversation
+		if(conv.has_call_now) {
+			
+			li.classList.add("with-call");
+
+			let callLi = createElem2({
+				appendTo: target,
+				type: "li",
+				class: "call_notice"
+			});
+
+			let a = createElem2({
+				appendTo: callLi,
+				type: "a",
+				onclick: () => CallsController.Open(conv),
+				innerHTML: "<i class='fa fa-phone'></i> <span>Ongoing call</span>"
+			});
+		}
 	},
 
 	/**
