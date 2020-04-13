@@ -109,10 +109,11 @@ class CallWindow extends CustomEvents {
 			// Display the list of buttons
 			const buttonsList = [
 				
-				// Toggle current user camera
+				// Toggle current user camera visibility
 				{
 					icon: "fa-eye",
-					selected: true,
+					selected: false,
+					label: "toggle-camera-visibility",
 					onclick: (btn) => {
 						setButtonSelected(btn, this.toggleMainStreamVisibility())
 					}
@@ -205,6 +206,9 @@ class CallWindow extends CustomEvents {
 				)
 			}
 
+			this.on("localVideo", () => {
+				setButtonSelected(bottomArea.querySelector("[data-label=\"toggle-camera-visibility\"]"), true)
+			})
 
 
 
@@ -493,7 +497,7 @@ class CallWindow extends CustomEvents {
 		const el = this.videoEls.get(userID())
 		
 		if(!el || el.nodeName !== "VIDEO")
-			return true;
+			return false;
 		
 		// Show again element
 		if(el.parentNode.style.display == "none") {
@@ -542,10 +546,15 @@ class CallWindow extends CustomEvents {
 		this.videoEls.set(peerID, videoEl)
 
 
-		// Show user name
 		if(isVideo) {
+			// Show user name
 			const userName = (await user(peerID)).fullName
 			videoEl.title = userName
+		}
+
+		if(isVideo && peerID == userID()) {
+			// Emit an event
+			this.emitEvent("localVideo")
 		}
 	}
 
