@@ -482,7 +482,7 @@ class CallWindow extends CustomEvents {
 	 * @param {boolean} muted True to mute video
 	 * @param {MediaStream} stream Target stream
 	 */
-	applyStream(peerID, muted, stream) {
+	async applyStream(peerID, muted, stream) {
 
 		// Remove any previous video stream
 		if(this.videoEls.has(peerID)) {
@@ -497,6 +497,7 @@ class CallWindow extends CustomEvents {
 			class: isVideo ? "video" : undefined
 		})
 
+		// Apply video
 		const videoEl = document.createElement(isVideo ?  "video" : "audio");
 		videoContainer.appendChild(videoEl)
 
@@ -507,6 +508,12 @@ class CallWindow extends CustomEvents {
 
 		this.videoEls.set(peerID, videoEl)
 
+
+		// Show user name
+		if(isVideo) {
+			const userName = (await user(peerID)).fullName
+			videoEl.title = userName
+		}
 	}
 
 	/**
@@ -552,7 +559,7 @@ class CallWindow extends CustomEvents {
 			return
 
 		// Show user video
-		this.applyStream(userID(), true, stream)
+		await this.applyStream(userID(), true, stream)
 
 		this.mainPeer = new SimplePeer({
 			initiator: true,
