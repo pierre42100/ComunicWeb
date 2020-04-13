@@ -330,6 +330,11 @@ class CallWindow extends CustomEvents {
 			delete this.mainPeer;
 		}
 		
+		// Release user media
+		if(this.mainStream) {
+			this.mainStream.getTracks().forEach(e => e.stop())
+		}
+
 		// Destroy peer connections
 		for(const el of this.peersEls)
 			el[1].destroy()
@@ -501,6 +506,7 @@ class CallWindow extends CustomEvents {
 		videoEl.play()
 
 		this.videoEls.set(peerID, videoEl)
+
 	}
 
 	/**
