@@ -236,6 +236,10 @@ class UserWebSocket {
 			case "call_peer_ready":
 				SendEvent("callPeerReady", msg.data);
 				break;
+			
+			case "call_closed":
+				SendEvent("callClosed", msg.data);
+				break;
 
 
 			default:

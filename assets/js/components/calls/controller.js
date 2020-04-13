@@ -111,6 +111,12 @@ document.addEventListener("callPeerReady", (e) => {
 		OpenCalls.get(detail.callID).PeerReady(detail.peerID)
 })
 
+document.addEventListener("callClosed", e => {
+	const callID = e.detail;
+
+	if(OpenCalls.has(callID))
+		OpenCalls.get(callID).Close(false);
+});
 
 document.addEventListener("wsClosed", () => {
 	// Close all the current conversations
