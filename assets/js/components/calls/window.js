@@ -109,6 +109,16 @@ class CallWindow extends CustomEvents {
 			// Display the list of buttons
 			const buttonsList = [
 				
+				// Audio button
+				{
+					icon: "fa-microphone",
+					label: "mic",
+					selected: false,
+					onclick: () => {
+						this.toggleStream(false)
+					}
+				},
+
 				// Hang up button
 				{
 					icon: "fa-phone",
@@ -118,6 +128,17 @@ class CallWindow extends CustomEvents {
 						this.Close(true)
 					}
 				},
+
+				// Video button
+				{
+					icon: "fa-video-camera",
+					label: "camera",
+					selected: false,
+					onclick: () => {
+						this.toggleStream(true)
+					}
+				},
+
 
 				//Full screen button
 				{
@@ -129,7 +150,7 @@ class CallWindow extends CustomEvents {
 							setButtonSelected(btn, IsFullScreen());
 						}, 1000);
 					}
-				}
+				},
 			]
 
 			//Add buttons
@@ -140,6 +161,7 @@ class CallWindow extends CustomEvents {
 					type: "div",
 					innerHTML: "<i class='fa " + button.icon + "'></i>"
 				});
+				buttonEl.setAttribute("data-label", button.label)
 
 				//Add button optionnal class
 				if(button.class)
@@ -154,6 +176,25 @@ class CallWindow extends CustomEvents {
 
 			});
 
+
+			/**
+			 * Refresh buttons state
+			 */
+			this.refreshButtonsState = () => {
+				
+				// Microphone button
+				setButtonSelected(
+					bottomArea.querySelector("[data-label=\"mic\"]"),
+					this.mainStream && this.mainStream.getAudioTracks()[0].enabled
+				)
+
+				// Video button
+				setButtonSelected(
+					bottomArea.querySelector("[data-label=\"camera\"]"),
+					this.mainStream && this.mainStream.getVideoTracks().length > 0 && 
+						this.mainStream.getVideoTracks()[0].enabled
+				)
+			}
 
 
 
@@ -182,9 +223,6 @@ class CallWindow extends CustomEvents {
 			for(const user of currMembersList)
 				if(user.userID != userID() && user.ready)
 					await this.PeerReady(user.userID)
-
-			// Start to stream audio & video
-			await this.startStreaming();
 
 
 		} catch(e) {
@@ -380,6 +418,49 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Toggle stream state
+	 * 
+	 * @param {boolean} isVideo 
+	 */
+	async toggleStream(isVideo) {
+
+		if(isVideo && !this.conv.can_have_video_call) {
+			notify("Video calls can not be perfomed on this conversations!", "danger")
+			return;
+		}
+
+		const hasAudio = (this.mainPeer && !this.mainPeer.destroyed) === true;
+		const hasVideo = (this.mainPeer && !this.mainPeer.destroyed && this.mainStream && this.mainStream.getVideoTracks().length > 0) === true;
+
+		// Check if current stream is not enough
+		if(hasAudio && isVideo && !hasVideo)
+			this.mainPeer.destroy()
+
+		// Check if we have to start stream or just to mute them
+		if(!hasAudio || (isVideo && !hasVideo)) {
+			await this.startStreaming(isVideo)
+		}
+
+		// Toggle mute
+		else {
+
+			// Video
+			if(isVideo) {
+				this.mainStream.getVideoTracks()[0].enabled = !this.mainStream.getVideoTracks()[0].enabled
+			}
+
+
+			// Audio
+			else {
+				this.mainStream.getAudioTracks()[0].enabled = !this.mainStream.getAudioTracks()[0].enabled
+			}
+
+		}
+
+		this.refreshButtonsState()
+	}
+
+	/**
 	 * Add audio / video stream to the user
 	 * 
 	 * @param {number} peerID Remove peer ID
@@ -423,14 +504,17 @@ class CallWindow extends CustomEvents {
 
 	/**
 	 * Start to send this client audio & video
+	 * 
+	 * @param {boolean} includeVideo
 	 */
-	async startStreaming() {
+	async startStreaming(includeVideo) {
 
 		// First, query user media
 		const stream = await navigator.mediaDevices.getUserMedia({
-			video: this.conv.can_have_video_call,
+			video: this.conv.can_have_video_call && includeVideo,
 			audio: true
 		})
+		this.mainStream = stream;
 
 		// Check if the window was closed in the mean time
 		if(!this.isOpen)
