@@ -327,15 +327,10 @@ const ConversationPageConvPart = {
 			nameContainer.innerHTML = userFullName(this._conv_info.users["user-" + info.ID_user]);
 		}
 
-		//Set a timeout to make slimscroll properly work (for newest messages)
+		//Set a timeout to make scroll properly work (for newest messages)
 		if(toLatestMessages){
 			setTimeout(function(){
-
-				//Enable / update slimscroll
-				var target = ComunicWeb.pages.conversations.conversation._conv_info.window.messagesTarget;
-				var scrollBottom = $(target).prop("scrollHeight")+"px";
-				//ComunicWeb.pages.conversations.utils.enableSlimScroll(target, "100%", scrollBottom);
-
+				messageContainer.scrollIntoView(false)
 			}, 100);
 		}
 	},
@@ -523,24 +518,19 @@ const ConversationPageConvPart = {
 		//Save conversation information
 		var convInfo = this._conv_info;
 
-		$(this._conv_info.window.messagesTarget).bind("slimscrolling", function(e, pos){
+		const msgTarget = this._conv_info.window.messagesTarget;
+		msgTarget.addEventListener("scroll", () => {
+			
 
 			//Check if a request is already pending
 			if(refreshLocked)
 				return;
 			
 			//Check if we are not at the top of the screen
-			if(pos != 0){
-				topScrollCount = 0;
+			if(msgTarget.scrollTop != 0){
 				return;
 			}
-			
-			//Increment value
-			topScrollCount++;
-			
-			//The user must scroll several seconds to request a refresh
-			if(topScrollCount < 3)
-				return;
+
 
 			//Lock refresh
 			refreshLocked = true;
@@ -576,14 +566,9 @@ const ConversationPageConvPart = {
 					ComunicWeb.pages.conversations.conversation.addMessage(message);
 				});
 
-				//Update slimscroll
-				newScrollPos = oldestMessage.offsetTop - 30;
-				if(newScrollPos < 0)
-					newScrollPos = 0;
-				/*ComunicWeb.pages.conversations.utils.enableSlimScroll(
-					convInfo.window.messagesTarget,
-					"100%", 
-					newScrollPos);*/
+				//Scroll to newest message
+				document.querySelector("[data-chatpage-msg-text-id=\""+response[0].ID+"\"]").scrollIntoView()
+				
 			});
 		});
 	},
