@@ -365,6 +365,20 @@ class CallWindow extends CustomEvents {
 		return this.membersArea.querySelector("[data-call-member-name-id=\""+userID+"\"]");
 	}
 
+
+	/**
+	 * Remove the video element of a specific user
+	 * 
+	 * @param {number} peerID Target peer ID
+	 */
+	removeVideoElement(peerID) {
+		const el = this.videoEls.get(peerID);
+		this.videoEls.delete(peerID)
+
+		el.pause()
+		el.parentNode.remove()
+	}
+
 	/**
 	 * Remove a member connection
 	 * 
@@ -378,11 +392,7 @@ class CallWindow extends CustomEvents {
 
 		// Remove video (if any)
 		if(this.videoEls.has(userID)) {
-			const el = this.videoEls.get(userID);
-			this.videoEls.delete(userID)
-
-			el.pause()
-			el.remove()
+			this.removeVideoElement(userID)
 		}
 		
 		// Remove peer connection (if any)
@@ -471,11 +481,17 @@ class CallWindow extends CustomEvents {
 
 		// Remove any previous video stream
 		if(this.videoEls.has(peerID)) {
-			this.videoEls.get(peerID).remove()
+			this.removeVideoElement(peerID)
 		}
 
+		const videoContainer = createElem2({
+			appendTo: this.videosArea,
+			type: "div",
+			class: "video"
+		})
+
 		const videoEl = document.createElement(stream.getVideoTracks().length > 0 ?  "video" : "audio");
-		this.videosArea.appendChild(videoEl)
+		videoContainer.appendChild(videoEl)
 
 		videoEl.muted = muted;
 

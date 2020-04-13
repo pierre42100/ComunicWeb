@@ -69,10 +69,17 @@
 	justify-content: center;
 }
 
-.call-window .videos-area video {
+.call-window .videos-area .video {
 	flex-shrink: 1;
 	flex: 1;
 	max-height: 100%;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.call-window .videos-area .video video {
 	max-width: 100%;
 }
 
