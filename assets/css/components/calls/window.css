@@ -27,13 +27,14 @@
 	visibility: visible;
 }
 
+/* This could be moved to conversation page stylesheet also */
 .call-window.embedded {
-	position: relative;
+	position: unset;
 	top: unset !important;
 	left: unset !important;
-	width: unset;
+	width: 90%;
 	height: 150px;
-	margin: 20px;
+	margin: 10px auto;
 }
 
 .call-window .head {
