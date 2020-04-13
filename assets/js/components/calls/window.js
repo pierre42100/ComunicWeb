@@ -694,6 +694,10 @@ class CallWindow extends CustomEvents {
 	 */
 	async startStreaming(includeVideo, shareScreen = false) {
 
+		// Close any previous connection
+		this.closeMainPeer();
+		this.refreshButtonsState()
+
 		let stream;
 
 		// Get user screen
@@ -731,6 +735,7 @@ class CallWindow extends CustomEvents {
 
 		// Show user video
 		await this.applyStream(userID(), true, stream)
+		this.refreshButtonsState()
 
 		this.mainPeer = new SimplePeer({
 			initiator: true,
