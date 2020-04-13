@@ -330,7 +330,7 @@ const ConversationPageConvPart = {
 		//Set a timeout to make scroll properly work (for newest messages)
 		if(toLatestMessages){
 			setTimeout(function(){
-				messageContainer.scrollIntoView(false)
+				messageContainer.parentNode.scrollTop = messageContainer.parentNode.scrollHeight
 			}, 100);
 		}
 	},

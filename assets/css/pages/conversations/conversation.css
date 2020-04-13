@@ -18,14 +18,11 @@
 	flex-direction: column;
 }
 
-.big-box-conversation .box-body .slimScrollDiv {
-	flex: 1;
-}
-
 .big-box-conversation .direct-chat-messages {
 	flex: 1 1 auto;
 	height: 0px;
 	overflow: auto;
+	scroll-behavior: smooth;
 }
 
 .big-box-conversation .direct-chat-info span {
