@@ -66,6 +66,14 @@ class CallWindow extends CustomEvents {
 					" <span class='pull-right'></span>"
 			})
 
+			// Add counter
+			this.timeEl = createElem2({
+				insertBefore: this.windowHead.querySelector(".pull-right"),
+				type: "span",
+				class: "time",
+				innerHTML: "00:00:00"
+			})
+
 			// Close button
 			this.closeButton = createElem2({
 				appendTo: this.windowHead.querySelector(".pull-right"),
@@ -73,6 +81,20 @@ class CallWindow extends CustomEvents {
 				innerHTML: "<i class='fa fa-times'></i>",
 				onclick: () => this.Close()
 			})
+
+			// Make counter lives
+			this.callDuration = 0;
+			const interval = setInterval(() => {
+
+				if(!this.timeEl.isConnected)
+					clearInterval(interval)
+
+				this.callDuration++;
+				this.timeEl.innerHTML = rpad(Math.floor(this.callDuration/3600), 2, 0) + ":" 
+					+ rpad(Math.floor((this.callDuration/60)%60), 2, 0) + ":"
+					+ rpad(this.callDuration%60, 2, 0)
+			}, 1000);
+
 
 			this.makeWindowDraggable();
 

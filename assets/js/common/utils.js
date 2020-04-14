@@ -819,3 +819,18 @@ function requestUserScreen() {
 	})
 	
 }
+
+/**
+ * Rpad function
+ * 
+ * @param {String} str The string
+ * @param {number} len Expected length
+ * @param {string} fill Fill character
+ */
+function rpad(str, len, fill) {
+	str = String(str)
+	fill = String(fill)
+	while(str.length < len)
+		str = fill + str
+	return str
+}

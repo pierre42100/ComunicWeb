@@ -64,6 +64,10 @@
 	color: inherit;
 }
 
+.call-window .head .time {
+	font-size: 80%;
+}
+
 .call-window .record-label {
 	color: red;
 	margin-left: 10px;
