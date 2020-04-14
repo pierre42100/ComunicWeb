@@ -189,6 +189,10 @@
 		left: 0px;
 	}
 
+	.call-window.embedded {
+		height: unset;
+	}
+
 	.call-window .videos-area {
 		flex-direction: column;
 	}
