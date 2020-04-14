@@ -848,6 +848,11 @@ class CallWindow extends CustomEvents {
 
 		this.removeVideoElement(userID())
 		this.refreshButtonsState()
+
+		// Propagate information
+		await ws("calls/stop_streaming", {
+			callID: this.callID
+		})
 	}
 
 	/**
