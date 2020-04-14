@@ -719,6 +719,11 @@ class CallWindow extends CustomEvents {
 				once: true
 			})
 		}
+
+		// Request fullscreen on double click
+		videoEl.addEventListener("dblclick", () => {
+			RequestFullScreen(this.rootEl);
+		})
 		
 
 		this.videoEls.set(peerID, videoEl)
