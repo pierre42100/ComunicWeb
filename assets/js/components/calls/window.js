@@ -681,7 +681,23 @@ class CallWindow extends CustomEvents {
 		videoEl.muted = muted;
 
 		videoEl.srcObject = stream
-		videoEl.play()
+		
+		// Fix Chrome exception: DOMException: play() failed because the user didn't interact with the document first.
+		try {
+			await videoEl.play()
+		} catch(e) {
+			console.error("Caught play() error", e)
+			notify("Please click anywhere on the page to resume video call");
+
+			// Wait for user interaction before trying again
+			document.addEventListener("click", () => {
+				if(videoEl.isConnected)
+					videoEl.play()
+			}, {
+				once: true
+			})
+		}
+		
 
 		this.videoEls.set(peerID, videoEl)
 
