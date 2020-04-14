@@ -111,6 +111,13 @@ document.addEventListener("callPeerReady", (e) => {
 		OpenCalls.get(detail.callID).PeerReady(detail.peerID)
 })
 
+document.addEventListener("callPeerInterruptedStreaming", (e) => {
+	const detail = e.detail
+
+	if(OpenCalls.has(detail.callID))
+		OpenCalls.get(detail.callID).RemoveMemberConnection(detail.peerID)
+})
+
 document.addEventListener("callClosed", e => {
 	const callID = e.detail;
 

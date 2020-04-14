@@ -850,9 +850,13 @@ class CallWindow extends CustomEvents {
 		this.refreshButtonsState()
 
 		// Propagate information
-		await ws("calls/stop_streaming", {
-			callID: this.callID
-		})
+		try {
+			await ws("calls/stop_streaming", {
+				callID: this.callID
+			})
+		} catch(e) {
+			console.log("Failed to notify of streaming stop", e)
+		}
 	}
 
 	/**

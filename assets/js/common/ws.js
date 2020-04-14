@@ -237,6 +237,10 @@ class UserWebSocket {
 				SendEvent("callPeerReady", msg.data);
 				break;
 			
+			case "call_peer_interrupted_streaming":
+				SendEvent("callPeerInterruptedStreaming", msg.data);
+				break;
+			
 			case "call_closed":
 				SendEvent("callClosed", msg.data);
 				break;
