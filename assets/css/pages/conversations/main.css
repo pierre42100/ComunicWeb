@@ -4,6 +4,12 @@
  * @author Pierre HUBERT
  */
 
+
+.conversations-page #pageTarget {
+    display: flex;
+    flex-direction: column;
+}
+
 .conversations-page-container {
 	max-width: 1000px;
 	margin: auto;

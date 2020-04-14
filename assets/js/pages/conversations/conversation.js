@@ -20,6 +20,9 @@ const ConversationPageConvPart = {
 	 */
 	open: async function(convID, target){
 
+
+		document.body.classList.add("conversations-page");
+
 		//Reset conversation information
 		this._conv_info = {
 
