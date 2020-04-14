@@ -98,6 +98,12 @@
 	color: rgb(1, 218, 1);
 }
 
+.call-window .messages-area {
+	color: white;
+	margin: 1px 10px;
+	text-align: center;
+}
+
 .call-window .videos-area {
 	display: flex;
 	flex-direction: row;

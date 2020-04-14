@@ -106,6 +106,13 @@ class CallWindow extends CustomEvents {
 				class: "members-area"
 			})
 
+			// Add message area
+			this.messageArea = createElem2({
+				appendTo: this.rootEl,
+				type: "div",
+				class: "messages-area"
+			})
+
 
 			// Create videos area
 			this.videosArea = createElem2({
@@ -373,6 +380,9 @@ class CallWindow extends CustomEvents {
 				if(user.userID != userID() && user.ready)
 					await this.PeerReady(user.userID)
 
+			// Show appropriate message
+			this.setMessage("Click on <i class='fa fa-microphone'></i> to start to share audio"+
+				(this.allowVideo ? " or on <i class='fa fa-video-camera'></i> to start sharing your camera" : "") + ".");
 
 		} catch(e) {
 			console.error(e)
@@ -506,6 +516,21 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Display a new message for the window
+	 * 
+	 * @param {String} msg New message / null to remove
+	 */
+	setMessage(msg) {
+		if(msg == null) {
+			this.messageArea.style.display = "none"
+		}
+		else {
+			this.messageArea.style.display = "block";
+			this.messageArea.innerHTML = msg;
+		}
+	}
+
+	/**
 	 * Add a member to this call
 	 * 
 	 * @param {number} userID The ID of the target member
@@ -608,6 +633,7 @@ class CallWindow extends CustomEvents {
 	 */
 	async toggleStream(isVideo) {
 
+		
 		if(isVideo && !this.conv.can_have_video_call) {
 			notify("Video calls can not be done on this conversations!", "danger")
 			return;
@@ -765,6 +791,8 @@ class CallWindow extends CustomEvents {
 	 * @param {boolean} shareScreen
 	 */
 	async startStreaming(includeVideo, shareScreen = false) {
+
+		this.setMessage(null)
 
 		// Close any previous connection
 		this.closeMainPeer();
