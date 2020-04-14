@@ -64,15 +64,17 @@
 	color: inherit;
 }
 
-.call-window .head .record-label {
+.call-window .record-label {
 	color: red;
 	margin-left: 10px;
+	text-align: center;
 }
 
-.call-window .head .record-label a {
+.call-window .record-label a {
 	margin-left: 5px;
 	background-color: darkred !important;
 	font-weight: bold;
+	color: white;
 }
 
 .call-window .members-area {

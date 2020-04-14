@@ -941,8 +941,8 @@ class CallWindow extends CustomEvents {
 
 			// Add notice
 			this.recordLabel = createElem2({
-				appendTo: this.windowHead,
-				type: "span",
+				insertBefore: this.videosArea,
+				type: "div",
 				class: "record-label",
 				innerHTML: "Recording"
 			});
