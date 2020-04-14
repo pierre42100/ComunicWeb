@@ -380,9 +380,14 @@ class CallWindow extends CustomEvents {
 				if(user.userID != userID() && user.ready)
 					await this.PeerReady(user.userID)
 
-			// Show appropriate message
-			this.setMessage("Click on <i class='fa fa-microphone'></i> to start to share audio"+
+			// Show helper notice
+			this.on("closedMainPeer", () => {
+				// Show appropriate message
+				this.setMessage("Click on <i class='fa fa-microphone'></i> to start to share audio"+
 				(this.allowVideo ? " or on <i class='fa fa-video-camera'></i> to start sharing your camera" : "") + ".");
+			})
+
+			this.emitEvent("closedMainPeer")
 
 		} catch(e) {
 			console.error(e)
@@ -792,14 +797,14 @@ class CallWindow extends CustomEvents {
 	 */
 	async startStreaming(includeVideo, shareScreen = false) {
 
+		// Close any previous connection
+		await this.closeMainPeer();
+		
+
 		this.setMessage(null)
 
-		// Close any previous connection
-		this.closeMainPeer();
-		this.refreshButtonsState()
-
 		let stream;
-
+		
 		// Get user screen
 		if(includeVideo && shareScreen) {
 			stream = await requestUserScreen(true)
@@ -822,6 +827,7 @@ class CallWindow extends CustomEvents {
 		}
 		this.mainStream = stream;
 
+
 		if(includeVideo)
 			stream.getVideoTracks()[0].applyConstraints({
 				width: {max: 320},
@@ -832,7 +838,7 @@ class CallWindow extends CustomEvents {
 		// Check if the window was closed in the mean time
 		if(!this.isOpen)
 			return
-
+			
 		// Show user video
 		await this.applyStream(userID(), true, stream)
 		this.refreshButtonsState()
@@ -912,6 +918,8 @@ class CallWindow extends CustomEvents {
 		} catch(e) {
 			console.log("Failed to notify of streaming stop", e)
 		}
+
+		this.emitEvent("closedMainPeer")
 	}
 
 	/**
