@@ -13,6 +13,10 @@ ComunicWeb.components.posts.ui = {
 	 * @param {HTMLElement} target The target for the post
 	 */
 	display_post: async function(info, target) {
+		
+		// Safari strange bug
+		if(target === undefined)
+			target = arguments[1]
 
 		//Check if it is required to create a post root element or not
 		if(target.className.includes("post"))
