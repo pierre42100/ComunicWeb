@@ -215,7 +215,7 @@ ComunicWeb.components.movies.picker = {
 				innerHTML: "Delete",
 				onclick: () => {
 
-					if(!ComunicWeb.common.messages.confirm("Do you really want to delete this movie ?", async res => {
+					ComunicWeb.common.messages.confirm("Do you really want to delete this movie ?", async res => {
 
 						if(!res)
 							return;
@@ -228,7 +228,7 @@ ComunicWeb.components.movies.picker = {
 							notify("Could not delete movie!", "danger");
 						}
 
-					}));
+					})
 
 				}
 			})
