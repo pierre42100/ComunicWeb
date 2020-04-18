@@ -147,10 +147,12 @@ ComunicWeb.components.movies.picker = {
 
 		//Process the list of movies
 		var i;
-		for(i in list){
+		for(i in list) {
+
+			const movie = list[i];
 
 			//Create a line
-			var line = createElem2({
+			const line = createElem2({
 				appendTo: tableBody,
 				type: "tr",
 			});
@@ -187,7 +189,7 @@ ComunicWeb.components.movies.picker = {
 				type: "td",
 			});
 
-			var chooseButton = createElem2({
+			const chooseButton = createElem2({
 				appendTo: actionCell,
 				type: "button",
 				class: "btn btn-primary",
@@ -203,6 +205,33 @@ ComunicWeb.components.movies.picker = {
 				//Call callback
 				callback(list[this.getAttribute("data-movie-num")]);
 			}
+
+
+			// Add delete button
+			createElem2({
+				appendTo: actionCell,
+				type: "button",
+				class: "btn btn-danger",
+				innerHTML: "Delete",
+				onclick: () => {
+
+					if(!ComunicWeb.common.messages.confirm("Do you really want to delete this movie ?", async res => {
+
+						if(!res)
+							return;
+
+						try {
+							await ComunicWeb.components.movies.interface.delete(movie.id)
+							line.remove();
+						} catch(e) {
+							console.error(e);
+							notify("Could not delete movie!", "danger");
+						}
+
+					}));
+
+				}
+			})
 		}
 	},
 }

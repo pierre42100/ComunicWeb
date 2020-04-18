@@ -18,6 +18,19 @@ ComunicWeb.components.movies.interface = {
 
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 
+	},
+
+
+	/**
+	 * Delete a movie
+	 * 
+	 * @param {number} movieID The ID of the movie to delete
+	 * @return {Promise}
+	 */
+	delete: function(movieID) {
+		return api("movies/delete", {
+			movieID: movieID
+		}, true);
 	}
 
 }
