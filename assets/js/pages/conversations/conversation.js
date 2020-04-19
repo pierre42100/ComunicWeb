@@ -632,7 +632,7 @@ document.addEventListener("updatedConvMessage", async (e) => {
 	//Parse message content
 	ComunicWeb.components.textParser.parse({
 		element: newMessageContent,
-		user: await userInfo(info.ID_user)
+		user: await userInfo(msg.ID_user)
 	});
 
 	target.replaceWith(newMessageContent)
