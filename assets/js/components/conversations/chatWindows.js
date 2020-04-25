@@ -555,8 +555,9 @@ const ConvChatWindow = {
 			//We disable name field
 			settingsForm.conversationNameInput.disabled = "true";
 
-			//We hide conversation users (presents in members pane)
-			settingsForm.usersElement.parentNode.style.display = "none";
+			//We hide conversation users (presents in members pane - if user is not allowed to add new members)
+			if(!conversation.infos.canEveryoneAddMembers)
+				settingsForm.usersElement.parentNode.style.display = "none";
 
 			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
 		}
@@ -616,14 +617,17 @@ const ConvChatWindow = {
 			following: conversation.settingsForm.followConversationInput.checked,
 		}
 
+		//Get conversation members
+		if(conversation.infos.ID_owner == userID() || conversation.infos.canEveryoneAddMembers)
+			newValues.members = ComunicWeb.components.userSelect.getResults(conversation.settingsForm.usersElement);
+
 		//Add other fields if the user is a conversation moderator
 		if(conversation.infos.ID_owner == userID()){
 			//Specify conversation name
 			var nameValue = conversation.settingsForm.conversationNameInput.value
 			newValues.name = (nameValue === "" ? false : nameValue);
 			
-			//Get conversation members
-			newValues.members = ComunicWeb.components.userSelect.getResults(conversation.settingsForm.usersElement);
+			
 
 			//Check if any users were selected
 			if(newValues.members.length === 0){
