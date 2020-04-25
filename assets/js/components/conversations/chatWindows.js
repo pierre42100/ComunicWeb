@@ -544,15 +544,14 @@ const ConvChatWindow = {
 		if(conversation.infos.name)
 			settingsForm.conversationNameInput.value = conversation.infos.name;
 
-		//Check if user is a conversation moderator or not
-		if(conversation.infos.ID_owner == userID()){
-			//Update conversation members
-			ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members);
+		//Update conversation members
+		ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members);
 
-			// Update checkbox to allow or not everyone to add members
-			$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
-		}
-		else {
+		// Update checkbox to allow or not everyone to add members
+		$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
+
+		//Check if user is a conversation moderator or not
+		if(conversation.infos.ID_owner != userID()) {
 			//We disable name field
 			settingsForm.conversationNameInput.disabled = "true";
 
