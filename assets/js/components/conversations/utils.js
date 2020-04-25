@@ -79,12 +79,12 @@ const ConversationsUtils = {
 	 * Create and display a conversation creation / edition form
 	 * 
 	 * @param {HTMLElement} target The target of the creation form
-	 * @return {Object} Informations about the form
+	 * @return {ConversationSettingsFormElements} Information about the form
 	 */
 	createConversationForm: function(target){
 
 		//Create form object
-		var form = {};
+		const form = {};
 
 		//Create and display conversation creation form
 		form.rootElem = createElem("div", target);
@@ -109,12 +109,20 @@ const ConversationsUtils = {
 			placeholder: "Optionnal", 
 			type: "text"});
 
-		//Follow disucssion
+		// Follow discussion
 		form.followConversationInput = createFormGroup({
 			target: form.rootElem, 
 			label: "Follow conversation", 
 			checked: true,
 			type: "checkbox"});
+
+		// Allow all the members of the conversation to add other members
+		form.allowEveryoneToAddMembers = createFormGroup({
+			target: form.rootElem,
+			type: "checkbox",
+			checked: true,
+			label: "Allow everyone to add members" 
+		});
 
 		//Create button
 		form.createButton = createElem2({

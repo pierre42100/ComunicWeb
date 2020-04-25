@@ -535,7 +535,7 @@ const ConvChatWindow = {
 		};
 
 		//Create the conversation form
-		var settingsForm = ComunicWeb.components.conversations.utils.createConversationForm(settingsPane);
+		const settingsForm = ConversationsUtils.createConversationForm(settingsPane);
 
 		//Update form informations
 		settingsForm.createButton.innerHTML = "Update settings";
@@ -555,22 +555,19 @@ const ConvChatWindow = {
 
 			//We hide conversation users (presents in members pane)
 			settingsForm.usersElement.parentNode.style.display = "none";
+
+			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
 		}
 
 		//Update follow conversation checkbox status
-		if(conversation.infos.following == "1"){
-			$(settingsForm.followConversationInput).iCheck("check");
-		}
-		else {
-			$(settingsForm.followConversationInput).iCheck("uncheck");
-		}
+		$(settingsForm.followConversationInput).iCheck(conversation.infos.following == "1" ? "check" : "uncheck");
 
 		//Save settings form in global form
 		conversation.settingsForm = settingsForm;
 
 		//Make update settings button lives
-		settingsForm.createButton.onclick = function(){
-			ComunicWeb.components.conversations.chatWindows.submitUpdateForm(conversation);
+		settingsForm.createButton.onclick = () => {
+			this.submitUpdateForm(conversation);
 		};
 
 		//Success
@@ -633,13 +630,15 @@ const ConvChatWindow = {
 				return false;
 			}
 
+			newValues.canEveryoneAddMembers = conversation.settingsForm.allowEveryoneToAddMembers.checked;
+
 		}
 
 		//Now, freeze the submit button
 		conversation.settingsForm.createButton.disabled = true;
 
 		//Peform a request through the interface
-		ComunicWeb.components.conversations.interface.updateSettings(newValues, function(result){
+		ConversationsInterface.updateSettings(newValues, function(result){
 			
 			//Enable again update button
 			conversation.settingsForm.createButton.disabled = false;

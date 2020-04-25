@@ -134,6 +134,9 @@ const ConversationsInterface = {
 		if(infos.following !== undefined)
 			params.following = infos.following;
 
+		if(infos.canEveryoneAddMembers !== undefined)
+			params.canEveryoneAddMembers = infos.canEveryoneAddMembers;
+
 		//Perform API request
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, function(result){
 			//Empty the cache (considered as deprecated)
