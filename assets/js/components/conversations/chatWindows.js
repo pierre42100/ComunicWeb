@@ -548,6 +548,9 @@ const ConvChatWindow = {
 		if(conversation.infos.ID_owner == userID()){
 			//Update conversation members
 			ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members);
+
+			// Update checkbox to allow or not everyone to add members
+			$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
 		}
 		else {
 			//We disable name field
