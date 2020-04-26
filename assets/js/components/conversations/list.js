@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.conversations.list = {
+const ConversationsList = {
 	/**
 	 * Display conversations list window
 	 * 
@@ -70,7 +70,7 @@ ComunicWeb.components.conversations.list = {
 		listBox.boxTitle.innerHTML = "New conversation";
 
 		//Create the form
-		var form = ComunicWeb.components.conversations.utils.createConversationForm(listBox.boxBody);
+		var form = ConversationsUtils.createConversationForm(listBox.boxBody);
 
 		//Generate a summary object about all the informations we have got
 		var infos = {
@@ -78,11 +78,12 @@ ComunicWeb.components.conversations.list = {
 			usersElement: form.usersElement,
 			conversationNameInput: form.conversationNameInput,
 			followConversationInput: form.followConversationInput,
+			allowEveryoneToAddMembersInput: form.allowEveryoneToAddMembers,
 		};
 
 		//Make button lives
-		form.createButton.onclick = function(){
-			ComunicWeb.components.conversations.list.submitCreateConversationForm(infos);
+		form.createButton.onclick = () => {
+			this.submitCreateConversationForm(infos);
 		};
 
 		//Success
@@ -97,6 +98,7 @@ ComunicWeb.components.conversations.list = {
 	 * * @info {HTMLElement} usersElement Pointer on userElement
 	 * * @info {HTMLElement} conversationNameInput Pointer on the input of the form of the conversation
 	 * * @info {HTMLElement} followConversationInput Pointer on the "follow conversation" checkbox
+	 * * @info {HTMLElement} allowEveryoneToAddMembersInput
 	 * @return {Boolean} True for a success
 	 */
 	submitCreateConversationForm: function(infos){
@@ -121,13 +123,14 @@ ComunicWeb.components.conversations.list = {
 			users: selectedUsers,
 			follow: infos.followConversationInput.checked,
 			conversationName: (infos.conversationNameInput.value == "" ? false : infos.conversationNameInput.value),
+			allowEveryoneToAddMembersInput: infos.allowEveryoneToAddMembersInput.checked,
 		};
 
 		//Change box body style
 		var splashScreen = ComunicWeb.common.page.showTransparentWaitSplashScreen(infos.listBox.boxBody);
 
 		//Contact the interface to create the conversation
-		ComunicWeb.components.conversations.interface.createConversation(conversationInformations, function(response){
+		ConversationsInterface.createConversation(conversationInformations, function(response){
 
 			//First, remove splash screen
 			splashScreen.remove();
@@ -272,3 +275,5 @@ ComunicWeb.components.conversations.list = {
 		return true;
 	}
 }
+
+ComunicWeb.components.conversations.list = ConversationsList;

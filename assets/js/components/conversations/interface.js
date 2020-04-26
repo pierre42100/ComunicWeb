@@ -84,6 +84,7 @@ const ConversationsInterface = {
 			name: infos.conversationName,
 			follow : infos.follow,
 			users: infos.users,
+			canEveryoneAddMembers: infos.allowEveryoneToAddMembersInput
 		};
 
 		//Perform the API request
