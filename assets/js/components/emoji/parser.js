@@ -29,7 +29,7 @@ ComunicWeb.components.emoji.parser = {
 	parse: function(info){
 
 		//Peform string parsing
-		info.element.innerHTML = this.shorcutToHTMLcode(info.element.innerHTML);
+		info.element.innerHTML = this.shortcutToHTMLcode(info.element.innerHTML);
 
 		// Parse custom semicolons
 		if(info.user)
@@ -84,12 +84,12 @@ ComunicWeb.components.emoji.parser = {
 	},
 
 	/**
-	 * Perform shorcut emoji to HTML code parsing
+	 * Perform shortcut emoji to HTML code parsing
 	 * 
 	 * @param {String} string The input string
 	 * @return {String} The output string
 	 */
-	shorcutToHTMLcode: function(string){
+	shortcutToHTMLcode: function(string){
 
 		//Process all emojie list
 		var i;
@@ -113,7 +113,7 @@ ComunicWeb.components.emoji.parser = {
 	 */
 	parseCustomEmojis: function(user, input) {
 		for(const e  of user.customEmojis) {
-			input = input.replace(new RegExp(e.shorcut, "g"), "<img src='"+e.url+"' class='emoji' alt='"+e.shorcut+"' title='"+e.shorcut+"'/>")
+			input = input.replace(new RegExp(e.shortcut, "g"), "<img src='"+e.url+"' class='emoji' alt='"+e.shortcut+"' title='"+e.shortcut+"'/>")
 		}
 
 		return input

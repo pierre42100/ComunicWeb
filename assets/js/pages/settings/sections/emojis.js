@@ -72,7 +72,7 @@ class EmojiesSection {
 
 
 				line.innerHTML += "<td><img class='e' src='"+e.url+"' /></td>" +
-					"<td>"+e.shorcut+"</td><td></td>" 
+					"<td>"+e.shortcut+"</td><td></td>" 
 				
 
 				// Add delete button
