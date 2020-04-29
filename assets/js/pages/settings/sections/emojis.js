@@ -157,12 +157,12 @@ class EmojiesSection {
 		});
 
 		
-		const shorcutInput = createFormGroup({
+		const shortcutInput = createFormGroup({
 			target: boxBody,
-			label: "Shorcut (starting and ending with a semicolon)",
+			label: "Shortcut (starting and ending with a semicolon)",
 			placeholder: ":myEmoticon:",
 			type: "text",
-			name: "shorcut"
+			name: "shortcut"
 		})
 
 		const associatedImage = createFormGroup({
@@ -192,9 +192,9 @@ class EmojiesSection {
 			e.preventDefault();
 
 			try {
-				const shorcut = shorcutInput.value
-				if(!checkEmojiCode(shorcut)) {
-					return notify("Invalid shorcut!", "danger");
+				const shortcut = shortcutInput.value
+				if(!checkEmojiCode(shortcut)) {
+					return notify("Invalid shortcut!", "danger");
 				}
 
 				if(associatedImage.files.length != 1) {
@@ -202,7 +202,7 @@ class EmojiesSection {
 				}
 
 				const fd = new FormData()
-				fd.append("shorcut", shorcut)
+				fd.append("shortcut", shortcut)
 				fd.append("image", associatedImage.files[0])
 
 				await SettingsInterface.uploadEmoji(fd)
