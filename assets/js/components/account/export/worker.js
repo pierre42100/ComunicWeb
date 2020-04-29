@@ -71,7 +71,7 @@ ComunicWeb.components.account.export.worker = {
 	 */
 	parse: function(data, zip){
 		
-		//Get UI shorcut
+		//Get UI shortcut
 		var ui = ComunicWeb.components.account.export.ui;
 
 		var Promise = window.Promise;

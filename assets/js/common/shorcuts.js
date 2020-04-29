@@ -33,7 +33,7 @@ function ws(title, data = {}) {
 }
 
 /**
- * Create a quick language access function shorcut
+ * Create a quick language access function shortcut
  * 
  * @param {String} stringName The name of the string to show
  * @param {Array} stringParams The optionnal parametres to include with the string
