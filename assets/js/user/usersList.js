@@ -18,6 +18,7 @@ class User {
 		this.isOpen = info.openPage == "true";
 		this.isPublic = info.publicPage == "true";
 		this.id = info.userID;
+		this.customEmojis = info.customEmojis;
 	}
 
 	/**
