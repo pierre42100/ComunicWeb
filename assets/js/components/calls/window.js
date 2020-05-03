@@ -863,9 +863,14 @@ class CallWindow extends CustomEvents {
 
 		this.mainPeer.on("connect", () =>  {
 			console.info("Connected to remote peer!")
-			ws("calls/mark_ready", {
-				callID: this.callID
-			})
+			setTimeout(() => {
+				// Add a little delay before notifying other peers in order to let the tracks be received by the proxy
+				if(this.mainPeer && !this.mainPeer.destroyed)
+					ws("calls/mark_ready", {
+						callID: this.callID
+					})
+			}, 2000);
+			
 		})
 
 		this.mainPeer.on("message", message => {
