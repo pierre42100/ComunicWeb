@@ -501,6 +501,10 @@ class CallWindow extends CustomEvents {
 	async Close(propagate = true) {
 		this.rootEl.remove();
 
+		// Stop recording
+		if(this.isRecording)
+			this.startRecording();
+
 		// Leave the call
 		if(UserWebSocket.IsConnected)
 			await ws("calls/leave", {
@@ -1004,6 +1008,13 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Check out whether we are currently recording video or not
+	 */
+	get isRecording() {
+		return this.hasOwnProperty("recorder");
+	}
+
+	/**
 	 * Start / stop recording the streams
 	 */
 	startRecording() {
@@ -1018,7 +1029,7 @@ class CallWindow extends CustomEvents {
 		}
 
 		// Start recording
-		if(!this.recorder) {
+		if(!this.isRecording) {
 			// Determine the list of streams to save
 			const streams = []
 
