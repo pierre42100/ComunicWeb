@@ -14,6 +14,9 @@ ComunicWeb.pages.settings.main = {
 	 */
 	open: function(args, target){
 
+		if(!signed_in())
+			openPage("login");
+
 		//Settings page is organized like an array with two columns
 		//Left column : settings sections menu
 		//Rigth column : current settings section
