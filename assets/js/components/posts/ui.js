@@ -572,9 +572,39 @@ ComunicWeb.components.posts.ui = {
 				type: "div",
 				class: "post-countdown"
 			});
+			
 
-			//Initialize countdown timer
-			ComunicWeb.components.countdown.init(info.time_end, target);
+			// Manon's birthday is a sacred day, like the end of the world
+			// nobody must know when it will happen !
+			//
+			// Psst: it is on May 25, 11h10m00s
+			//
+			// => Easter egg
+			//
+			const endDate = new Date(info.time_end*1000);
+			if(endDate.getMonth() == 4 && endDate.getDate() == 25 && endDate.getHours() == 11 && endDate.getMinutes() == 10) {
+				target.appendChild(ComunicWeb.common.messages.createCalloutElem("Hold up!", "You MAY NOT KNOW when this countdown will end!", "danger"));
+
+				createElem2({
+					appendTo: target,
+					type: "p",
+					innerHTML: "<strong>Ends in &infin; days &infin; hours &infin; minutes &infin; seconds</strong>"
+				})
+
+				createElem2({
+					appendTo: target,
+					type: "p",
+					innerHTML: "This is not a common behavior of the Countdown timer. If you want this message to disappear, just create a new post with another end date..."
+				})
+
+				add_p(target);
+				add_p(target);
+			}
+
+
+			else
+				//Initialize countdown timer
+				ComunicWeb.components.countdown.init(info.time_end, target);
 		}
 
 		//In case of survey
