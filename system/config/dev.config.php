@@ -274,6 +274,7 @@ class Dev {
 				"css/pages/settings/sections/customEmojis.css",
 				"css/pages/settings/sections/security.css",
 				"css/pages/settings/sections/password.css",
+				"css/pages/settings/sections/globalLogout.css",
 				"css/pages/settings/sections/accountImage.css",
 				"css/pages/settings/sections/privacy.css",
 
@@ -533,6 +534,7 @@ class Dev {
 				"js/pages/settings/sections/emojis.js",
 				"js/pages/settings/sections/security.js",
 				"js/pages/settings/sections/password.js",
+				"js/pages/settings/sections/globalLogout.js",
 				"js/pages/settings/sections/accountImage.js",
 				"js/pages/settings/sections/privacy.js",
 

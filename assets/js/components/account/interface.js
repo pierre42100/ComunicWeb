@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.account.interface = {
+const AccountInterface = {
 
 	/**
 	 * Send a request on the server to create an account
@@ -135,6 +135,13 @@ ComunicWeb.components.account.interface = {
 	},
 
 	/**
+	 * Disconnect user from all its connected devices
+	 */
+	disconnectAllDevices: async function() {
+		await api("/account/disconnect_all_devices", {}, true);
+	},
+
+	/**
 	 * Request the export of all the data of the user
 	 * 
 	 * @param {String} password The password of the user
@@ -163,3 +170,5 @@ ComunicWeb.components.account.interface = {
 	},
 
 }
+
+ComunicWeb.components.account.interface = AccountInterface;

@@ -1,0 +1,11 @@
+/**
+ * Global logout section
+ *
+ * @author Pierre HUBERT
+ */
+
+.box-global-logout .form-submit {
+	width: 170px;
+	margin: auto;
+	display: block;
+}

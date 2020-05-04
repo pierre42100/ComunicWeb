@@ -291,3 +291,16 @@ function getGroups(list, force){
 function timeDiffToStr(time) {
     return ComunicWeb.common.date.timeDiffToStr(time);
 }
+
+/**
+ * Ask a confirmation to the user
+ * 
+ * @param {String} msg Associated message
+ */
+async function showConfirmDialog(msg) {
+    return new Promise((res, err) => {
+        ComunicWeb.common.messages.confirm(msg, (c) => {
+            res(c == true);
+        });
+    })
+}

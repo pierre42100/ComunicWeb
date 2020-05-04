@@ -41,11 +41,14 @@ ComunicWeb.pages.settings.sections.security = {
 			class: "box-body"
 		});
 
-		//Append the form to query user password
+		// Append the form to query user password
 		this._append_form_prompt_user_password(boxBody);
 
-		//Offer the user to update its password too
+		// Offer the user to update its password too
 		ComunicWeb.pages.settings.sections.password.open(args, target);
+
+		// Offer the user to sign out from its account
+		GlobalSignOutSection.open(args, target);
 	},
 
 	/**
