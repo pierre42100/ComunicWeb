@@ -27,6 +27,11 @@ ComunicWeb.components.countdown = {
 			// find the amount of "seconds" between now and target
 			var current_date = parseInt(new Date().getTime() / 1000);
 			var seconds_left = time_end - current_date;
+
+			if(seconds_left < 0) {
+				seconds_left = 0;
+				clearInterval(interval);
+			}
 		
 			// do some time calculations
 			days = parseInt(seconds_left / 86400);
