@@ -10,7 +10,7 @@ class Offline {
 	/**
 	 * API access and credentials
 	 */
-	const API_URL = "http://devweb.local/comunic/api/";
+	const API_URL = "https://devweb.local/comunic/api-v2/";
 	const API_SERVICE_NAME = "ComunicWeb";
 	const API_SERVICE_TOKEN = "12XU67pJUlnNQ";
 
@@ -22,7 +22,7 @@ class Offline {
 	/**
 	 * Site URL
 	 */
-	const SITE_URL = "http://devweb.local/comunic/v2/output/";
+	const SITE_URL = "https://devweb.local/comunic/v2/output/";
 
 	/**
 	 * Site production mode
@@ -37,7 +37,7 @@ class Offline {
 	/**
 	 * Path to assets (URL)
 	 */
-	const ASSETS_URL = "http://devweb.local/comunic/v2/output/assets/";
+	const ASSETS_URL = "https://devweb.local/comunic/v2/output/assets/";
 
 	/**
 	 * Third party CSS files
