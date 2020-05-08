@@ -16,7 +16,7 @@ async function checkManonBirthday(force) {
 		
 		const date = new Date();
 
-		if(date.getMonth() != 4 || date.getDate() != 8)
+		if(date.getMonth() != 4 || date.getDate() != 25)
 			return;
 	}
 
