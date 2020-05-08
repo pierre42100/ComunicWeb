@@ -472,6 +472,7 @@ class Dev {
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",
+			"js/components/manon.js",
 
 		//User scripts
 		"js/user/loginTokens.js",
