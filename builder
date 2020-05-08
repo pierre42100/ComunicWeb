@@ -268,6 +268,9 @@ rcopy($path_debug_assets."css/dark_theme.css", $path_release_assets."css/dark_th
 //Copy pacman
 rcopy($path_debug_assets."3rdparty/pacman", $path_release_assets."3rdparty/pacman");
 
+//Copy clippy.js
+rcopy($path_debug_assets."3rdparty/clippy.js", $path_release_assets."3rdparty/clippy.js");
+
 
 //Build and copy personnal data navigator
 notice("Build personnal data export navigator and add it to built files");
