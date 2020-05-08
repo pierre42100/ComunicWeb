@@ -7,16 +7,18 @@
 /**
  * Check if it is Manon's birthday
  */
-async function checkManonBirthday() {
+async function checkManonBirthday(force) {
 
-	// Manon's feature only
-	if(userID() !== 150)
-		return;
-	
-	const date = new Date();
+	if(force !== true) {
+		// Manon's feature only
+		if(userID() !== 150)
+			return;
+		
+		const date = new Date();
 
-	if(date.getMonth() != 4 && date.getDay() != 8)//TODO: replace
-		return;
+		if(date.getMonth() != 4 && date.getDay() != 8)//TODO: replace
+			return;
+	}
 
 	// Load clippy
 	const css = document.createElement("link");
