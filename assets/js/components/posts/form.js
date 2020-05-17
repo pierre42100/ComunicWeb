@@ -275,6 +275,14 @@ ComunicWeb.components.posts.form = {
 			multiple: true,
 		});
 
+		// Specify whether anyone can add suggestions to the survey or not
+		const allowNewChoicesInput = createFormGroup({
+			target: surveyForm,
+			type: "checkbox",
+			label: tr("Allow everyone to add new answers after the creation of the survey"),
+			checked: false
+		});
+
 		//Survey message help
 		var surveyAnswerHelper = createElem2({
 			appendTo: surveyForm,
@@ -536,6 +544,7 @@ ComunicWeb.components.posts.form = {
 				datas.append("kind", "survey");
 				datas.append("question", surveyQuestionInput.value);
 				datas.append("answers", answers.join("<>"));
+				datas.append("allowNewAnswers", allowNewChoicesInput.checked);
 
 			}
 
