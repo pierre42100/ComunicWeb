@@ -304,3 +304,12 @@ async function showConfirmDialog(msg) {
         });
     })
 }
+
+/**
+ * Prepare for potential future translation system
+ * 
+ * @param {String} input Input string
+ */
+function tr(input) {
+    return input;
+}
