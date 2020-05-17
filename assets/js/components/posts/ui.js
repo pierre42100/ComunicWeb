@@ -880,6 +880,33 @@ ComunicWeb.components.posts.ui = {
 					}
 				}
 
+
+				// If the user is the owner of the survey, offer him to close it
+				if(info.data_survey.userID == userID() && info.data_survey.allowNewChoices) {
+
+					const link = createElem2({
+						appendTo: surveyResponse,
+						type: "div",
+						class: "a txt-center",
+						innerHTML: tr("Block creation of new choices")
+					});
+
+					link.addEventListener("click", async () => {
+
+						try {
+							if(!await showConfirmDialog(tr("Do you want to prevent new choices from being created? This can not be reverted!")))
+								return;
+
+							await PostsInterface.blockNewSurveyChoices(info.ID);
+
+							//Reload post
+							ComunicWeb.components.posts.actions.reload_post(info.ID, postRoot);
+
+						} catch(e) {
+							notify(tr("Could not block new choices from being created!"), "danger");
+						}
+					});
+				}
 			}
 		}
 

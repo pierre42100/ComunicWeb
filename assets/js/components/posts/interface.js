@@ -229,6 +229,17 @@ const PostsInterface = {
 
 	},
 
+	/**
+	 * Prevent new choices from being created
+	 * 
+	 * @param {number} postID The ID of the target post
+	 */
+	blockNewSurveyChoices: async function(postID) {
+		await api("survey/block_new_choices_creation", {
+			postID: postID
+		}, true);
+	},
+
 	_registerCount: {},
 
 	/**

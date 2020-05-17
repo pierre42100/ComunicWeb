@@ -4,6 +4,10 @@
  * @author Pierre HUBERT
  */
 
+.txt-center {
+    text-align: center;
+}
+
 /**
  * <a> elements
  */
