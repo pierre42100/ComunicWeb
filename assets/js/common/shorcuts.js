@@ -319,7 +319,7 @@ async function showInputTextDialog(title, message, defaultValue = "") {
             title,
             message,
             defaultValue,
-            (msg) => msg === false ? rej : res(msg)
+            (msg) => msg === false ? rej() : res(msg)
         )
     )
 }
