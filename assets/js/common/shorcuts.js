@@ -305,6 +305,25 @@ async function showConfirmDialog(msg) {
     })
 }
 
+
+/**
+ * Ask the user to enter a string
+ * 
+ * @param {String} title The dialog of the dialog to show
+ * @param {String} message Helper message to show to the user
+ * @param {String} defaultValue The default value of the message
+ */
+async function showInputTextDialog(title, message, defaultValue = "") {
+    return new Promise((res, rej) => 
+        ComunicWeb.common.messages.inputString(
+            title,
+            message,
+            defaultValue,
+            (msg) => msg === false ? rej : res(msg)
+        )
+    )
+}
+
 /**
  * Prepare for potential future translation system
  * 

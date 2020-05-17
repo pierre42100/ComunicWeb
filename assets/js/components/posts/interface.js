@@ -230,6 +230,19 @@ const PostsInterface = {
 	},
 
 	/**
+	 * Create a new choice for this survey
+	 * 
+	 * @param {number} postID The ID of the associated post
+	 * @param {String} choice The value of the choice
+	 */
+	createSurveyChoice: async function(postID, choice) {
+		await api("survey/create_new_choice", {
+			postID: postID,
+			choice: choice
+		}, true);
+	},
+
+	/**
 	 * Prevent new choices from being created
 	 * 
 	 * @param {number} postID The ID of the target post

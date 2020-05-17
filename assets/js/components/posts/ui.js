@@ -881,6 +881,38 @@ ComunicWeb.components.posts.ui = {
 				}
 
 
+				// Offer the user to create a new response, if possible
+				if(info.data_survey.user_choice == 0 && info.data_survey.allowNewChoices) {
+
+					const link = createElem2({
+						appendTo: surveyResponse,
+						type: "div",
+						class: "a txt-center",
+						innerHTML: tr("Add a new choice to this survey")
+					});
+
+					link.addEventListener("click", async () => {
+
+						try {
+							const choice = await showInputTextDialog(
+								tr("Create a choice"),
+								tr("Please specify the new choice you would like to create for this survey:"),
+								""
+							);
+
+							await PostsInterface.createSurveyChoice(info.ID, choice);
+
+							//Reload post
+							ComunicWeb.components.posts.actions.reload_post(info.ID, postRoot);
+
+						} catch(e) {
+							console.error(e);
+							notify(tr("Could not create a new choice for this survey!"), "danger");
+						}
+					});
+				}
+
+
 				// If the user is the owner of the survey, offer him to close it
 				if(info.data_survey.userID == userID() && info.data_survey.allowNewChoices) {
 
@@ -903,6 +935,7 @@ ComunicWeb.components.posts.ui = {
 							ComunicWeb.components.posts.actions.reload_post(info.ID, postRoot);
 
 						} catch(e) {
+							console.error(e);
 							notify(tr("Could not block new choices from being created!"), "danger");
 						}
 					});
