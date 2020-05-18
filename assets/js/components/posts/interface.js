@@ -236,7 +236,7 @@ const PostsInterface = {
 	 * @param {String} choice The value of the choice
 	 */
 	createSurveyChoice: async function(postID, choice) {
-		await api("survey/create_new_choice", {
+		await api("surveys/create_new_choice", {
 			postID: postID,
 			choice: choice
 		}, true);
@@ -248,7 +248,7 @@ const PostsInterface = {
 	 * @param {number} postID The ID of the target post
 	 */
 	blockNewSurveyChoices: async function(postID) {
-		await api("survey/block_new_choices_creation", {
+		await api("surveys/block_new_choices_creation", {
 			postID: postID
 		}, true);
 	},
