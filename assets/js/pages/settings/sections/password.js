@@ -109,7 +109,7 @@ ComunicWeb.pages.settings.sections.password = {
 
 				//Check for errors
 				if(result.error){
-					notify("An error occurred while trying to udpate user password!", "danger");
+					notify("An error occurred while trying to update user password!", "danger");
 					return;
 				}
 

@@ -69,7 +69,7 @@ ComunicWeb.common.langs.en = {
     posts_edit_cancel: "Cancel",
     posts_edit_update: "Update",
     posts_edit_err_invalid_content: "Please check your message content !",
-    posts_edit_err_update_content: "An error occured while trying to udpate post !",
+    posts_edit_err_update_content: "An error occured while trying to update post !",
     posts_edit_success_update: "The post has been updated !",
     posts_edit_title: "Update the post",
 

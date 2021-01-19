@@ -131,7 +131,7 @@ ComunicWeb.pages.settings.sections.language = {
 
 				//Check for errors
 				if(result.error){
-					notify("An error occurred while trying to udpate language settings!", "danger");
+					notify("An error occurred while trying to update language settings!", "danger");
 					return;
 				}
 
