@@ -587,7 +587,9 @@ class CallWindow extends CustomEvents {
 		this.audioContexts.delete(peerID);
 
 		if (ctx) {
-			ctx.close();
+			// The delay is here to ensure context has been initialized
+			// to make sure state update event is correctly propagated
+			setTimeout(() => ctx.close(), 100);
 		}
 	}
 
@@ -770,19 +772,11 @@ class CallWindow extends CustomEvents {
 		})
 		
 
-		// Setup audio context
+		// Setup audio context to determine whether the person is talking or not
 		const audioContext = new AudioContext();
 
 		const gain_node = audioContext.createGain();
 		gain_node.connect(audioContext.destination);
-
-		/*const microphone_stream = audioContext.createMediaStreamSource(stream);
-		microphone_stream.connect(gain_node)
-
-		const script_processor_node = audioContext.createScriptProcessor(16384, 1, 1);
-		script_processor_node.addEventListener("audioprocess", (e) => {
-			//e.data
-		});*/
 
 		const script_processor_analysis_node = audioContext.createScriptProcessor(2048, 1, 1);
         script_processor_analysis_node.connect(gain_node);
@@ -792,13 +786,14 @@ class CallWindow extends CustomEvents {
 
 		const analyzer_node = audioContext.createAnalyser();
 		analyzer_node.smoothingTimeConstant = 0
-		analyzer_node.fftSize = 2048
+		analyzer_node.fftSize = 4096
 		analyzer_node.connect(script_processor_analysis_node);
 
 		microphone_stream.connect(analyzer_node)
 
 		const freq_data = new Uint8Array(analyzer_node.frequencyBinCount)
 
+		
 		script_processor_analysis_node.onaudioprocess = function(e) {
 			analyzer_node.getByteFrequencyData(freq_data);
 
@@ -814,6 +809,17 @@ class CallWindow extends CustomEvents {
 
 			console.log(avg > 50);
 		}
+
+		audioContext.addEventListener("statechange", e => {
+			if (audioContext.state == "closed")
+			{
+				console.info("Release audio analysis ressources for peer " + peerID);
+				gain_node.disconnect();
+				script_processor_analysis_node.disconnect();
+				microphone_stream.disconnect();
+				analyzer_node.disconnect();
+			}
+		})
 
 
 
