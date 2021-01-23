@@ -813,9 +813,15 @@ class CallWindow extends CustomEvents {
 			const avg = sum/count;
 
 			if(avg > 50)
+			{
 				memberEl.classList.add("talking")
+				videoEl.classList.add("talking")
+			}
 			else
+			{
 				memberEl.classList.remove("talking");
+				videoEl.classList.remove("talking")
+			}
 				
 		}
 
@@ -829,6 +835,7 @@ class CallWindow extends CustomEvents {
 				analyzer_node.disconnect();
 
 				memberEl.classList.remove("talking")
+				videoEl.classList.remove("talking")
 			}
 		})
 
