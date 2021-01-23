@@ -777,7 +777,10 @@ class CallWindow extends CustomEvents {
 
 		const gain_node = audioContext.createGain();
 		gain_node.connect(audioContext.destination);
-
+		
+		// Prevent echo
+		gain_node.disconnect(0)
+		
 		const script_processor_analysis_node = audioContext.createScriptProcessor(2048, 1, 1);
         script_processor_analysis_node.connect(gain_node);
 
