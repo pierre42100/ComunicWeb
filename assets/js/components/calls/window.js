@@ -29,6 +29,9 @@ class CallWindow extends CustomEvents {
 		/** @type {Map<number, HTMLVideoElement>} */
 		this.videoEls = new Map()
 
+		/** @type {Map<number, AudioContext>} */
+		this.audioContexts = new Map()
+
 
 		this.construct(conv);
 	}
@@ -579,6 +582,13 @@ class CallWindow extends CustomEvents {
 			el.pause()
 			el.parentNode.remove()	
 		}
+
+		const ctx = this.audioContexts.get(peerID);
+		this.audioContexts.delete(peerID);
+
+		if (ctx) {
+			ctx.close();
+		}
 	}
 
 	/**
@@ -760,7 +770,55 @@ class CallWindow extends CustomEvents {
 		})
 		
 
+		// Setup audio context
+		const audioContext = new AudioContext();
+
+		const gain_node = audioContext.createGain();
+		gain_node.connect(audioContext.destination);
+
+		/*const microphone_stream = audioContext.createMediaStreamSource(stream);
+		microphone_stream.connect(gain_node)
+
+		const script_processor_node = audioContext.createScriptProcessor(16384, 1, 1);
+		script_processor_node.addEventListener("audioprocess", (e) => {
+			//e.data
+		});*/
+
+		const script_processor_analysis_node = audioContext.createScriptProcessor(2048, 1, 1);
+        script_processor_analysis_node.connect(gain_node);
+
+		const microphone_stream = audioContext.createMediaStreamSource(stream);
+		microphone_stream.connect(gain_node)
+
+		const analyzer_node = audioContext.createAnalyser();
+		analyzer_node.smoothingTimeConstant = 0
+		analyzer_node.fftSize = 2048
+		analyzer_node.connect(script_processor_analysis_node);
+
+		microphone_stream.connect(analyzer_node)
+
+		const freq_data = new Uint8Array(analyzer_node.frequencyBinCount)
+
+		script_processor_analysis_node.onaudioprocess = function(e) {
+			analyzer_node.getByteFrequencyData(freq_data);
+
+			let count = 0;
+			let sum = 0;
+			for(let val = 0; val < 50 && val < freq_data.length; val++)
+			{
+				sum += freq_data[val];
+				count++;
+			}
+
+			const avg = sum/count;
+
+			console.log(avg > 50);
+		}
+
+
+
 		this.videoEls.set(peerID, videoEl)
+		this.audioContexts.set(peerID, audioContext)
 
 
 		if(isVideo) {
