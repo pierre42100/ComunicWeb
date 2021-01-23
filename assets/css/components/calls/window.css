@@ -98,6 +98,11 @@
 	color: rgb(1, 218, 1);
 }
 
+.call-window .members-area span.talking {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 .call-window .messages-area {
 	color: white;
 	margin: 1px 10px;

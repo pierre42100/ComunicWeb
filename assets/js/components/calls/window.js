@@ -793,7 +793,9 @@ class CallWindow extends CustomEvents {
 
 		const freq_data = new Uint8Array(analyzer_node.frequencyBinCount)
 
-		
+		const memberEl = this.getMemberNameEl(peerID);
+
+
 		script_processor_analysis_node.onaudioprocess = function(e) {
 			analyzer_node.getByteFrequencyData(freq_data);
 
@@ -807,7 +809,11 @@ class CallWindow extends CustomEvents {
 
 			const avg = sum/count;
 
-			console.log(avg > 50);
+			if(avg > 50)
+				memberEl.classList.add("talking")
+			else
+				memberEl.classList.remove("talking");
+				
 		}
 
 		audioContext.addEventListener("statechange", e => {
@@ -818,6 +824,8 @@ class CallWindow extends CustomEvents {
 				script_processor_analysis_node.disconnect();
 				microphone_stream.disconnect();
 				analyzer_node.disconnect();
+
+				memberEl.classList.remove("talking")
 			}
 		})
 
