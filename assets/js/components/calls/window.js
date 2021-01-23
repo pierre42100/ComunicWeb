@@ -970,7 +970,9 @@ class CallWindow extends CustomEvents {
 	async closeMainPeer() {
 
 		// Remove ready attribute
-		this.getMemberNameEl(userID()).classList.remove("ready");
+		const memberEl = this.getMemberNameEl(userID());
+		if (memberEl)
+			memberEl.classList.remove("ready");
 
 		// Close peer connection
 		if(this.mainPeer) {
