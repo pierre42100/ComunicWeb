@@ -372,8 +372,7 @@ class CallWindow extends CustomEvents {
 
 			// Apply this list of user
 			for(const user of currMembersList)
-				if(user.userID != userID())
-					await this.AddMember(user.userID)
+				await this.AddMember(user.userID)
 
 			// Start to connect to ready pears
 			for(const user of currMembersList)
@@ -867,6 +866,9 @@ class CallWindow extends CustomEvents {
 
 		this.mainPeer.on("connect", () =>  {
 			console.info("Connected to remote peer!")
+			
+			this.getMemberNameEl(userID()).classList.add("ready");
+			
 			setTimeout(() => {
 				// Add a little delay before notifying other peers in order to let the tracks be received by the proxy
 				if(this.mainPeer && !this.mainPeer.destroyed)
@@ -903,6 +905,8 @@ class CallWindow extends CustomEvents {
 	 */
 	async closeMainPeer() {
 
+		// Remove ready attribute
+		this.getMemberNameEl(userID()).classList.remove("ready");
 
 		// Close peer connection
 		if(this.mainPeer) {
