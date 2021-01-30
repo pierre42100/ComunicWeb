@@ -739,7 +739,7 @@ class CallWindow extends CustomEvents {
 	 * @param {MediaStream} stream Target stream
 	 */
 	async applyStream(peerID, muted, stream) {
-
+		
 		// Remove any previous video stream
 		if(this.videoEls.has(peerID)) {
 			this.removeVideoElement(peerID)
@@ -956,8 +956,8 @@ class CallWindow extends CustomEvents {
 			const videoTrack = this.mainStream.getVideoTracks()[0];
 
 			// Fix video & canvas size
-			videoTarget.width = videoTrack.getSettings().width
-			videoTarget.height = videoTrack.getSettings().height
+			videoTarget.width = 320;
+			videoTarget.height = 240;
 			canvasTarget.width = videoTarget.width;
 			canvasTarget.height = videoTarget.height;
 
