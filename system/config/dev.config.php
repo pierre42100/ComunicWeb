@@ -167,7 +167,11 @@ class Dev {
 		"3rdparty/getScreenId.js",
 
 		// Record MediaStream
-		"3rdparty/MediaStreamRecorder.min.js"
+		"3rdparty/MediaStreamRecorder.min.js",
+		
+		// TensorflowJS
+		"3rdparty/tfjs/tfjs-1.2.min.js",
+		"3rdparty/tensorflow-models/body-pix-2.0.js"
 	);
 
 	/**

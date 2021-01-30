@@ -923,6 +923,63 @@ class CallWindow extends CustomEvents {
 		// Check if the window was closed in the mean time
 		if(!this.isOpen)
 			return
+		
+		if(includeVideo)
+		{
+			// Create capture
+			const videoTarget = document.createElement("video");
+			videoTarget.srcObject = stream;
+			videoTarget.play()
+
+
+			const canvasTarget = document.createElement("canvas");
+			const canvas = canvasTarget.getContext("2d");
+			
+document.body.appendChild(videoTarget) // TODO : remove
+document.body.appendChild(canvasTarget) // TODO : remove
+			bodyPix.load({
+				multiplier: 0.75,
+				stride: 32,
+				quantBytes: 4
+			}).then( net => {
+				(async () => {
+					try {
+
+						//await new Promise((res) => setTimeout(() => res(), 3000));
+
+						await new Promise((res, rej) => videoTarget.addEventListener("loadeddata", e => res(), {once: true}));
+						alert("do it");
+						videoTarget.width = this.mainStream.getVideoTracks()[0].getSettings().width
+						videoTarget.height = this.mainStream.getVideoTracks()[0].getSettings().height
+						canvasTarget.width = videoTarget.width;
+						canvasTarget.height = videoTarget.height;
+
+						while(true) // TODO : Find something better
+						{
+							const segmentation = await net.segmentPerson(videoTarget);
+
+							const backgroundBlurAmount = 6;
+							const edgeBlurAmount = 2;
+							const flipHorizontal = true;
+console.info(
+	canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
+	edgeBlurAmount, flipHorizontal);
+							bodyPix.drawBokehEffect(
+							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
+							edgeBlurAmount, flipHorizontal);
+						}
+					}
+					catch(e)
+					{
+						console.error("Failure", e);
+					}
+				})();
+			});
+			
+			stream = canvasTarget.captureStream();
+			stream.addTrack(this.mainStream.getAudioTracks()[0]);
+		}
+
 			
 		// Show user video
 		await this.applyStream(userID(), true, stream)
