@@ -962,41 +962,46 @@ class CallWindow extends CustomEvents {
 			canvasTarget.height = videoTarget.height;
 
 
-			bodyPix.load({
-				multiplier: 0.75,
-				stride: 32,
-				quantBytes: 4
-			}).then( net => {
-				(async () => {
-					try {
+			// Process images
+			(async () => {
+				try {
 
+					while(videoTrack.readyState == "live")
+					{
+						if (this.blurBackground) {
+
+							// Load network if required
+							if (!this.backgroundDetectionNetwork)
+							{
+								this.backgroundDetectionNetwork = await bodyPix.load({
+									multiplier: 0.75,
+									stride: 32,
+									quantBytes: 4
+								});
+							}
+
+							const segmentation = await this.backgroundDetectionNetwork.segmentPerson(videoTarget);
+
+							const backgroundBlurAmount = 6;
+							const edgeBlurAmount = 2;
+							const flipHorizontal = true;
+
+							bodyPix.drawBokehEffect(
+							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
+							edgeBlurAmount, flipHorizontal);
+						}
 						
-						while(videoTrack.readyState == "live")
-						{
-							if (this.blurBackground) {
-								const segmentation = await net.segmentPerson(videoTarget);
-
-								const backgroundBlurAmount = 6;
-								const edgeBlurAmount = 2;
-								const flipHorizontal = true;
-
-								bodyPix.drawBokehEffect(
-								canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
-								edgeBlurAmount, flipHorizontal);
-							}
-							
-							else {
-								canvas.drawImage(videoTarget, 0, 0, videoTarget.width, videoTarget.height);
-								await new Promise((res, rej) => setTimeout(() => res(), 40));
-							}
+						else {
+							canvas.drawImage(videoTarget, 0, 0, videoTarget.width, videoTarget.height);
+							await new Promise((res, rej) => setTimeout(() => res(), 40));
 						}
 					}
-					catch(e)
-					{
-						console.error("Failure", e);
-					}
-				})();
-			});
+				}
+				catch(e)
+				{
+					console.error("Failure", e);
+				}
+			})();
 			
 			
 			stream = canvasTarget.captureStream();
