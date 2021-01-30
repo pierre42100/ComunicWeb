@@ -32,6 +32,7 @@ class CallWindow extends CustomEvents {
 		/** @type {Map<number, AudioContext>} */
 		this.audioContexts = new Map()
 
+		this.blurBackground = false;
 
 		this.construct(conv);
 	}
@@ -222,6 +223,16 @@ class CallWindow extends CustomEvents {
 					needVideo: true,
 					onclick: () => {
 						this.startStreaming(true, true)
+					}
+				},
+
+				// Blur background
+				{
+					icon: "fa-paint-brush",
+					text: "Toggle blur background",
+					needVideo: true,
+					onclick: () => {
+						this.blurBackground = !this.blurBackground;
 					}
 				},
 
@@ -935,6 +946,22 @@ class CallWindow extends CustomEvents {
 
 			const canvasTarget = document.createElement("canvas");
 
+			// Mandatory to initialize context
+			const canvas = canvasTarget.getContext("2d");
+
+
+			// Wait for video to be ready
+			await new Promise((res, rej) => videoTarget.addEventListener("loadeddata", e => res(), {once: true}));
+
+			const videoTrack = this.mainStream.getVideoTracks()[0];
+
+			// Fix video & canvas size
+			videoTarget.width = videoTrack.getSettings().width
+			videoTarget.height = videoTrack.getSettings().height
+			canvasTarget.width = videoTarget.width;
+			canvasTarget.height = videoTarget.height;
+
+
 			bodyPix.load({
 				multiplier: 0.75,
 				stride: 32,
@@ -943,28 +970,25 @@ class CallWindow extends CustomEvents {
 				(async () => {
 					try {
 
-						// Wait for video to be ready
-						await new Promise((res, rej) => videoTarget.addEventListener("loadeddata", e => res(), {once: true}));
-
-						const videoTrack = this.mainStream.getVideoTracks()[0];
-
-						// Fix video & canvas size
-						videoTarget.width = videoTrack.getSettings().width
-						videoTarget.height = videoTrack.getSettings().height
-						canvasTarget.width = videoTarget.width;
-						canvasTarget.height = videoTarget.height;
-
+						
 						while(videoTrack.readyState == "live")
 						{
-							const segmentation = await net.segmentPerson(videoTarget);
+							if (this.blurBackground) {
+								const segmentation = await net.segmentPerson(videoTarget);
 
-							const backgroundBlurAmount = 6;
-							const edgeBlurAmount = 2;
-							const flipHorizontal = true;
+								const backgroundBlurAmount = 6;
+								const edgeBlurAmount = 2;
+								const flipHorizontal = true;
 
-							bodyPix.drawBokehEffect(
-							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
-							edgeBlurAmount, flipHorizontal);
+								bodyPix.drawBokehEffect(
+								canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
+								edgeBlurAmount, flipHorizontal);
+							}
+							
+							else {
+								canvas.drawImage(videoTarget, 0, 0, videoTarget.width, videoTarget.height);
+								await new Promise((res, rej) => setTimeout(() => res(), 40));
+							}
 						}
 					}
 					catch(e)
@@ -973,6 +997,7 @@ class CallWindow extends CustomEvents {
 					}
 				})();
 			});
+			
 			
 			stream = canvasTarget.captureStream();
 			stream.addTrack(this.mainStream.getAudioTracks()[0]);
