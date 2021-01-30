@@ -934,8 +934,7 @@ class CallWindow extends CustomEvents {
 			videoTarget.play()
 
 			const canvasTarget = document.createElement("canvas");
-			const canvas = canvasTarget.getContext("2d");
-			
+
 			bodyPix.load({
 				multiplier: 0.75,
 				stride: 32,
@@ -949,7 +948,7 @@ class CallWindow extends CustomEvents {
 
 						const videoTrack = this.mainStream.getVideoTracks()[0];
 
-						// Fix size
+						// Fix video & canvas size
 						videoTarget.width = videoTrack.getSettings().width
 						videoTarget.height = videoTrack.getSettings().height
 						canvasTarget.width = videoTarget.width;
@@ -966,7 +965,6 @@ class CallWindow extends CustomEvents {
 							bodyPix.drawBokehEffect(
 							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
 							edgeBlurAmount, flipHorizontal);
-							console.log("track update");
 						}
 					}
 					catch(e)
