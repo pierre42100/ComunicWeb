@@ -924,19 +924,18 @@ class CallWindow extends CustomEvents {
 		if(!this.isOpen)
 			return
 		
+		// If streaming video stream, allow to blur background
 		if(includeVideo)
 		{
 			// Create capture
 			const videoTarget = document.createElement("video");
+			videoTarget.muted = true;
 			videoTarget.srcObject = stream;
 			videoTarget.play()
-
 
 			const canvasTarget = document.createElement("canvas");
 			const canvas = canvasTarget.getContext("2d");
 			
-document.body.appendChild(videoTarget) // TODO : remove
-document.body.appendChild(canvasTarget) // TODO : remove
 			bodyPix.load({
 				multiplier: 0.75,
 				stride: 32,
@@ -945,28 +944,29 @@ document.body.appendChild(canvasTarget) // TODO : remove
 				(async () => {
 					try {
 
-						//await new Promise((res) => setTimeout(() => res(), 3000));
-
+						// Wait for video to be ready
 						await new Promise((res, rej) => videoTarget.addEventListener("loadeddata", e => res(), {once: true}));
-						alert("do it");
-						videoTarget.width = this.mainStream.getVideoTracks()[0].getSettings().width
-						videoTarget.height = this.mainStream.getVideoTracks()[0].getSettings().height
+
+						const videoTrack = this.mainStream.getVideoTracks()[0];
+
+						// Fix size
+						videoTarget.width = videoTrack.getSettings().width
+						videoTarget.height = videoTrack.getSettings().height
 						canvasTarget.width = videoTarget.width;
 						canvasTarget.height = videoTarget.height;
 
-						while(true) // TODO : Find something better
+						while(videoTrack.readyState == "live")
 						{
 							const segmentation = await net.segmentPerson(videoTarget);
 
 							const backgroundBlurAmount = 6;
 							const edgeBlurAmount = 2;
 							const flipHorizontal = true;
-console.info(
-	canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
-	edgeBlurAmount, flipHorizontal);
+
 							bodyPix.drawBokehEffect(
 							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
 							edgeBlurAmount, flipHorizontal);
+							console.log("track update");
 						}
 					}
 					catch(e)
