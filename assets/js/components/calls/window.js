@@ -993,7 +993,7 @@ class CallWindow extends CustomEvents {
 						
 						else {
 							canvas.drawImage(videoTarget, 0, 0, videoTarget.width, videoTarget.height);
-							await new Promise((res, rej) => setTimeout(() => res(), 40));
+							await new Promise((res, rej) => setTimeout(() => res(), 1000 / videoTrack.getSettings().frameRate));
 						}
 					}
 				}
