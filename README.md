@@ -30,3 +30,5 @@ ComunicWeb would not exists without the following technologies developped by the
 - JavaScript BBCode Parser (https://github.com/Frug/js-bbcode-parser) (MIT License)
 - Pacman (https://github.com/daleharvey/pacman) (WTFPL License)
 - SimplePeer (https://github.com/feross/simple-peer) (MIT License)
+- TensorFlow JS
+- TensorFlow Models
