@@ -1000,6 +1000,7 @@ class CallWindow extends CustomEvents {
 				catch(e)
 				{
 					console.error("Failure", e);
+					notify("Failed to process local video!", "error");
 				}
 			})();
 			
