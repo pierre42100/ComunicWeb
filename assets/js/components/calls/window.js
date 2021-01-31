@@ -820,8 +820,17 @@ class CallWindow extends CustomEvents {
 
 		const memberEl = this.getMemberNameEl(peerID);
 
+		let callsCount = 0;
 
-		script_processor_analysis_node.onaudioprocess = function(e) {
+		script_processor_analysis_node.onaudioprocess = (e) => {
+			
+			// Do not update count each time
+			callsCount++;
+			if(callsCount < 5)
+				return;
+			callsCount = 0;
+
+
 			analyzer_node.getByteFrequencyData(freq_data);
 
 			let count = 0;
