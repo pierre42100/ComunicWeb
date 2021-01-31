@@ -664,7 +664,7 @@ class CallWindow extends CustomEvents {
 		this.blurBackground = !this.blurBackground;
 
 		// Check if background blur network is loaded
-		if(!this.backgroundDetectionNetwork)
+		if(this.blurBackground)
 			notify("Please stop and start streaming again to apply modification!");
 	}
 
