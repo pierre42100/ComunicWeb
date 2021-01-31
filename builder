@@ -271,6 +271,8 @@ rcopy($path_debug_assets."3rdparty/pacman", $path_release_assets."3rdparty/pacma
 //Copy clippy.js
 rcopy($path_debug_assets."3rdparty/clippy.js", $path_release_assets."3rdparty/clippy.js");
 
+//Copy TFS models
+rcopy($path_debug_assets."3rdparty/tfjs-models", $path_release_assets."3rdparty/tfjs-models");
 
 //Build and copy personnal data navigator
 notice("Build personnal data export navigator and add it to built files");
