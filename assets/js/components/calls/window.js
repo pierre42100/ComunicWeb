@@ -232,7 +232,7 @@ class CallWindow extends CustomEvents {
 					text: "Toggle blur background",
 					needVideo: true,
 					onclick: () => {
-						this.blurBackground = !this.blurBackground;
+						this.toggleBlurBackground()
 					}
 				},
 
@@ -658,6 +658,17 @@ class CallWindow extends CustomEvents {
 	}
 
 	/**
+	 * Toggle blur background mode
+	 */
+	toggleBlurBackground() {
+		this.blurBackground = !this.blurBackground;
+
+		// Check if background blur network is loaded
+		if(!this.backgroundDetectionNetwork)
+			notify("Please stop and start streaming again to apply modification!");
+	}
+
+	/**
 	 * Toggle stream state
 	 * 
 	 * @param {boolean} isVideo 
@@ -936,7 +947,7 @@ class CallWindow extends CustomEvents {
 			return
 		
 		// If streaming video stream, allow to blur background
-		if(includeVideo)
+		if(includeVideo && this.blurBackground)
 		{
 			// Create capture
 			const videoTarget = document.createElement("video");
@@ -1005,7 +1016,7 @@ class CallWindow extends CustomEvents {
 			})();
 			
 			
-			stream = canvasTarget.captureStream();
+			stream = canvasTarget.captureStream(24);
 			stream.addTrack(this.mainStream.getAudioTracks()[0]);
 		}
 
