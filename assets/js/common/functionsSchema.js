@@ -299,22 +299,6 @@ var ComunicWeb = {
 		},
 
 		/**
-		 * Operations on JS files
-		 */
-		jsFiles:{
-
-			/**
-			 * Include a Javascript file
-			 */
-			includeFile: function(fileURL){},
-
-			/**
-			 * Execute some source code contained in a variable
-			 */
-			executeJSsource: function(source){},
-		},
-
-		/**
 		 * The date library
 		 */
 		date:{

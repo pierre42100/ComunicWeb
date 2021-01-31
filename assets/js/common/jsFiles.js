@@ -10,13 +10,13 @@
  * @param {String} fileURL The file URL
  * @return {Boolean} False if it fails
  */
-ComunicWeb.common.jsFiles.includeFile = function(fileURL){
+async function includeJS(fileURL) {
     var fileElem = document.createElement("script");
     fileElem.type = "text/javascript";
-    fileElem.src = fileURL;
+    fileElem.innerHTML = await (await fetch(fileURL)).text();
 
     //Append the new element
-    document.body.appendChild(fileElem);
+    document.head.appendChild(fileElem);
 
     //Debug message
     ComunicWeb.debug.logMessage("Added JS file " + fileURL);
@@ -30,7 +30,7 @@ ComunicWeb.common.jsFiles.includeFile = function(fileURL){
  * 
  * @param {String} source The source code to execute
  */
-ComunicWeb.common.jsFiles.executeJSsource = function(source){
+function executeJSsource(source){
     var jsSourceContainer = document.createElement("script");
     jsSourceContainer.innerHTML = source;
     document.body.appendChild(jsSourceContainer);

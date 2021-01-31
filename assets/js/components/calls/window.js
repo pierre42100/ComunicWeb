@@ -993,6 +993,9 @@ class CallWindow extends CustomEvents {
 							// Load network if required
 							if (!this.backgroundDetectionNetwork)
 							{
+								await includeJS(ComunicConfig.assetsURL + "3rdparty/tfjs/tfjs-1.2.min.js");
+								await includeJS(ComunicConfig.assetsURL + "3rdparty/tensorflow-models/body-pix-2.0.js");
+
 								this.backgroundDetectionNetwork = await bodyPix.load({
 									multiplier: 0.75,
 									stride: 32,
