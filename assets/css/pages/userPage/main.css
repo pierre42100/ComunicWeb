@@ -8,3 +8,7 @@
 	max-width: 1500px;
 	margin: auto;
 }
+
+.user-page-right-column {
+	max-width: 800px;
+}

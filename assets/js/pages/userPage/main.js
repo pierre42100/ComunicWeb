@@ -148,10 +148,10 @@ ComunicWeb.pages.userPage.main = {
 		ComunicWeb.pages.userPage.profileInfos.display(infos, leftColumn);
 
 		//Create right column
-		var rightColumn = createElem2({
+		const rightColumn = createElem2({
 			appendTo: row,
 			type: "div",
-			class: "col-md-8"
+			class: "col-md-8 user-page-right-column"
 		});
 
 		//Display post creation form if the user is allowed to do so
