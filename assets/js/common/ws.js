@@ -13,7 +13,7 @@ class WsMessage {
 	}
 
 	get hasId() {
-		return this.id.length > 0
+		return this.id && this.id.length > 0
 	}
 }
 

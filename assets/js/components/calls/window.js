@@ -1001,6 +1001,7 @@ class CallWindow extends CustomEvents {
 									stride: 32,
 									quantBytes: 4
 								});
+								
 							}
 
 							const segmentation = await this.backgroundDetectionNetwork.segmentPerson(videoTarget);
@@ -1012,12 +1013,16 @@ class CallWindow extends CustomEvents {
 							bodyPix.drawBokehEffect(
 							canvasTarget, videoTarget, segmentation, backgroundBlurAmount,
 							edgeBlurAmount, flipHorizontal);
+
+							await new Promise((res, rej) => setTimeout(() => res(), 1));
 						}
 						
 						else {
 							canvas.drawImage(videoTarget, 0, 0, videoTarget.width, videoTarget.height);
 							await new Promise((res, rej) => setTimeout(() => res(), 1000 / videoTrack.getSettings().frameRate));
 						}
+
+						
 					}
 				}
 				catch(e)
