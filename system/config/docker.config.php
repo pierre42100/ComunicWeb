@@ -35,5 +35,5 @@ class Docker extends Offline {
 	/**
 	 * Path to assets (URL)
 	 */
-	const ASSETS_URL = self::CONTAINER_URL."assets/";
+	const ASSETS_URL = self::CONTAINER_URL."assets/".BUILD_TIME."/";
 }

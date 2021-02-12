@@ -35,7 +35,7 @@ class Comunic_io extends Offline {
 	/**
 	 * Path to assets (URL)
 	 */
-	const ASSETS_URL = "https://comunic.io/assets/";
+	const ASSETS_URL = "https://comunic.io/assets/".BUILD_TIME."/";
 
 	/**
 	 * Site requires https connection

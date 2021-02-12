@@ -35,7 +35,7 @@ class Communiquons extends Offline {
 	/**
 	 * Path to assets (URL)
 	 */
-	const ASSETS_URL = "https://communiquons.org/assets/";
+	const ASSETS_URL = "https://communiquons.org/assets/".BUILD_TIME."/";
 
 	/**
 	 * Site requires https connection

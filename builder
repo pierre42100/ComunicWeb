@@ -14,6 +14,9 @@ define("OUTPUT_DIRECTORY", __DIR__."/output/");
 //Temporary file
 define("TEMP_FILE", __DIR__."/output/temp");
 
+// Build time
+define("BUILD_TIME", time());
+
 //Defines some utilities
 
 /**

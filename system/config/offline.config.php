@@ -32,12 +32,12 @@ class Offline {
 	/**
 	 * Path to assets (relative to the build folder)
 	 */
-	const PATH_ASSETS = "assets/";
+	const PATH_ASSETS = "assets/".BUILD_TIME."/";
 
 	/**
 	 * Path to assets (URL)
 	 */
-	const ASSETS_URL = "https://devweb.local/comunic/v2/output/assets/";
+	const ASSETS_URL = "https://devweb.local/comunic/v2/output/assets/".BUILD_TIME."/";
 
 	/**
 	 * Third party CSS files
