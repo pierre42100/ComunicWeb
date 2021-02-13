@@ -13,12 +13,12 @@ ComunicWeb.pages.logout = {
      * @param {element} targetElement Where the template will be applied
      * @returns {Boolean} False if it fails 
      */
-    openLogoutPage: function(additionnalData, targetElement){
+    openLogoutPage: async function(additionnalData, targetElement){
         //Enable screen overlay
         var screenOverlay = ComunicWeb.common.page.showTransparentWaitSplashScreen();
 
         //Perform logout
-        ComunicWeb.user.userLogin.logoutUser();
+        await UserLogin.logoutUser();
 
         //Reset notifications number
         ComunicWeb.common.pageTitle.setNotificationsNumber(0);

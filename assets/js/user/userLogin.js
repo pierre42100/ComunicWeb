@@ -145,42 +145,23 @@ const UserLogin = {
 
     /**
      * Logout user
-     * 
-     * @param {Function} afterLogout What to do once user is logged out
      */
-    logoutUser: async function(afterLogout){
+    logoutUser: async function(){
+        try {
+            await api("account/logout", {}, true);
+            await UserWebSocket.Disconnect();
 
-        await UserWebSocket.Disconnect();
 
-        //Prepare and make an API request
-        var apiURI = "user/disconnectUSER";
-        var params = {};
+            //Destroy login tokens
+            ComunicWeb.user.loginTokens.deleteLoginTokens();
 
-        //What to do after the request is completed
-        var afterAPIrequest = function(result){
+            //Specify user is logged out
+            this.__userID = 0;
+            this.__userLogin = false;
 
-            //Log
-            ComunicWeb.debug.logMessage("Logout request on server terminated.");
-
-            //Perform next action (if specified)
-            if(afterLogout){
-                afterLogout();
-            }
-
-        };
-
-        //Perform request
-        ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, afterAPIrequest);
-
-        //Destroy login tokens
-        ComunicWeb.user.loginTokens.deleteLoginTokens();
-
-        //Specify user is logged out
-        this.__userID = 0;
-        this.__userLogin = false;
-
-        //Done !
-        return 0;
+        } catch(e) {
+            console.error(e);
+        }
     },
 
     /**
