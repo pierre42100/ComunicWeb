@@ -10,6 +10,7 @@
 
 //Output directory
 define("OUTPUT_DIRECTORY", __DIR__."/output/");
+define("OUTPUT_FILE", __DIR__."/output.tar");
 
 //Temporary file
 define("TEMP_FILE", __DIR__."/output/temp");
@@ -207,6 +208,8 @@ $path_release_assets = OUTPUT_DIRECTORY.$release::PATH_ASSETS;
 notice("Clean build directory", TRUE);
 if(file_exists(OUTPUT_DIRECTORY))
 	delDir(OUTPUT_DIRECTORY);
+if(file_exists(OUTPUT_FILE))
+	unlink(OUTPUT_FILE);
 mkdir(OUTPUT_DIRECTORY, 0777, true);
 mkdir($path_release_assets, 0777, true);
 mkdir($path_release_assets."/css", 0777, true);
@@ -336,6 +339,9 @@ $page_src .= ' ?>';
 $page_src .= load_page($release_conf);
 file_put_contents(OUTPUT_DIRECTORY."index.php", $page_src);
 
+// Create output archive
+system("bash -c \"cd ".OUTPUT_DIRECTORY." && tar -cf ".OUTPUT_FILE." * .htaccess\"");
+
 //Done
 notice("Done.", TRUE);
 
@@ -347,6 +353,9 @@ notice("Done.", TRUE);
 function clean(){
 	notice("Cleaning build directory.", TRUE);
 	delDir(OUTPUT_DIRECTORY);
+
+	if(file_exists(OUTPUT_FILE))
+		unlink(OUTPUT_FILE);
 }
 
 //Get the action and do it
