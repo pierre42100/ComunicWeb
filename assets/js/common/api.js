@@ -41,9 +41,8 @@ const APIClient = {
         //Prepare the request URL
         var requestURL = ComunicWeb.__config.apiURL + apiURI;
         
-        //Add API service tokens
-        params.serviceName = ComunicWeb.__config.apiServiceName;
-        params.serviceToken = ComunicWeb.__config.apiServiceToken;
+        // Add client name
+        params.client = ComunicWeb.__config.apiClientName;
 
         //Add login tokens to params if required
         if(requireLoginTokens){
