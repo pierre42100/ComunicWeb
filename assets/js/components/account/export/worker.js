@@ -54,7 +54,7 @@ ComunicWeb.components.account.export.worker = {
 				//Ready to parse data
 				ComunicWeb.components.account.export.worker.parse(data, zip);
 
-			}).catch(function(){
+			}).catch(e => {
 				ComunicWeb.debug.logMessage("Could not parse personnal data export navigator!");
 				ComunicWeb.components.account.export.ui.exportFatalError(e);
 				return;
