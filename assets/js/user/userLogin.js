@@ -115,7 +115,7 @@ const UserLogin = {
             else {
                 storageType = "session";
             }
-            ComunicWeb.user.loginTokens.setUserTokens(result.tokens, storageType);
+            LoginTokens.setUserToken(result.token, storageType);
 
             // Save email address
             ComunicWeb.components.mailCaching.set(usermail);
@@ -153,7 +153,7 @@ const UserLogin = {
 
 
             //Destroy login tokens
-            ComunicWeb.user.loginTokens.deleteLoginTokens();
+            LoginTokens.deleteLoginTokens();
 
             //Specify user is logged out
             this.__userID = 0;

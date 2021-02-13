@@ -340,30 +340,6 @@ var ComunicWeb = {
 	 * User functions
 	 */
 	user:{
-		/**
-		 * Login tokens storage controller
-		 */
-		loginTokens: {
-			/**
-			 * Set User tokens
-			 */
-			setUserTokens: function(tokens, storageType){},
-
-			/**
-			 * Check if there is any login tokens available
-			 */
-			checkLoginTokens: function(){},
-
-			/**
-			 * Get login tokens
-			 */
-			getLoginTokens: function(){},
-
-			/**
-			 * Perform user logout
-			 */
-			deleteLoginTokens: function(){},
-		},
 		
 		/**
 		 * Get user infos

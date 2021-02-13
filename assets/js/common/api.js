@@ -46,15 +46,7 @@ const APIClient = {
 
         //Add login tokens to params if required
         if(requireLoginTokens){
-            //Get login tokens
-            tokens = ComunicWeb.user.loginTokens.getLoginTokens();
-
-            if(tokens){
-                //Add tokens
-                params.userToken1 = tokens.token1;
-                params.userToken2 = tokens.token2;
-            }
-
+            params.token = LoginTokens.getLoginToken();
         }
 
         //Enable incognito mode if required
@@ -103,21 +95,12 @@ const APIClient = {
         //Prepare the request URL
         var requestURL = ComunicWeb.__config.apiURL + apiURI;
         
-        //Add API service tokens
-        data.append('serviceName', ComunicWeb.__config.apiServiceName);
-        data.append('serviceToken', ComunicWeb.__config.apiServiceToken);
+        // Add API client name
+        data.append('client', ComunicWeb.__config.apiClientName);
 
         //Add login tokens to params if required
         if(requireLoginTokens){
-            //Get login tokens
-            tokens = ComunicWeb.user.loginTokens.getLoginTokens();
-
-            if(tokens){
-                //Add tokens
-                data.append('userToken1', tokens.token1);
-                data.append('userToken2', tokens.token2);
-            }
-
+            data.append("token", LoginTokens.getLoginToken())
         }
         
         //Enable incognito mode if required
