@@ -11,8 +11,7 @@ class Dev {
 	 * API access and credentials
 	 */
 	const API_URL = "https://devweb.local/comunic/api-v2/"; //"http://devweb.local/comunic/api/";
-	const API_SERVICE_NAME = "ComunicWeb";
-	const API_SERVICE_TOKEN = "12XU67pJUlnNQ";
+	const API_CLIENT_NAME = "ComunicWeb";
 
 	/**
 	 * Site URL

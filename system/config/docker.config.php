@@ -19,8 +19,7 @@ class Docker extends Offline {
 	 * API access and credentials
 	 */
 	const API_URL = self::CONTAINER_URL."api/";
-	const API_SERVICE_NAME = "client";
-	const API_SERVICE_TOKEN = "token";
+	const API_CLIENT_NAME = "client";
 
 	/**
 	 * Site URL

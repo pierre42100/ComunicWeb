@@ -14,8 +14,8 @@ class Communiquons extends Offline {
 	 * API access and credentials
 	 */
 	const API_URL = "https://api.communiquons.org/";
-	const API_SERVICE_NAME = "ComunicWEB";
-	const API_SERVICE_TOKEN = "BVuWUt4m";
+	const API_CLIENT_NAME = "ComunicWEB";
+
 
 	/**
 	 * Site URL
