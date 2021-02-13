@@ -97,9 +97,6 @@ ComunicWeb.components.posts.form = {
 		//Youtube
 		var youtubeType = this._add_post_type(postTypesContainer, "youtube", "<i class='fa fa-youtube-play'></i> <span class='hidden-xs'>"+lang("_post_type_youtube")+"</span>");
 
-		//Movie
-		var movieType = this._add_post_type(postTypesContainer, "movie", "<i class='fa fa-file-movie-o'></i> <span class='hidden-xs'>"+lang("_post_type_movie")+"</span>");
-
 		//Link
 		var linkType = this._add_post_type(postTypesContainer, "link", "<i class='fa fa-link'></i> <span class='hidden-xs'>"+lang("_post_type_link")+"</span>");
 
@@ -143,45 +140,6 @@ ComunicWeb.components.posts.form = {
 			type: "text"
 		});
 		//End : Youtube
-
-
-		//Add movie input form
-		var movieInputForm = createElem2({
-			appendTo: boxBody,
-			type: "div",
-			class: "post-movie",
-		});
-
-		//Add choose button
-		var movieChooseButton = createElem2({
-			appendTo: movieInputForm,
-			type: "button",
-			class: "btn btn-primary",
-			innerHTML: lang("_choose")
-		});
-
-		var movieIDInput = createElem2({
-			appendTo: movieInputForm,
-			type: "input",
-			elemType: "hidden",
-			value: 0
-		});
-
-		var movieName = createElem2({
-			appendTo: movieInputForm,
-			type: "span",
-			innerHTML: lang("_no_movie_selected")
-		});
-
-		//Make movie choose button lives
-		movieChooseButton.onclick = function(){
-			ComunicWeb.components.movies.picker.pick(function(movie){
-				//Set movie ID and name
-				movieIDInput.value = movie.id;
-				movieName.innerHTML = movie.name;
-			});
-		}
-		//End : movie
 
 		//Add webpage input form
 		var linkChooseForm = createElem2({
@@ -300,10 +258,8 @@ ComunicWeb.components.posts.form = {
 
 		//Create post type change handler
 		var changesHandler = function(){
-
 			imgUploadForm.style.display = imageType.checked ? "block" : "none";
 			youtubeInputForm.style.display = youtubeType.checked ? "block" : "none";
-			movieInputForm.style.display = movieType.checked ? "block" : "none";
 			linkChooseForm.style.display = linkType.checked ? "block" : "none";
 			pdfUploadForm.style.display = pdfType.checked ? "block" : "none";
 			countdownForm.style.display = countdownType.checked ? "block" : "none";
@@ -314,7 +270,6 @@ ComunicWeb.components.posts.form = {
 		textType.onclick = changesHandler;
 		imageType.onclick = changesHandler;
 		youtubeType.onclick = changesHandler;
-		movieType.onclick = changesHandler;
 		linkType.onclick = changesHandler;
 		pdfType.onclick = changesHandler;
 		countdownType.onclick = changesHandler;
@@ -427,22 +382,6 @@ ComunicWeb.components.posts.form = {
 				//Append values
 				datas.append("kind", "youtube");
 				datas.append("youtube_id", videoID);
-			}
-
-			//Check for movie
-			else if(movieType.checked){
-
-				var movieID = movieIDInput.value;
-
-				if(movieID == 0){
-					ComunicWeb.common.notificationSystem.showNotification(lang("form_post_err_no_movie_selected"), "danger");
-					return;
-				}
-
-				//Append values
-				datas.append("kind", "movie");
-				datas.append("movieID", movieID);
-
 			}
 
 			//Check for PDF

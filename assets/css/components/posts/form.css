@@ -47,16 +47,11 @@
  */
 .post-form .post-image,
 .post-form .post-youtube,
-.post-form .post-movie,
 .post-form .post-weblink,
 .post-form .post-pdf,
 .post-form .post-countdown,
 .post-form .post-survey {
 	display: none;
-}
-
-.post-form .post-movie button {
-	margin-right: 5px;
 }
 
 .post-form .post-survey .select2-dropdown {

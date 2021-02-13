@@ -631,12 +631,6 @@ img[src$="groups_logo/default.png"] {
     color: var(--white);
 }
 
-/**
-* Pick a movie modal
-*/
-.pick-movie-modal {
-    color: var(--white);
-}
 
 /**
 * Group settings page

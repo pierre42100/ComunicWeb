@@ -79,7 +79,6 @@ xhr.onload = function(){
 	ApplyCommentsList();
 	ApplyUserLikes();
 	ApplySurveyResponses();
-	ApplyMovies();
 	ApplyAllConversationMessages();
 	ApplyConversations();
 }

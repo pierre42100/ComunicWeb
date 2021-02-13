@@ -214,8 +214,6 @@ class Dev {
 			"css/components/posts/edit.css",
 			"css/components/posts/targetPicker.css",
 
-			//Movies picker
-			"css/components/movies/picker.css",
 
 			//Comments component
 			"css/components/comments/ui.css",
@@ -433,10 +431,6 @@ class Dev {
 
 			//Countdown timer
 			"js/components/countdown.js",
-
-			//Movies
-			"js/components/movies/interface.js",
-			"js/components/movies/picker.js",
 
 			//Notifications
 			"js/components/notifications/dropdown.js",

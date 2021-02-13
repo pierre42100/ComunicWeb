@@ -999,28 +999,6 @@ var ComunicWeb = {
 		},
 
 		/**
-		 * Movies functions
-		 */
-		movies: {
-
-			/**
-			 * Movies communication interface
-			 */
-			interface: {
-				//TODO : implement
-			},
-
-			/**
-			 * Movies picker
-			 */
-			picker:{
-				//TODO : implement
-			},
-
-		},
-
-
-		/**
 		 * Notifications components
 		 */
 		notifications: {

@@ -136,21 +136,6 @@ function ApplyPosts(){
 
 		}
 
-
-		//Post with movie
-		if(post.kind == "movie"){
-
-			//Display the movie only (movies have a dedicated tab)
-			createElem2({
-				appendTo: cardContent,
-				type: "a",
-				href: getFilePathFromURL(post.video_info.url),
-				innerHTML: "Open movie"
-			});
-		}
-
-
-
 		//Post with weblink
 		if(post.kind == "weblink"){
 

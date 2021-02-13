@@ -201,20 +201,9 @@ ComunicWeb.components.account.export.worker = {
 		}
 
 		/**
-		 * Parse a movie to find potential files to download
-		 * 
-		 * @param {Object} info Information about the movie to parse
-		 */
-		var parseMovie = function(info){
-			if(info.url != null)
-				if(!files.includes(info.url))
-					files.push(info.url);
-		}
-
-		/**
 		 * Parse a conversation message to find potential files to download
 		 * 
-		 * @param {Object} info Information about the movie to parse
+		 * @param {Object} info Information about the conversation to parse
 		 */
 		var parseConversationMessage = function(info){
 			if(info.image_path != null)
@@ -232,9 +221,6 @@ ComunicWeb.components.account.export.worker = {
 
 		//Comments
 		data.comments.forEach(parseComment);
-
-		//Movie
-		data.movies.forEach(parseMovie);
 
 		//Conversation message
 		//* All from users

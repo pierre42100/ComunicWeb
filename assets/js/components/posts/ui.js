@@ -395,36 +395,6 @@ ComunicWeb.components.posts.ui = {
 			}
 		}
 
-		//In case of video
-		else if(info.kind == "movie"){
-
-			var videoContainer = createElem2({
-				appendTo: postRoot,
-				type: "div",
-				class: "post-video"
-			});
-
-			//Create video element
-			var video = createElem2({
-				appendTo: videoContainer,
-				type: "video",
-				class: "video-js vjs-default-skin"
-			});
-			video.setAttribute("controls", "");
-
-			//Add source
-			var video_src = createElem2({
-				appendTo: video,
-				type: "source",
-				src: info.video_info.url
-			});
-			video_src.type = info.video_info.file_type;
-
-			//Enable videoJS
-			//videojs(video);
-
-		}
-
 		//In case of YouTube video
 		else if(info.kind == "youtube"){
 
