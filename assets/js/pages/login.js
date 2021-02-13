@@ -67,7 +67,6 @@ ComunicWeb.pages.login = {
 			var loginButton = loginBody.getElementsByClassName("btn-login")[0];
 
 			//Make the login action accessible
-			//loginButton.onclick = ComunicWeb.pages.login.loginSubmit;
 			loginBody.onsubmit = ComunicWeb.pages.login.loginSubmit;
 
 
@@ -103,9 +102,7 @@ ComunicWeb.pages.login = {
 		)){
 		   //Error notification
 		   ComunicWeb.common.notificationSystem.showNotification(lang("_login_page_bad_input"), "error");
-
-		   //Stop function execution
-		   return false;
+		   return;
 		}
 	   
 		//Enable overlay (use .remove() to remove)
@@ -117,7 +114,7 @@ ComunicWeb.pages.login = {
 		var permanentLogin = rememberLoginInput.checked;
 
 		//What to do once user is logged in (or not)
-		var afterTryLogin = function(loginResult){
+		var afterTryLogin = (loginResult) => {
 
 			//First, remove overlay
 			screenOverlay.remove();

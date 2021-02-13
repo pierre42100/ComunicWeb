@@ -59,38 +59,29 @@ ComunicWeb.common.system = {
 		ComunicWeb.components.darkTheme.refresh();
 
 		/**
-		 * What to do after login refresh
+		 * Get login state
 		 */
-		var afterLoginRefresh = async function(){
-			
-			// Initialize Websocket if user is connected
-			if(signed_in()) {
-				await UserWebSocket.Connect();
-				await UserWebSocket.WaitForConnected();
-			}
+		await UserLogin.refreshLoginState();
 
-			/**
-			 * Open a page
-			 */
-			if(!openPage){
-				//Refresh current page
-				ComunicWeb.common.page.refresh_current_page();
-			}
-			else
-				//Open specified page
-				ComunicWeb.common.page.openPage(openPage);
-
-			//End of init
-			ComunicWeb.debug.logMessage("Application is ready !");
+		// Initialize Websocket if user is connected
+		if(signed_in()) {
+			await UserWebSocket.Connect();
+			await UserWebSocket.WaitForConnected();
 		}
 
 		/**
-		 * Get login state
+		 * Open a page
 		 */
-		ComunicWeb.user.userLogin.refreshLoginState(afterLoginRefresh);
+		if(!openPage){
+			//Refresh current page
+			ComunicWeb.common.page.refresh_current_page();
+		}
+		else
+			//Open specified page
+			ComunicWeb.common.page.openPage(openPage);
 
-		//Success
-		return true;
+		//End of init
+		ComunicWeb.debug.logMessage("Application is ready !");
 	},
 
 	/**
