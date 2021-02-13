@@ -14,7 +14,7 @@
  * @return {Promise}
  */
 function api(uri, args, withLogin){
-    return ComunicWeb.common.api.exec(uri, args, withLogin);
+    return APIClient.exec(uri, args, withLogin);
 }
 
 /**

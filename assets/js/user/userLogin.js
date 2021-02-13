@@ -60,19 +60,7 @@ const UserLogin = {
             });
 
         } catch(e) {
-
-            //Set user ID to 0 (security purpose)
-            ComunicWeb.user.userLogin.__userID = 0;
-
-            //If error is 412, make user as logged out
-            if(result.error.code == 412) {
-                ComunicWeb.user.userLogin.__userLogin = false;
-                ComunicWeb.user.loginTokens.deleteLoginTokens();
-                
-                //Restart the application
-                ComunicWeb.common.system.restart();
-            }
-
+            console.error(e);
         }
     },
 

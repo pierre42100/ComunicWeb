@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.common.system = {
+const System = {
 	/**
 	 * Initializate the application
 	 * 
@@ -94,7 +94,7 @@ ComunicWeb.common.system = {
 		ComunicWeb.common.page.showWaitSplashScreen("Restarting...");
 
 		//Reload the page
-		location.href = document.location;
+		location.href = document.location.href.split("#")[0];
 	},
 
 	/**
@@ -121,3 +121,5 @@ ComunicWeb.common.system = {
 		return true;
 	},
 };
+
+ComunicWeb.common.system = System;

@@ -3,7 +3,7 @@
  * 
  * @author Pierre HUBERT
  */
-ComunicWeb.common.api = {
+const APIClient = {
 
     /**
      * Make an asynchronous request over the API
@@ -151,14 +151,7 @@ ComunicWeb.common.api = {
         if(apiXHR.readyState == 4){
 
             //Check if response code is 0
-            if(apiXHR.status == 0){
-                //An error occured
-                ComunicWeb.common.network.setStatus(false);
-            }
-            else{
-                //It is a success
-                ComunicWeb.common.network.setStatus(true);
-            }
+            ComunicWeb.common.network.setStatus(apiXHR.status != 0);
 
             //Check if response is empty
             if(apiXHR.responseText.length == ""){
@@ -199,6 +192,12 @@ ComunicWeb.common.api = {
             if(result.error){
                 //Log error
                 ComunicWeb.debug.logMessage("Got an error in a XHR request! \n Request URL: "+requestURL+" \n Response : "+apiXHR.responseText);
+
+                if (result.error.code == 412) {
+                    UserLogin.__userLogin = false;
+                    ComunicWeb.user.loginTokens.deleteLoginTokens();
+                    System.restart();
+                }
             }
 
             //We can do the next step
@@ -207,3 +206,5 @@ ComunicWeb.common.api = {
         }
     },
 }
+
+ComunicWeb.common.api = APIClient;
