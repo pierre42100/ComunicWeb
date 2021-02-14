@@ -175,7 +175,7 @@ const APIClient = {
                 //Log error
                 ComunicWeb.debug.logMessage("Got an error in a XHR request! \n Request URL: "+requestURL+" \n Response : "+apiXHR.responseText);
 
-                if (result.error.code == 412) {
+                if (result.error.code == 412 && signed_in()) {
                     UserLogin.__userLogin = false;
                     ComunicWeb.user.loginTokens.deleteLoginTokens();
                     System.restart();

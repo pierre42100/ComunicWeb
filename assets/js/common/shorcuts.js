@@ -102,7 +102,7 @@ function openGroupPage(info){
  * @return {Boolean} True if the user is signed in / false else
  */
 function signed_in(){
-    return ComunicWeb.user.userLogin.getUserLoginState();
+    return UserLogin.getUserLoginState();
 }
 
 /**
@@ -112,7 +112,7 @@ function signed_in(){
  * @return {Integer} The ID of the user
  */
 function userID(){
-    return ComunicWeb.user.userLogin.getUserID();
+    return UserLogin.getUserID();
 }
 
 /**
