@@ -194,6 +194,25 @@ const SettingsInterface = {
 	 */
 	getDataConservationPolicy: async function() {
 		return await api("settings/get_data_conservation_policy", null, true);
+	},
+
+	/**
+	 * Update data conservation password
+	 * 
+	 * @param {DataConservationPolicy} policy New policy 
+	 * @param {String} password User password
+	 */
+	setDataConservationPolicy: async function(policy, password) {
+		let data = {
+			password: password
+		}
+
+		for (let key in policy) {
+			if (policy.hasOwnProperty(key))
+				data[key] = policy[key]
+		}
+
+		await api("settings/set_data_conservation_policy", data, true)
 	}
 }
 

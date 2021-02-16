@@ -1,4 +1,4 @@
-<div class="box box-primary box-export-account-data-settings">
+<div class="box box-primary box-data-conservation-policy">
     <div class="box-header">
         <h3 class="box-title">tr("Data conservation policy")</h3>
     </div>
@@ -10,18 +10,20 @@
         <div class="form-group" v-for="setting in settings">
             <label>{{setting.title}}</label>
             <select style="width: 100%;" class="form-control select2" v-model="setting.value">
-                <option v-for="opt in options" v-bind:value="opt.value">{{ opt.label }}</option>
+                <option v-for="opt in options.filter(v => !v.value || v.value >= setting.minVal)" v-bind:value="opt.value">{{ opt.label }}</option>
             </select>
         </div>
 
         <!-- Password confirmation -->
         <div class="form-group">
-            <label>Please type your password to update your policy</label>
+            <label>tr("Please type your password to update your policy")</label>
             <div class="input-group" style="width: 100%;">
-                <input class="form-control" type="password" placeholder="Your password">
+                <input class="form-control" type="password" placeholder="tr("Your password")" v-model="password">
             </div>
         </div>
 
-        <div class="btn btn-primary">tr("Update settings")</div>
+        <div style="text-align: center;" v-if="!updating">
+            <input type="button" class="btn btn-primary" @click="submitUpdate()" value="tr("Update settings")">
+        </div>
     </div>
 </div>

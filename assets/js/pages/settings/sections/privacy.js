@@ -96,7 +96,7 @@ const SettingsPrivacySection = {
 		
 		// Load server policy
 		await ServerConfig.ensureLoaded();
-		const serverPolicy = ServerConfig.conf;
+		const serverPolicy = ServerConfig.conf.data_conservation_policy;
 
 		// Use Vue
 		const oneDay = 60 * 60 * 24;
@@ -115,7 +115,7 @@ const SettingsPrivacySection = {
 
 		let findOptionIndex = (value) => {
 			if (!value) return lifetimeOptions[0].value;
-			return [...lifetimeOptions].reverse().find(v => v.value <= value).value
+			return lifetimeOptions.find(v => v.value >= value).value
 		}
 
 		const DataConservationPolicyVueApp = {
@@ -127,41 +127,72 @@ const SettingsPrivacySection = {
 							title: tr("Automatically delete unread notification after"),
 							key: "notification_lifetime", 
 							value: findOptionIndex(settings.notification_lifetime),
+							minVal: serverPolicy.min_notification_lifetime,
 						},
 
 						{
 							title: tr("Automatically delete your comments after"),
 							key: "comments_lifetime",
-							value: findOptionIndex(settings.comments_lifetime)
+							value: findOptionIndex(settings.comments_lifetime),
+							minVal: serverPolicy.min_comments_lifetime,
 						},
 
 						{
 							title: tr("Automatically delete your posts after"),
 							key: "posts_lifetime",
-							value: findOptionIndex(settings.posts_lifetime)
+							value: findOptionIndex(settings.posts_lifetime),
+							minVal: serverPolicy.min_posts_lifetime,
 						},
 
 						{
 							title: tr("Automatically delete your conversation messages after"),
 							key: "conversation_messages_lifetime",
-							value: findOptionIndex(settings.conversation_messages_lifetime)
+							value: findOptionIndex(settings.conversation_messages_lifetime),
+							minVal: serverPolicy.min_conversation_messages_lifetime,
 						},
 
 						{
 							title: tr("Automatically delete your likes after"),
 							key: "likes_lifetime",
-							value: findOptionIndex(settings.likes_lifetime)
+							value: findOptionIndex(settings.likes_lifetime),
+							minVal: serverPolicy.min_likes_lifetime,
 						},
 
 						{
 							title: tr("Automatically delete your account if you have been inactive for"),
 							key: "inactive_account_lifetime",
-							value: findOptionIndex(settings.inactive_account_lifetime)
+							value: findOptionIndex(settings.inactive_account_lifetime),
+							minVal: serverPolicy.min_inactive_account_lifetime,
 						}
-					]
+					],
+					password: "",
+					updating: false,
+				}
+			},
+
+			methods: {
+				async submitUpdate() {
+					try {
+						if (this.password.length < 3)
+							return notify(tr("Please specify your password !"), "danger")
+
+						let newSettings = {}
+						for (let el of this.settings)
+							newSettings[el.key] = el.value;
+
+						this.updating = true;
+						await SettingsInterface.setDataConservationPolicy(newSettings, this.password)
+					}
+
+					catch (e) {
+						console.error(e)
+						notify(tr("Failed to update data conservation policy!"), "danger");
+					}
+
+					this.updating = false
 				}
 			}
-		}
+		};
 		Vue.createApp(DataConservationPolicyVueApp).mount(el);
 	},
 
