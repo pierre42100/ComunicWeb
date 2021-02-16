@@ -124,7 +124,7 @@ const SettingsPrivacySection = {
 					options: lifetimeOptions,
 					settings: [
 						{
-							title: tr("Automatically delete unread notification after"),
+							title: tr("Automatically delete unread notifications after"),
 							key: "notification_lifetime", 
 							value: findOptionIndex(settings.notification_lifetime),
 							minVal: serverPolicy.min_notification_lifetime,
