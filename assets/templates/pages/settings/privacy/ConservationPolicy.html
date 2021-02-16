@@ -1,0 +1,27 @@
+<div class="box box-primary box-export-account-data-settings">
+    <div class="box-header">
+        <h3 class="box-title">tr("Data conservation policy")</h3>
+    </div>
+    
+    <div class="box-body">
+        <p>tr("Here you can decide to automatically delete your old account data.")</p>
+
+        <!-- Counters target -->
+        <div class="form-group" v-for="setting in settings">
+            <label>{{setting.title}}</label>
+            <select style="width: 100%;" class="form-control select2" v-model="setting.value">
+                <option v-for="opt in options" v-bind:value="opt.value">{{ opt.label }}</option>
+            </select>
+        </div>
+
+        <!-- Password confirmation -->
+        <div class="form-group">
+            <label>Please type your password to update your policy</label>
+            <div class="input-group" style="width: 100%;">
+                <input class="form-control" type="password" placeholder="Your password">
+            </div>
+        </div>
+
+        <div class="btn btn-primary">tr("Update settings")</div>
+    </div>
+</div>

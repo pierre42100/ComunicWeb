@@ -89,6 +89,9 @@ class Dev {
 		
 		//JQuery UI
 		"3rdparty/adminLTE/plugins/jquery-ui/jquery-ui.min.js",
+
+		// Vue JS
+		"3rdparty/vueJS/vue-3.0.5.js",
 		
 		//iCheck
 		"3rdparty/adminLTE/plugins/iCheck/icheck.min.js",
@@ -328,6 +331,7 @@ class Dev {
 		"js/common/formChecker.js",
 		"js/common/date.js",
 		"js/common/system.js",
+		"js/common/ServerConfig.js",
 		array("path" => "js/common/songPlayer.js", "uglifyjs" => false),
 		array("path" => "js/common/ws.js", "uglifyjs" => false),
 

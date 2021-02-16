@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.pages.settings.sections.privacy = {
+const SettingsPrivacySection = {
 
 	/**
 	 * Open settings section
@@ -12,16 +12,27 @@ ComunicWeb.pages.settings.sections.privacy = {
 	 * @param {object} args Additionnal arguments
 	 * @param {HTMLElement} target The target for the page
 	 */
-	open: function(args, target){
+	open: async function(args, target){
 
-		//Information box
-		this.showInfoBox(target);
+		try {
 
-		//Export data box
-		this.showExportDataBox(target);
+			// Information box
+			this.showInfoBox(target);
 
-		//Delete account box
-		this.showDeleteAccountBox(target);
+			// Data conservation policy
+			await this.showDataConservationPolicy(target);
+
+			//Export data box
+			this.showExportDataBox(target);
+
+			//Delete account box
+			this.showDeleteAccountBox(target);
+		}
+
+		catch(e) {
+			console.error(e);
+			target.appendChild(ComunicWeb.common.messages.createCalloutElem("Failed to load page", "The page failed to load !", "danger"));
+		}
 
 	},
 
@@ -49,7 +60,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 			appendTo: boxHead,
 			type: "h3",
 			class: "box-title",
-			innerHTML: "About our policy"
+			innerHTML: tr("About our policy")
 		});
 
 		//Create box body
@@ -65,6 +76,93 @@ ComunicWeb.pages.settings.sections.privacy = {
 			type: "p",
 			innerHTML: "We give an high importance to our users privacy. Please take some time to check our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/privacy' target='_blank'>Privacy Policy</a> and our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/terms' target='_blank'>Terms of use</a>."
 		})
+	},
+
+
+	/**
+	 * Show data conservation policy
+	 * 
+	 * @param {HTMLElement} target 
+	 */
+	showDataConservationPolicy: async function(target) {
+		// Load template
+		const tpl = await Page.loadHTMLTemplate("pages/settings/privacy/ConservationPolicy.html");
+		const el = document.createElement("div")
+		el.innerHTML = tpl;
+		target.appendChild(el)
+
+		// Load user settings
+		const settings = await SettingsInterface.getDataConservationPolicy();
+		
+		// Load server policy
+		await ServerConfig.ensureLoaded();
+		const serverPolicy = ServerConfig.conf;
+
+		// Use Vue
+		const oneDay = 60 * 60 * 24;
+		const lifetimeOptions = [
+			{label: tr("Never"), value: 0},
+			{label: tr("7 days"), value: oneDay * 7},
+			{label: tr("15 days"), value: oneDay * 15},
+			{label: tr("1 month"), value: oneDay * 30},
+			{label: tr("3 months"), value: oneDay * 30 * 3},
+			{label: tr("6 months"), value: oneDay * 30 * 6},
+			{label: tr("1 year"), value: oneDay * 365},
+			{label: tr("5 years"), value: oneDay * 365 * 5},
+			{label: tr("10 years"), value: oneDay * 365 * 10},
+			{label: tr("50 years"), value: oneDay * 365 * 50}
+		];
+
+		let findOptionIndex = (value) => {
+			if (!value) return lifetimeOptions[0].value;
+			return [...lifetimeOptions].reverse().find(v => v.value <= value).value
+		}
+
+		const DataConservationPolicyVueApp = {
+			data() {
+				return {
+					options: lifetimeOptions,
+					settings: [
+						{
+							title: tr("Automatically delete unread notification after"),
+							key: "notification_lifetime", 
+							value: findOptionIndex(settings.notification_lifetime),
+						},
+
+						{
+							title: tr("Automatically delete your comments after"),
+							key: "comments_lifetime",
+							value: findOptionIndex(settings.comments_lifetime)
+						},
+
+						{
+							title: tr("Automatically delete your posts after"),
+							key: "posts_lifetime",
+							value: findOptionIndex(settings.posts_lifetime)
+						},
+
+						{
+							title: tr("Automatically delete your conversation messages after"),
+							key: "conversation_messages_lifetime",
+							value: findOptionIndex(settings.conversation_messages_lifetime)
+						},
+
+						{
+							title: tr("Automatically delete your likes after"),
+							key: "likes_lifetime",
+							value: findOptionIndex(settings.likes_lifetime)
+						},
+
+						{
+							title: tr("Automatically delete your account if you have been inactive for"),
+							key: "inactive_account_lifetime",
+							value: findOptionIndex(settings.inactive_account_lifetime)
+						}
+					]
+				}
+			}
+		}
+		Vue.createApp(DataConservationPolicyVueApp).mount(el);
 	},
 
 	/**
@@ -91,7 +189,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 			appendTo: boxHead,
 			type: "h3",
 			class: "box-title",
-			innerHTML: "Export account data"
+			innerHTML: tr("Export account data")
 		});
 
 		//Create box body
@@ -105,7 +203,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 		createElem2({
 			appendTo: boxBody,
 			type: "p",
-			innerHTML: "You can export all the data of your account from here."
+			innerHTML: tr("You can export all the data of your account from here.")
 		});
 
 		//Add delete account button
@@ -113,10 +211,10 @@ ComunicWeb.pages.settings.sections.privacy = {
 			appendTo: boxBody,
 			type: "div",
 			class: "btn btn-primary",
-			innerHTML: "Export account data"
+			innerHTML: tr("Export account data")
 		});
 
-		exportAccountDataBtn.addEventListener("click", function(e){
+		exportAccountDataBtn.addEventListener("click", (e) => {
 
 			//Request account deletion
 			ComunicWeb.components.settings.helper.requestAccountDataExport();
@@ -163,8 +261,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 		createElem2({
 			appendTo: boxBody,
 			type: "p",
-			innerHTML: "You can decide here to delete your account. <br /><b>Warning! Warning! Warning! This operation CAN NOT BE REVERTED !!!! All your data (post, conversation " +
-				"messages, comments...) will be permanently deleted ! You will not be able to recover from this operation !</b>"
+			innerHTML: tr("You can decide here to delete your account. <br /><b>Warning! Warning! Warning! This operation CAN NOT BE REVERTED !!!! All your data (post, conversation messages, comments...) will be permanently deleted ! You will not be able to recover from this operation !</b>")
 		});
 
 		//Add delete account button
@@ -172,7 +269,7 @@ ComunicWeb.pages.settings.sections.privacy = {
 			appendTo: boxBody,
 			type: "div",
 			class: "btn btn-danger",
-			innerHTML: "Delete your account"
+			innerHTML: tr("Delete your account")
 		});
 
 		deleteAccountBtn.addEventListener("click", function(e){
@@ -184,3 +281,5 @@ ComunicWeb.pages.settings.sections.privacy = {
 	},
 
 }
+
+ComunicWeb.pages.settings.sections.privacy = SettingsPrivacySection;

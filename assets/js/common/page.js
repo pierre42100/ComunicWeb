@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.common.page = {
+const Page = {
 
     /**
      * Save the current page url
@@ -542,5 +542,26 @@ ComunicWeb.common.page = {
         if(!ComunicWeb.common.network.getRequest(templateURL, true, afterTemplateDownload))
             //An error occured
             return false;
+    },
+
+    /**
+     * Load an HTML template
+     * 
+     * @param {String} name The name of the template to load
+     */
+    loadHTMLTemplate: async function(name) {
+        let tpl = await (await fetch(ComunicWeb.__config.templatesURL + name)).text();
+
+        for(let entry of [...tpl.matchAll("tr\\(\"[^\"]+\"\\)")])
+        {
+            entry = entry[0]
+            const start = entry.indexOf("\"") + 1
+            const end = entry.lastIndexOf("\"");
+            tpl = tpl.replace(entry, tr(entry.substring(start, end)))
+        }
+
+        return tpl;
     }
 };
+
+ComunicWeb.common.page = Page;

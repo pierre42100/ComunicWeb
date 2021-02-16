@@ -186,6 +186,15 @@ const SettingsInterface = {
 			emojiID: id
 		}, true);
 	},
+
+	/**
+	 * Get data conservation policy
+	 * 
+	 * @returns {Promise<DataConservationPolicy>}
+	 */
+	getDataConservationPolicy: async function() {
+		return await api("settings/get_data_conservation_policy", null, true);
+	}
 }
 
 ComunicWeb.components.settings.interface = SettingsInterface;
