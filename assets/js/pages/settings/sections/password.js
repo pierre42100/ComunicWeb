@@ -66,7 +66,7 @@ ComunicWeb.pages.settings.sections.password = {
 				let user = await userInfo(userID());
 				newPasswordInput.setUser(user)
 
-				let mail = await SettingsInterface.getMail()
+				let mail = await AccountInterface.getMail()
 				newPasswordInput.setEmail(mail)
 			} catch(e) {
 				console.error(e);

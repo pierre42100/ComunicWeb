@@ -46,6 +46,14 @@ const AccountInterface = {
 	},
 
 	/**
+	 * Get current user email address
+	 */
+	getMail: async function() {
+		const res = await api("account/mail", null, true);
+		return res.mail;
+	},
+
+	/**
 	 * Check whether the security questions have been set for an account 
 	 * with an email address or not
 	 * 
