@@ -92,7 +92,7 @@ ComunicWeb.pages.settings.sections.password = {
 			}
 
 			if(!newPasswordInput.isValid()){
-				notify(tr("Please specify a new password to update your password!"), "danger");
+				notify(tr("Please specify a valid new password!"), "danger");
 				return;
 			}
 
