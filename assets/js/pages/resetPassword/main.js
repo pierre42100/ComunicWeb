@@ -76,15 +76,15 @@ ComunicWeb.pages.resetPassword.main = {
 			//Check for errors
 			if(result.error){
 				messagesTarget.appendChild(ComunicWeb.common.messages.createCalloutElem(
-					"Error",
-					"Your reset password request timed out, or is invalid. Please try again to reset your password...",
+					tr("Error"),
+					tr("Your reset password request timed out, or is invalid. Please try again to reset your password..."),
 					"danger"
 				));
 				return;
 			}
 
 			//Display reset password form
-			ComunicWeb.pages.resetPassword.main.displayResetPasswordForm(boxBody, messagesTarget, token);
+			ComunicWeb.pages.resetPassword.main.displayResetPasswordForm(boxBody, messagesTarget, token, result);
 		});
 	},
 
@@ -94,8 +94,9 @@ ComunicWeb.pages.resetPassword.main = {
 	 * @param {HTMLElement} target The target for the form
 	 * @param {HTMLElement} messagesTarget The target for the messages
 	 * @param {String} token The reset token of the user
+	 * @param {String} info Information about the token
 	 */
-	displayResetPasswordForm: function(target, messagesTarget, token){
+	displayResetPasswordForm: function(target, messagesTarget, token, info){
 
 		//Create form container
 		var formTarget = createElem2({
@@ -111,7 +112,10 @@ ComunicWeb.pages.resetPassword.main = {
 			formTarget,
 			tr("Your new password"),
 			tr("Your new password")
-		)
+		);
+		passwordInput.setFirstName(info.first_name)
+		passwordInput.setLastName(info.last_name)
+		passwordInput.setEmail(info.mail)
 
 		//Ask password confirmation
 		var confirmPasswordInput = createFormGroup({
