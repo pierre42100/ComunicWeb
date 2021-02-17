@@ -104,15 +104,14 @@ ComunicWeb.pages.resetPassword.main = {
 		});
 
 		//Message
-		add_p(formTarget, "Please enter now your new password.");
+		add_p(formTarget, tr("Please enter now your new password."));
 
 		//Prompt for new password
-		var passwordInput = createFormGroup({
-			target: formTarget,
-			type: "password",
-			label: "Your new password",
-			placeholder: "Your new password"
-		});
+		const passwordInput = new PasswordInput(
+			formTarget,
+			tr("Your new password"),
+			tr("Your new password")
+		)
 
 		//Ask password confirmation
 		var confirmPasswordInput = createFormGroup({
@@ -137,12 +136,12 @@ ComunicWeb.pages.resetPassword.main = {
 			emptyElem(messagesTarget);
 
 			//Check password validity
-			if(!ComunicWeb.common.formChecker.checkInput(passwordInput, true))
-				return notify("Please specify a valid password!", "danger");
+			if(!passwordInput.isValid())
+				return notify(tr("Please specify a valid password!"), "danger");
 			
 			//Check password confirmation
 			if(passwordInput.value != confirmPasswordInput.value)
-				return notify("Password and its confirmation do not mach !", "danger");
+				return notify(tr("Password and its confirmation do not mach !"), "danger");
 			
 			submit.style.display = "none";
 
@@ -155,8 +154,8 @@ ComunicWeb.pages.resetPassword.main = {
 				//Check for errors
 				if(result.error){
 					messagesTarget.appendChild(ComunicWeb.common.messages.createCalloutElem(
-						"Error",
-						"The server rejected your request, please refresh the page and try again...",
+						tr("Error"),
+						tr("The server rejected your request, please refresh the page and try again..."),
 						"danger"
 					));
 					return;
@@ -168,8 +167,8 @@ ComunicWeb.pages.resetPassword.main = {
 
 				//Success message
 				messagesTarget.appendChild(ComunicWeb.common.messages.createCalloutElem(
-					"Success",
-					"Your password has been successfully changed !",
+					tr("Success"),
+					tr("Your password has been successfully changed !"),
 					"success"
 				));
 
@@ -178,7 +177,7 @@ ComunicWeb.pages.resetPassword.main = {
 					appendTo: formTarget,
 					type: "div",
 					class: "btn btn-primary",
-					innerHTML: "Go login"
+					innerHTML: tr("Go login")
 				});
 
 				goLogin.addEventListener("click", function(e){

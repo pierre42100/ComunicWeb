@@ -67,6 +67,10 @@ class PasswordInput {
         return this._valid;
     }
 
+    get value() {
+        return this._input.value;
+    }
+
     _refreshArea() {
         if (!this._ready)
             return;
