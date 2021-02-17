@@ -55,13 +55,16 @@ ComunicWeb.pages.settings.sections.password = {
 			type: "password"
 		});
 
-		//Ask the user to enter its new password
-		var newPasswordInput = createFormGroup({
-			target: formContener,
-			label: "New password",
-			placeholder: "Your new password",
-			type: "password"
-		});
+		// Ask the user to enter its new password
+		var newPasswordInput = new PasswordInput(
+			formContener,
+			tr("New password"),
+			tr("Your new password")
+		);
+		(async () => {
+			let user = await userInfo(userID());
+			newPasswordInput.setUser(user)
+		})();
 
 		//Ask the user to confirm its new password
 		var confirmNewPasswordInput = createFormGroup({
@@ -84,18 +87,18 @@ ComunicWeb.pages.settings.sections.password = {
 
 			//Check the old and the new password
 			if(!ComunicWeb.common.formChecker.checkInput(oldPasswordInput, true)){
-				notify("Please specify your old password to update your password!", "danger");
+				notify(tr("Please specify your old password to update your password!"), "danger");
 				return;
 			}
 
-			if(!ComunicWeb.common.formChecker.checkInput(newPasswordInput, true)){
-				notify("Please specify a new password to update your password!", "danger");
+			if(!newPasswordInput.isValid()){
+				notify(tr("Please specify a new password to update your password!"), "danger");
 				return;
 			}
 
 			//Check if the old and the new password are the same or not
 			if(newPasswordInput.value !== confirmNewPasswordInput.value){
-				notify("The new password and its confirmation are not the same!", "danger");
+				notify(tr("The new password and its confirmation are not the same!"), "danger");
 				return;
 			}
 
@@ -109,12 +112,12 @@ ComunicWeb.pages.settings.sections.password = {
 
 				//Check for errors
 				if(result.error){
-					notify("An error occurred while trying to update user password!", "danger");
+					notify(tr("An error occurred while trying to update user password!"), "danger");
 					return;
 				}
 
 				//Success
-				notify("Your password has been successfully updated !");
+				notify(tr("Your password has been successfully updated !"));
 
 				//Refresh current page to remove passwords (security)
 				ComunicWeb.common.page.refresh_current_page();

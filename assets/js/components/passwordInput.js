@@ -62,6 +62,14 @@ class PasswordInput {
         this._refreshArea();
     }
 
+    /**
+     * @param {User} user 
+     */
+    setUser(user) {
+        this._firstName = user.firstName;
+        this._lastName = user.lastName;
+    }
+
     isValid() {
         this._refreshArea();
         return this._valid;
