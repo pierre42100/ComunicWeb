@@ -62,8 +62,16 @@ ComunicWeb.pages.settings.sections.password = {
 			tr("Your new password")
 		);
 		(async () => {
-			let user = await userInfo(userID());
-			newPasswordInput.setUser(user)
+			try {
+				let user = await userInfo(userID());
+				newPasswordInput.setUser(user)
+
+				let mail = await SettingsInterface.getMail()
+				newPasswordInput.setEmail(mail)
+			} catch(e) {
+				console.error(e);
+				notify(tr("Failed to load your information to prepare password update!"), "danger");
+			}
 		})();
 
 		//Ask the user to confirm its new password

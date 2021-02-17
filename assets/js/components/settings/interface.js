@@ -32,6 +32,14 @@ const SettingsInterface = {
 	},
 
 	/**
+	 * Get current user email address
+	 */
+	getMail: async function() {
+		const res = await api("account/mail", null, true);
+		return res.mail;
+	},
+
+	/**
 	 * Check the availability of the virtual directory for user
 	 * 
 	 * @param {string} directory The directory to check
