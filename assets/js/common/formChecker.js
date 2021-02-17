@@ -3,7 +3,7 @@
  * 
  * @author Pierre HUBERT
  */
-ComunicWeb.common.formChecker = {
+const FormChecker = {
 
     /**
      * Check an input
@@ -74,3 +74,6 @@ ComunicWeb.common.formChecker = {
     }
 
 };
+
+
+ComunicWeb.common.formChecker = FormChecker;

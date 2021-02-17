@@ -91,6 +91,9 @@ fieldset[disabled] .form-control {
 }
 
 
+.input-group .help-block {
+    color: var(--white);
+}
 
 /**
 * Boxes

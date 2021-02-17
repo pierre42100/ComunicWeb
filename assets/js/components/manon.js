@@ -7,7 +7,7 @@
 /**
  * Check if it is Manon's birthday
  */
-async function checkManonBirthday(force) {
+/*async function checkManonBirthday(force) {
 
 	if(force !== true) {
 		// Manon's feature only
@@ -69,4 +69,4 @@ document.addEventListener("wsOpen", () => {
 	setTimeout(() => checkManonBirthday(), 1000);
 }, {
 	once: true
-})
+})*/

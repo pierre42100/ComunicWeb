@@ -237,6 +237,9 @@ class Dev {
 			//Pacman (easter egg) stylesheet
 			"css/components/pacman.css",
 
+			// Password input
+			"css/components/passwordInput.css",
+
 		//Pages stylesheets
 			//User Page
 			"css/pages/userPage/main.css",
@@ -469,7 +472,12 @@ class Dev {
 
 			//Pacman component (easter egg)
 			"js/components/pacman.js",
+
+			// Manon
 			"js/components/manon.js",
+
+			// Password input
+			"js/components/passwordInput.js",
 
 		//User scripts
 		"js/user/loginTokens.js",

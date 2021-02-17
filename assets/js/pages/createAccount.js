@@ -77,13 +77,16 @@ ComunicWeb.pages.createAccount = {
 			type: "email"
 		});
 
-		//Input user password
-		var passwordInput = createFormGroup({
-			target: formRoot,
-			label: lang("form_create_account_password_label"),
-			placeholder: lang("form_create_account_password_placeholder"),
-			type: "password"
-		});
+		// Input user password
+		const passwordInput = new PasswordInput(formRoot, tr("Password"), tr("Your password"));
+		emailInput.addEventListener("keyup", () => passwordInput.setEmail(emailInput.value))
+		emailInput.addEventListener("change", () => passwordInput.setEmail(emailInput.value))
+
+		firstNameInput.addEventListener("keyup", () => passwordInput.setFirstName(firstNameInput.value))
+		firstNameInput.addEventListener("change", () => passwordInput.setFirstName(firstNameInput.value))
+
+		lastNameInput.addEventListener("keyup", () => passwordInput.setLastName(lastNameInput.value))
+		lastNameInput.addEventListener("change", () => passwordInput.setLastName(lastNameInput.value))
 
 		//Confirm user password
 		var confirmPasswordInput = createFormGroup({
@@ -142,19 +145,19 @@ ComunicWeb.pages.createAccount = {
 				return notify(lang("form_create_account_err_need_accept_terms"), "danger");
 
 			//Check the first name
-			if(!ComunicWeb.common.formChecker.checkInput(firstNameInput, true))
+			if(!FormChecker.checkInput(firstNameInput, true))
 				return notify(lang("form_create_account_err_need_first_name"), "danger");
 			
 			//Check the last name
-			if(!ComunicWeb.common.formChecker.checkInput(lastNameInput, true))
+			if(!FormChecker.checkInput(lastNameInput, true))
 				return notify(lang("form_create_account_err_check_last_name"), "danger");
 
 			//Check the email address
-			if(!ComunicWeb.common.formChecker.checkInput(emailInput, true))
+			if(!FormChecker.checkInput(emailInput, true))
 				return notify(lang("form_create_account_err_check_email_address"), "danger");
 			
 			//Check the password
-			if(!ComunicWeb.common.formChecker.checkInput(passwordInput, true))
+			if(!passwordInput._valid)
 				return notify(lang("form_create_account_err_check_password"), "danger");
 			
 			//Check the confirmation password

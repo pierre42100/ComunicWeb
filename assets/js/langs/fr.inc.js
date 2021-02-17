@@ -197,8 +197,6 @@ ComunicWeb.common.langs.fr = {
     form_create_account_last_name_placeholder: "Votre nom",
     form_create_account_email_address_label: "Adresse mail <small><i class='fa fa-warning'></i> Attention ! Vous ne pourrez pas changer cette valeur plus tard !</small>",
     form_create_account_email_address_placeholder: "Votre adresse mail",
-    form_create_account_password_label: "Mot de passe",
-    form_create_account_password_placeholder: "Votre mot de passe",
     form_create_account_confirm_password_label: "Confirmez votre mot de passe",
     form_create_account_confirm_password_placeholder: "Votre mot de passe",
     form_create_account_terms_label: "J'ai lu et accept&eacute; les <a href='%p' target='_blank'>conditions d'utilisation du r&eacute;seau</a>",

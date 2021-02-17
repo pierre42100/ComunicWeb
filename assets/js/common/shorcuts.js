@@ -328,7 +328,15 @@ async function showInputTextDialog(title, message, defaultValue = "") {
  * Prepare for potential future translation system
  * 
  * @param {String} input Input string
+ * @param {Object} arguments Arguments to apply to the string
  */
-function tr(input) {
+function tr(input, values) {
+    
+    // Apply arguments
+    for (const key in values) {
+        if (Object.hasOwnProperty.call(values, key))
+            input = input.replace("%"+key+"%", values[key]);
+    }
+
     return input;
 }
