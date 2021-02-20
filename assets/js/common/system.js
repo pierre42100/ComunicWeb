@@ -34,14 +34,12 @@ const System = {
 			Page.location_updated(e);
 		}
 
-		/**
-		 * Prepare login
-		 */
+
 		//Clean current page content
 		Page.emptyPage();
 		
 		//Show a wait splash screen
-		Page.showWaitSplashScreen("Starting up...");
+		Page.showWaitSplashScreen(tr("Starting up..."));
 
 		/**
 		 * Language initator
@@ -59,12 +57,25 @@ const System = {
 		ComunicWeb.components.darkTheme.refresh();
 
 		/**
+		 * Initialize server configuration
+		 */
+		Page.showWaitSplashScreen(tr("Loading server configuration"));
+		try {
+			ServerConfig.ensureLoaded();
+		} catch(e) {
+			console.error(e)
+			Page.showTransparentWaitSplashScreen(tr("Failed to load server configuration! Please try again by refreshing the page!"));
+		}
+
+		/**
 		 * Get login state
 		 */
+		Page.showWaitSplashScreen(tr("Refreshing login state"));
 		await UserLogin.refreshLoginState();
 
 		// Initialize Websocket if user is connected
 		if(signed_in()) {
+			Page.showWaitSplashScreen(tr("Connecting to server"));
 			await UserWebSocket.Connect();
 			await UserWebSocket.WaitForConnected();
 		}
