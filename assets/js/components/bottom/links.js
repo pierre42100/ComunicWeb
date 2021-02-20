@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.bottom.links = [
+const BottomLinks = [
 
 	//Language selector
 	{

@@ -43,7 +43,7 @@ ComunicWeb.components.bottom.main = {
 			innerHTML: "Comunic &nbsp; &nbsp; "
 		});
 
-		ComunicWeb.components.bottom.links.forEach(function(link){
+		BottomLinks.forEach(function(link){
 
 			var linkEl = createElem2({
 				appendTo: leftElements,
