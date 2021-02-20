@@ -74,7 +74,13 @@ const SettingsPrivacySection = {
 		createElem2({
 			appendTo: boxBody,
 			type: "p",
-			innerHTML: "We give an high importance to our users privacy. Please take some time to check our <a href='"+ServerConfig.conf.privacy_policy_url+"' target='_blank'>Privacy Policy</a> and our <a href='"+ServerConfig.conf.terms_url+"' target='_blank'>Terms of use</a>."
+			innerHTML: tr(
+				"We give an high importance to our users privacy. Please take some time to check our <a href='%privacy_policy_url%' target='_blank'>Privacy Policy</a> and our <a href='%terms_url%' target='_blank'>Terms of use</a>.",
+				{
+					"privacy_policy_url" :ServerConfig.conf.privacy_policy_url,
+					"terms_url": ServerConfig.conf.terms_url,
+				}
+			)
 		})
 	},
 
