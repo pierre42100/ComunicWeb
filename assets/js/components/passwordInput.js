@@ -32,19 +32,7 @@ class PasswordInput {
             class: "help-block"
         });
 
-        this._init();
-    }
-
-    async _init() {
-        try {
-            await ServerConfig.ensureLoaded()
-            this._ready = true;
-            this._valid = false;
-            this._refreshArea();
-        } catch(e) {
-            console.error(e);
-            notify(tr("Failed to load server configuration! Please reload the page!"), "danger");
-        }
+        this._refreshArea();
     }
 
     setFirstName(firstName) {
@@ -80,8 +68,6 @@ class PasswordInput {
     }
 
     _refreshArea() {
-        if (!this._ready)
-            return;
         
         this.helpArea.innerHTML = "";
         

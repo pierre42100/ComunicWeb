@@ -95,7 +95,6 @@ const SettingsPrivacySection = {
 		const settings = await SettingsInterface.getDataConservationPolicy();
 		
 		// Load server policy
-		await ServerConfig.ensureLoaded();
 		const serverPolicy = ServerConfig.conf.data_conservation_policy;
 
 		// Use Vue
