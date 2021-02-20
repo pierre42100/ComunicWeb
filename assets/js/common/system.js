@@ -61,10 +61,11 @@ const System = {
 		 */
 		Page.showWaitSplashScreen(tr("Loading server configuration"));
 		try {
-			ServerConfig.ensureLoaded();
+			await ServerConfig.ensureLoaded();
 		} catch(e) {
 			console.error(e)
-			Page.showTransparentWaitSplashScreen(tr("Failed to load server configuration! Please try again by refreshing the page!"));
+			ComunicWeb.common.error.fatalError(tr("Failed to load server configuration!"));
+			return;
 		}
 
 		/**
