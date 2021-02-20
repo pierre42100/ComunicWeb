@@ -31,17 +31,17 @@ const System = {
 
 		//Enable page URLs detection
 		window.location.changed = function(e){
-			ComunicWeb.common.page.location_updated(e);
+			Page.location_updated(e);
 		}
 
 		/**
 		 * Prepare login
 		 */
 		//Clean current page content
-		ComunicWeb.common.page.emptyPage();
+		Page.emptyPage();
 		
 		//Show a wait splash screen
-		ComunicWeb.common.page.showWaitSplashScreen("Starting up...");
+		Page.showWaitSplashScreen("Starting up...");
 
 		/**
 		 * Language initator

@@ -7,5 +7,5 @@
 //Anonymous function
 (function(){
     //Launch app
-    ComunicWeb.common.system.init();
+    System.init();
 })();
