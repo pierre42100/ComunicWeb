@@ -197,7 +197,7 @@ ComunicWeb.components.menuBar.authenticated = {
 			class: "divider"
 		});
 
-		BottomLinks.forEach(addMenuOption);
+		BottomLinks().forEach(addMenuOption);
 	
 
 		//Return dropdown content element

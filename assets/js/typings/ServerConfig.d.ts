@@ -25,6 +25,9 @@ declare interface DataConservationPolicySettings {
 }
 
 declare interface StaticServerConfig {
+    terms_url: string,
+    play_store_url: string,
+    android_direct_download_url: string,
     password_policy: PasswordPolicy,
     data_conservation_policy: DataConservationPolicySettings;
 }

@@ -43,26 +43,27 @@ ComunicWeb.components.bottom.main = {
 			innerHTML: "Comunic &nbsp; &nbsp; "
 		});
 
-		BottomLinks.forEach(function(link){
+		if(!signed_in())
+			BottomLinks().forEach(function(link){
 
-			var linkEl = createElem2({
-				appendTo: leftElements,
-				type: "a",
-				href: link.href,
-				innerHTML: link.innerHTML,
-				innerLang: link.innerLang,
-				innerHTMLprefix: "<i class='fa "+link.icon+"'></i> "
+				var linkEl = createElem2({
+					appendTo: leftElements,
+					type: "a",
+					href: link.href,
+					innerHTML: link.innerHTML,
+					innerLang: link.innerLang,
+					innerHTMLprefix: "<i class='fa "+link.icon+"'></i> "
+				});
+
+				if(link.target)
+					linkEl.setAttribute("target", link.target);
+				
+				if(link.onclick)
+					linkEl.onclick = link.onclick;
+
+				add_space(leftElements);
+				add_space(leftElements);
 			});
-
-			if(link.target)
-				linkEl.setAttribute("target", link.target);
-			
-			if(link.onclick)
-				linkEl.onclick = link.onclick;
-
-			add_space(leftElements);
-			add_space(leftElements);
-		});
 	}
 
 }
