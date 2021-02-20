@@ -74,7 +74,7 @@ const SettingsPrivacySection = {
 		createElem2({
 			appendTo: boxBody,
 			type: "p",
-			innerHTML: "We give an high importance to our users privacy. Please take some time to check our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/privacy' target='_blank'>Privacy Policy</a> and our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/terms' target='_blank'>Terms of use</a>."
+			innerHTML: "We give an high importance to our users privacy. Please take some time to check our <a href='"+ComunicWeb.__config.aboutWebsiteURL+"about/privacy' target='_blank'>Privacy Policy</a> and our <a href='"+ServerConfig.conf.terms_url+"' target='_blank'>Terms of use</a>."
 		})
 	},
 

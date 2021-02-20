@@ -99,7 +99,7 @@ ComunicWeb.pages.createAccount = {
 		//Terms of use must have been accepted
 		var siteTerms = createFormGroup({
 			target: formRoot,
-			label: lang("form_create_account_terms_label", [ComunicWeb.__config.aboutWebsiteURL+"about/terms/"]), 
+			label: lang("form_create_account_terms_label", [ServerConfig.conf.terms_url]), 
 			type: "checkbox"
 		});
 
