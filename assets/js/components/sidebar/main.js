@@ -545,7 +545,7 @@ const SidebarMain = {
 		li.setAttribute("data-membership-conv-id", conv.id)
 
 		// Check for unread messages
-		if(!conv.last_activity > conv.members.find(m => m.user_id == userID()).last_access) {
+		if(conv.last_activity > conv.members.find(m => m.user_id == userID()).last_access) {
 			li.classList.add("has-unread-msg");
 		}
 
