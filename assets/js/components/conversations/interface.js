@@ -177,7 +177,7 @@ const ConversationsInterface = {
 		}
 
 		//Else, perform an API request
-		var apiURI = "conversations/getInfosOne";
+		var apiURI = "conversations/get_single";
 		var params = {
 			conversationID: conversationID,
 		};

@@ -4,13 +4,13 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.webApp.interface = {
+const WebAppInterface = {
 
 	/**
 	 * Get all the membership of the user
 	 * 
 	 * @param {Function} err Function called in case of errors
-	 * @param {Function(memberships, usersInfo, groupsInfo, convNames) : void} success Function called in case of success
+	 * @param {(UserMembership[], UsersList, groupsInfo, convNames) => void} success Function called in case of success
 	 */
 	getMemberships: async function(err, success) {
 
@@ -26,6 +26,7 @@ ComunicWeb.components.webApp.interface = {
 			memberships.forEach(el => {
 				if(el.type == "friend")
 					usersID.push(el.friend.ID_friend);
+				
 				else if(el.type == "group")
 					groupsID.push(el.id);
 			});
@@ -36,7 +37,7 @@ ComunicWeb.components.webApp.interface = {
 			// Get conversations name
 			const convNames = new Map()
 			for(const el of memberships.filter(el => el.type == "conversation"))
-				convNames.set(el.conv.ID, await getConvName(el.conv))
+				convNames.set(el.conv.id, await getConvName(el.conv))
 
 			success(memberships, usersInfo, groupsInfo, convNames);
 

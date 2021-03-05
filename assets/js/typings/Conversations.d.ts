@@ -15,6 +15,7 @@ declare interface ConversationSettingsFormElements {
 declare interface ConversationMember {
 	user_id: number,
 	last_message_seen: number,
+	last_access: number,
 	following: boolean,
 	is_admin: boolean,
 }

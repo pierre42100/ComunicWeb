@@ -17,19 +17,19 @@ class CallsController {
 	 * @param {Conversation} conv Information about the target conversation
 	 */
 	static Open(conv) {
-		if(OpenCalls.has(conv.ID) && OpenCalls.get(conv.ID).isOpen)
+		if(OpenCalls.has(conv.id) && OpenCalls.get(conv.id).isOpen)
 			return;
 		
-		console.info("Open call for conversation " + conv.ID);
+		console.info("Open call for conversation " + conv.id);
 		
 		// Create a new window for the conversation
 		const window = new CallWindow(conv);
-		OpenCalls.set(conv.ID, window)
-		this.AddToLocalStorage(conv.ID);
+		OpenCalls.set(conv.id, window)
+		this.AddToLocalStorage(conv.id);
 
 		window.on("close", () => {
-			OpenCalls.delete(conv.ID)
-			this.RemoveFromLocalStorage(conv.ID)
+			OpenCalls.delete(conv.id)
+			this.RemoveFromLocalStorage(conv.id)
 		})
 	}
 

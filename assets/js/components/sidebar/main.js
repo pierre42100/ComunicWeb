@@ -309,7 +309,7 @@ const SidebarMain = {
 	 * @param {HTMLElement} target 
 	 */
 	refreshMemberships: function(target){
-		ComunicWeb.components.webApp.interface.getMemberships(
+		WebAppInterface.getMemberships(
 			() => notify("Could not refresh your memberships!", "error"), 
 			(m, u, g, c) => this.applyMemberships(target, m, u, g, c)
 		);
@@ -319,14 +319,14 @@ const SidebarMain = {
 	 * Apply memberships
 	 * 
 	 * @param {HTMLElement} target
-	 * @param {*} memberships 
-	 * @param {*} users 
+	 * @param {UserMembership[]} memberships 
+	 * @param {UsersList} users 
 	 * @param {*} groups 
 	 * @param {Map<number, String>} convs
 	 */
 	applyMemberships: function(target, memberships, users, groups, convs) {
 
-		// Empty liste
+		// Empty list
 		target.innerHTML = "";
 
 		let friendsTarget = createElem2({
@@ -344,7 +344,7 @@ const SidebarMain = {
 				this.applyGroup(friendsTarget, groups.get(e.id), e.last_activity);
 			
 			if(e.type == "conversation")
-				this.applyConversation(friendsTarget, e.conv, convs.get(e.conv.ID));
+				this.applyConversation(friendsTarget, e.conv, convs.get(e.conv.id));
 		});
 
 		createElem2({
@@ -532,7 +532,7 @@ const SidebarMain = {
 	 * Apply a conversation
 	 * 
 	 * @param {HTMLElement} target
-	 * @param {Array<any>} conv
+	 * @param {Conversation} conv
 	 * @param {String} name
 	 */
 	applyConversation: function(target, conv, name) {
@@ -542,17 +542,17 @@ const SidebarMain = {
 			type: "li",
 			class: "conversation_memberhsip"
 		});
-		li.setAttribute("data-membership-conv-id", conv.ID)
+		li.setAttribute("data-membership-conv-id", conv.id)
 
 		// Check for unread messages
-		if(!conv.saw_last_message) {
+		if(!conv.last_activity > conv.members.find(m => m.user_id == userID()).last_access) {
 			li.classList.add("has-unread-msg");
 		}
 
 		let a = createElem2({
 			appendTo: li,
 			type: "a",
-			onclick: () => openConversation(conv.ID, true)
+			onclick: () => openConversation(conv.id, true)
 		});
 
 		// Icon
@@ -573,7 +573,7 @@ const SidebarMain = {
 			appendTo: a,
 			type: "div",
 			class: "subinfo",
-			innerHTML: timeDiffToStr(conv.last_active)
+			innerHTML: timeDiffToStr(conv.last_activity)
 		});
 
 
