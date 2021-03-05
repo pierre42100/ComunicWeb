@@ -619,15 +619,15 @@ ComunicWeb.pages.conversations.conversation = ConversationPageConvPart;
 document.addEventListener("newConvMessage", (e) => {
 	const msg = e.detail;
 	
-	if(ComunicWeb.pages.conversations.conversation._conv_info.id == msg.convID)
-	ComunicWeb.pages.conversations.conversation.applyMessages([msg]);
+	if (ComunicWeb.pages.conversations.conversation._conv_info.id == msg.conv_id)
+		ComunicWeb.pages.conversations.conversation.applyMessages([msg]);
 })
 
 // Register to message update events
 document.addEventListener("updatedConvMessage", async (e) => {
 	const msg = e.detail;
 
-	const target = document.querySelector("[data-chatpage-msg-text-id='"+msg.ID+"'] .txt")
+	const target = document.querySelector("[data-chatpage-msg-text-id='"+msg.id+"'] .txt")
 	if(!target)
 		return;
 	
