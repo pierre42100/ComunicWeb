@@ -212,7 +212,7 @@ const ConversationsList = {
 	/**
 	 * Show a conversation entry
 	 *
-	 * @param {Object} conversationInfos Informations about the conversation
+	 * @param {Conversation} conversationInfos Informations about the conversation
 	 * @param {HTMLElement} entryTarget The target for the entry
 	 * @param {Object} listBox HTML elements about the listBox
 	 * @return {Boolean} True for a success
@@ -242,7 +242,7 @@ const ConversationsList = {
 
 		//Calculate last conversation activity
 		var currentTime = ComunicWeb.common.date.time();
-		lastActivityValueElem.innerHTML = " "+ComunicWeb.common.date.diffToStr(currentTime - conversationInfos.last_active);
+		lastActivityValueElem.innerHTML = " "+ComunicWeb.common.date.diffToStr(currentTime - conversationInfos.last_activity);
 
 
 		//Create the conversation name element
@@ -269,7 +269,7 @@ const ConversationsList = {
 
 		//Specify value
 		var membersNumberValueElem = createElem("span", membersNumberSmallElem);
-		membersNumberValueElem.innerHTML = (conversationInfos.members.length === 1 ? "1 member" : conversationInfos.members.length + " members");
+		membersNumberValueElem.innerHTML = (conversationInfos.members.length === 1 ? tr("1 member") : conversationInfos.members.length + " members");
 
 		//Success
 		return true;

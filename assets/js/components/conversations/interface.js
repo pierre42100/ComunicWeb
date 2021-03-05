@@ -36,7 +36,7 @@ const ConversationsInterface = {
 		var params = {}; //No params required now
 
 		//Perform the API request
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, function(results){
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, (results) => {
 
 			//Check for error
 			if(results.error){
@@ -50,7 +50,7 @@ const ConversationsInterface = {
 				//Process the list
 				var conversationsList = {};
 				for(i in results){
-					conversationsList["conversation-"+results[i].ID] = results[i];
+					conversationsList["conversation-"+results[i].id] = results[i];
 				}
 
 				//Save the list in the cache
@@ -61,9 +61,6 @@ const ConversationsInterface = {
 			}
 
 		});
-
-		//Success
-		return true;
 	},
 
 	/**

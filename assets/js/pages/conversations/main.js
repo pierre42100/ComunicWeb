@@ -36,7 +36,7 @@ ComunicWeb.pages.conversations.main = {
 
 		// Otherwise display the list of conversations
 		else {
-			ComunicWeb.pages.conversations.listPane.display(container);
+			ConversationsPageListPane.display(container);
 		}	
 	},
 

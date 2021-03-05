@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.pages.conversations.listPane = {
+const ConversationsPageListPane = {
 
 	/**
 	 * Save current list
@@ -52,18 +52,18 @@ ComunicWeb.pages.conversations.listPane = {
 			//Check if box body is still connected
 			if(!boxBody.isConnected){
 				clearInterval(interval);
-				ComunicWeb.pages.conversations.listPane._curr_list = null;
+				ConversationsPageListPane._curr_list = null;
 				return;
 			}
 
 			//Load the list of conversations
-			ComunicWeb.pages.conversations.listPane.refresh_list(boxBody);
+			ConversationsPageListPane.refresh_list(boxBody);
 
 		}, 5000);
 
 		//Force load the list of conversations
-		ComunicWeb.pages.conversations.listPane._curr_list = null;
-		ComunicWeb.pages.conversations.listPane.refresh_list(boxBody);
+		ConversationsPageListPane._curr_list = null;
+		ConversationsPageListPane.refresh_list(boxBody);
 		
 	},
 
@@ -89,7 +89,7 @@ ComunicWeb.pages.conversations.listPane = {
 		
 
 		//Perform a request over the interface
-		ComunicWeb.components.conversations.interface.getList(function(result){
+		ConversationsInterface.getList((result) => {
 
 			//Check for errors
 			if(result.error){
@@ -101,14 +101,14 @@ ComunicWeb.pages.conversations.listPane = {
 			loadingMsg.remove();
 
 			//Check if it is required to apply new list
-			if(JSON.stringify(ComunicWeb.pages.conversations.listPane._curr_list) == JSON.stringify(result))
+			if(JSON.stringify(ConversationsPageListPane._curr_list) == JSON.stringify(result))
 				return;
-			ComunicWeb.pages.conversations.listPane._curr_list = result;
+			ConversationsPageListPane._curr_list = result;
 			
 			emptyElem(target); //Remove any previously shown list
 
 			//Display the list of conversations
-			ComunicWeb.pages.conversations.listPane._display_list(target, result);
+			ConversationsPageListPane._display_list(target, result);
 		});
 
 	},
@@ -150,7 +150,7 @@ ComunicWeb.pages.conversations.listPane = {
 	 * Display a single conversation entry
 	 * 
 	 * @param {HTMLElement} target The target for the conversation
-	 * @param {Object} info Information about the conversation to display
+	 * @param {Conversation} info Information about the conversation to display
 	 */
 	_display_entry: function(target, info) {
 
@@ -168,13 +168,13 @@ ComunicWeb.pages.conversations.listPane = {
 		convLink.addEventListener("click", function(e){
 
 			//Force conversation list refresh
-			ComunicWeb.pages.conversations.listPane._curr_list = {};
+			ConversationsPageListPane._curr_list = {};
 
 			//Make the choice visible
 			convLink.className += " selected";
 
 			//Open the conversation
-			openPage("conversations/"+info.ID)
+			openPage("conversations/"+info.id)
 		});
 
 
@@ -190,7 +190,7 @@ ComunicWeb.pages.conversations.listPane = {
 		createElem2({
 			appendTo: lastActivityContainer,
 			type: "span",
-			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.last_active)
+			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.last_activity)
 		});
 
 		//Add conversation name
@@ -199,7 +199,7 @@ ComunicWeb.pages.conversations.listPane = {
 			type: info.saw_last_message ? "span" : "strong",
 			innerHTML: "Loading..."
 		});
-		ComunicWeb.components.conversations.utils.getName(info, function(name){
+		ConversationsUtils.getName(info, function(name){
 			conversationName.innerHTML = name;
 		});
 
@@ -218,7 +218,7 @@ ComunicWeb.pages.conversations.listPane = {
 		createElem2({
 			appendTo: membersNumberContainerSmall,
 			type: "span",
-			innerHTML: (info.members.length === 1 ? "1 member" : info.members.length + " members")
+			innerHTML: (info.members.length === 1 ? tr("1 member") : tr("%1% members", {"1": info.members.length}))
 		});
 	}
 
