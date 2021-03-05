@@ -488,6 +488,7 @@ ComunicWeb.components.conversations.interface = ConversationsInterface;
  * Get information about a single conversation
  * 
  * @param {number} convID The ID of the target conversation
+ * @returns {Promise<Conversation>}
  */
 async function getSingleConversation(convID) {
 	return new Promise((res, err) => {

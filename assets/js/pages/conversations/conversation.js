@@ -49,7 +49,7 @@ const ConversationPageConvPart = {
 			initTopScrollDetection: false,
 
 			//Related user information
-			users: null,
+			users: new UsersList(),
 		};
 
 		//Create conversation box
@@ -118,25 +118,37 @@ const ConversationPageConvPart = {
 			const convInfo = await getSingleConversation(convID);
 			
 			//Save conversation information
-			ComunicWeb.pages.conversations.conversation._conv_info.conversation = convInfo;
+			this._conv_info.conversation = convInfo;
 
 			//Time to load user information
-			ComunicWeb.user.userInfos.getMultipleUsersInfo(convInfo.members, function(membersInfo){
+			this._conv_info.users = await getUsers(convInfo.members.map(u => u.user_id))
+			
+			//Remove loading message
+			loadingMsg.remove();
 
-				//Check for errors
-				if(membersInfo.error)
-					return loadingMsg.innerHTML = "An error occuredd while loading conversation members information !";
+			//Get and apply the name of the conversation
+			this._conv_info.window.title.innerHTML = await getConvName(convInfo);
 
-				//Save members information
-				ComunicWeb.pages.conversations.conversation._conv_info.users = membersInfo;
+			//Add send message form
+			this.addSendMessageForm();
 
-				//Remove loading message
-				loadingMsg.remove();
+			// Register the conversation
+			await ConversationsInterface.register(this._conv_info.id);
 
-				//Perform next steps
-				ComunicWeb.pages.conversations.conversation.onGotInfo(convInfo);
+			// Get the last message
+			const list = await ConversationsInterface.asyncRefreshSingle(this._conv_info.id, 0);
 
-			});
+			// Apply the list of messages
+			ConversationPageConvPart.applyMessages(list)
+
+			// Automatically unregister conversations when it becoms required
+			let reg = true;
+			document.addEventListener("changeURI", async () => {
+				if(reg) {
+					reg = false;
+					await ConversationsInterface.unregister(convID);
+				}
+			}, {once: true})
 
 			// Add call button (if possible)
 			if(convInfo.can_have_call) {
@@ -158,51 +170,6 @@ const ConversationPageConvPart = {
 	},
 
 	/**
-	 * Perform action when we got conversation information
-	 * 
-	 * @param {Object} info Information about the conversation
-	 */
-	onGotInfo: async function(info){
-
-		try {
-			//Get and apply the name of the conversation
-			ComunicWeb.components.conversations.utils.getName(info, function(name){
-				ComunicWeb.pages.conversations.conversation._conv_info.window.title.innerHTML = name;
-			});
-
-			//Add send message form
-			this.addSendMessageForm();
-
-			//Defines an intervall to refresh the conversation
-			const windowBody = this._conv_info.window.body;
-
-			// Register the conversation
-			await ComunicWeb.components.conversations.interface.register(this._conv_info.id);
-
-			// Get the last message
-			const list = await ComunicWeb.components.conversations.interface.asyncRefreshSingle(this._conv_info.id, 0);
-
-			// Apply the list of messages
-			this.applyMessages(list)
-
-			// Automatically unregister conversations when it becoms required
-			let reg = true;
-			const convID = this._conv_info.id;
-			document.addEventListener("changeURI", async () => {
-				if(reg) {
-					reg = false;
-					await ComunicWeb.components.conversations.interface.unregister(convID);
-				}
-			})
-			
-
-		} catch(e) {
-			console.error(e)
-			notify("Could not refresh conversation!", "danger")
-		}
-	},
-
-	/**
 	 * Apply a new list of messages
 	 */
 	applyMessages: function(list){
@@ -213,42 +180,40 @@ const ConversationPageConvPart = {
 
 		//Process the list of messages
 		list.forEach(function(message){
-			ComunicWeb.pages.conversations.conversation.addMessage(message);
+			ConversationPageConvPart.addMessage(message);
 		});
 
 		//Init top scroll detection (if available)
-		ComunicWeb.pages.conversations.conversation.initTopScrollDetection();
+		ConversationPageConvPart.initTopScrollDetection();
 	},
 
 	/**
-	 * Add a message to the list
-	 * 
-	 * @param {Object} info Information about the message to add
+	 * @param {ConversationMessage} msg 
 	 */
-	addMessage: function(info){
+	addMessage: function(msg) {
 
 		//Check if the message is to add at the begining of the end of conversation
 		var toLatestMessages = true;
 		
 		//Check if it is the first processed message
 		if(this._conv_info.first_message_id == -1){
-			this._conv_info.last_message_id = info.ID;
-			this._conv_info.first_message_id = info.ID;
+			this._conv_info.last_message_id = msg.id;
+			this._conv_info.first_message_id = msg.id;
 		}
 
 		//Check if it is a message to add to the oldest messages
-		else if(this._conv_info.first_message_id > info.ID) {
-			this._conv_info.first_message_id = info.ID;
+		else if(this._conv_info.first_message_id > msg.id) {
+			this._conv_info.first_message_id = msg.id;
 			var toLatestMessages = false; //Message to add to the begining
 		}
 
 		//Message is to add to the latest messages
 		else {
-			this._conv_info.last_message_id = info.ID;
+			this._conv_info.last_message_id = msg.id;
 		}
 
 		//Determine wether the current user is the owner or not of the message
-		var userIsOwner = userID() == info.ID_user;
+		var userIsOwner = userID() == msg.user_id;
 
 		//Create message container
 		var messageContainer = createElem2({
@@ -261,11 +226,29 @@ const ConversationPageConvPart = {
 			this._conv_info.window.messagesTarget.appendChild(messageContainer);
 		}
 		else {
-
 			//Put the message in the begining
 			this._conv_info.window.messagesTarget.insertBefore(messageContainer, this._conv_info.window.messagesTarget.firstChild);
 		}
 
+		if (msg.user_id != null && msg.user_id > 0)
+			this.addUserMessage(msg, messageContainer);
+		else
+			this.addServerMessage(msg, messageContainer);
+		
+		//Set a timeout to make scroll properly work (for newest messages)
+		if(toLatestMessages){
+			setTimeout(function(){
+				messageContainer.parentNode.scrollTop = messageContainer.parentNode.scrollHeight
+			}, 100);
+		}
+	},
+
+	/**
+	 * Add a message sent by a user to the list
+	 * 
+	 * @param {ConversationMessage} info Information about the message to add
+	 */
+	addUserMessage: function(info, messageContainer){
 		//Top message information
 		var topInformation = createElem2({
 			appendTo: messageContainer,
@@ -286,7 +269,7 @@ const ConversationPageConvPart = {
 			appendTo: topInformation,
 			type: "span",
 			class: "direct-chat-timestamp",
-			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.time_insert)
+			innerHTML: ComunicWeb.common.date.timeDiffToStr(info.time_sent)
 		});
 
 		//Add user account image
@@ -303,7 +286,7 @@ const ConversationPageConvPart = {
 			type: "div",
 			class: "direct-chat-text",
 		});
-		messageContentContainer.setAttribute("data-chatpage-msg-text-id",  info.ID)
+		messageContentContainer.setAttribute("data-chatpage-msg-text-id",  info.id)
 
 		//Message content
 		var messageContent = createElem2({
@@ -316,46 +299,73 @@ const ConversationPageConvPart = {
 		//Parse message content
 		ComunicWeb.components.textParser.parse({
 			element: messageContent,
-			user: this._conv_info.users["user-" + info.ID_user]
+			user: this._conv_info.users.get(info.user_id)
 		});
 
-		//Message image (if any)
-		if(info.image_path != null){
+		//Message file (if any)
+		if(info.file != null){
+			const messageFile = info.file;
 
-			//Image link
-			var imageLink = createElem2({
-				appendTo: messageContentContainer,
-				type: "a",
-				href: info.image_path
-			});
-
-			//Apply image
-			createElem2({
-				appendTo: imageLink,
-				type: "img",
-				class: "message-img",
-				src: info.image_path
-			});
-
-			imageLink.onclick = function(){
-				$(this).ekkoLightbox({
-					alwaysShowClose: true,
+			if (messageFile.type == "image/png") {
+				var imageLink = createElem2({
+					appendTo: messageContentContainer,
+					type: "a",
+					href: messageFile.url
 				});
-				return false;
-			};
+
+				//Apply image
+				createElem2({
+					appendTo: imageLink,
+					type: "img",
+					class: "message-img",
+					src: messageFile.thumbnail == null ? messageFile.url : messageFile.thumbnail
+				});
+
+				imageLink.onclick = function(){
+					$(this).ekkoLightbox({
+						alwaysShowClose: true,
+					});
+					return false;
+				};
+			}
+
+			// Fallback
+			else {
+				let letFileLink = createElem2({
+					appendTo: messageContentContainer,
+					type: "a",
+					href: messageFile.url,
+					innerHTML: "<i class='fa fa-download'></i> "+ messageFile.name + " (" + messageFile.size/1024 + "MB)",
+				})
+				letFileLink.target = "_blank"
+			}
 		}
 
 		//Apply user information (if available)
-		if(this._conv_info.users["user-" + info.ID_user]){
-			accountImage.src = this._conv_info.users["user-" + info.ID_user].accountImage;
-			nameContainer.innerHTML = userFullName(this._conv_info.users["user-" + info.ID_user]);
+		let user = this._conv_info.users.get(info.user_id);
+		if(user) {
+			accountImage.src = user.image;
+			nameContainer.innerHTML = user.fullName;
 		}
+	},
 
-		//Set a timeout to make scroll properly work (for newest messages)
-		if(toLatestMessages){
-			setTimeout(function(){
-				messageContainer.parentNode.scrollTop = messageContainer.parentNode.scrollHeight
-			}, 100);
+	/**
+	 * @param {ConversationMessage} msg 
+	 */
+	async addServerMessage(msg, target) {
+		try {
+			const ids = ConversationsUtils.getUsersIDForMessage(msg);
+			const users = await getUsers(ids);
+			
+			createElem2({
+				appendTo: target,
+				class: "srv-msg",
+				innerHTML: ConversationsUtils.getServerMessage(msg, users),
+			})
+		}
+		catch(e) {
+			console.error(e);
+			notify(tr("Failed to load a message!"))
 		}
 	},
 
@@ -584,7 +594,7 @@ const ConversationPageConvPart = {
 
 				//Process the list of messages in reverse order
 				response.forEach(function(message){
-					ComunicWeb.pages.conversations.conversation.addMessage(message);
+					ConversationPageConvPart.addMessage(message);
 				});
 
 				//Scroll to newest message

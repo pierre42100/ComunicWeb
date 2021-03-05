@@ -62,3 +62,8 @@
 .big-box-conversation .direct-chat-text a {
 	color: white;
 }
+
+.big-box-conversation .direct-chat-msg .srv-msg {
+	text-align: center;
+	font-style: italic;
+}
