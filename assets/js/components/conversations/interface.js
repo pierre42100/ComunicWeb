@@ -319,16 +319,10 @@ const ConversationsInterface = {
 	/**
 	 * Get the list of unread conversations
 	 * 
-	 * @param {function} callback
+	 * @returns {Promise<UnreadConversation[]>}
 	 */
-	getUnreadConversations: function(callback){
-
-		//Perform a request on the API
-		var apiURI = "conversations/get_list_unread";
-		var params = {};
-
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
-
+	getUnreadConversations: async function() {
+		return await api("conversations/get_list_unread", null, true);
 	},
 
 	/**

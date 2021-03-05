@@ -130,7 +130,6 @@ ComunicWeb.common.langs.fr = {
     //Conversations - unread dropdown
     conversations_dropdown_header: "Conversations non lues",
     conversations_dropdown_err_get_list: "Une erreur a survenue lors de la r&eacute;cup&eacute;ration des conversations non lues !",
-    conversations_dropdown_err_get_user_info: "Une erreur a survenue lors de la r&eacute;cup&eacute;ration d'informations de certains utilisateurs !",
     conversations_dropdown_no_unread_notice: "Vous n'avez aucun message non lu dans les conversations que vous suivez...",
 
     //Notifications - dropdown

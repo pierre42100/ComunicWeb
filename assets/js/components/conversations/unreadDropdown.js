@@ -99,67 +99,49 @@ ComunicWeb.components.conversations.unreadDropdown = {
 	 * 
 	 * @param {HTMLElement} target The target to display the conversations
 	 */
-	refresh_list_conversations: function(target){
+	refresh_list_conversations: async function(target) {
 
-		//Perform a request through the interface
-		ComunicWeb.components.conversations.interface.getUnreadConversations(function(conversations){
+		try {
 
-			//Check for errors
-			if(conversations.error){
-				//Display an error
-				ComunicWeb.common.notificationSystem.showNotification(lang("conversations_dropdown_err_get_list"), "danger");
-				return;
-			}
+			//Perform a request through the interface
+			const list = await ConversationsInterface.getUnreadConversations();
 
 			//Get the list of users ID
-			var usersID = [];
+			let usersID = new Set();
 
 			//Process the list of conversations
-			for (var index = 0; index < conversations.length; index++) {
-				const entry = conversations[index];
-				
-				var userID = entry.userID;
-				if(!usersID.includes(userID))
-					usersID.push(userID);
+			for (let entry of list) {
+				ConversationsUtils.getUsersIDForMessage(entry.message).forEach(id => usersID.add(id))
 			}
 
-			//Get informations about the users
-			ComunicWeb.user.userInfos.getMultipleUsersInfo(usersID, function(usersInfos){
+			const users = await getUsers([...usersID]);
 
-				//Check for errors
-				if(usersInfos.error){
-					//Display an error
-					ComunicWeb.common.notificationSystem.showNotification(lang("conversations_dropdown_err_get_user_info"), "danger");
-					return;
-				}
+			this._display_list(target, list, users);
+		}
 
-				//Display the list of conversations
-				ComunicWeb.components.conversations.unreadDropdown._display_list(target, conversations, usersInfos);
-			});
-		});
-
+		catch(e) {
+			console.error(e);
+			ComunicWeb.common.notificationSystem.showNotification(lang("conversations_dropdown_err_get_list"), "danger");
+		}
 	},
 
 	/**
 	 * Display the list of conversations
 	 * 
 	 * @param {HTMLElement} target The target for the fields
-	 * @param {array} conversations The list of conversations
-	 * @param {object} usersInfos Informations about related users
+	 * @param {UnreadConversation[]} conversations The list of conversations
+	 * @param {UsersList} usersInfo Information about related users
 	 */
-	_display_list: function(target, conversations, usersInfos){
+	_display_list: function(target, conversations, usersInfo){
 
 		//Empty the target
 		target.innerHTML = "";
 
 		//Process each conversation
-		for (var index = 0; index < conversations.length; index++) {
-			
-			//Get the conversation
-			const conversation = conversations[index];
+		for (let conversation of conversations) {
 
 			//Get informations about the user
-			const userInfos = usersInfos["user-" + conversation.userID];
+			const user = usersInfo.get(ConversationsUtils.getMainUserForMessage(conversation.message))
 			
 			//Create list element
 			var convLi = createElem2({
@@ -170,10 +152,9 @@ ComunicWeb.components.conversations.unreadDropdown = {
 			//Create the conversation link element
 			var convLink = createElem2({
 				appendTo: convLi,
-				type: "a",
-				href: "#"
+				type: "a"
 			});
-			convLink.setAttribute("data-conversation-id", conversation.id);
+			convLink.setAttribute("data-conversation-id", conversation.conv.id);
 
 			//Add left elements
 			var leftElems = createElem2({
@@ -187,14 +168,14 @@ ComunicWeb.components.conversations.unreadDropdown = {
 				appendTo: leftElems,
 				type: "img",
 				class: "img-circle",
-				src: userInfos.accountImage
+				src: conversation.conv.logo ? conversation.conv.logo : user.image
 			});
 
 			//Add item top informations
 			var liTop = createElem2({
 				appendTo: convLink,
 				type: "h4",
-				innerHTML: userFullName(userInfos)
+				innerHTML: user.fullName
 			});
 
 			//Add item top small informations
@@ -204,30 +185,42 @@ ComunicWeb.components.conversations.unreadDropdown = {
 			});
 
 			//Add the message post time
-			var conversationLastActive = createElem2({
+			createElem2({
 				appendTo: liTopSmall,
 				type: "span",
-				innerHTML: '<i class="fa fa-clock-o"></i> ' + ComunicWeb.common.date.timeDiffToStr(conversation.last_active) + " ago"
+				innerHTML: '<i class="fa fa-clock-o"></i> ' + ComunicWeb.common.date.timeDiffToStr(conversation.conv.last_activity) + " ago"
 			});
 
 			//Add conversation name (if available)
-			if(conversation.conv_name != ""){
+			if(conversation.conv.name != "" && conversation.conv.name != null){
 
-				var	targetConversation = createElem2({
+				createElem2({
 					appendTo: convLink,
 					type: "p",
-					innerHTML: conversation.conv_name,
+					innerHTML: conversation.conv.name,
 				});
 
 			}
 
-			//Add the message
-			var conversationMessage = createElem2({
-				appendTo: convLink,
-				type: "p",
-				class: "message-content",
-				innerHTML: removeHtmlTags(conversation.message)
-			});
+			// Add the message
+			if (conversation.message.message) {
+				createElem2({
+					appendTo: convLink,
+					type: "p",
+					class: "message-content",
+					innerHTML: removeHtmlTags(conversation.message.message)
+				});
+			}
+
+			// In case of server message
+			if (conversation.message.server_message) {
+				createElem2({
+					appendTo: convLink,
+					type: "p",
+					class: "message-content",
+					innerHTML: ConversationsUtils.getServerMessage(conversation.message, usersInfo)
+				});
+			}
 
 			//Make the conversation link lives
 			convLink.onclick = function(){

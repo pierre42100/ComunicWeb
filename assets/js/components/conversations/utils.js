@@ -136,6 +136,85 @@ const ConversationsUtils = {
 		//Return result
 		return form;
 	},
+
+	/**
+	 * Get the ID of the users for a message
+	 * 
+	 * @param {ConversationMessage} msg 
+	 */
+	getUsersIDForMessage: function(msg) {
+		if (msg.user_id != null && msg.user_id > 0)
+			return [msg.user_id];
+		
+		switch (msg.server_message.type) {
+			case "user_created_conv":
+			case "user_left":
+				return [msg.server_message.user_id];
+			
+			case "user_added_another":
+				return [msg.server_message.user_who_added, msg.server_message.user_added];
+			
+			case "user_removed_another":
+				return [msg.server_message.user_who_removed, msg.server_message.user_removed];
+		}
+	},
+
+	/**
+	 * Get the ID of the main user for a given message
+	 * 
+	 * @param {ConversationMessage} msg 
+	 */
+	getMainUserForMessage: function(msg) {
+		if (msg.user_id != null && msg.user_id > 0)
+			return msg.user_id;
+		
+		switch (msg.server_message.type) {
+			case "user_created_conv":
+			case "user_left":
+				return msg.server_message.user_id;
+			
+			case "user_added_another":
+				return msg.server_message.user_who_added;
+			
+			case "user_removed_another":
+				return msg.server_message.user_who_removed;
+		}
+	},
+
+	/**
+	 * Generate a message of the server
+	 * 
+	 * @param {ConversationMessage} msg
+	 * @param {UsersList} users
+	 */
+	getServerMessage: function(msg, users) {
+		if (msg.server_message == null)
+			return "";
+		
+		switch (msg.server_message.type) {
+			case "user_created_conv":
+				return tr("%1% created the conversation", {
+					"1": users.get(msg.server_message.user_id).fullName
+				});
+			
+			case "user_added_another":
+				return tr("%1% added %2% to the conversation", {
+					"1": users.get(msg.server_message.user_who_added).fullName,
+					"2": users.get(msg.server_message.user_added).fullName
+				})
+			
+			case "user_left":
+				return tr("%1% left the conversation", {
+					"1": users.get(msg.server_message.user_id).fullName
+				});
+
+			case "user_removed_another":
+				return tr("%1% removed %2% from the conversation", {
+					"1": users.get(msg.server_message.user_who_removed).fullName,
+					"2": users.get(msg.server_message.user_removed).fullName
+				});
+		}
+	}
 }
 
 ComunicWeb.components.conversations.utils = ConversationsUtils;
