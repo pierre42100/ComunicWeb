@@ -329,6 +329,10 @@ const ConversationPageConvPart = {
 				};
 			}
 
+			else if(messageFile.type == "audio/mpeg") {
+				new SmallAudioPlayer(messageContentContainer, messageFile.url)
+			}
+
 			// Fallback
 			else {
 				let letFileLink = createElem2({

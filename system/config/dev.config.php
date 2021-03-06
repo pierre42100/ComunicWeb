@@ -474,10 +474,13 @@ class Dev {
 			"js/components/pacman.js",
 
 			// Manon
-			"js/components/manon.js",
+			//"js/components/manon.js",
 
 			// Password input
 			"js/components/passwordInput.js",
+
+			// Small audio player
+			"js/components/smallAudioPlayer.js",
 
 		//User scripts
 		"js/user/loginTokens.js",

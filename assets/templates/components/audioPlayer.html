@@ -1,0 +1,38 @@
+<!-- Audio player template -->
+
+<style>
+.audio-player {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a3;
+    top: 0px;
+    left: 0px;
+    z-index: 1030;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.audio-player div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.audio-player .close {
+    color: white;
+    margin: 20px;
+    opacity: 1;
+    text-shadow: unset;
+    font-weight: unset;
+}
+</style>
+
+<div class="audio-player">
+    <div>
+        <audio controls></audio>
+        
+        <p class="close a">tr("Close")</p>
+    </div>
+</div>
