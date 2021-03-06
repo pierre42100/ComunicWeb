@@ -81,7 +81,7 @@ const ConversationsInterface = {
 			name: infos.conversationName,
 			follow : infos.follow,
 			users: infos.users,
-			color: infos.color.replace("#", "").toUpperCase(),
+			color: infos.color == null ? "" : infos.color.replace("#", "").toUpperCase(),
 			canEveryoneAddMembers: infos.allowEveryoneToAddMembersInput
 		};
 
