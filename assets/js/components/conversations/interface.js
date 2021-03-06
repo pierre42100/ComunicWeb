@@ -464,6 +464,21 @@ const ConversationsInterface = {
 	},
 
 	/**
+	 * Toggle admin status of a user
+	 * 
+	 * @param {number} convID Conversation ID
+	 * @param {number} userID User ID
+	 * @param {boolean} setAdmin
+	 */
+	toggleAdminStatus: async function(convID, userID, setAdmin) {
+		await api("conversations/setAdmin", {
+			convID: convID,
+			userID: userID,
+			setAdmin: setAdmin
+		}, true);
+	},
+	
+	/**
 	 * Remove a user from a conversation
 	 * 
 	 * @param {number} convID Conversation ID

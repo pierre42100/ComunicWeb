@@ -536,6 +536,30 @@ const ConvChatWindow = {
 			});
 
 
+			// Set / unset admin
+			if(canRemoveUsers && member.user_id != userID()) {
+				let removeLink = createElem2({
+					type: "a",
+					appendTo: status,
+					innerHTML: (member.is_admin ? tr("Unset admin") : tr("Set admin"))
+				})
+
+				removeLink.addEventListener("click", async e => {
+					e.preventDefault();
+
+					try {
+						await ConversationsInterface.toggleAdminStatus(conv.id, member.user_id, !member.is_admin);
+
+						ConvChatWindow.reload(info);
+					} catch(e) {
+						console.error(e);
+						notify(tr("Failed to toggle admin status of %1%!", {"1": user.fullName}), "danger");
+					}
+				})
+			}
+
+			add_space(status)
+
 			// Remove user
 			if(canRemoveUsers && member.user_id != userID()) {
 				let removeLink = createElem2({
