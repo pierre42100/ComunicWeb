@@ -154,9 +154,7 @@ const ConversationsList = {
 			infos.listBox.rootElem.remove();
 
 			//Add & open the conversation
-			ComunicWeb.components.conversations.manager.addConversation({
-				conversationID: response.conversationID
-			});
+			ComunicWeb.components.conversations.manager.addConversation(response.conversationID);
 		})
 	},
 
