@@ -270,7 +270,7 @@ const ConvChatWindow = {
 	 * @param {Object} conversationWindow Informations about the conversation window
 	 * @return {Boolean} True for a success
 	 */
-	load: async function(conversationID, conversationWindow) {
+	load: async function(conversationID, conversationWindow, forceRefresh) {
 
 		try {
 
@@ -284,7 +284,7 @@ const ConvChatWindow = {
 						rej(info)
 					else
 						res(info)
-				});
+				}, forceRefresh);
 			})
 
 			const users = await getUsers(conv.members.map(m => m.user_id));
@@ -730,7 +730,7 @@ const ConvChatWindow = {
 	 */
 	reload: function(conversation) {
 		ConvChatWindow.unload(conversation.infos.id, true);
-		ConvChatWindow.load(conversation.infos.id, conversation.box);
+		ConvChatWindow.load(conversation.infos.id, conversation.box, true);
 	},
 
 	/**
