@@ -144,7 +144,7 @@ const ConvChatWindow = {
 			class: "form-control",
 			placeholder: tr("New message..."),
 		});
-		inputText.maxLength = 200;
+		inputText.maxLength = ServerConfig.conf.max_conversation_message_len;
 
 		//Enable textarea 2.0 on the message
 		var textarea2 = new ComunicWeb.components.textarea();

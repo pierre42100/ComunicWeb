@@ -457,7 +457,7 @@ const ConversationPageConvPart = {
 			class: "form-control",
 			placeholder: "New message...",
 		});
-		inputText.maxLength = 200;
+		inputText.maxLength = ServerConfig.conf.max_conversation_message_len;
 		inputText.focus();
 
 
