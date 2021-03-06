@@ -420,22 +420,91 @@ const ConvChatWindow = {
 	/**
 	 * Update conversation members list
 	 * 
-	 * @param {Object} conversation Informations about the conversation
+	 * @param {Object} conv Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
-	updateMembersList: function(conversation){
+	updateMembersList: function(info) {
 		
 		//First, make sure conversation members pane is empty
-		emptyElem(conversation.box.membersList);
+		emptyElem(info.box.membersList);
 
-		//Then process each user
-		for(let member of conversation.infos.members) {
-			let user = conversation.membersInfos.get(member.user_id);
+		/** @type {Conversation} */
+		const conv = info.infos;
+		let isAdmin = conv.members.find(m => m.user_id).is_admin;
+		let canAddUser = conv.group_id == null && (conv.can_everyone_add_members || isAdmin);
+		let canMakeUsersAdmin = isAdmin && canAddUser;
+
+		// =================== Add a member =================== 
+		if (canAddUser) {
+			//Create form container
+			var addUserForm = createElem2({
+				appendTo: info.box.membersList,
+				type: "form",
+				class: "invite-user-form"
+			});
+
+			//Form input
+			let userInput = createFormGroup({
+				target: addUserForm, 
+				multiple: false,
+				placeholder: "Select user",
+				type: "select2"});
+			userInput.parentNode.className = "input-group";
+
+			ComunicWeb.components.userSelect.init(userInput);
+
+			//Add submit button
+			var groupsButton = createElem2({
+				appendTo: userInput.parentNode,
+				type: "div",
+				class: "input-group-btn"
+			});
+
+			createElem2({
+				appendTo: groupsButton,
+				type: "button",
+				elemType: "submit",
+				class: "btn btn-primary",
+				innerHTML: "Add"
+			});
+
+			addUserForm.addEventListener("submit", async e => {
+				try {
+					e.preventDefault();
+
+					//Get the list of selected users
+					var usersToInvite = ComunicWeb.components.userSelect.getResults(userInput);
+
+					//Check if there is not any user to invite
+					if(usersToInvite.length == 0){
+						notify(tr("Please choose a user to add!"), "danger");
+						return;
+					}
+
+					await ConversationsInterface.addUser(conv.id, usersToInvite[0]);
+
+					ConvChatWindow.reload(info)
+				}
+
+				catch(e)
+				{
+					console.error(e);
+					notify(tr("Failed to update conversation settings!"), "danger")
+				}
+
+			})
+		}
+
+		// =================== / Add a member =================== 
+
+		// Then process each user
+		for(let member of conv.members) {
+			let user = info.membersInfos.get(member.user_id);
 			if(!user)
 				continue;
 
 			//Display user informations
-			var userLi = createElem("li", conversation.box.membersList);
+			var userLi = createElem("li", info.box.membersList);
 			var userLink = createElem("a", userLi);
 			
 			//Add user account image
@@ -469,7 +538,7 @@ const ConvChatWindow = {
 		}
 
 		//Enable slimscrooll
-		$(conversation.box.membersList).slimscroll({
+		$(info.box.membersList).slimscroll({
 			height: "100%",
 			color: "#FFFFFF"
 		});
@@ -650,12 +719,18 @@ const ConvChatWindow = {
 				notify("An error occured while trying to update conversation settings !", "danger", 4);
 			
 			//Reload the conversation
-			ComunicWeb.components.conversations.chatWindows.unload(conversation.infos.ID, true);
-			ComunicWeb.components.conversations.chatWindows.load(conversation.infos.ID, conversation.box);
+			ConvChatWindow.reload(conversation);
 		});
+	},
 
-		//Success
-		return true;
+	/**
+	 * Reload the conversation
+	 * 
+	 * @param {Object} conversation Information about the conversation
+	 */
+	reload: function(conversation) {
+		ConvChatWindow.unload(conversation.infos.id, true);
+		ConvChatWindow.load(conversation.infos.id, conversation.box);
 	},
 
 	/**
@@ -694,7 +769,7 @@ const ConvChatWindow = {
 		catch(e)
 		{
 			console.error(e)
-			notify("An error occured while trying to send message! Please try again...", "danger", 2);
+			notify(tr("An error occured while trying to send message! Please try again..."), "danger", 2);
 		}
 
 		//Unlock send button

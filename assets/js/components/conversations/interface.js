@@ -451,6 +451,19 @@ const ConversationsInterface = {
 	},
 
 	/**
+	 * Add a user to a conversation
+	 * 
+	 * @param {number} convID Conversation ID
+	 * @param {number} userID Target user
+	 */
+	addUser: async function(convID, userID) {
+		await api("conversations/addMember", {
+			convID: convID,
+			userID: userID
+		}, true);
+	},
+
+	/**
 	 * Empty conversations cache
 	 * 
 	 * @param {Boolean} notHard Specify that the object hasn't to be recursively cleaned

@@ -143,7 +143,7 @@ ComunicWeb.pages.groups.pages.members = {
 			type: "button",
 			elemType: "submit",
 			class: "btn btn-primary",
-			innerHTML: "Invite user"
+			innerHTML: tr("Invite user")
 		});
 
 		/**
@@ -156,7 +156,7 @@ ComunicWeb.pages.groups.pages.members = {
 
 			//Check if there is not any user to invite
 			if(usersToInvite.length == 0){
-				notify("Please choose a user to invite!", "danger");
+				notify(tr("Please choose a user to invite!"), "danger");
 				return false;
 			}
 
@@ -164,7 +164,7 @@ ComunicWeb.pages.groups.pages.members = {
 			ComunicWeb.components.groups.interface.inviteUser(usersToInvite[0], info.id, function(result){
 
 				if(result.error)
-					return notify("Could not invite user to join the group!", "danger");
+					return notify(tr("Could not invite user to join the group!"), "danger");
 				
 				callback();
 
