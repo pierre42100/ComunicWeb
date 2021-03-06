@@ -52,7 +52,6 @@ class SmallMediaPlayer {
                 target.appendChild(video);
             }
 
-
             el.querySelector(".close").addEventListener("click", e => el.remove());
             el.addEventListener("click", e => el.remove());
         }

@@ -8,7 +8,8 @@
  * Full splash screen
  */
 .waitSplashScreen {
-    background-color: rgba(128, 128, 128, 0.06);
+    background-color: #001F3F;
+    color: white;
     padding-top: 10%;
     text-align: center;
 }
