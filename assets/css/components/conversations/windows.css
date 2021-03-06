@@ -98,6 +98,7 @@
 
 #conversationsElem .conversation-msg-image {
 	height: 50px;
+	max-width: 50px;
 }
 
 #conversationsElem .direct-chat-text {

@@ -930,7 +930,7 @@ const ConvChatWindow = {
 				createElem2({
 					appendTo: imageLink,
 					type: "img",
-					class: "message-img",
+					class: "conversation-msg-image",
 					src: messageFile.thumbnail == null ? messageFile.url : messageFile.thumbnail
 				});
 
