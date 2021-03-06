@@ -46,7 +46,7 @@ const ConvService = {
 			//Register conversation locally
 			this.__serviceCache['conversation-' + conversationID] = {
 				conversationID: conversationID,
-				first_message_id: list.length == 0 ? 0 : list[0].ID,
+				first_message_id: list.length == 0 ? 0 : list[0].id,
 			};
 
 			// Register conversation remotly

@@ -1203,7 +1203,7 @@ const ConvChatWindow = {
 					}
 
 					//Save the ID of the oldest message
-					ComunicWeb.components.conversations.service.setOldestMessageID(conversationID, result[0].ID);
+					ConvService.setOldestMessageID(conversationID, result[0].id);
 
 					//Display the list of messages
 					ComunicWeb.components.conversations.chatWindows.addOldMessages(conversationID, result);
