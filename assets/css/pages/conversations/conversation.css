@@ -42,14 +42,25 @@
 
 .big-box-conversation .direct-chat-msg.curruser .direct-chat-text::after,
 .big-box-conversation .direct-chat-msg.curruser .direct-chat-text::before {
-	border-right-color: #3c8dbc;
+	border-right-color: var(--primary-blue);
 }
 
 .big-box-conversation .direct-chat-msg.curruser .direct-chat-text {
-	background: #3c8dbc;
-	border-color: #3c8dbc;
+	background: var(--primary-blue);
+	border-color: var(--primary-blue);
 	color: white;
 }
+
+.big-box-conversation .btn-primary {
+	border-color: var(--primary-blue);
+}
+
+.big-box-conversation .btn-primary:hover {
+	background-color: var(--primary-blue);
+	border-color: var(--primary-blue);
+}
+
+
 
 .big-box-conversation .direct-chat-text .message-img {
 	max-width: 100%;
