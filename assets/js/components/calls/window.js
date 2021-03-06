@@ -17,7 +17,7 @@ class CallWindow extends CustomEvents {
 		
 		// Initialize variables
 		this.conv = conv;
-		this.callID = conv.ID;
+		this.callID = conv.id;
 		this.allowVideo = conv.can_have_video_call;
 
 		/** @type {Map<number, Peer>} */
@@ -373,7 +373,7 @@ class CallWindow extends CustomEvents {
 			
 			// Join the call
 			await ws("calls/join", {
-				convID: this.conv.ID
+				convID: this.conv.id
 			})
 
 			// Get call configuration
@@ -381,7 +381,7 @@ class CallWindow extends CustomEvents {
 
 			// Get the list of members of the call
 			const currMembersList = await ws("calls/members", {
-				callID: this.conv.ID
+				callID: this.conv.id
 			})
 
 			// Apply this list of user
@@ -521,7 +521,7 @@ class CallWindow extends CustomEvents {
 		// Leave the call
 		if(UserWebSocket.IsConnected)
 			await ws("calls/leave", {
-				convID: this.conv.ID
+				convID: this.conv.id
 			})
 
 		
