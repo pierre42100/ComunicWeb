@@ -27,7 +27,7 @@ ComunicWeb.components.conversations.messageEditor = {
 
 				//Intend to update message content
 				ComunicWeb.components.conversations.interface.UpdateSingleMessage(
-					message.ID,
+					message.id,
 					content,
 					
 					function(result){
