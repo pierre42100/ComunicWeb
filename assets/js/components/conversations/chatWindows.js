@@ -930,7 +930,7 @@ const ConvChatWindow = {
 			appendTo: messageContainer,
 			type: "div",
 			class: "date-conversation-message",
-			innerHTML: ComunicWeb.common.date.timeDiffToStr(message.time_insert)
+			innerHTML: ComunicWeb.common.date.timeDiffToStr(message.time_sent)
 		});
 
 		//Parse emojies in text message
@@ -1030,7 +1030,7 @@ const ConvChatWindow = {
 			rootElem: messageContainer,
 			userNameElem: usernameElem,
 			dateElem: dateElem,
-			time_insert: message.time_insert,
+			time_sent: message.time_sent,
 			messageTargetElem: messageTargetElem,
 			accountImage: userAccountImage
 		};
@@ -1064,7 +1064,7 @@ const ConvChatWindow = {
 
 
 			//Check the difference of time between the two messages
-			if(conv.messages[num].time_insert - conv.messages[num - 1].time_insert < 3600
+			if(conv.messages[num].time_sent - conv.messages[num - 1].time_sent < 3600
 				|| conv.messages[num].dateElem.innerHTML == conv.messages[num - 1].dateElem.innerHTML)
 				conv.messages[num].dateElem.style.display = "none";
 		}
