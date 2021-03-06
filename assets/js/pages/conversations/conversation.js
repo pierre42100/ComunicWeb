@@ -445,42 +445,7 @@ const ConversationPageConvPart = {
 				class: "fa fa-plus"
 			});
 		
-		fileInput.addEventListener("change", async (e) => {
-			e.preventDefault();
-			
-			let el;
-			
-			try {
-
-				if(fileInput.files.length == 0)
-					return;
-				
-				const file = fileInput.files[0];
-
-				if (ServerConfig.conf.allowed_conversation_files_type.indexOf(file.type) < 0) {
-					notify(tr("This file type is not allowed!"), "danger")
-					return;
-				}
-
-
-				if (file.size > ServerConfig.conf.conversation_files_max_size) {
-					notify(tr("This file is too big (max file size: %1%)", {"1": fileSizeToHuman(ServerConfig.conf.conversation_files_max_size)}), "danger");
-					return;
-				}
-
-				el = Page.showTransparentWaitSplashScreen();
-
-				await ConversationsInterface.sendMessage(this._conv_info.id, null, fileInput);
-			}
-
-			catch(e) {
-				console.error(e);
-				notify(tr("Failed to send file!"), "danger");
-			}
-
-			el.remove();
-
-		});
+		ConversationsUtils.registerInputToSendFile(this._conv_info.id, fileInput, formContainer);
 		// ==== /FILE INPUT ====
 
 

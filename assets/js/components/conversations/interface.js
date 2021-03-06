@@ -237,9 +237,6 @@ const ConversationsInterface = {
 			callback(result);
 
 		});
-
-		//Success
-		return true;
 	},
 
 	/**

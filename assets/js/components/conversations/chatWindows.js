@@ -196,6 +196,10 @@ const ConvChatWindow = {
 
 		});
 
+
+
+		
+		// =========== SEND FILES ===========
 		//Add image button
 		const fileButton = createElem2({
 			appendTo: buttonGroup,
@@ -229,6 +233,14 @@ const ConvChatWindow = {
 				type: "i",
 				class: "fa fa-send-o",
 			});
+		
+		console.info(infosBox)
+		//ConversationsUtils.registerInputToSendFile(, fileInput, formContainer);
+		
+		// =========== /SEND FILES ===========
+
+
+
 
 		//Prevent textarea from adding a new line when pressing enter
 		$(inputText).keypress(function(event){
