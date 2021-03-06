@@ -677,8 +677,8 @@ ComunicWeb.pages.conversations.conversation = ConversationPageConvPart;
 document.addEventListener("newConvMessage", (e) => {
 	const msg = e.detail;
 	
-	if (ComunicWeb.pages.conversations.conversation._conv_info.id == msg.conv_id)
-		ComunicWeb.pages.conversations.conversation.applyMessages([msg]);
+	if (ConversationPageConvPart._conv_info.id == msg.conv_id)
+		ConversationPageConvPart.applyMessages([msg]);
 })
 
 // Register to message update events
@@ -700,7 +700,7 @@ document.addEventListener("updatedConvMessage", async (e) => {
 	//Parse message content
 	ComunicWeb.components.textParser.parse({
 		element: newMessageContent,
-		user: await userInfo(msg.ID_user)
+		user: await userInfo(msg.user_id)
 	});
 
 	target.replaceWith(newMessageContent)
