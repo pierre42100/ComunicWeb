@@ -58,6 +58,16 @@
 	padding-right: 5px;
 }
 
+#conversationsElem .create-message-form .btn-primary {
+	border-color: var(--primary-blue);
+}
+
+#conversationsElem .create-message-form .btn-primary:hover {
+	background-color: var(--primary-blue);
+	border-color: var(--primary-blue);
+}
+
+
 
 /**
  * Conversation settings pane 
