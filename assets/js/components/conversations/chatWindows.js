@@ -916,29 +916,49 @@ const ConvChatWindow = {
 		});
 
 		//Check if an image has to be added
-		if(message.image_path != null){
-			
-			//Image link
-			var imageLink = createElem2({
-				appendTo: messageTargetElem,
-				type:"a",
-				href: message.image_path,
-			});
+		if(message.file != null){
+			const messageFile = message.file;
 
-			//Image element
-			createElem2({
-				appendTo: imageLink,
-				type: "img",
-				src: message.image_path,
-				class: "conversation-msg-image"
-			});
-
-			//Enable lightbox
-			imageLink.onclick = function(){
-				$(this).ekkoLightbox({
-					alwaysShowClose: true,
+			if (messageFile.type == "image/png") {
+				var imageLink = createElem2({
+					appendTo: messageTargetElem,
+					type: "a",
+					href: messageFile.url
 				});
-				return false;
+
+				//Apply image
+				createElem2({
+					appendTo: imageLink,
+					type: "img",
+					class: "message-img",
+					src: messageFile.thumbnail == null ? messageFile.url : messageFile.thumbnail
+				});
+
+				imageLink.onclick = function(){
+					$(this).ekkoLightbox({
+						alwaysShowClose: true,
+					});
+					return false;
+				};
+			}
+
+			else if(messageFile.type == "audio/mpeg") {
+				new SmallMediaPlayer(messageTargetElem, messageFile.url, false)
+			}
+
+			else if(messageFile.type == "video/mp4") {
+				new SmallMediaPlayer(messageTargetElem, messageFile.url, true)
+			}
+
+			// Fallback
+			else {
+				let letFileLink = createElem2({
+					appendTo: messageTargetElem,
+					type: "a",
+					href: messageFile.url,
+					innerHTML: "<i class='fa fa-download'></i> "+ messageFile.name + " (" + messageFile.size/1024 + "MB)",
+				})
+				letFileLink.target = "_blank"
 			}
 		}
 
