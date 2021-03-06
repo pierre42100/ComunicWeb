@@ -330,7 +330,11 @@ const ConversationPageConvPart = {
 			}
 
 			else if(messageFile.type == "audio/mpeg") {
-				new SmallAudioPlayer(messageContentContainer, messageFile.url)
+				new SmallMediaPlayer(messageContentContainer, messageFile.url, false)
+			}
+
+			else if(messageFile.type == "video/mp4") {
+				new SmallMediaPlayer(messageContentContainer, messageFile.url, true)
 			}
 
 			// Fallback

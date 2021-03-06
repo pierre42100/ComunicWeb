@@ -479,8 +479,8 @@ class Dev {
 			// Password input
 			"js/components/passwordInput.js",
 
-			// Small audio player
-			"js/components/smallAudioPlayer.js",
+			// Small media player
+			"js/components/smallMediaPlayer.js",
 
 		//User scripts
 		"js/user/loginTokens.js",
