@@ -67,7 +67,7 @@ const ConversationsList = {
 		}
 
 		//Change box title
-		listBox.boxTitle.innerHTML = "New conversation";
+		listBox.boxTitle.innerHTML = tr("New conversation");
 
 		//Create the form
 		var form = ConversationsUtils.createConversationForm(listBox.boxBody);
@@ -77,6 +77,7 @@ const ConversationsList = {
 			listBox: listBox,
 			usersElement: form.usersElement,
 			conversationNameInput: form.conversationNameInput,
+			conversationColorInput: form.conversationColorInput,
 			followConversationInput: form.followConversationInput,
 			allowEveryoneToAddMembersInput: form.allowEveryoneToAddMembers,
 		};
@@ -123,6 +124,7 @@ const ConversationsList = {
 			users: selectedUsers,
 			follow: infos.followConversationInput.checked,
 			conversationName: (infos.conversationNameInput.value == "" ? false : infos.conversationNameInput.value),
+			color: infos.conversationColorInput.value == "" ? null : infos.conversationColorInput.value,
 			allowEveryoneToAddMembersInput: infos.allowEveryoneToAddMembersInput.checked,
 		};
 

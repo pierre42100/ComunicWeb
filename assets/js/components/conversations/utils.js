@@ -98,19 +98,30 @@ const ConversationsUtils = {
 		ComunicWeb.components.userSelect.init(form.usersElement);
 
 
-		//Conversation name
+		// Conversation name
 		form.conversationNameInput = createFormGroup({
 			target: form.rootElem, 
-			label: "Conversation name", 
-			placeholder: "Optionnal", 
-			type: "text"});
+			label: tr("Conversation name"), 
+			placeholder: tr("Optional"), 
+			type: "text"
+		});
+
+		// Conversation color
+		form.conversationColorInput = createFormGroup({
+			target: form.rootElem, 
+			label: tr("Conversation color"), 
+			placeholder: tr("Optional"), 
+			type: "text"
+		});
+		$(form.conversationColorInput).colorpicker({format: "hex"})
 
 		// Follow discussion
 		form.followConversationInput = createFormGroup({
 			target: form.rootElem, 
-			label: "Follow conversation", 
+			label: tr("Follow conversation"), 
 			checked: true,
-			type: "checkbox"});
+			type: "checkbox"
+		});
 
 		// Allow all the members of the conversation to add other members
 		form.allowEveryoneToAddMembers = createFormGroup({

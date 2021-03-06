@@ -665,14 +665,12 @@ const ConvChatWindow = {
 		// Update checkbox to allow or not everyone to add members
 		$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
 
+		settingsForm.usersElement.parentNode.style.display = "none";
+
 		//Check if user is a conversation moderator or not
 		if(!conversation.infos.members.find(m => m.user_id == userID()).is_admin) {
 			//We disable name field
 			settingsForm.conversationNameInput.disabled = "true";
-
-			//We hide conversation users (presents in members pane - if user is not allowed to add new members)
-			if(!conversation.infos.canEveryoneAddMembers)
-				settingsForm.usersElement.parentNode.style.display = "none";
 
 			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
 		}
@@ -728,13 +726,9 @@ const ConvChatWindow = {
 
 		//Then, get information about the input
 		var newValues = {
-			conversationID: conversation.infos.ID,
+			conversationID: conversation.infos.id,
 			following: conversation.settingsForm.followConversationInput.checked,
 		}
-
-		//Get conversation members
-		if(conversation.infos.ID_owner == userID() || conversation.infos.canEveryoneAddMembers)
-			newValues.members = ComunicWeb.components.userSelect.getResults(conversation.settingsForm.usersElement);
 
 		//Add other fields if the user is a conversation moderator
 		if(conversation.infos.ID_owner == userID()){
@@ -742,15 +736,6 @@ const ConvChatWindow = {
 			var nameValue = conversation.settingsForm.conversationNameInput.value
 			newValues.name = (nameValue === "" ? false : nameValue);
 			
-			
-
-			//Check if any users were selected
-			if(newValues.members.length === 0){
-				//Inform user that its input is invalid
-				notify("Please select at least one user !", "danger", 3);
-				return false;
-			}
-
 			newValues.canEveryoneAddMembers = conversation.settingsForm.allowEveryoneToAddMembers.checked;
 
 		}

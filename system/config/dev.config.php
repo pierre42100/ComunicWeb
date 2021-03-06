@@ -74,7 +74,10 @@ class Dev {
 		"3rdparty/wdt-emoji/wdt-emoji-bundle.css",
 
 		//SCEditor (BBCode editor)
-		"css/common/custom-sceditor.css"
+		"css/common/custom-sceditor.css",
+
+		// Color picker
+		"3rdparty/adminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css",
 	);
 
 	/**
@@ -170,6 +173,9 @@ class Dev {
 
 		// Record MediaStream
 		"3rdparty/MediaStreamRecorder.min.js",
+
+		// Color picker
+		"3rdparty/adminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js",
 	);
 
 	/**
