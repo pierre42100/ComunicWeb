@@ -1014,7 +1014,7 @@ const ConvChatWindow = {
 
 						//Execute the request
 						ConversationsInterface.DeleteSingleMessage(
-							message.ID,
+							message.id,
 							function(result){
 								if(!result){
 									messageTargetElem.style.display = "block";
