@@ -879,9 +879,20 @@ const ConvChatWindow = {
 		//Load user informations
 		let userInfo = conversationInfo.membersInfos.get(message.user_id);
 		if(userInfo) {
-			//Replace poster name
 			usernameElem.innerHTML = userInfo.fullName;
 			userAccountImage.src = userInfo.image;
+		}
+
+		else {
+			async () => {
+				try {
+					const userInfo = await userInfo(message.user_id);
+					usernameElem.innerHTML = userInfo.fullName;
+					userAccountImage.src = userInfo.image;
+				} catch(e) {
+					console.error(e);
+				}
+			}
 		}
 
 		//Add message
