@@ -139,6 +139,6 @@ ComunicWeb.common.cacheManager.registerCacheCleaner("ComunicWeb.components.conve
 document.addEventListener("newConvMessage", (e) => {
 	const msg = e.detail;
 	
-	if(ConvService.__serviceCache.hasOwnProperty("conversation-" + msg.convID))
-		ComunicWeb.components.conversations.chatWindows.addMessage(msg.convID, msg);
+	if(ConvService.__serviceCache.hasOwnProperty("conversation-" + msg.conv_id))
+		ConvChatWindow.addMessage(msg.conv_id, msg);
 })
