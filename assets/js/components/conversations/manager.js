@@ -138,9 +138,7 @@ ComunicWeb.components.conversations.manager = {
 			}
 
 			//Open the first conversation
-			ComunicWeb.components.conversations.manager.addConversation({
-				conversationID: result.conversationsID[0],
-			});
+			ComunicWeb.components.conversations.manager.addConversation(result.conversationsID[0]);
 
 		};
 

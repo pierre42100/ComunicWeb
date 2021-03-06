@@ -159,6 +159,7 @@ const ConvChatWindow = {
 			type: "input",
 			elemType: "file",
 		});
+		fileInput.accept = ServerConfig.conf.allowed_conversation_files_type.join(", ");
 		
 
 		//Create button group
@@ -216,7 +217,7 @@ const ConvChatWindow = {
 			createElem2({
 				type: "i",
 				appendTo: fileButton, 
-				class: "fa fa-image"
+				class: "fa fa-plus"
 			});
 		
 		//Add send button
@@ -234,8 +235,8 @@ const ConvChatWindow = {
 				class: "fa fa-send-o",
 			});
 		
-		console.info(infosBox)
-		//ConversationsUtils.registerInputToSendFile(, fileInput, formContainer);
+		
+		ConversationsUtils.registerInputToSendFile(infosBox.conversationID, fileInput, conversationFormContainer);
 		
 		// =========== /SEND FILES ===========
 
