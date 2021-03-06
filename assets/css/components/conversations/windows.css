@@ -128,3 +128,9 @@
 #conversationsElem .direct-chat-msg.open .dropdown-menu {
 	margin-top: -20px;
 }
+
+#conversationsElem .direct-chat-msg .server_message {
+	text-align: center;
+	font-size: 90%;
+	font-style: italic;
+}

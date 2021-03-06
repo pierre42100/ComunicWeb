@@ -689,7 +689,7 @@ const ConvChatWindow = {
 		}
 
 		//Send the message throught the interface
-		ComunicWeb.components.conversations.interface.sendMessage({
+		ConversationsInterface.sendMessage({
 			conversationID: convInfos.infos.ID,
 			message: form.inputText.value,
 			image: form.inputImage,
@@ -831,7 +831,18 @@ const ConvChatWindow = {
 	 * @return {object} Information about the created message element
 	 */
 	_get_message_element: function(conversationInfo, message){
+		if (message.user_id != null && message.user_id > 0)
+			return this._get_user_message(conversationInfo, message);
+		
+		else
+			return this._get_server_message(conversationInfo, message);
+	},
 
+	/**
+	 * @param {Object} conversationInfo 
+	 * @param {ConversationMessage} message 
+	 */
+	_get_user_message: (conversationInfo, message) => {
 		//Check if it is the current user who sent the message
 		var userIsPoster = message.user_id == userID();
 
@@ -840,7 +851,7 @@ const ConvChatWindow = {
 			type: "div",
 			class: "direct-chat-msg " + (userIsPoster ? "right" : "")
 		});
-		messageContainer.setAttribute("data-chatwin-msg-id", message.ID)
+		messageContainer.setAttribute("data-chatwin-msg-id", message.id)
 
 		//Display message header
 		var messageHeader = createElem2({
@@ -1020,7 +1031,7 @@ const ConvChatWindow = {
 						messageTargetElem.style.display = "none";
 
 						//Execute the request
-						ComunicWeb.components.conversations.interface.DeleteSingleMessage(
+						ConversationsInterface.DeleteSingleMessage(
 							message.ID,
 							function(result){
 								if(!result){
@@ -1046,6 +1057,55 @@ const ConvChatWindow = {
 			accountImage: userAccountImage
 		};
 
+	},
+
+	/**
+	 * Apply a server message
+	 * 
+	 * @param {Object} convInfo Information about the conversation
+	 * @param {ConversationMessage} message The message
+	 */
+	_get_server_message: (convInfo, message) => {
+
+		//Create message element
+		const messageContainer = createElem2({
+			type: "div",
+			class: "direct-chat-msg "
+		});
+		messageContainer.setAttribute("data-chatwin-msg-id", message.id);
+
+		//Add message
+		let messageTargetElem = createElem2({
+			appendTo: messageContainer,
+			type: "div",
+			class: "server_message",
+		});
+
+		(async () => {
+			try {
+
+				let ids = ConversationsUtils.getUsersIDForMessage(message)
+				let users = await getUsers(ids);
+				let msg = ConversationsUtils.getServerMessage(message, users);
+
+				messageTargetElem.innerHTML = msg
+
+			}
+			catch(e) {
+				console.error(e);
+				notify(tr("Failed to load a server message!"))
+			}
+		})();
+
+		return {
+			userID: null,
+			rootElem: messageContainer,
+			userNameElem: document.createElement("span"),
+			dateElem: document.createElement("span"),
+			time_sent: message.time_sent,
+			messageTargetElem: messageTargetElem,
+			accountImage: document.createElement("span")
+		};
 	},
 
 	/**
@@ -1120,9 +1180,9 @@ const ConvChatWindow = {
 			scrollDetectionLocked = true;
 
 			//Fetch older messages
-			ComunicWeb.components.conversations.interface.getOlderMessages(
+			ConversationsInterface.getOlderMessages(
 				conversationID,
-				ComunicWeb.components.conversations.service.getOldestMessageID(conversationID),
+				ConvService.getOldestMessageID(conversationID),
 				10,
 				function(result){
 
