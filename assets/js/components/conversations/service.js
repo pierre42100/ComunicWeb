@@ -41,7 +41,7 @@ const ConvService = {
 				this.__serviceCache = {}; //Create service cache object
 
 			// Get the last messages of the conversations
-			const list = await ComunicWeb.components.conversations.interface.asyncRefreshSingle(conversationID, 0);
+			const list = await ConversationsInterface.asyncRefreshSingle(conversationID, 0);
 
 			//Register conversation locally
 			this.__serviceCache['conversation-' + conversationID] = {
@@ -50,10 +50,10 @@ const ConvService = {
 			};
 
 			// Register conversation remotly
-			await ComunicWeb.components.conversations.interface.register(conversationID)
+			await ConversationsInterface.register(conversationID)
 
 			for(const msg of list)
-				ComunicWeb.components.conversations.chatWindows.addMessage(conversationID, msg);
+				ConvChatWindow.addMessage(conversationID, msg);
 
 		} catch(e) {
 			console.error(e);

@@ -101,36 +101,21 @@ ComunicWeb.components.conversations.manager = {
 	/**
 	 * Add a new conversation to the list of opened conversation accordingly to specified informations
 	 * 
-	 * @param {Object} infos Informations about the conversation to open
-	 * @info {Integer} conversationID The ID of the conversation to open
-	 * @return {Boolean} True or false depending of the success of the operation
+	 * @param {number} convID Informations about the conversation to open
 	 */
-	addConversation: function(infos){
-		//We check if a conversation ID was specified or not
-		if(infos.conversationID){
-			ComunicWeb.debug.logMessage("Open a conversation based on its ID");
-			var conversationID = infos.conversationID;
-		}
-		else {
-			//It is an error
-			ComunicWeb.debug.logMessage("Don't know which conversation to open !");
-			return false;
-		}
+	addConversation: function(convID){
 
 		//Check if the conversation is already open or not
-		if(ComunicWeb.components.conversations.cachingOpened.isopen(conversationID)){
-			ComunicWeb.debug.logMessage("The conversation " + conversationID + " is already opened !");
-			return false;
+		if(ComunicWeb.components.conversations.cachingOpened.isopen(convID)){
+			ComunicWeb.debug.logMessage("The conversation " + convID + " is already opened !");
+			return;
 		}
 
 		//Save conversation ID in session storage
-		ComunicWeb.components.conversations.cachingOpened.add(conversationID);
+		ComunicWeb.components.conversations.cachingOpened.add(convID);
 
 		//Open the conversation
-		ComunicWeb.components.conversations.chatWindows.openConversation(conversationID);
-
-		//Success
-		return true;
+		ComunicWeb.components.conversations.chatWindows.openConversation(convID);
 	},
 
 	/**

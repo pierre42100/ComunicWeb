@@ -260,76 +260,65 @@ const ConvChatWindow = {
 	 * @param {Object} conversationWindow Informations about the conversation window
 	 * @return {Boolean} True for a success
 	 */
-	load: function(conversationID, conversationWindow){
+	load: async function(conversationID, conversationWindow) {
 
-		//Log action
-		ComunicWeb.debug.logMessage("Loading conversation " + conversationID);
+		try {
 
-		//Change conversation window name (loading state)
-		this.changeName("Loading", conversationWindow);
+			//Change conversation window name (loading state)
+			this.changeName("Loading", conversationWindow);
 
-		//Peform a request to informations about the conversation
-		ComunicWeb.components.conversations.interface.getInfosOne(conversationID, function(informations){
-
-			//In case of error
-			if(informations.error){
-				//Display error notification
-				ComunicWeb.common.notificationSystem.showNotification("Couldn't get informations about the conversation !", "danger");
-				return false;
-			}
-
-			//Get informations about the members of the conversation
-			getMultipleUsersInfo(informations.members, function(membersInfos){
-
-				//Quit in case of error
-				if(informations.error){
-					//Display error notification
-					ComunicWeb.common.notificationSystem.showNotification("Couldn't get informations about the conversation members !", "danger");
-					return false;
-				}
-				
-				//Create conversation informations root object
-				var conversationInfos = {
-					box: conversationWindow,
-					membersInfos: membersInfos,
-					infos: informations
-				};
-
-				//Save conversation informations in the cache
-				ComunicWeb.components.conversations.chatWindows.__conversationsCache["conversation-"+conversationID] = conversationInfos;
-
-				//Change the name of the conversation
-				ComunicWeb.components.conversations.utils.getName(informations, function(conversationName){
-					ComunicWeb.components.conversations.chatWindows.changeName(conversationName, conversationWindow);
+			/** @type {Conversation} */
+			const conv = await new Promise((res, rej) => {
+				ConversationsInterface.getInfosOne(conversationID, (info) => {
+					if (info.error)
+						rej(info)
+					else
+						res(info)
 				});
+			})
 
-				//Update conversation members informations
-				ComunicWeb.components.conversations.chatWindows.updateMembersList(conversationInfos);
+			const users = await getUsers(conv.members.map(m => m.user_id));
 
-				//Display conversation settings pane
-				ComunicWeb.components.conversations.chatWindows.showConversationSettings(conversationInfos);
+			// Create conversation informations root object
+			var conversationInfos = {
+				box: conversationWindow,
+				membersInfos: users,
+				infos: conv
+			};
 
-				//Register the conversation in the service
-				ComunicWeb.components.conversations.service.registerConversation(conversationID);
+			// Save conversation informations in the cache
+			this.__conversationsCache["conversation-"+conversationID] = conversationInfos;
 
-				//Make send a message button lives
-				conversationInfos.box.sendMessageForm.formRoot.onsubmit = function(){
-					
-					//Submit new message
-					ComunicWeb.components.conversations.chatWindows.submitMessageForm(conversationInfos);
+			//Change the name of the conversation
+			this.changeName(await getConvName(conv), conversationWindow);
 
-					//Block page reloading
-					return false;
-				};
+			// Update conversation members informations
+			this.updateMembersList(conversationInfos);
 
-				//Add call button (if possible)
-				ComunicWeb.components.conversations.chatWindows.showCallButton(conversationInfos);
+			// Display conversation settings pane
+			this.showConversationSettings(conversationInfos);
 
-			});
-		});
+			// Register the conversation in the service
+			ConvService.registerConversation(conversationID);
 
-		//Success
-		return true;
+			// Make send a message button lives
+			conversationInfos.box.sendMessageForm.formRoot.onsubmit = (e) => {
+				e.preventDefault();
+				
+				//Submit new message
+				this.submitMessageForm(conversationInfos);
+
+			};
+
+			//Add call button (if possible)
+			this.showCallButton(conversationInfos);
+
+		}
+
+		catch(e) {
+			console.error(e);
+			notify(tr("Failed to load conversation!"), "danger");
+		}
 	},
 
 	/**
@@ -430,46 +419,43 @@ const ConvChatWindow = {
 		emptyElem(conversation.box.membersList);
 
 		//Then process each user
-		var i = 0;
-		for(i in conversation.infos.members){
-			if(conversation.membersInfos['user-'+conversation.infos.members[i]]){
-				var memberInfos = conversation.membersInfos['user-'+conversation.infos.members[i]];
+		for(let member of conversation.infos.members) {
+			let user = conversation.membersInfos.get(member.user_id);
+			if(!user)
+				continue;
 
-				//Display user informations
-				var userLi = createElem("li", conversation.box.membersList);
-				var userLink = createElem("a", userLi);
-				
-				//Add user account image
-				var userImage = createElem("img", userLink);
-				userImage.className = "contacts-list-img";
-				userImage.src = memberInfos.accountImage;
-				
-				//Add member informations
-				var memberInfosList = createElem2({
-					type: "div", 
-					appendTo: userLink,
-					class: "contacts-list-info",
-				});
+			//Display user informations
+			var userLi = createElem("li", conversation.box.membersList);
+			var userLink = createElem("a", userLi);
+			
+			//Add user account image
+			var userImage = createElem("img", userLink);
+			userImage.className = "contacts-list-img";
+			userImage.src = user.image;
+			
+			//Add member informations
+			var memberInfosList = createElem2({
+				type: "div", 
+				appendTo: userLink,
+				class: "contacts-list-info",
+			});
 
-				//Add user name
-				var memberName = createElem2({
-					type: "span",
-					appendTo: memberInfosList,
-					class: "contacts-list-name",
-					innerHTML: memberInfos.firstName + " " + memberInfos.lastName,
-				});
+			//Add user name
+			var memberName = createElem2({
+				type: "span",
+				appendTo: memberInfosList,
+				class: "contacts-list-name",
+				innerHTML: user.fullName,
+			});
 
-				//Check if members is a moderator or not of the conversation
-				var memberStatus = conversation.infos.ID_owner == memberInfos.userID ? "Moderator" : "Member";
-
-				//Add member status
-				var memberStatus = createElem2({
-					type: "span",
-					appendTo: memberInfosList,
-					class: "contats-list-msg",
-					innerHTML: memberStatus
-				});
-			}
+			//Add member status
+			createElem2({
+				type: "span",
+				appendTo: memberInfosList,
+				class: "contacts-list-msg",
+				innerHTML: member.is_admin ? tr("Admin") : tr("Member")
+			});
+			
 		}
 
 		//Enable slimscrooll
@@ -545,13 +531,13 @@ const ConvChatWindow = {
 			settingsForm.conversationNameInput.value = conversation.infos.name;
 
 		//Update conversation members
-		ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members);
+		ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members.map(m => m.user_id));
 
 		// Update checkbox to allow or not everyone to add members
 		$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
 
 		//Check if user is a conversation moderator or not
-		if(conversation.infos.ID_owner != userID()) {
+		if(!conversation.infos.members.find(m => m.user_id == userID()).is_admin) {
 			//We disable name field
 			settingsForm.conversationNameInput.disabled = "true";
 
@@ -632,7 +618,7 @@ const ConvChatWindow = {
 			//Check if any users were selected
 			if(newValues.members.length === 0){
 				//Inform user that its input is invalid
-				ComunicWeb.common.notificationSystem.showNotification("Please select at least one user !", "danger", 3);
+				notify("Please select at least one user !", "danger", 3);
 				return false;
 			}
 
@@ -651,7 +637,7 @@ const ConvChatWindow = {
 			
 			//Check for errors
 			if(result.error)
-				ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to update conversation settings !", "danger", 4);
+				notify("An error occured while trying to update conversation settings !", "danger", 4);
 			
 			//Reload the conversation
 			ComunicWeb.components.conversations.chatWindows.unload(conversation.infos.ID, true);
@@ -678,7 +664,7 @@ const ConvChatWindow = {
 
 		//Check if message is empty
 		if(!checkString(form.inputText.value) && !form.inputImage.files[0]){
-			ComunicWeb.common.notificationSystem.showNotification("Please type a valid message before trying to send it !", "danger", 2);
+			notify("Please type a valid message before trying to send it !", "danger", 2);
 			return false;
 		}
 		
@@ -686,11 +672,11 @@ const ConvChatWindow = {
 		form.sendButton.disabled = true;
 
 		//Prepare what to do next
-		var onceSent = function(result){
+		var onceSent = (result) => {
 
 			//Check for errors
 			if(result.error){
-				ComunicWeb.common.notificationSystem.showNotification("An error occured while trying to send message! Please try again...", "danger", 2);
+				notify("An error occured while trying to send message! Please try again...", "danger", 2);
 
 				//Unlock send button
 				form.sendButton.disabled = false;
@@ -841,13 +827,13 @@ const ConvChatWindow = {
 	 * Generate message HTML node based on given information
 	 * 
 	 * @param {object} conversationInfo Information about the created conversation
-	 * @param {object} message Information about the target message
+	 * @param {ConversationMessage} message Information about the target message
 	 * @return {object} Information about the created message element
 	 */
 	_get_message_element: function(conversationInfo, message){
 
 		//Check if it is the current user who sent the message
-		var userIsPoster = message.ID_user == userID();
+		var userIsPoster = message.user_id == userID();
 
 		//Create message element
 		const messageContainer = createElem2({
@@ -891,15 +877,11 @@ const ConvChatWindow = {
 		});
 
 		//Load user informations
-		let userInfos;
-		if(conversationInfo.membersInfos["user-" + message.ID_user]){
-
-			//Get informations
-			userInfos = conversationInfo.membersInfos["user-" + message.ID_user];
-
+		let userInfo = conversationInfo.membersInfos.get(message.user_id);
+		if(userInfo) {
 			//Replace poster name
-			usernameElem.innerHTML = userInfos.firstName + " " + userInfos.lastName;
-			userAccountImage.src = userInfos.accountImage;
+			usernameElem.innerHTML = userInfo.fullName;
+			userAccountImage.src = userInfo.image;
 		}
 
 		//Add message
@@ -954,7 +936,7 @@ const ConvChatWindow = {
 		//Parse emojies in text message
 		ComunicWeb.components.textParser.parse({
 			element: textMessage,
-			user: userInfos,
+			user: userInfo,
 		});
 
 
@@ -996,17 +978,9 @@ const ConvChatWindow = {
 
 			updateLink.addEventListener("click", function(){
 				ComunicWeb.components.conversations.messageEditor.open(message, function(newContent){
-					
 					/*
-					
-					DEPRECATED WITH WEBSOCKETS
-
-					//Apply and parse new message
-					textMessage.innerHTML = removeHtmlTags(newContent);
-					ComunicWeb.components.textParser.parse({
-						element: textMessage,
-					});*/
-
+						DEPRECATED WITH WEBSOCKETS
+					*/
 				});
 			});
 
@@ -1052,7 +1026,7 @@ const ConvChatWindow = {
 
 		//Return information about the message
 		return {
-			userID: message.ID_user,
+			userID: message.user_id,
 			rootElem: messageContainer,
 			userNameElem: usernameElem,
 			dateElem: dateElem,
@@ -1178,13 +1152,13 @@ document.addEventListener("updatedConvMessage", (e) => {
 	const msg = e.detail;
 
 	// Get message target
-	const target = document.querySelector("[data-chatwin-msg-id='"+msg.ID+"']");
+	const target = document.querySelector("[data-chatwin-msg-id='"+msg.id+"']");
 	if(!target)
 		return;
 
 	
 	// Get conversation info
-	const convInfo = ConvChatWindow.__conversationsCache["conversation-"+msg.convID];
+	const convInfo = ConvChatWindow.__conversationsCache["conversation-"+msg.conv_id];
 	if(!convInfo)
 		return;
 

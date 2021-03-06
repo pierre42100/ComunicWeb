@@ -225,9 +225,7 @@ function log(message){
  */
 function openConversation(id, fullscreen = false){
     if(!fullscreen)
-        ComunicWeb.components.conversations.manager.addConversation({
-            conversationID: id
-        });
+        ComunicWeb.components.conversations.manager.addConversation(id);
     else
         openPage("conversations/" + id);
 }

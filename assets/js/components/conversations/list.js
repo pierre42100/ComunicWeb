@@ -212,12 +212,12 @@ const ConversationsList = {
 	/**
 	 * Show a conversation entry
 	 *
-	 * @param {Conversation} conversationInfos Informations about the conversation
+	 * @param {Conversation} conv Information about the conversation
 	 * @param {HTMLElement} entryTarget The target for the entry
 	 * @param {Object} listBox HTML elements about the listBox
 	 * @return {Boolean} True for a success
 	 */
-	showConversationEntry: function(conversationInfos, entryTarget, listBox){
+	showConversationEntry: function(conv, entryTarget, listBox){
 		
 		//Create link element
 		var linkElem = createElem("a", entryTarget);
@@ -228,9 +228,7 @@ const ConversationsList = {
 			listBox.rootElem.remove();
 
 			//Add & open conversation
-			ComunicWeb.components.conversations.manager.addConversation({
-				conversationID: conversationInfos.ID
-			});
+			ComunicWeb.components.conversations.manager.addConversation(conv.id);
 		}
 
 		//Add conversations last activity
@@ -242,7 +240,7 @@ const ConversationsList = {
 
 		//Calculate last conversation activity
 		var currentTime = ComunicWeb.common.date.time();
-		lastActivityValueElem.innerHTML = " "+ComunicWeb.common.date.diffToStr(currentTime - conversationInfos.last_activity);
+		lastActivityValueElem.innerHTML = " "+ComunicWeb.common.date.diffToStr(currentTime - conv.last_activity);
 
 
 		//Create the conversation name element
@@ -253,7 +251,7 @@ const ConversationsList = {
 		conversationNameElem.innerHTML = "Loading...";
 
 		//Get conversation name and apply it
-		ComunicWeb.components.conversations.utils.getName(conversationInfos, function(conversationName){
+		ComunicWeb.components.conversations.utils.getName(conv, function(conversationName){
 			conversationNameElem.innerHTML = conversationName;
 		});
 
@@ -269,7 +267,7 @@ const ConversationsList = {
 
 		//Specify value
 		var membersNumberValueElem = createElem("span", membersNumberSmallElem);
-		membersNumberValueElem.innerHTML = (conversationInfos.members.length === 1 ? tr("1 member") : conversationInfos.members.length + " members");
+		membersNumberValueElem.innerHTML = (conv.members.length === 1 ? tr("1 member") : conv.members.length + " members");
 
 		//Success
 		return true;
