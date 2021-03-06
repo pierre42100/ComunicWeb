@@ -142,7 +142,7 @@ const ConvChatWindow = {
 			appendTo: inputGroup,
 			type: "textarea",
 			class: "form-control",
-			placeholder: "New message...",
+			placeholder: tr("New message..."),
 		});
 		inputText.maxLength = 200;
 
@@ -154,8 +154,8 @@ const ConvChatWindow = {
 			autosize: true,
 		});
 
-		//Create image input (for optionnal image)
-		var inputImage = createElem2({
+		//Create file input (for optionnal file)
+		var fileInput = createElem2({
 			type: "input",
 			elemType: "file",
 		});
@@ -175,8 +175,6 @@ const ConvChatWindow = {
 			elemType: "button",
 			class: "btn btn-flat btn-add-emoji",
 		});
-		
-			//Add image icon
 			createElem2({
 				type: "i",
 				appendTo: emojiButton, 
@@ -199,21 +197,21 @@ const ConvChatWindow = {
 		});
 
 		//Add image button
-		var imageButton = createElem2({
+		const fileButton = createElem2({
 			appendTo: buttonGroup,
 			type: "button",
 			elemType: "button",
 			class: "btn btn-flat btn-add-image",
 		});
-		imageButton.onclick = function(){
+		fileButton.onclick = function(){
 			//Call file selector
-			inputImage.click();
+			fileInput.click();
 		};
 		
 			//Add image icon
 			createElem2({
 				type: "i",
-				appendTo: imageButton, 
+				appendTo: fileButton, 
 				class: "fa fa-image"
 			});
 		
@@ -246,7 +244,6 @@ const ConvChatWindow = {
 			sendButton: sendButton,
 			inputText: inputText,
 			textarea2: textarea2,
-			inputImage: inputImage,
 		};
 
 		//Success
@@ -654,50 +651,41 @@ const ConvChatWindow = {
 	 * @param {Object} convInfos Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
-	submitMessageForm: function(convInfos){
+	submitMessageForm: async function(convInfos){
 		
-		//Log action
-		ComunicWeb.debug.logMessage("Send a new message in a conversation system.");
+		try {
 		
-		//Extract main fields
-		var form = convInfos.box.sendMessageForm;
+			//Extract main fields
+			var form = convInfos.box.sendMessageForm;
 
-		//Check if message is empty
-		if(!checkString(form.inputText.value) && !form.inputImage.files[0]){
-			notify("Please type a valid message before trying to send it !", "danger", 2);
-			return false;
-		}
-		
-		//Lock send button
-		form.sendButton.disabled = true;
+			//Check if message is empty.
+			let message = form.inputText.value;
 
-		//Prepare what to do next
-		var onceSent = (result) => {
+			if (message.length == 0)
+				return;
 
-			//Check for errors
-			if(result.error){
-				notify("An error occured while trying to send message! Please try again...", "danger", 2);
-
-				//Unlock send button
-				form.sendButton.disabled = false;
-
-				return false;
+			if(message.length < ServerConfig.conf.min_conversation_message_len || message.length > ServerConfig.conf.max_conversation_message_len){
+				notify(tr("Invalid message length!"), "danger", 2);
+				return;
 			}
+			
+			//Lock send button
+			form.sendButton.disabled = true;
 
+			await ConversationsInterface.sendMessage(convInfos.infos.id, message);
+			
 			//Reset the form
-			ComunicWeb.components.conversations.chatWindows.resetCreateMessageForm(convInfos);
+			ConvChatWindow.resetCreateMessageForm(convInfos);
 		}
 
-		//Send the message throught the interface
-		ConversationsInterface.sendMessage({
-			conversationID: convInfos.infos.ID,
-			message: form.inputText.value,
-			image: form.inputImage,
-			callback: onceSent
-		});
-		
-		//Success
-		return true;
+		catch(e)
+		{
+			console.error(e)
+			notify("An error occured while trying to send message! Please try again...", "danger", 2);
+		}
+
+		//Unlock send button
+		form.sendButton.disabled = false;
 	},
 
 	/**
@@ -717,12 +705,6 @@ const ConvChatWindow = {
 		//Empty textarea
 		form.inputText.value = "";
 		form.textarea2.resetHeight();
-
-		//Remove image from image input
-		form.inputImage.value = "";
-
-		//Success
-		return true;
 	},
 
 	/**
