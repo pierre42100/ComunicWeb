@@ -430,7 +430,7 @@ const ConvChatWindow = {
 
 		/** @type {Conversation} */
 		const conv = info.infos;
-		let isAdmin = conv.members.find(m => m.user_id).is_admin;
+		let isAdmin = conv.members.find(m => m.user_id == userID()).is_admin;
 		let canAddUser = conv.group_id == null && (conv.can_everyone_add_members || isAdmin);
 		let canRemoveUsers = isAdmin && canAddUser;
 
@@ -565,7 +565,7 @@ const ConvChatWindow = {
 				let removeLink = createElem2({
 					type: "a",
 					appendTo: status,
-					innerHTML: "Remove"
+					innerHTML: tr("Remove")
 				})
 
 				removeLink.addEventListener("click", async e => {
