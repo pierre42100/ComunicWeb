@@ -1066,7 +1066,7 @@ const ConvChatWindow = {
 					appendTo: messageTargetElem,
 					type: "a",
 					href: messageFile.url,
-					innerHTML: "<i class='fa fa-download'></i> "+ messageFile.name + " (" + messageFile.size/1024 + "MB)",
+					innerHTML: "<i class='fa fa-download'></i> "+ messageFile.name + " ("+fileSizeToHuman(messageFile.size)+")",
 				})
 				letFileLink.target = "_blank"
 			}
