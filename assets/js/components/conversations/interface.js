@@ -245,47 +245,37 @@ const ConversationsInterface = {
 	/**
 	 * Send a new message
 	 * 
-	 * @param {Object} infos Informations about the message to send
-	 * @info {Integer} conversationID The ID of the conversation
-	 * @info {String} message The message to send
-	 * @info {HTMLElement} image Optionnal, input field with an image
-	 * @info {function} callback What to do once the image was successfully sent
-	 * @return {Boolean} true for a success
+	 * @param {number} convID The ID of the conversation
+	 * @param {string} message The message to send (if not a file)
+	 * @param {HTMLInputElement} file The file to send (if any)
 	 */
-	sendMessage: function(infos){
+	sendMessage: async function(convID, message, file){
 
 		//Perform an API request
 		var apiURI = "conversations/sendMessage";
 
-		var hasImage = false;
-		if(infos.image){
-			if(infos.image.files[0])
-				hasImage = true;
-		}
-
-		//Check wether an image has to be included or not
-		if(!hasImage){
+		// Check whether a file has to be sent or not
+		if(!file){
 
 			//Prepare request
 			var params = {
-				message: infos.message,
-				conversationID: infos.conversationID,
+				message: message,
+				conversationID: convID,
 			};
 
 			//Perform an API request
-			ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, infos.callback);
+			await api(apiURI, params, true);
 		}
 
-		//If we have an image, we must do a formdata request
+		//If we have a file, we must do a formdata request
 		else {
 
 			var fd = new FormData();
-			fd.append("message", infos.message);
-			fd.append("conversationID", infos.conversationID);
-			fd.append("image", infos.image.files[0], infos.image.files[0].name);
+			fd.append("conversationID", convID);
+			fd.append("file", file.files[0], file.files[0].name);
 
 			//Perform an API request
-			ComunicWeb.common.api.makeFormDatarequest(apiURI, fd, true, infos.callback);
+			await APIClient.execFormData(apiURI, fd, true);
 		}
 	},
 

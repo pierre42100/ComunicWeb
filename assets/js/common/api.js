@@ -10,7 +10,7 @@ const APIClient = {
      * 
      * @returns {Promise}
      */
-    exec:  function(apiURI, args, withLogin){
+    exec: function(apiURI, args, withLogin) {
 
         if(!args)
             args = {};
@@ -26,6 +26,24 @@ const APIClient = {
                     resolve(result);
 
             });
+        });
+    },
+
+    /**
+     * @returns {Promise}
+     */
+    execFormData: function(uri, data, withLogin) {
+        if (!data)
+            data = new FormData();
+        
+        return new Promise((res, rej) => {
+            this.makeFormDatarequest(uri, data, withLogin, (result) => {
+                if (result.error)
+                    reject(result.error);
+                
+                else
+                    res(result);
+            })
         });
     },
 

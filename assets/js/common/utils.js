@@ -834,3 +834,12 @@ function rpad(str, len, fill) {
 		str = fill + str
 	return str
 }
+
+/**
+ * Format file size to human readable format
+ * 
+ * @param {number} size The size to format
+ */
+function fileSizeToHuman(size) {
+	return Math.round(ServerConfig.conf.conversation_files_max_size/(1000*1000)*100)/100 + "MB";
+}

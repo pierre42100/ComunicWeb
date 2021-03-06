@@ -21,7 +21,7 @@ declare interface DataConservationPolicySettings {
     min_comments_lifetime: number,
     min_posts_lifetime: number,
     min_conversation_messages_lifetime: number,
-    min_likes_lifetime: number0
+    min_likes_lifetime: number
 }
 
 declare interface StaticServerConfig {
@@ -30,5 +30,10 @@ declare interface StaticServerConfig {
     play_store_url: string,
     android_direct_download_url: string,
     password_policy: PasswordPolicy,
-    data_conservation_policy: DataConservationPolicySettings;
+    data_conservation_policy: DataConservationPolicySettings,
+    
+    min_conversation_message_len: number,
+    max_conversation_message_len: number,
+    allowed_conversation_files_type: String[],
+    conversation_files_max_size: number,
 }

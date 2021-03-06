@@ -401,6 +401,82 @@ const ConversationPageConvPart = {
 			class: "input-group"
 		});
 
+
+		// ==== FILE INPUT ====
+
+		// File button group
+		let fileButtonGroup = createElem2({
+			appendTo: inputGroup,
+			type: "span",
+			class: "input-group-btn",
+		});
+
+		//Create image input (for optionnal image)
+		var fileInput = document.createElement("input");
+		fileInput.type = "file";
+		fileInput.accept = ServerConfig.conf.allowed_conversation_files_type.join(", ");
+
+		// Send file button
+		var fileButton = createElem2({
+			appendTo: fileButtonGroup,
+			type: "button",
+			elemType: "button",
+			class: "btn btn-flat btn-add-image",
+		});
+		fileButton.addEventListener("click", (e) => {
+			e.preventDefault();
+
+			//Call file selector
+			fileInput.click();
+		});
+		
+			//Add image icon
+			createElem2({
+				type: "i",
+				appendTo: fileButton, 
+				class: "fa fa-plus"
+			});
+		
+		fileInput.addEventListener("change", async (e) => {
+			e.preventDefault();
+			
+			let el;
+			
+			try {
+
+				if(fileInput.files.length == 0)
+					return;
+				
+				const file = fileInput.files[0];
+
+				if (ServerConfig.conf.allowed_conversation_files_type.indexOf(file.type) < 0) {
+					notify(tr("This file type is not allowed!"), "danger")
+					return;
+				}
+
+
+				if (file.size > ServerConfig.conf.conversation_files_max_size) {
+					notify(tr("This file is too big (max file size: %1%)", {"1": fileSizeToHuman(ServerConfig.conf.conversation_files_max_size)}), "danger");
+					return;
+				}
+
+				el = Page.showTransparentWaitSplashScreen();
+
+				await ConversationsInterface.sendMessage(this._conv_info.id, null, fileInput);
+			}
+
+			catch(e) {
+				console.error(e);
+				notify(tr("Failed to send file!"), "danger");
+			}
+
+			el.remove();
+
+		});
+		// ==== /FILE INPUT ====
+
+
+
 		//Create text input (for message)
 		var inputText = createElem2({
 			appendTo: inputGroup,
@@ -419,13 +495,6 @@ const ConversationPageConvPart = {
 			minHeight: "34px",
 			autosize: true,
 		});
-
-		//Create image input (for optionnal image)
-		var inputImage = createElem2({
-			type: "input",
-			elemType: "file",
-		});
-		
 
 		//Create button group
 		var buttonGroup = createElem2({
@@ -452,24 +521,6 @@ const ConversationPageConvPart = {
 		//Make emojie button lives
 		ComunicWeb.components.emoji.picker.addPicker(inputText, emojiButton);
 
-		//Add image button
-		var imageButton = createElem2({
-			appendTo: buttonGroup,
-			type: "button",
-			elemType: "button",
-			class: "btn btn-flat btn-add-image",
-		});
-		imageButton.onclick = function(){
-			//Call file selector
-			inputImage.click();
-		};
-		
-			//Add image icon
-			createElem2({
-				type: "i",
-				appendTo: imageButton, 
-				class: "fa fa-image"
-			});
 		
 		//Add send button
 		var sendButton = createElem2({
@@ -495,38 +546,37 @@ const ConversationPageConvPart = {
 		});
 
 		//Make form lives
-		formContainer.onsubmit = function(){
+		formContainer.addEventListener("submit", async (e) => {
+			e.preventDefault();
 
-			//Check if message is empty
-			if(!checkString(inputText.value) && !inputImage.files[0]){
-				ComunicWeb.common.notificationSystem.showNotification("Please type a valid message before trying to send it !", "danger", 2);
-				return false;
+			try {
+				let message = inputText.value;
+
+				//Check if message is empty
+				if(message.length > ServerConfig.conf.max_conversation_message_len 
+					|| message.length < ServerConfig.conf.min_conversation_message_len){
+					notify(tr("Invalid message length!"), "danger", 2);
+					return;
+				}
+
+				// Lock send button
+				sendButton.disabled = true;
+
+				//Send the message throught the interface
+				await ConversationsInterface.sendMessage(this._conv_info.id, message);
+
+				// Reset the form
+				inputText.value = "";
 			}
 
-			//Lock send button
-			sendButton.disabled = true;
+			catch(e) {
+				console.error(e);
+				notify("An error occurred while trying to send your message!", "danger");
+			}
 
-			//Send the message throught the interface
-			ComunicWeb.components.conversations.interface.sendMessage({
-				conversationID: ComunicWeb.pages.conversations.conversation._conv_info.id,
-				message: inputText.value,
-				image: inputImage,
-				callback: function(result){
-					
-					//Unlock send button
-					sendButton.disabled = false;
-
-					//Check for errors
-					if(result.error)
-						return notify("An error occurred while trying to send your message!", "danger");
-
-					//Reset the form
-					ComunicWeb.pages.conversations.conversation.addSendMessageForm();
-				}
-			});
-
-			return false;
-		}
+			// Unlock send button
+			sendButton.disabled = false;
+		});
 	},
 
 	/**
