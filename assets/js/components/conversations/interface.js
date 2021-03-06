@@ -464,6 +464,20 @@ const ConversationsInterface = {
 	},
 
 	/**
+	 * Remove a user from a conversation
+	 * 
+	 * @param {number} convID Conversation ID
+	 * @param {number} userID Target user
+	 */
+	removeUser: async function(convID, userID) {
+		await api("conversations/removeMember", {
+			convID: convID,
+			userID: userID
+		}, true);
+	},
+
+
+	/**
 	 * Empty conversations cache
 	 * 
 	 * @param {Boolean} notHard Specify that the object hasn't to be recursively cleaned

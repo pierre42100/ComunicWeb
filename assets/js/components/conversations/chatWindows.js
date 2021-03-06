@@ -432,7 +432,7 @@ const ConvChatWindow = {
 		const conv = info.infos;
 		let isAdmin = conv.members.find(m => m.user_id).is_admin;
 		let canAddUser = conv.group_id == null && (conv.can_everyone_add_members || isAdmin);
-		let canMakeUsersAdmin = isAdmin && canAddUser;
+		let canRemoveUsers = isAdmin && canAddUser;
 
 		// =================== Add a member =================== 
 		if (canAddUser) {
@@ -528,12 +528,38 @@ const ConvChatWindow = {
 			});
 
 			//Add member status
-			createElem2({
+			let status = createElem2({
 				type: "span",
 				appendTo: memberInfosList,
 				class: "contacts-list-msg",
-				innerHTML: member.is_admin ? tr("Admin") : tr("Member")
+				innerHTML: (member.is_admin ? tr("Admin") : tr("Member")) + " "
 			});
+
+
+			// Remove user
+			if(canRemoveUsers && member.user_id != userID()) {
+				let removeLink = createElem2({
+					type: "a",
+					appendTo: status,
+					innerHTML: "Remove"
+				})
+
+				removeLink.addEventListener("click", async e => {
+					e.preventDefault();
+
+					if(!await showConfirmDialog(tr("Do you really want to remove %1% from the conversation ?", {"1": user.fullName})))
+						return;
+					
+					try {
+						await ConversationsInterface.removeUser(conv.id, member.user_id);
+
+						ConvChatWindow.reload(info);
+					} catch(e) {
+						console.error(e);
+						notify(tr("Failed to remove %1% from the conversation!", {"1": user.fullName}), "danger");
+					}
+				})
+			}
 			
 		}
 
