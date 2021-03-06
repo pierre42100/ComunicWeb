@@ -656,7 +656,7 @@ const ConversationPageConvPart = {
 				});
 
 				//Scroll to newest message
-				let el = document.querySelector("[data-chatpage-msg-text-id=\""+response[0].ID+"\"]")
+				let el = document.querySelector("[data-chatpage-msg-text-id=\""+response[0].id+"\"]")
 				if(el) {
 					el = el.parentNode
 					/** @type {HTMLDivElement} */
@@ -710,9 +710,9 @@ document.addEventListener("updatedConvMessage", async (e) => {
 document.addEventListener("deletedConvMessage", (e) => {
 	const msgID = e.detail;
 
-	const target = document.querySelector("[data-chatpage-msg-text-id='"+msgID+"']")
+	const target = document.querySelector("[data-chatpage-msg-text-id='"+msgID+"']");
 	if(!target)
 		return;
-	
+
 	target.parentNode.remove()
 })
