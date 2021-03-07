@@ -269,6 +269,20 @@ const ConversationsInterface = {
 	},
 
 	/**
+	 * Send a new conversation image
+	 * 
+	 * @param {number} convID The ID of the target conversation
+	 * @param {HTMLInputElement} input The file to send
+	 */
+	sendNewConversationImage: async function(convID, input) {
+		let fd = new FormData();
+		fd.append("convID", convID);
+		fd.append("file", input.files[0], input.files[0].name);
+
+		await APIClient.execFormData("conversations/change_image", fd, true)
+	},
+
+	/**
 	 * Refresh a conversation
 	 * 
 	 * @param {Array} newConversations New conversations (which requires the 10 last messages)

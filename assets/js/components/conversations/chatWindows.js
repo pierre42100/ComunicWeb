@@ -722,8 +722,36 @@ const ConvChatWindow = {
 			this.submitUpdateForm(conversation);
 		};
 
-		//Success
-		return true;
+		
+		// Add conversation image section
+		if (conversation.infos.members.find(m => m.user_id == userID()).is_admin) {
+
+			const convImageSection = createElem2({
+				appendTo: settingsForm.rootElem,
+				type: "div",
+				innerHTML: "<br/><br/><p><strong>" + tr("Conversation image") + ": </strong></p>"
+			})
+
+
+			// Upload a new image
+			const newConvImagebutton = createElem2({
+				appendTo: convImageSection,
+				type: "button",
+				class: "btn btn-default",
+				innerHTML: tr("Upload a new conversation image")
+			});
+
+			newConvImagebutton.addEventListener("click", async e => {
+				e.preventDefault();
+				try {
+					await ConversationsUtils.uploadNewConversationImage(conversation.infos.id);
+					ConvChatWindow.reload(conversation)
+				} catch(e) {
+					console.error(e);
+					notify(tr("Failed to change conversation image!"), "danger");
+				}
+			})
+		}
 	},
 
 	/**

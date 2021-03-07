@@ -265,7 +265,25 @@ const ConversationsUtils = {
 			el.remove();
 
 		});
-	}
+	},
+
+
+	/**
+	 * Upload a new conversation image
+	 */
+	uploadNewConversationImage: async function(convID) {
+		let input = document.createElement("input");
+		input.type = "file";
+
+		input.click();
+
+		// Wait for file
+		await new Promise((res, rej) => input.addEventListener("change", e => res()));
+
+		if(input.files.length == 0) return;
+
+		await ConversationsInterface.sendNewConversationImage(convID, input);
+	},
 }
 
 ComunicWeb.components.conversations.utils = ConversationsUtils;
