@@ -59,6 +59,8 @@ const ConversationPageConvPart = {
 			class: "box box-primary box-conversation direct-chat-primary big-box-conversation"
 		});
 
+		this._conv_info.window.root = box;
+
 		//Box header
 		var boxHeader = createElem2({
 			appendTo: box,
@@ -128,6 +130,9 @@ const ConversationPageConvPart = {
 
 			//Get and apply the name of the conversation
 			this._conv_info.window.title.innerHTML = await getConvName(convInfo);
+
+			if (convInfo.color)
+				this._conv_info.window.root.setAttribute("style", "--primary-blue: #" +convInfo.color)
 
 			//Add send message form
 			this.addSendMessageForm();

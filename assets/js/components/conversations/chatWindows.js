@@ -302,6 +302,10 @@ const ConvChatWindow = {
 			//Change the name of the conversation
 			this.changeName(await getConvName(conv), conversationWindow);
 
+			// Apply the color of the conversation (if any)
+			if (conv.color)
+				conversationWindow.rootElem.setAttribute("style", "--primary-blue: #" +conv.color)
+
 			// Update conversation members informations
 			this.updateMembersList(conversationInfos);
 
