@@ -122,7 +122,7 @@ const ConversationsInterface = {
 
 		//Add conversation name (if specified)
 		if(infos.name !== undefined)
-			params.name = infos.name;
+			params.name = infos.name == null ? "" : infos.name;
 		
 		//Add conversation following status (if specified)
 		if(infos.following !== undefined)

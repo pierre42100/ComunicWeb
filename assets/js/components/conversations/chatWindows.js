@@ -736,7 +736,7 @@ const ConvChatWindow = {
 		if(conversation.infos.members.find(m => m.user_id == userID()).is_admin){
 			//Specify conversation name
 			let nameValue = conversation.settingsForm.conversationNameInput.value
-			newValues.name = (nameValue === "" ? false : nameValue);
+			newValues.name = (nameValue === "" ? null : nameValue);
 
 			let colorValue = conversation.settingsForm.conversationColorInput.value
 			newValues.color = (colorValue == "" ? null : colorValue)
