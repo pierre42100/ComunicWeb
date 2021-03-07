@@ -606,15 +606,11 @@ const ConvChatWindow = {
 	showConversationSettings: function(conversation){
 		
 		//First, check conversation settings button and pane don't exists yet
-		if(conversation.box.settingsButton){
-			if(conversation.box.settingsButton.remove){
-				conversation.box.settingsButton.remove();
-			}
+		if(conversation.box.settingsButton && conversation.box.settingsButton.remove){
+			conversation.box.settingsButton.remove();
 		}
-		if(conversation.box.settingsPane){
-			if(conversation.box.settingsPane.remove){
-				conversation.box.settingsPane.remove();
-			}
+		if(conversation.box.settingsPane && conversation.box.settingsPane.remove){
+			conversation.box.settingsPane.remove();
 		}
 
 		//Create and display conversation settings button wheel
@@ -658,6 +654,12 @@ const ConvChatWindow = {
 		//Update conversation name
 		if(conversation.infos.name)
 			settingsForm.conversationNameInput.value = conversation.infos.name;
+		
+		// Apply conversation color
+		if (conversation.infos.color) {
+			settingsForm.conversationColorInput.value = "#" + conversation.infos.color;
+			settingsForm.conversationColorInput.dispatchEvent(new CustomEvent("change"))
+		}
 
 		//Update conversation members
 		ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members.map(m => m.user_id));
@@ -669,8 +671,8 @@ const ConvChatWindow = {
 
 		//Check if user is a conversation moderator or not
 		if(!conversation.infos.members.find(m => m.user_id == userID()).is_admin) {
-			//We disable name field
-			settingsForm.conversationNameInput.disabled = "true";
+			settingsForm.conversationNameInput.disabled = true;
+			settingsForm.conversationColorInput.parentNode.parentNode.style.display = "none";
 
 			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
 		}
@@ -731,10 +733,13 @@ const ConvChatWindow = {
 		}
 
 		//Add other fields if the user is a conversation moderator
-		if(conversation.infos.ID_owner == userID()){
+		if(conversation.infos.members.find(m => m.user_id == userID()).is_admin){
 			//Specify conversation name
-			var nameValue = conversation.settingsForm.conversationNameInput.value
+			let nameValue = conversation.settingsForm.conversationNameInput.value
 			newValues.name = (nameValue === "" ? false : nameValue);
+
+			let colorValue = conversation.settingsForm.conversationColorInput.value
+			newValues.color = (colorValue == "" ? null : colorValue)
 			
 			newValues.canEveryoneAddMembers = conversation.settingsForm.allowEveryoneToAddMembers.checked;
 

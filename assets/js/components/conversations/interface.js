@@ -110,9 +110,8 @@ const ConversationsInterface = {
 	 * @info {Integer} conversationID The ID of the conversation to update
 	 * @info {Boolean} following Specify if the user is following the conversation or not
 	 * @info {String} name Specify a new name for the conversation
-	 * @info {array} members Specify the new list of members for the conversation
+	 * @info {String} color Specify a new color for the conversation
 	 * @param {function} callback The function callback
-	 * @return {Boolean} True for a success
 	 */
 	updateSettings: function(infos, callback){
 		//Prepare the API request
@@ -125,10 +124,6 @@ const ConversationsInterface = {
 		if(infos.name !== undefined)
 			params.name = infos.name;
 		
-		//Add conversation members (if specified)
-		if(infos.members)
-			params.members = infos.members;
-		
 		//Add conversation following status (if specified)
 		if(infos.following !== undefined)
 			params.following = infos.following;
@@ -136,22 +131,18 @@ const ConversationsInterface = {
 		if(infos.canEveryoneAddMembers !== undefined)
 			params.canEveryoneAddMembers = infos.canEveryoneAddMembers;
 
+		if(infos.color !== undefined)
+			params.color = infos.color == null ? "" : infos.color.replace("#", "").toUpperCase();
+
 		//Perform API request
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, function(result){
 			//Empty the cache (considered as deprecated)
 			ComunicWeb.components.conversations.interface.emptyCache(true);
 
-			//Check for error
-			if(result.error)
-				ComunicWeb.debug.logMessage("Error! An error occured while trying to update conversation settings !");
-
 			//Perform next action
 			callback(result);
 			
 		});
-
-		//Success
-		return true;
 	},
 
 	/**
