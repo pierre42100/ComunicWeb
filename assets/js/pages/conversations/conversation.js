@@ -686,3 +686,11 @@ document.addEventListener("deletedConvMessage", (e) => {
 
 	target.parentNode.remove()
 })
+
+// Register to conversation removal
+document.addEventListener("removedUserFromConv", e => {
+	const msg = e.detail;
+
+	if (msg.user_id == userID() && ConversationPageConvPart._conv_info.id)
+		Page.openPage("conversations");
+});
