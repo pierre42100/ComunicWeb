@@ -95,6 +95,10 @@
 	transform: translate(0, 0);
 }
 
+#conversationsElem .conversation-settings-pane .conversation-image-settings {
+	text-align: center;
+}
+
 #conversationsElem .conversation-settings-pane .conversation-image-settings .btn {
 	margin: 5px;
 	width: 100%;

@@ -730,8 +730,19 @@ const ConvChatWindow = {
 				appendTo: settingsForm.rootElem,
 				type: "div",
 				class: "conversation-image-settings",
-				innerHTML: "<br/><br/><p><strong>" + tr("Conversation image") + ": </strong></p>"
+				innerHTML: "<br/><br/><p><strong>" + tr("Conversation image") + "</strong></p>"
 			})
+
+
+			// Show current
+			if (conversation.infos.logo != null) {
+				createElem2({
+					appendTo: convImageSection,
+					type: "img",
+					src: conversation.infos.logo,
+					class: "current-image"
+				})
+			}
 
 
 			// Upload a new logo
