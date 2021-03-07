@@ -1486,3 +1486,17 @@ document.addEventListener("deletedConvMessage", (e) => {
 	
 	target.style.display = "none";
 })
+
+
+// Register to conversation removal
+document.addEventListener("removedUserFromConv", e => {
+	const msg = e.detail;
+
+	if (msg.user_id != userID())
+		return;
+	
+	if(!ConvService.__serviceCache.hasOwnProperty("conversation-" + msg.conv_id))
+		return;
+	
+	ConvChatWindow.__conversationsCache["conversation-"+msg.conv_id].box.closeFunction();
+});
