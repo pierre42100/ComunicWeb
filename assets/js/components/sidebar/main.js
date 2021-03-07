@@ -556,11 +556,18 @@ const SidebarMain = {
 		});
 
 		// Icon
-		createElem2({
-			appendTo: a,
-			type: "i",
-			class: "fa fa-comments"
-		});
+		if (conv.logo == null)
+			createElem2({
+				appendTo: a,
+				type: "i",
+				class: "fa fa-comments"
+			});
+		else
+			createElem2({
+				appendTo: a,
+				type: "img",
+				src: conv.logo
+			});
 
 		// Conversation name
 		createElem2({
