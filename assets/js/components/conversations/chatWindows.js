@@ -729,16 +729,17 @@ const ConvChatWindow = {
 			const convImageSection = createElem2({
 				appendTo: settingsForm.rootElem,
 				type: "div",
+				class: "conversation-image-settings",
 				innerHTML: "<br/><br/><p><strong>" + tr("Conversation image") + ": </strong></p>"
 			})
 
 
-			// Upload a new image
+			// Upload a new logo
 			const newConvImagebutton = createElem2({
 				appendTo: convImageSection,
 				type: "button",
 				class: "btn btn-default",
-				innerHTML: tr("Upload a new conversation image")
+				innerHTML: tr("Upload a new conversation logo")
 			});
 
 			newConvImagebutton.addEventListener("click", async e => {
@@ -751,6 +752,32 @@ const ConvChatWindow = {
 					notify(tr("Failed to change conversation image!"), "danger");
 				}
 			})
+
+
+			// Delete current image
+			if (conversation.infos.logo != null) {
+				const deleteConvImage = createElem2({
+					appendTo: convImageSection,
+					type: "button",
+					class: "btn btn-danger",
+					innerHTML: tr("Delete current logo")
+				});
+
+				deleteConvImage.addEventListener("click", async e => {
+					e.preventDefault();
+					try {
+						if (!await showConfirmDialog(tr("Do you really want to delete this image ?")))
+							return;
+
+						await ConversationsInterface.deleteConversationImage(conversation.infos.id);
+						ConvChatWindow.reload(conversation)
+					} catch(e) {
+						console.error(e);
+						notify(tr("Failed to remove conversation image!"), "danger");
+					}
+				})
+			}
+
 		}
 	},
 

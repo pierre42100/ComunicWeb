@@ -283,6 +283,17 @@ const ConversationsInterface = {
 	},
 
 	/**
+	 * Delete current conversation image
+	 * 
+	 * @param {number} convID Target converstain ID
+	 */
+	deleteConversationImage: async function(convID) {
+		await api("conversations/delete_image", {
+			convID: convID
+		}, true)
+	},
+
+	/**
 	 * Refresh a conversation
 	 * 
 	 * @param {Array} newConversations New conversations (which requires the 10 last messages)
