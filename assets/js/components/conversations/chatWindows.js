@@ -799,6 +799,11 @@ const ConvChatWindow = {
 	 */
 	showCallButton: function(conversation){
 
+		// Remove previous button (if any)
+		let previousButton = conversation.box.boxTools.querySelector(".phone-button");
+		if(previousButton)
+			previousButton.remove();
+
 		//Check if calls are disabled
 		if(!conversation.infos.can_have_call)
 			return;
@@ -807,7 +812,7 @@ const ConvChatWindow = {
 		const button = createElem2({
 			insertBefore: conversation.box.boxTools.firstChild,
 			type: "button",
-			class: "btn btn-box-tool",
+			class: "btn btn-box-tool phone-button",
 			innerHTML: "<i class='fa fa-phone'></i>"
 		});
 		conversation.box.callButton = button;
