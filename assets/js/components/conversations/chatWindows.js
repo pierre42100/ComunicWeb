@@ -665,7 +665,7 @@ const ConvChatWindow = {
 		ComunicWeb.components.userSelect.pushEntries(settingsForm.usersElement, conversation.infos.members.map(m => m.user_id));
 
 		// Update checkbox to allow or not everyone to add members
-		$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.canEveryoneAddMembers ? "check" : "uncheck");
+		$(settingsForm.allowEveryoneToAddMembers).iCheck(conversation.infos.can_everyone_add_members ? "check" : "uncheck");
 
 		settingsForm.usersElement.parentNode.style.display = "none";
 
@@ -678,7 +678,7 @@ const ConvChatWindow = {
 		}
 
 		//Update follow conversation checkbox status
-		$(settingsForm.followConversationInput).iCheck(conversation.infos.following == "1" ? "check" : "uncheck");
+		$(settingsForm.followConversationInput).iCheck(conversation.infos.members.find(m => m.user_id == userID()).following ? "check" : "uncheck");
 
 		//Save settings form in global form
 		conversation.settingsForm = settingsForm;
