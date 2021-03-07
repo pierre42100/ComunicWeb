@@ -483,6 +483,18 @@ const ConversationsInterface = {
 		}, true);
 	},
 
+	/**
+	 * Leave a conversation
+	 * 
+	 * @param {number} convID Conversation ID
+	 * @param {number} userID Target user
+	 */
+	leaveConversation: async function(convID, userID) {
+		await api("conversations/delete", {
+			conversationID: convID,
+			userID: userID
+		}, true);
+	},
 
 	/**
 	 * Empty conversations cache

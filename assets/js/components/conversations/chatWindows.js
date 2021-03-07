@@ -571,7 +571,7 @@ const ConvChatWindow = {
 				removeLink.addEventListener("click", async e => {
 					e.preventDefault();
 
-					if(!await showConfirmDialog(tr("Do you really want to remove %1% from the conversation ?", {"1": user.fullName})))
+					if(!await showConfirmDialog(tr("Do you really want to remove %1% from the conversation?", {"1": user.fullName})))
 						return;
 					
 					try {
@@ -581,6 +581,36 @@ const ConvChatWindow = {
 					} catch(e) {
 						console.error(e);
 						notify(tr("Failed to remove %1% from the conversation!", {"1": user.fullName}), "danger");
+					}
+				})
+			}
+
+			// Leave conversation
+			if(member.user_id == userID()) {
+				let removeLink = createElem2({
+					type: "a",
+					appendTo: status,
+					innerHTML: tr("Leave")
+				})
+
+				removeLink.addEventListener("click", async e => {
+					e.preventDefault();
+
+					const isLastAdmin = conv.members.filter(m => m.is_admin && m.user_id != userID()).length == 0;
+					const msg = isLastAdmin ? tr("As you are its last admin, if you leave this conversation, it will be permanently deleted!")
+						 : tr("Do you really want to leave this conversation?");
+
+					if(!await showConfirmDialog(msg))
+						return;
+					
+					try {
+						await ConversationsInterface.leaveConversation(conv.id, member.user_id);
+
+						// Close the conversation
+						info.box.closeFunction();
+					} catch(e) {
+						console.error(e);
+						notify(tr("Failed to leave conversation!"), "danger");
 					}
 				})
 			}
