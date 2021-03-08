@@ -134,10 +134,10 @@ document.addEventListener("wsClosed", () => {
 
 
 document.addEventListener("openPage", () => {
-	CallsController.GetListLocalStorage().forEach(async c => {
+	/*CallsController.GetListLocalStorage().forEach(async c => {
 		if(!OpenCalls.has(c))
 			CallsController.Open(await getSingleConversation(c))
-	})
+	})*/
 	
 	// Check if a conversation can be integrated inside the page
 	for(const call of OpenCalls.values()) {
