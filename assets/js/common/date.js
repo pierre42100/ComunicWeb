@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.common.date = {
+const ComunicDate = {
 	/**
 	 * Get current timestamp
 	 * 
@@ -100,3 +100,5 @@ ComunicWeb.common.date = {
 		return this.diffToStr(this.time() - time);
 	},
 }
+
+ComunicWeb.common.date = ComunicDate;

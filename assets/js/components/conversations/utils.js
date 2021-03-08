@@ -284,6 +284,30 @@ const ConversationsUtils = {
 
 		await ConversationsInterface.sendNewConversationImage(convID, input);
 	},
+
+	/**
+	 * Automatically listen to change events of an input
+	 * to notify other users current user is writing a message
+	 * 
+	 * @param {HTMLInputElement} input
+	 * @param {number} convID
+	 */
+	listenToInputChangeEvents: async function(input, convID) {
+		let last_update = 0;
+
+		input.addEventListener("keyup", e => {
+			if(input.value == "")
+				return;
+
+			const t = ComunicDate.time();
+			if (t - last_update < ServerConfig.conf.conversation_writing_event_interval)
+				return;
+
+			last_update = t;
+			ws("conversations/writing", {convID: convID});
+		});
+	},
+
 }
 
 ComunicWeb.components.conversations.utils = ConversationsUtils;

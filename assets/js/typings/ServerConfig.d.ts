@@ -36,4 +36,6 @@ declare interface StaticServerConfig {
     max_conversation_message_len: number,
     allowed_conversation_files_type: String[],
     conversation_files_max_size: number,
+    conversation_writing_event_interval: number,
+    conversation_writing_event_lifetime: number,
 }

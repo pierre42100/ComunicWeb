@@ -465,6 +465,9 @@ const ConversationPageConvPart = {
 		inputText.maxLength = ServerConfig.conf.max_conversation_message_len;
 		inputText.focus();
 
+		// Notify other users when this user is writing a message
+		ConversationsUtils.listenToInputChangeEvents(inputText, this._conv_info.id)
+
 
 		//Enable textarea 2.0 on the message
 		var textarea2 = new ComunicWeb.components.textarea();
