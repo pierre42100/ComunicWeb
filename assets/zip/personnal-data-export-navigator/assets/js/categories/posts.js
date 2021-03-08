@@ -106,7 +106,7 @@ function ApplyPosts(){
 			appendTo: cardContent,
 			type: "div",
 			class: "post-content",
-			innerHTML: post.content
+			innerHTML: removeHtmlTags(post.content)
 		});
 
 

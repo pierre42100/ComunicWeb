@@ -241,3 +241,34 @@ function userID() {
 function fileSizeToHuman(size) {
 	return Math.round(size/(1000*1000)*1000)/1000 + "MB";
 }
+
+/**
+ * Remove HTML carachters : < and >
+ * 
+ * @param {String} input The string to change
+ * @return {String} The updated string
+ */
+function removeHtmlTags(input){
+	
+	//Check if input string is empty
+	if(input == null || typeof input !== "string")
+		return "";
+
+	//Prepare update
+	var output = input;
+	
+	//Replace opening braces
+	while(output.includes("<")){
+		//Replace an occurence
+		output = output.replace("<", "&lt;");
+	}
+
+	//Replace closing braces
+	while(output.includes(">")){
+		//Replace an occurence
+		output = output.replace(">", "&gt;");
+	}
+	
+	//Return result
+	return output;
+}

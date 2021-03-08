@@ -20,7 +20,7 @@ function RefreshTabsVisibility(){
 	var hash = location.href.toString().split("#")[1];
 
 	if(!hash)
-		return;
+		hash = "home";
 
 	document.querySelectorAll(".category").forEach(el => {
 
