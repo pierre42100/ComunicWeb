@@ -23,6 +23,5 @@ function ApplyUserInfo() {
 	setBoolInnerHTMLById("u-commentsforbidden", userInfo.noCommentOnHisPage);
 	setBoolInnerHTMLById("u-allowpostsfromfriends", userInfo.allowPostFromFriendOnHisPage);
 	setInnerHTMLById("u-accountcreationtime", timeToStr(userInfo.account_creation_time));
-	applyURLToImage(byId("u-bgimage"), userInfo.backgroundImage);
 	setInnerHTMLById("u-pagelikes", timeToStr(userInfo.pageLikes));
 }
