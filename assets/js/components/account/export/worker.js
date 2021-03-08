@@ -158,17 +158,16 @@ ComunicWeb.components.account.export.worker = {
 	 */
 	_generate_files_list: function(data){
 		
-		var files = [];
+		var files = new Set();
 		
 		/**
 		 * Parse user information to find potential files to download
 		 * 
-		 * @param {Object} info Information about the comment to parse
+		 * @param {Object} info Information about the user to parse
 		 */
 		var parseUserInfo = function(info){
 			if(info.accountImage != null)
-				if(!files.includes(info.accountImage))
-					files.push(info.accountImage);
+				files.add(info.accountImage);
 		}
 
 		/**
@@ -178,8 +177,7 @@ ComunicWeb.components.account.export.worker = {
 		 */
 		var parseComment = function(info){
 			if(info.img_url != null)
-				if(!files.includes(info.img_url))
-					files.push(info.img_url);
+				files.add(info.img_url);
 		}
 
 		/**
@@ -191,8 +189,7 @@ ComunicWeb.components.account.export.worker = {
 			
 			if(post.kind != "youtube"){
 				if(post.file_path_url != null){
-					if(!files.includes(post.file_path_url))
-						files.push(post.file_path_url);
+					files.add(post.file_path_url);
 				}
 			}
 
@@ -203,18 +200,21 @@ ComunicWeb.components.account.export.worker = {
 		/**
 		 * Parse a conversation message to find potential files to download
 		 * 
-		 * @param {Object} info Information about the conversation to parse
+		 * @param {ConversationMessage} info Information about the conversation message to parse
 		 */
 		var parseConversationMessage = function(info){
-			if(info.image_path != null)
-				if(!files.includes(info.image_path))
-					files.push(info.image_path);
+			if(info.file != null)
+			{
+				files.add(info.file.url);
+
+				if (info.file.thumbnail)
+					files.add(info.file.thumbnail)
+			}
 		}
 
 
 		//Main account information
-		files.push(data.advanced_info.accountImage);
-		files.push(data.advanced_info.backgroundImage);
+		files.add(data.advanced_info.accountImage);
 
 		//Posts
 		data.posts.forEach(parsePost);
