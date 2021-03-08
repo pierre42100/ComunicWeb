@@ -15,15 +15,15 @@ function GetConversationTitle(conversation){
     let count = 0;
     let name = "";
 
-    conversation.members.forEach(member_id => {
+    conversation.members.forEach(member => {
 
         //We only needs information about three members
         if(count > 3) return;
 
         //We skip current user ID
-        if(member_id == userID()) return;
+        if(member.user_id == userID()) return;
 
-        let memberInfo = getUserInfo(member_id);
+        let memberInfo = getUserInfo(member.user_id);
 
         if(name.length > 0)
             name += ", ";
@@ -65,6 +65,17 @@ function ApplyConversations(){
             innerHTML: conversationInfo.name ? conversationInfo.name : GetConversationTitle(conversationInfo)
         });
 
+        // Conversation logo
+        if (conversationInfo.logo)
+        {
+            let logo = createElem2({
+                appendTo: conversationCardContent,
+                class: "conversation-logo",
+                type: "img",
+            });
+            applyURLToImage(logo, conversationInfo.logo);
+        }
+
         //Conversation metadata
         let metadataContainer = createElem2({
             appendTo: conversationCardContent,
@@ -73,18 +84,17 @@ function ApplyConversations(){
         });
 
         function addMetadata(data){
-            createElem2({
+            return createElem2({
                 appendTo: metadataContainer,
                 type: "div",
                 innerHTML: data
             })
         }
 
-        addMetadata("ID: " + conversationInfo.ID);
-        addMetadata("Owner: " + getUserInfo(conversationInfo.ID_owner).full_name);
-        addMetadata("Last activity: " + timeToStr(conversationInfo.last_active));
-        addMetadata("Following: " + (conversationInfo.following == 1? "Yes" : "No"));
-        addMetadata("Saw last message: " + (conversationInfo.saw_last_message == 1? "Yes" : "No"));
+        addMetadata("ID: " + conversationInfo.id);
+        if (conversationInfo.color)
+            addMetadata("Color: #" + conversationInfo.color).style.color = "#" + conversationInfo.color;
+        addMetadata("Last activity: " + timeToStr(conversationInfo.last_activity));
 
         //Process members list
         let conversationMembers = createElem2({
@@ -100,8 +110,16 @@ function ApplyConversations(){
                 type: "div"
             });
 
-            fillElWithUserInfo(memberContainer, member);
+            fillElWithUserInfo(memberContainer, member.user_id);
 
+            const addInfo = (str) => createElem2({
+                appendTo: memberContainer,
+                type: "span",
+                innerHTML: " <i>" + str + "</i> "
+            })
+
+            addInfo(member.is_admin ? "Admin" : "");
+            addInfo(member.following ? "Following" : "");
         });
 
         //Process conversation messages
@@ -111,7 +129,7 @@ function ApplyConversations(){
             class: "conversation-messages"
         });
 
-        data.conversations_messages[conversationInfo.ID].forEach(message => {
+        data.conversations_messages[conversationInfo.id].forEach(message => {
             
             let messageContainer = createElem2({
                 appendTo: conversationMessage,
@@ -119,13 +137,19 @@ function ApplyConversations(){
                 class: "message"
             });
 
+            // Handle server messages
+            if(!message.user_id) {
+                messageContainer.innerHTML = "<i>Server message:" + JSON.stringify(message.server_message) + "</i>";
+                return;
+            }
+
             //Message author
             let messageAuthor = createElem2({
                 appendTo: messageContainer,
                 type: "div",
                 class: "user-info"
             });
-            fillElWithUserInfo(messageAuthor, message.ID_user);
+            fillElWithUserInfo(messageAuthor, message.user_id);
 
             //Message content
             createElem2({
@@ -135,19 +159,46 @@ function ApplyConversations(){
                 innerHTML: message.message
             });
 
-            //Message image
-            if(message.image_path != null){
-                let messageImageContainer = createElem2({
-                    appendTo: messageContainer,
-                    type: "div",
-                });
+            //Message file
+            if(message.file != null){
+                if (message.file.type.startsWith("image/"))
+                {
+                    let messageImageContainer = createElem2({
+                        appendTo: messageContainer,
+                        type: "a",
+                        href: getFilePathFromURL(message.file.url),
+                    });
+                    messageImageContainer.target = "_blank"
+    
+                    let messageImage = createElem2({
+                        appendTo: messageImageContainer,
+                        type: "img",
+                        class: "message-image"
+                    });
+                    applyURLToImage(messageImage, message.file.url);
+                }
 
-                let messageImage = createElem2({
-                    appendTo: messageImageContainer,
-                    type: "img",
-                    class: "message-image"
-                });
-                applyURLToImage(messageImage, message.image_path);
+                else {
+                    let messageFileContainer = createElem2({
+                        appendTo: messageContainer,
+                        type: "div",
+                        class: "message-file"
+                    });
+    
+                    messageFileContainer.innerHTML = 
+                        "Size: "+ fileSizeToHuman(message.file.size) + "<br />" +
+                        "Type: " + message.file.type + "<br />" +
+                        "URL: <a target='_blank' href='" + getFilePathFromURL(message.file.url) + "'>"+message.file.url+"</a><br />";
+                    
+                    if (message.file.thumbnail) {
+                        let thumb = createElem2({
+                            appendTo: messageFileContainer,
+                            type: "img",
+                            class: "message-file-thumb"
+                        });
+                        applyURLToImage(thumb, message.file.thumbnail)
+                    }
+                }
             }
 
             //Message date
@@ -155,7 +206,7 @@ function ApplyConversations(){
                 appendTo: messageContainer,
                 type: "div",
                 class: "message-date",
-                innerHTML: timeToStr(message.time_insert)
+                innerHTML: timeToStr(message.time_sent)
             })
 
         });

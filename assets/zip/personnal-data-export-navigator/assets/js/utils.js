@@ -231,3 +231,13 @@ function fillElWithUserInfo(el, id){
 function userID() {
 	return data.advanced_info.userID;
 }
+
+
+/**
+ * Format file size to human readable format
+ * 
+ * @param {number} size The size to format
+ */
+function fileSizeToHuman(size) {
+	return Math.round(size/(1000*1000)*1000)/1000 + "MB";
+}

@@ -119,6 +119,10 @@ h1 {
 	margin-top: 10px;
 }
 
+#conversations-target .conversation .conversation-logo {
+	max-height: 200px;
+}
+
 #conversations-target .conversation .conversation-metadata {
 	font-size: 90%;
 	font-style: italic;
