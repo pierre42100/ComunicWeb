@@ -81,6 +81,7 @@ xhr.onload = function(){
 	ApplySurveyResponses();
 	ApplyAllConversationMessages();
 	ApplyConversations();
+	ApplyGroups();
 }
 
 xhr.send(null);
