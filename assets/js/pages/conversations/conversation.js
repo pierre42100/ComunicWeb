@@ -407,6 +407,8 @@ const ConversationPageConvPart = {
 			emptyElem(formContainer);
 		}
 
+		new ConversationWritingNotifier(formContainer, this._conv_info.id)
+
 		//Add message input
 		var inputGroup = createElem2({
 			appendTo: formContainer,

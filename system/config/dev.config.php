@@ -208,6 +208,7 @@ class Dev {
 			"css/components/conversations/windows.css",
 			"css/components/conversations/list.css",
 			"css/components/conversations/unreadDropdown.css",
+			"css/components/conversations/writingNotifier.css",
 			
 			//User selector stylesheet
 			"css/components/userSelect/userSelect.css",
@@ -405,6 +406,7 @@ class Dev {
 			"js/components/conversations/utils.js",
 			"js/components/conversations/unreadDropdown.js",
 			"js/components/conversations/messageEditor.js",
+			"js/components/conversations/writingNotifier.js",
 			
 			//User selector
 			"js/components/userSelect/userSelect.js",

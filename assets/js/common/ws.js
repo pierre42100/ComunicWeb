@@ -197,6 +197,10 @@ class UserWebSocket {
 				SendEvent("newNumberUnreadConvs", msg.data)
 				break;
 			
+			case "writing_message_in_conv":
+				SendEvent("WritingMessageInConv", msg.data);
+				break;
+
 			case "new_conv_message":
 				SendEvent("newConvMessage", msg.data);
 				break;

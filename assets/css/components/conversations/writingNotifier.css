@@ -1,0 +1,12 @@
+/**
+ * Conversation message writing notifier
+ */
+
+.user-writing-message {
+    font-size: 80%;
+    font-style: italic;
+}
+
+#conversationsElem .user-writing-message {
+    margin-top: -12px;
+}

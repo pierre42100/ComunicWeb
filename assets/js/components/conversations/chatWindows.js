@@ -130,6 +130,8 @@ const ConvChatWindow = {
 			class: "create-message-form"
 		});
 
+		new ConversationWritingNotifier(conversationFormContainer, infosBox.conversationID)
+
 		//Create input group
 		var inputGroup = createElem2({
 			appendTo: conversationFormContainer,
