@@ -304,7 +304,7 @@ const ConversationsUtils = {
 				return;
 
 			last_update = t;
-			ws("conversations/writing", {convID: convID});
+			ws("conversations/is_writing", {convID: convID});
 		});
 	},
 
