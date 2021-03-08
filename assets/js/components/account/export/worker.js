@@ -222,6 +222,15 @@ ComunicWeb.components.account.export.worker = {
 			}
 		}
 
+		/**
+		 * Parse group information
+		 * 
+		 * @param {Group} g Information about the target group
+		 */
+		const parseGroupInfo = (g) => {
+			files.add(g.icon_url)
+		}
+
 
 		//Main account information
 		files.add(data.advanced_info.accountImage);
@@ -246,6 +255,9 @@ ComunicWeb.components.account.export.worker = {
 				conversation.forEach(parseConversationMessage);
 			}
 		}
+
+		// Groups
+		data.groups.forEach(parseGroupInfo)
 
 		//Related user information
 		for (var key in data.users_info) {
