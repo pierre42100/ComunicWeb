@@ -186,6 +186,7 @@ function ApplyConversations(){
                     });
     
                     messageFileContainer.innerHTML = 
+                        "Name: " + message.file.name +
                         "Size: "+ fileSizeToHuman(message.file.size) + "<br />" +
                         "Type: " + message.file.type + "<br />" +
                         "URL: <a target='_blank' href='" + getFilePathFromURL(message.file.url) + "'>"+message.file.url+"</a><br />";
