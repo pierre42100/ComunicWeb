@@ -78,7 +78,7 @@ const ConversationsInterface = {
 		//Prepare an API request
 		var apiURI = "conversations/create";
 		var params = {
-			name: infos.conversationName,
+			name: infos.conversationName == null ? "" : infos.conversationName,
 			follow : infos.follow,
 			users: infos.users,
 			color: infos.color == null ? "" : infos.color.replace("#", "").toUpperCase(),

@@ -123,7 +123,7 @@ const ConversationsList = {
 		var conversationInformations = {
 			users: selectedUsers,
 			follow: infos.followConversationInput.checked,
-			conversationName: (infos.conversationNameInput.value == "" ? false : infos.conversationNameInput.value),
+			conversationName: (infos.conversationNameInput.value == "" ? null : infos.conversationNameInput.value),
 			color: infos.conversationColorInput.value == "" ? null : infos.conversationColorInput.value,
 			allowEveryoneToAddMembersInput: infos.allowEveryoneToAddMembersInput.checked,
 		};
