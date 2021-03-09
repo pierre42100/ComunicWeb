@@ -228,7 +228,7 @@ const ConversationsUtils = {
 	 * @param {HTMLInputElement} input 
 	 * @param {HTMLElement} target 
 	 */
-	registerInputToSendFile: function(convID, fileInput, splashScreenTarget){
+	registerInputToSendFile: function(convID, fileInput, progressTarget){
 		fileInput.addEventListener("change", async (e) => {
 			e.preventDefault();
 			
@@ -252,9 +252,10 @@ const ConversationsUtils = {
 					return;
 				}
 
-				el = Page.showTransparentWaitSplashScreen(splashScreenTarget);
+				el = new FileUploadProgress(progressTarget);
 
-				await ConversationsInterface.sendMessage(convID, null, fileInput);
+
+				await ConversationsInterface.sendMessage(convID, null, fileInput, (progress) => el.setProgress(progress));
 			}
 
 			catch(e) {
@@ -262,7 +263,7 @@ const ConversationsUtils = {
 				notify(tr("Failed to send file!"), "danger");
 			}
 
-			el.remove();
+			el.remove()
 
 		});
 	},

@@ -30,9 +30,10 @@ const APIClient = {
     },
 
     /**
+     * @param {(number) => void} progressCallback Use this function to monitor upload
      * @returns {Promise}
      */
-    execFormData: function(uri, data, withLogin) {
+    execFormData: function(uri, data, withLogin, progressCallback) {
         if (!data)
             data = new FormData();
         
@@ -43,7 +44,7 @@ const APIClient = {
                 
                 else
                     res(result);
-            })
+            }, progressCallback)
         });
     },
 
@@ -108,8 +109,9 @@ const APIClient = {
      * @param {FormData} data The form data object
      * @param {Boolean} requireLoginTokens Specify if login tokens are required or not
      * @param {Function} nextAction What to do next
+     * @param {(number) => void} progressCallback Use this function to monitor upload
      */
-    makeFormDatarequest: function(apiURI, data, requireLoginTokens, nextAction){
+    makeFormDatarequest: function(apiURI, data, requireLoginTokens, nextAction, progressCallback){
         //Prepare the request URL
         var requestURL = ComunicWeb.__config.apiURL + apiURI;
         
@@ -133,6 +135,12 @@ const APIClient = {
         apiXHR.onreadystatechange = function(){
             ComunicWeb.common.api._on_state_change(requestURL, apiXHR, nextAction);
         }
+
+        // Monitor upload progress, if required
+        if (progressCallback)
+            apiXHR.upload.addEventListener("progress", e => {
+                progressCallback(e.loaded/e.total);
+            });
 
         //Submit request
         apiXHR.send(data);

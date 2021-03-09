@@ -407,6 +407,7 @@ class Dev {
 			"js/components/conversations/unreadDropdown.js",
 			"js/components/conversations/messageEditor.js",
 			"js/components/conversations/writingNotifier.js",
+			"js/components/conversations/fileUploadProgress.js",
 			
 			//User selector
 			"js/components/userSelect/userSelect.js",

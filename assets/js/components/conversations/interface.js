@@ -237,8 +237,9 @@ const ConversationsInterface = {
 	 * @param {number} convID The ID of the conversation
 	 * @param {string} message The message to send (if not a file)
 	 * @param {HTMLInputElement} file The file to send (if any)
+	 * @param {(number) => void} progress Optional progress callback (if a file is sent)
 	 */
-	sendMessage: async function(convID, message, file){
+	sendMessage: async function(convID, message, file, progress){
 
 		//Perform an API request
 		var apiURI = "conversations/sendMessage";
@@ -264,7 +265,7 @@ const ConversationsInterface = {
 			fd.append("file", file.files[0], file.files[0].name);
 
 			//Perform an API request
-			await APIClient.execFormData(apiURI, fd, true);
+			await APIClient.execFormData(apiURI, fd, true, progress);
 		}
 	},
 
