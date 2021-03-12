@@ -42,7 +42,7 @@ class ConversationWritingNotifier {
         setTimeout(() => {
             this.usersFifo.shift();
             this.refreshText()
-        }, ServerConfig.conf.conversations_policy.conversation_writing_event_lifetime * 1000)
+        }, ServerConfig.conf.conversations_policy.writing_event_lifetime * 1000)
     }
 
     /**

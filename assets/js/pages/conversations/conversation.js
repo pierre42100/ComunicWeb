@@ -429,7 +429,7 @@ const ConversationPageConvPart = {
 		//Create image input (for optionnal image)
 		var fileInput = document.createElement("input");
 		fileInput.type = "file";
-		fileInput.accept = ServerConfig.conf.conversations_policy.allowed_conversation_files_type.join(", ");
+		fileInput.accept = ServerConfig.conf.conversations_policy.allowed_files_type.join(", ");
 
 		// Send file button
 		var fileButton = createElem2({
@@ -464,7 +464,7 @@ const ConversationPageConvPart = {
 			class: "form-control",
 			placeholder: "New message...",
 		});
-		inputText.maxLength = ServerConfig.conf.conversations_policy.max_conversation_message_len;
+		inputText.maxLength = ServerConfig.conf.conversations_policy.max_message_len;
 		inputText.focus();
 
 		// Notify other users when this user is writing a message
@@ -536,8 +536,8 @@ const ConversationPageConvPart = {
 				let message = inputText.value;
 
 				//Check if message is empty
-				if(message.length > ServerConfig.conf.conversations_policy.max_conversation_message_len 
-					|| message.length < ServerConfig.conf.conversations_policy.min_conversation_message_len){
+				if(message.length > ServerConfig.conf.conversations_policy.max_message_len 
+					|| message.length < ServerConfig.conf.conversations_policy.min_message_len){
 					notify(tr("Invalid message length!"), "danger", 2);
 					return;
 				}

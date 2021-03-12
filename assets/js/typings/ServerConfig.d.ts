@@ -25,12 +25,12 @@ declare interface DataConservationPolicySettings {
 }
 
 declare interface ConversationPolicy {
-    min_conversation_message_len: number,
-    max_conversation_message_len: number,
-    allowed_conversation_files_type: String[],
-    conversation_files_max_size: number,
-    conversation_writing_event_interval: number,
-    conversation_writing_event_lifetime: number,
+    min_message_len: number,
+    max_message_len: number,
+    allowed_files_type: String[],
+    files_max_size: number,
+    writing_event_interval: number,
+    writing_event_lifetime: number,
 }
 
 declare interface StaticServerConfig {

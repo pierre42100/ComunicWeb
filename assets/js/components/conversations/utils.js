@@ -241,14 +241,14 @@ const ConversationsUtils = {
 				
 				const file = fileInput.files[0];
 
-				if (ServerConfig.conf.conversations_policy.allowed_conversation_files_type.indexOf(file.type) < 0) {
+				if (ServerConfig.conf.conversations_policy.allowed_files_type.indexOf(file.type) < 0) {
 					notify(tr("This file type is not allowed!"), "danger")
 					return;
 				}
 
 
-				if (file.size > ServerConfig.conf.conversations_policy.conversation_files_max_size) {
-					notify(tr("This file is too big (max file size: %1%)", {"1": fileSizeToHuman(ServerConfig.conf.conversations_policy.conversation_files_max_size)}), "danger");
+				if (file.size > ServerConfig.conf.conversations_policy.files_max_size) {
+					notify(tr("This file is too big (max file size: %1%)", {"1": fileSizeToHuman(ServerConfig.conf.conversations_policy.files_max_size)}), "danger");
 					return;
 				}
 
@@ -301,7 +301,7 @@ const ConversationsUtils = {
 				return;
 
 			const t = ComunicDate.time();
-			if (t - last_update < ServerConfig.conf.conversations_policy.conversation_writing_event_interval)
+			if (t - last_update < ServerConfig.conf.conversations_policy.writing_event_interval)
 				return;
 
 			last_update = t;
