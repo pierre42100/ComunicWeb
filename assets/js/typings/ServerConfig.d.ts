@@ -24,6 +24,15 @@ declare interface DataConservationPolicySettings {
     min_likes_lifetime: number
 }
 
+declare interface ConversationPolicy {
+    min_conversation_message_len: number,
+    max_conversation_message_len: number,
+    allowed_conversation_files_type: String[],
+    conversation_files_max_size: number,
+    conversation_writing_event_interval: number,
+    conversation_writing_event_lifetime: number,
+}
+
 declare interface StaticServerConfig {
     terms_url: string,
     privacy_policy_url: string,
@@ -31,11 +40,5 @@ declare interface StaticServerConfig {
     android_direct_download_url: string,
     password_policy: PasswordPolicy,
     data_conservation_policy: DataConservationPolicySettings,
-    
-    min_conversation_message_len: number,
-    max_conversation_message_len: number,
-    allowed_conversation_files_type: String[],
-    conversation_files_max_size: number,
-    conversation_writing_event_interval: number,
-    conversation_writing_event_lifetime: number,
+    conversations_policy: ConversationPolicy,
 }

@@ -146,7 +146,7 @@ const ConvChatWindow = {
 			class: "form-control",
 			placeholder: tr("New message..."),
 		});
-		inputText.maxLength = ServerConfig.conf.max_conversation_message_len;
+		inputText.maxLength = ServerConfig.conf.conversations_policy.max_conversation_message_len;
 
 		// Notify other users when this user is writing a message
 		ConversationsUtils.listenToInputChangeEvents(inputText, infosBox.conversationID)
@@ -164,7 +164,7 @@ const ConvChatWindow = {
 			type: "input",
 			elemType: "file",
 		});
-		fileInput.accept = ServerConfig.conf.allowed_conversation_files_type.join(", ");
+		fileInput.accept = ServerConfig.conf.conversations_policy.allowed_conversation_files_type.join(", ");
 		
 
 		//Create button group
@@ -902,7 +902,8 @@ const ConvChatWindow = {
 			if (message.length == 0)
 				return;
 
-			if(message.length < ServerConfig.conf.min_conversation_message_len || message.length > ServerConfig.conf.max_conversation_message_len){
+			if(message.length < ServerConfig.conf.conversations_policy.min_conversation_message_len
+				 || message.length > ServerConfig.conf.conversations_policy.max_conversation_message_len){
 				notify(tr("Invalid message length!"), "danger", 2);
 				return;
 			}
