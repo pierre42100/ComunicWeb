@@ -1506,3 +1506,12 @@ document.addEventListener("removedUserFromConv", e => {
 	
 	ConvChatWindow.__conversationsCache["conversation-"+msg.conv_id].box.closeFunction();
 });
+
+document.addEventListener("deletedConversation", e => {
+	const convID = e.detail;
+
+	if(!ConvService.__serviceCache.hasOwnProperty("conversation-" + convID))
+		return;
+	
+	ConvChatWindow.__conversationsCache["conversation-"+convID].box.closeFunction();
+});

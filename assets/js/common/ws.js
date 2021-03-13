@@ -217,6 +217,10 @@ class UserWebSocket {
 				SendEvent("removedUserFromConv", msg.data);
 				break;
 
+			case "deleted_conversation":
+				SendEvent("deletedConversation", msg.data);
+				break;
+
 			case "new_comment":
 				SendEvent("new_comment", msg.data);
 				break;

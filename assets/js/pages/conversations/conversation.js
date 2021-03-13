@@ -696,6 +696,13 @@ document.addEventListener("deletedConvMessage", (e) => {
 document.addEventListener("removedUserFromConv", e => {
 	const msg = e.detail;
 
-	if (msg.user_id == userID() && ConversationPageConvPart._conv_info.id)
+	if (msg.user_id == userID() && ConversationPageConvPart._conv_info.id == msg.conv_id)
+		Page.openPage("conversations");
+});
+
+document.addEventListener("deletedConversation", e => {
+	const convID = e.detail;
+
+	if (ConversationPageConvPart._conv_info.id == convID)
 		Page.openPage("conversations");
 });
