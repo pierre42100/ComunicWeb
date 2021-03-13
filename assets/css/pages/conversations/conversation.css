@@ -69,8 +69,13 @@
 	margin: auto;
 }
 
-.big-box-conversation .direct-chat-text .a,
-.big-box-conversation .direct-chat-text a {
+.big-box-conversation .otheruser .direct-chat-text .a,
+.big-box-conversation .otheruser .direct-chat-text a  {
+	color: black;
+}
+
+.big-box-conversation .curruser .direct-chat-text .a,
+.big-box-conversation .curruser .direct-chat-text a  {
 	color: white;
 }
 

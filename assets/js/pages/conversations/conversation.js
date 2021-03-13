@@ -223,7 +223,7 @@ const ConversationPageConvPart = {
 		//Create message container
 		var messageContainer = createElem2({
 			type: "div",
-			class: "direct-chat-msg " + (userIsOwner ? "curruser" : "")
+			class: "direct-chat-msg " + (userIsOwner ? "curruser" : "otheruser")
 		});
 
 		//Apply message container
