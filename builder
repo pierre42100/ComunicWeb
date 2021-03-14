@@ -282,6 +282,9 @@ rcopy($path_debug_assets."3rdparty/tfjs", $path_release_assets."3rdparty/tfjs");
 rcopy($path_debug_assets."3rdparty/tensorflow-models", $path_release_assets."3rdparty/tensorflow-models");
 rcopy($path_debug_assets."3rdparty/tfjs-models", $path_release_assets."3rdparty/tfjs-models");
 
+// Copy files for color picker
+rcopy($path_debug_assets."3rdparty/adminLTE/plugins/colorpicker/img-colorpicker", $path_release_assets."img-colorpicker");
+
 //Build and copy personnal data navigator
 notice("Build personnal data export navigator and add it to built files");
 exec($path_debug_assets."zip/personnal-data-export-navigator-builder.sh");
