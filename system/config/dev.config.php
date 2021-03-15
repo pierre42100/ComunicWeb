@@ -270,6 +270,7 @@ class Dev {
 				"css/pages/groups/pages/settings.css",
 				"css/pages/groups/pages/members.css",
 				"css/pages/groups/pages/forbidden.css",
+				"css/pages/groups/pages/about.css",
 
 				//Groups sections
 				"css/pages/groups/sections/header.css",
@@ -534,6 +535,7 @@ class Dev {
 				"js/pages/groups/pages/settings.js",
 				"js/pages/groups/pages/members.js",
 				"js/pages/groups/pages/forbidden.js",
+				"js/pages/groups/pages/about.js",
 
 				//Groups sections
 				"js/pages/groups/sections/header.js",

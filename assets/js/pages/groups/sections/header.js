@@ -97,6 +97,17 @@ const GroupSectionHeader = {
         if(signed_in() && ComunicWeb.components.groups.utils.isGroupMember(info))
             ComunicWeb.pages.groups.sections.followBlock.display(info, thirdColumn);
 
+        ComunicWeb.components.like.button.display(
+            "group",
+            info.id,
+            info.number_likes,
+            info.is_liking,
+            createElem2({
+                appendTo: thirdColumn,
+                type: "div"
+            })
+        );
+
     },
 
 };

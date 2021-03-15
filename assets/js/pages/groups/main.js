@@ -97,9 +97,13 @@ const GroupsPage = {
 					return;
 
 				case "members":
-					GroupMembersSection.display(group, target)
+					GroupMembersPage.display(group, target)
 					return;
 				
+				case "about":
+					await GroupAboutPage.display(group, target);
+					return;
+
 				case "settings":
 					await GroupSettingsPage.display(group.id, target);
 					return;
@@ -116,22 +120,6 @@ const GroupsPage = {
 				"danger"
 			))
 		}
-		
-		
-		/*//Check which page to open
-		if(page == "group")
-			ComunicWeb.pages.groups.pages.group.open(groupID, target);
-		
-		else if(page == "settings")
-			ComunicWeb.pages.groups.pages.settings.open(groupID, target);
-		
-		else if(page == "members")
-			ComunicWeb.pages.groups.pages.members.open(groupID, target);
-
-
-		//Unrecognized page
-		else
-			ComunicWeb.common.error.pageNotFound(args, target);*/
 	}
 	
 };

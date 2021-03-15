@@ -4,7 +4,7 @@
  * @author Pierre HubERT
  */
 
-const GroupMembersSection = {
+const GroupMembersPage = {
 
 	/**
 	 * Apply group information
@@ -43,8 +43,8 @@ const GroupMembersSection = {
 		 * Load the page components
 		 */
 		var loadComponents = () => {
-			GroupMembersSection.addInviteForm(info, inviteFormTarget, inviteFormCallback);
-			GroupMembersSection.refreshMembersList(info.id, info, membersList);
+			GroupMembersPage.addInviteForm(info, inviteFormTarget, inviteFormCallback);
+			GroupMembersPage.refreshMembersList(info.id, info, membersList);
 		}
 
 		/**
@@ -474,4 +474,4 @@ const GroupMembersSection = {
 	}
 }
 
-ComunicWeb.pages.groups.pages.members = GroupMembersSection;
+ComunicWeb.pages.groups.pages.members = GroupMembersPage;
