@@ -329,18 +329,12 @@ const GroupSettingsPage = {
 		/**
 		 * Group account image
 		 */
-		var groupLogoSettingsContainer = createElem2({
-			appendTo: formContainer,
+		const groupLogoSettingsContainer = createElem2({
+			appendTo: settingsPage,
 			type: "div",
-			class: "groupLogoSettingsContainer"
-		});
+			innerHTML: "<div class='box box-primary'><div class='box-header'><h3 class='box-title'>"+tr("Group logo")+"</h3></div><div class='box-body groupLogoSettingsContainer'></div></di>",
+		}).querySelector(".box-body");
 
-		createElem2({
-			appendTo: groupLogoSettingsContainer,
-			type: "h3",
-			class: "title",
-			innerHTML: "Group logo"
-		});
 
 		//Display group logo (img)
 		var groupLogo = createElem2({
