@@ -1,0 +1,25 @@
+/**
+ * Groups page tabs
+ *
+ * @author Pierre Hubert
+ */
+
+.group-page.tabs-container {
+    padding-top: 0px;
+}
+
+.group-page.tabs-container .nav-tabs-custom {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top: 1px solid #dddddd3d;
+}
+
+
+.group-page.tabs-container .nav-tabs-custom > .nav-tabs > li {
+    border-bottom-color: var(--primary-blue) !important;
+}
+
+.group-page.tabs-container .nav-tabs-custom > .nav-tabs > li.active {
+    border-bottom: 3px solid transparent;
+    border-top: none;
+}

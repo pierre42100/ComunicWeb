@@ -90,6 +90,16 @@ const GroupsPage = {
 			// Display the tabs of the group
 			await GroupTabs.show(group, target, page);
 
+			switch(page) {
+
+				case "posts":
+					GroupPostsPage.display(group, target)
+					return;
+
+				default:
+					ComunicWeb.common.error.pageNotFound(null, target);
+			}
+
 		} catch(e) {
 			console.error(e);
 			target.appendChild(createCallout(

@@ -9,11 +9,10 @@ const GroupPostsPage = {
     /**
      * Display information about a group
      * 
-     * @param {Number} id The ID of the group to display
-     * @param {Object} info Information about the group to display
+     * @param {AdvancedGroupInfo} info Information about the group to display
      * @param {HTMLElement} target The target for the page
      */
-    display: function(id, info, target){
+    display: function(info, target){
 
         //Check if the user can create posts or not
         if(ComunicWeb.components.groups.utils.canCreatePosts(info)){
@@ -33,7 +32,7 @@ const GroupPostsPage = {
             });
 
             //Display form
-            ComunicWeb.components.posts.form.display("group", id, postFormCol);
+            ComunicWeb.components.posts.form.display("group", info.id, postFormCol);
         }
 
         //Display group posts

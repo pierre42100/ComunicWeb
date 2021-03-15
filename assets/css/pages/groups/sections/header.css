@@ -4,6 +4,12 @@
  * @author Pierre HUBERT
  */
 
+.group-header {
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+}
 
 .group-header .group-icon {
     max-height: 150px;
@@ -31,13 +37,10 @@
     display: block;
 }
 
-.group-header .col-md-4 {
-    display: table;
-    margin: auto;
-}
-
 .group-header .box-body {
     display: flex;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .group-header .box-body .spacer {

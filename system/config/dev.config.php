@@ -275,6 +275,7 @@ class Dev {
 				"css/pages/groups/sections/header.css",
 				"css/pages/groups/sections/membershipBlock.css",
 				"css/pages/groups/sections/posts.css",
+				"css/pages/groups/sections/tabs.css",
 
 
 			//Settings page
