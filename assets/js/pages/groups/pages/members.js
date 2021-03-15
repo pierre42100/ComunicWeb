@@ -4,83 +4,37 @@
  * @author Pierre HubERT
  */
 
-ComunicWeb.pages.groups.pages.members = {
-
-	/**
-	 * Open member settings page
-	 * 
-	 * @param {Number} id The ID of group
-	 * @param {HTMLElement} target The target of the page
-	 */
-	open: function(id, target){
-
-		//Create container
-		var membersPage = createElem2({
-			appendTo: target,
-			type: "div",
-			class: "col-md-6 group-members-page"
-		});
-
-		//Add backward link
-		var backwardLink = createElem2({
-			appendTo: membersPage,
-			type: "div",
-			class: "a backward-link",
-			innerHTML: "<i class='fa fa-arrow-left'></i> Go back to the group"
-		});
-		backwardLink.addEventListener("click", function(e){
-			openPage("groups/" + id);
-		});
-
-		//Get information about the group
-		ComunicWeb.components.groups.interface.getInfo(id, function(info){
-
-			//Check for errors
-			if(info.error){
-				membersPage.appendChild(
-					ComunicWeb.common.messages.createCalloutElem(
-						"Error", 
-						"Could not get group information !", 
-						"danger"
-					)
-				);
-				return;
-			}
-
-			ComunicWeb.pages.groups.pages.members.applyGroupInfo(id, info, membersPage);
-		});
-
-	},
+const GroupMembersSection = {
 
 	/**
 	 * Apply group information
 	 * 
 	 * @param {Number} id The ID of the group
-	 * @param {Object} info Information about the target of the group
+	 * @param {AdvancedGroupInfo} info Information about the target of the group
 	 * @param {HTMLElement} target The target for the page
 	 */
-	applyGroupInfo: function(id, info, target){
+	display: async function(info, target){
 
 		ComunicWeb.common.pageTitle.setTitle(info.name + " - Members");
 
-		//Append the title of the group
-		createElem2({
+		//Create container
+		var membersPage = createElem2({
 			appendTo: target,
-			type: "h2",
-			class: "title",
-			innerHTML: "Members of " + info.name
-		});
+			type: "div",
+			class: "col-md-6 group-members-page",
+			innerHTML: "<div class='box box-primary'><div class='box-header'><h3 class='box-title'>"+tr("Group members")+"</h3></div><div class='box-body'></div></di>"
+		}).querySelector(".box-body");
 
 		//Add invite form
 		var inviteFormTarget = createElem2({
-			appendTo: target,
+			appendTo: membersPage,
 			type: "div"
 		});
 		var inviteFormCallback;
 		
 		//Add members list target
 		var membersList = createElem2({
-			appendTo: target,
+			appendTo: membersPage,
 			type: "div",
 			class: "members-list"
 		});
@@ -88,15 +42,15 @@ ComunicWeb.pages.groups.pages.members = {
 		/**
 		 * Load the page components
 		 */
-		var loadComponents = function(){
-			ComunicWeb.pages.groups.pages.members.addInviteForm(info, inviteFormTarget, inviteFormCallback);
-			ComunicWeb.pages.groups.pages.members.refreshMembersList(id, info, membersList);
+		var loadComponents = () => {
+			GroupMembersSection.addInviteForm(info, inviteFormTarget, inviteFormCallback);
+			GroupMembersSection.refreshMembersList(info.id, info, membersList);
 		}
 
 		/**
 		 * Method called when a user has just been invited
 		 */
-		inviteFormCallback = function(){
+		inviteFormCallback = () => {
 			emptyElem(inviteFormTarget);
 			emptyElem(membersList);
 			loadComponents();
@@ -519,3 +473,5 @@ ComunicWeb.pages.groups.pages.members = {
 		}
 	}
 }
+
+ComunicWeb.pages.groups.pages.members = GroupMembersSection;

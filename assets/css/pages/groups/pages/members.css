@@ -7,19 +7,9 @@
 .group-members-page {
 	float: none;
     margin: auto;
-    margin-top: 40px;
-}
-
-.group-members-page .backward-link {
-	margin-bottom: 10px;
-}
-
-.group-members-page .title {
-	text-align: center;
 }
 
 .group-members-page .invite-user-form {
-	margin-top: 30px;
 	margin-bottom: 30px;
 }
 

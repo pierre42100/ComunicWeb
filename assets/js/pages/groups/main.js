@@ -96,6 +96,10 @@ const GroupsPage = {
 					GroupPostsPage.display(group, target)
 					return;
 
+				case "members":
+					GroupMembersSection.display(group, target)
+					return;
+
 				default:
 					ComunicWeb.common.error.pageNotFound(null, target);
 			}
