@@ -519,8 +519,32 @@ const SidebarMain = {
 		else if(group.membership == "invited") {
 
 			// Show invited state
-			subInfoEl.innerHTML = "<i class='fa fa-question'></i> Invited";
+			subInfoEl.innerHTML = "<i class='fa fa-question'></i> Invited ";
 
+			const respondRequest = (accept) => {
+				GroupsInterface.respondInvitation(group.id, accept);
+
+				subInfoEl.innerHTML = accept ? tr("Accepted") : tr("Rejected");
+			};
+
+			// Offer the user to accept or reject the invitation
+			createElem2({
+				appendTo: subInfoEl, 
+				type: "span",
+				class: "btn btn-success btn-xs",
+				innerHTML: "<i class='fa fa-check'></i>",
+				onclick: (e) => respondRequest(true)
+			});
+
+			add_space(subInfoEl);
+
+			createElem2({
+				appendTo: subInfoEl, 
+				type: "span",
+				class: "btn btn-danger btn-xs",
+				innerHTML: "<i class='fa fa-close'></i>",
+				onclick: (e) => respondRequest(false)
+			});
 		}
 		else
 			// Group last activity

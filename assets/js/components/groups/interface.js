@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.groups.interface = {
+const GroupsInterface = {
 
 	/**
 	 * Create a group
@@ -374,3 +374,5 @@ ComunicWeb.components.groups.interface = {
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
 	}
 };
+
+ComunicWeb.components.groups.interface = GroupsInterface;

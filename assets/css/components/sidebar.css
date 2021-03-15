@@ -104,6 +104,17 @@ body.sidebar-collapse .main-sidebar .memberships-list li:hover .subinfo {
 }
 
 
+.main-sidebar .memberships-list .btn-xs {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 1.35em;
+	width: 3em;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
 /**
  * Conversations entries
  */
