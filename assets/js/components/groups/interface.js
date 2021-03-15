@@ -98,15 +98,10 @@ const GroupsInterface = {
 	 * Get the settings of a group
 	 * 
 	 * @param {Number} id The ID of the target group
-	 * @param {Function} callback
+	 * @return {Promise<GroupSettings>}
 	 */
-	getSettings: function(id, callback){
-		//Perform the request over the API
-		var apiURI = "groups/get_settings";
-		var params = {
-			id: id
-		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+	getSettings: async function(id){
+		return await api("groups/get_settings", {id: id}, true);
 	},
 
 	/**

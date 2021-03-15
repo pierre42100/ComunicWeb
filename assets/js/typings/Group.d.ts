@@ -24,3 +24,5 @@ declare interface AdvancedGroupInfo extends Group {
     number_likes: Number,
     is_liking: Boolean
 }
+
+declare interface GroupSettings extends AdvancedGroupInfo {}

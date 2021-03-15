@@ -99,6 +99,10 @@ const GroupsPage = {
 				case "members":
 					GroupMembersSection.display(group, target)
 					return;
+				
+				case "settings":
+					await GroupSettingsPage.display(group.id, target);
+					return;
 
 				default:
 					ComunicWeb.common.error.pageNotFound(null, target);
