@@ -1,0 +1,13 @@
+<!-- Group tabs section -->
+<div class="row group-page">
+    <div class="col-md-6">
+
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li v-bind:class="activePage == 'posts' ? 'active': ''"><a @click="openPage('posts')">tr("Posts")</a></li>
+              <li v-bind:class="activePage == 'members' ? 'active': ''"><a @click="openPage('members')" v-if="canSeeMembers">tr("Members")</a></li>
+              <li v-bind:class="activePage == 'about' ? 'active': ''"><a @click="openPage('about')">tr("About")</a></li>
+              <li class="pull-right" v-if="isAdmin" v-bind:class="activePage == 'admin' ? 'active': ''"><a  @click="openPage('admin')" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+    </div>
+</div>

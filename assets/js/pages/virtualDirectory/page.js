@@ -28,7 +28,7 @@ ComunicWeb.pages.virtualDirectory.page = {
 
 			//Check if the page is  a group
 			if(r.kind == "group"){
-				ComunicWeb.pages.groups.pages.group.open(r.id, target);
+				GroupsPage.open({groupID: r.id}, target);
 			}
 		});
 

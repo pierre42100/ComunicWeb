@@ -11,7 +11,7 @@
  * @param {String} calloutMessage The message of the callout
  * @param {String} calloutType The type of the callout (danger, info, warning, success)
  */
-ComunicWeb.common.messages.createCalloutElem = function(calloutTitle, calloutMessage, calloutType){
+function createCallout(calloutTitle, calloutMessage, calloutType){
     //Prepare callout message
     calloutMessage = "<p>" + calloutMessage + "</p>";
     
@@ -38,6 +38,8 @@ ComunicWeb.common.messages.createCalloutElem = function(calloutTitle, calloutMes
     //Return created element
     return calloutElem;
 }
+
+ComunicWeb.common.messages.createCalloutElem = createCallout;
 
 /**
  * Create loading callout element

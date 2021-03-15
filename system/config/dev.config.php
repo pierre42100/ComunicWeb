@@ -529,7 +529,7 @@ class Dev {
 				//Groups sub pages
 				"js/pages/groups/pages/main.js",
 				"js/pages/groups/pages/create.js",
-				"js/pages/groups/pages/group.js",
+				"js/pages/groups/pages/posts.js",
 				"js/pages/groups/pages/settings.js",
 				"js/pages/groups/pages/members.js",
 				"js/pages/groups/pages/forbidden.js",
@@ -539,6 +539,7 @@ class Dev {
 				"js/pages/groups/sections/membershipBlock.js",
 				"js/pages/groups/sections/posts.js",
 				"js/pages/groups/sections/followBlock.js",
+				"js/pages/groups/sections/tabs.js",
 
 
 			//User settings page

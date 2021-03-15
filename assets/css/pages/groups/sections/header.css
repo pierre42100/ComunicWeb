@@ -35,3 +35,21 @@
     display: table;
     margin: auto;
 }
+
+.group-header .box-body {
+    display: flex;
+}
+
+.group-header .box-body .spacer {
+    flex: 2;
+}
+
+
+.group-header .box-body .col-metadata {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
+    min-width: 160px;
+}
