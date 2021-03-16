@@ -37,7 +37,7 @@ const GroupAboutPage = {
 
             {
                 title: tr("Registration process"),
-                value: group.registration_level == "closed" ? tr("Only one invitation") : (group.registration_level == "moderated" ? tr("By requesting memberships") : tr("Anyone can join without approval the group")),
+                value: group.registration_level == "closed" ? tr("Only on invitation") : (group.registration_level == "moderated" ? tr("By requesting membership") : tr("Anyone can join without any approval")),
                 icon: "fa-sign-in"
             },
 
