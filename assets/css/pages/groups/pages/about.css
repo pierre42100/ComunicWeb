@@ -4,6 +4,21 @@
  * @author Pierre Hubert
  */
 
-.about-group-page {
-    
+.about-group-page .props-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.about-group-page .props-list .prop {
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 5px;
+    min-height: 70px;
+    max-width: 200px;
+}
+
+.about-group-page .props-list .prop .title {
+    font-weight: bold;
 }
