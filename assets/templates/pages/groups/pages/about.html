@@ -1,11 +1,24 @@
 <!-- Groups about page -->
-<div class="row group-page about-page">
+<div class="row group-page about-group-page">
     <div class="col-md-6">
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title">tr("About") <i>{{group.name}}</i></h3>
             </div>
-            <div class="box-body"></div>
+            <div class="box-body">
+
+                <div class="props-list">
+                    
+                    <div class="prop" v-for="prop in props">
+                        <div class="title"><i v-bind:class="'fa margin-r-5 ' + prop.icon"></i> {{prop.title}}</div>
+                        <div class="value" v-if="!prop.url">{{prop.value}}</div>
+                        <div class="value" v-if="prop.url"><a v-bind:href="prop.url" target="_blank">{{prop.value}}</a></div>
+                    </div>
+
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

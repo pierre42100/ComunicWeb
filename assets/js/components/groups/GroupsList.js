@@ -6,15 +6,35 @@
 
 class Group {
 	constructor(info){
+
+		/** @type {Number} */
 		this.id = info.id;
+
+		/** @type {Boolean} */
 		this.following = info.following;
+
+		/** @type {String} */
 		this.icon_url = info.icon_url;
+
+		/** @type {"administrator"|"moderator"|"member"|"invited"|"pending"|"visitor"} */
 		this.membership = info.membership;
+
+		/** @type {String} */
 		this.name = info.name;
+
+		/** @type {Number} */
 		this.number_members = info.number_members;
+		
+		/** @type {"moderators"|"members"} */
 		this.posts_level = info.posts_level;
+
+		/** @type {"open"|"moderated"|"closed"} */
 		this.registration_level = info.registration_level;
+
+		/** @type {String} */
 		this.virtual_directory = info.virtual_directory;
+
+		/** @type {"open"|"private"|"secrete"} */
 		this.visibility = info.visibility;
 	}
 
