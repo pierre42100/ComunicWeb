@@ -14,10 +14,15 @@ const GroupSettingsPage = {
 	 */
 	display: async function(id, target){
 
+		var root = createElem2({
+			appendTo: target,
+			type: "div",
+			class: "row"
+		})
 
 		//Create settings container
 		const settingsPage = createElem2({
-			appendTo: target,
+			appendTo: root,
 			type: "div",
 			class: "group-settings-container col-md-6",
 			innerHTML: "<div class='box box-primary'><div class='box-header'><h3 class='box-title'>"+tr("Group settings")+"</h3></div><div class='box-body'></div></di>"

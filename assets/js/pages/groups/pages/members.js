@@ -18,8 +18,14 @@ const GroupMembersPage = {
 		ComunicWeb.common.pageTitle.setTitle(info.name + " - Members");
 
 		//Create container
-		var membersPage = createElem2({
+		var root = createElem2({
 			appendTo: target,
+			type: "div",
+			class: "row"
+		})
+
+		var membersPage = createElem2({
+			appendTo: root,
 			type: "div",
 			class: "col-md-6 group-members-page",
 			innerHTML: "<div class='box box-primary'><div class='box-header'><h3 class='box-title'>"+tr("Group members")+"</h3></div><div class='box-body'></div></di>"

@@ -241,6 +241,31 @@ fieldset[disabled] .form-control {
     color: var(--white);
 }
 
+/**
+ * Nav tabs
+ */
+.nav-tabs-custom {
+    background-color: var(--black5);
+    color: var(--white);
+}
+
+.nav-tabs-custom .nav {
+    border-bottom-color: var(--black5);
+}
+
+.nav-tabs-custom li.active, .nav-tabs-custom li.active a {
+    background-color: var(--black) !important;
+}
+
+.nav-tabs-custom li.active a {
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+}
+
+.nav-tabs-custom a {
+    color: var(--white) !important;
+}
+
 
 /**
 * Friends list
@@ -640,6 +665,10 @@ img[src$="groups_logo/default.png"] {
 */
 .group-settings-container label {
     color: var(--white);
+}
+
+.delete-group-link-container a {
+    color: var(--white) !important;
 }
 
 
