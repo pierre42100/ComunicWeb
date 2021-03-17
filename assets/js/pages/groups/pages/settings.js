@@ -204,7 +204,7 @@ const GroupSettingsPage = {
 		//Closed registration (required for secret groups)
 		var closedRegistration = createFormGroup({
 			target: registrationLevelForm,
-			label: "Closed registration (the only way to join the group is to be invited by a moderator)",
+			label: tr("Closed registration (the only way to join the group is to be invited by a moderator)"),
 			name: "group-registration-level",
 			type: "radio",
 			value: "closed",
@@ -251,6 +251,16 @@ const GroupSettingsPage = {
 			value: "moderators",
 			checked: settings.posts_level == "moderators"
 		});
+
+
+		// Make the list of members of the group public
+		const isMembersListPublic = createFormGroup({
+			target: postsLevelsForm,
+			type: "checkbox",
+			label: tr("Make the list of members of the group public"),
+			checked: settings.is_members_list_public
+		});
+
 
 
 
@@ -305,6 +315,7 @@ const GroupSettingsPage = {
 				visibility: visibilityForm.elements["group-visibility"].value,
 				registration_level: registrationLevelForm.elements["group-registration-level"].value,
 				posts_level: postsLevelsForm.elements["group-posts-level"].value,
+				is_members_list_public: isMembersListPublic.checked,
 				description: groupDescription.value,
 				url: groupURL.value
 			};
@@ -313,7 +324,7 @@ const GroupSettingsPage = {
 			submitButton.disabled = true;
 
 			//Perform the request on the API
-			ComunicWeb.components.groups.interface.setSettings(id, settings, function(result){
+			GroupsInterface.setSettings(id, settings, function(result){
 
 				//Unlock send button
 				submitButton.disabled = false;
@@ -332,7 +343,7 @@ const GroupSettingsPage = {
 
 
 		/**
-		 * Group account image
+		 * Group image
 		 */
 		const groupLogoSettingsContainer = createElem2({
 			appendTo: settingsPage,

@@ -5,6 +5,7 @@
  */
 
 declare interface AdvancedGroupInfo extends Group {
+    is_members_list_public: Boolean,
     time_create: Number,
     description: String,
     url: String,
