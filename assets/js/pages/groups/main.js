@@ -68,7 +68,7 @@ const GroupsPage = {
 	
 					//Check the code of the error
 					if(result.error.code == 401)
-						ComunicWeb.pages.groups.pages.forbidden.open(id, target);
+						ComunicWeb.pages.groups.pages.forbidden.open(groupID, target);
 					
 					//The group does not exists
 					else 
