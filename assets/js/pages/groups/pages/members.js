@@ -49,7 +49,8 @@ const GroupMembersPage = {
 		 * Load the page components
 		 */
 		var loadComponents = () => {
-			GroupMembersPage.addInviteForm(info, inviteFormTarget, inviteFormCallback);
+			if (info.membership != "member")
+				GroupMembersPage.addInviteForm(info, inviteFormTarget, inviteFormCallback);
 			GroupMembersPage.refreshMembersList(info.id, info, membersList);
 		}
 
@@ -215,7 +216,7 @@ const GroupMembersPage = {
 	/**
 	 * Display a single membership information
 	 * 
-	 * @param {Object} info Information about the group
+	 * @param {AdvancedGroupInfo} info Information about the group
 	 * @param {Object} member Information about the membership
 	 * @param {Object} users The list of users of the group
 	 * @param {HTMLElement} target The target for the list
@@ -260,7 +261,7 @@ const GroupMembersPage = {
 			class: "delete-link",
 			innerHTML: "<i class='fa fa-trash'></i>"
 		});
-		if(userID() != userInfo.userID){
+		if(userID() != userInfo.userID && info.membership != "member"){
 
 			deleteUserButton.addEventListener("click", function(e){
 
@@ -313,6 +314,11 @@ const GroupMembersPage = {
 			innerHTML: membershipLevels[member.level]
 		});
 		add_space(memberContainer);
+
+		if (info.membership == "member") {
+			membershipLevelButton.disabled = true;
+			return;
+		}
 
 		//Check if the user is pending
 		if(member.level == "pending"){

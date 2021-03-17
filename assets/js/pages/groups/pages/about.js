@@ -45,7 +45,13 @@ const GroupAboutPage = {
                 title: tr("Visibility"),
                 icon: "fa-eye",
                 value: group.visibility == "secrete" ? tr("Secrete group") : (group.visibility == "open" ? tr("Open group") : tr("Private group"))
-            }
+            },
+
+            {
+                title: tr("Members list"),
+                icon: "fa-eye",
+                value: group.is_members_list_public ? tr("Public") : tr("Private")
+            },
         ];
 
         if (group.description && group.description != null && group.description != "" && group.description != "null")

@@ -23,7 +23,7 @@ const GroupTabs = {
             data: () => {
                 return {
                     isAdmin: group.membership == "administrator",
-                    canSeeMembers: group.membership == "administrator" || group.membership == "moderator",
+                    canSeeMembers: group.is_members_list_public || group.membership == "administrator" || group.membership == "moderator",
                     activePage: activePage
                 }
             },
