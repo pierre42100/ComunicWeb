@@ -17,8 +17,8 @@ const GroupConversationPage = {
         const convTarget = createElem2({
             appendTo: target,
             type: "div",
-            class: "row",
-            innerHTML: "<div class='col-md-6 group-page-conversation'></div>"
+            class: "row group-page-conversation",
+            innerHTML: "<div class='col-md-6'></div>"
         }).children[0]
 
 

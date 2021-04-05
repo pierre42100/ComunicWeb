@@ -4,7 +4,13 @@
  * @author Pierre Hubert
  */
 
-.group-page-conversation {
+.group-page-conversation, .group-page-conversation .col-md-6  {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.group-page-conversation .col-md-6 {
     margin: auto;
     float: none;
 }
