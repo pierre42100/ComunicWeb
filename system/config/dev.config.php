@@ -265,6 +265,7 @@ class Dev {
 			//Groups page
 				//Groups pages
 				"css/pages/groups/pages/main.css",
+				"css/pages/groups/pages/conversation.css",
 				"css/pages/groups/pages/create.css",
 				"css/pages/groups/pages/group.css",
 				"css/pages/groups/pages/settings.css",

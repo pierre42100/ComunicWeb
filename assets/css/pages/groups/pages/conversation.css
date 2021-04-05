@@ -1,0 +1,14 @@
+/**
+ * Group conversation
+ *
+ * @author Pierre Hubert
+ */
+
+.group-page-conversation {
+    margin: auto;
+    float: none;
+}
+
+.group-page-conversation .box {
+    max-width: unset;
+}
