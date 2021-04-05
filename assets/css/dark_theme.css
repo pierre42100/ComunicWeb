@@ -569,37 +569,39 @@ div.sceditor-dropdown input {
 /**
 * Conversation page
 */
-.conversations-page-container a {
+.big-box-conversation a {
     background-color: var(--black6) !important;;
 }
 
-.conversations-page-container a {
+.big-box-conversation a {
     color: var(--white) !important;
 }
 
-.conversations-page-container a:hover {
+.big-box-conversation a:hover {
     background-color: var(--black5) !important;;
 }
 
-.conversations-page-container a:active {
+.big-box-conversation a:active {
     background-color: var(--black6) !important;;
 }
 
-.conversations-page-container a.selected {
+.big-box-conversation a.selected {
     background-color: var(--black5) !important;;
 }
 
-.conversations-page-container .box-conversation .input-group-btn .btn {
+
+
+.big-box-conversation .input-group-btn .btn {
     background-color: var(--black5);
 }
 
-.conversations-page-container .box-conversation .input-group-btn .btn:hover {
+.big-box-conversation .input-group-btn .btn:hover {
     background-color: var(--black4);
     color: var(--black6);
 }
 
-.conversations-page-container .box-conversation .input-group-btn .btn:focus,
-.conversations-page-container .box-conversation .input-group-btn .btn:active {
+.big-box-conversation .input-group-btn .btn:focus,
+.big-box-conversation .input-group-btn .btn:active {
     color: var(--white);
 }
 
