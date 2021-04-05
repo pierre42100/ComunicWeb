@@ -132,6 +132,10 @@ add left border
 }
 */
 
+.main-sidebar .memberships-list .conversation_memberhsip.group-conversation {
+	padding-left: 20px;
+}
+
 .main-sidebar .memberships-list .conversation_memberhsip.has-unread-msg {
 	background-color: #00a65a30;
 }

@@ -88,12 +88,12 @@ const SidebarMain = {
 		});
 
 		this.refreshMemberships(userMemberships);
-		let interval = setInterval(() => {
+		/* TODO  RESET let interval = setInterval(() => {
 			if(userMemberships.isConnected)
 				this.refreshMemberships(userMemberships);
 			else
 				clearInterval(interval);
-		}, 15000);
+		}, 15000);*/
 
 
 		/*// Recent conversations
@@ -311,7 +311,9 @@ const SidebarMain = {
 	refreshMemberships: function(target){
 		WebAppInterface.getMemberships(
 			() => notify("Could not refresh your memberships!", "error"), 
-			(m, u, g, c) => this.applyMemberships(target, m, u, g, c)
+			(m, u, g, c) => {
+				this.applyMemberships(target, m, u, g, c)
+			}
 		);
 	},
 
@@ -341,7 +343,12 @@ const SidebarMain = {
 				this.applyFriend(friendsTarget, e.friend, users.get(e.friend.ID_friend));
 			
 			if(e.type == "group")
-				this.applyGroup(friendsTarget, groups.get(e.id), e.last_activity);
+			{
+				const groupConversations = memberships
+					.filter(el => el.type == "conversation" && el.conv.group_id == e.id)
+					.map(e => e.conv);
+				this.applyGroup(friendsTarget, groups.get(e.id), groupConversations, e.last_activity);
+			}
 			
 			if(e.type == "conversation")
 				this.applyConversation(friendsTarget, e.conv, convs.get(e.conv.id));
@@ -471,9 +478,10 @@ const SidebarMain = {
 	 * 
 	 * @param {HTMLElement} target 
 	 * @param {Group} group 
+	 * @param {Conversation[]} conversations Group conversations
 	 * @param {*} lastactive 
 	 */
-	applyGroup: function(target, group, lastactive) {
+	applyGroup: function(target, group, conversations, lastactive) {
 		
 		let li = createElem2({
 			appendTo: target,
@@ -547,8 +555,16 @@ const SidebarMain = {
 			});
 		}
 		else
+		{
 			// Group last activity
 			subInfoEl.innerHTML = timeDiffToStr(lastactive);
+
+			// Group conversations
+			for(let conv of conversations) {
+				this.applyConversation(target, conv, conv.name, true)
+			}
+		}
+		
 
 	},
 
@@ -559,7 +575,10 @@ const SidebarMain = {
 	 * @param {Conversation} conv
 	 * @param {String} name
 	 */
-	applyConversation: function(target, conv, name) {
+	applyConversation: function(target, conv, name, showGroupConversations) {
+
+		if (conv.group_id && !showGroupConversations)
+			return;
 
 		let li = createElem2({
 			appendTo: target,
@@ -567,6 +586,9 @@ const SidebarMain = {
 			class: "conversation_memberhsip"
 		});
 		li.setAttribute("data-membership-conv-id", conv.id)
+
+		if (conv.group_id)
+			li.classList.add("group-conversation")
 
 		// Check for unread messages
 		if(conv.last_activity > conv.members.find(m => m.user_id == userID()).last_access) {
@@ -576,7 +598,12 @@ const SidebarMain = {
 		let a = createElem2({
 			appendTo: li,
 			type: "a",
-			onclick: () => openConversation(conv.id, true)
+			onclick: () => {
+				if (!conv.group_id)
+					openConversation(conv.id, true)
+				else
+					Page.openPage("groups/" + conv.group_id + "/conversation/" + conv.id);
+			}
 		});
 
 		// Icon
@@ -616,7 +643,7 @@ const SidebarMain = {
 			let callLi = createElem2({
 				appendTo: target,
 				type: "li",
-				class: "call_notice"
+				class: "call_notice group-conversation"
 			});
 
 			let a = createElem2({
