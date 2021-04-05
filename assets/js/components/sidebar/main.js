@@ -88,12 +88,12 @@ const SidebarMain = {
 		});
 
 		this.refreshMemberships(userMemberships);
-		/* TODO  RESET let interval = setInterval(() => {
+		let interval = setInterval(() => {
 			if(userMemberships.isConnected)
 				this.refreshMemberships(userMemberships);
 			else
 				clearInterval(interval);
-		}, 15000);*/
+		}, 15000);
 
 
 		/*// Recent conversations
@@ -360,10 +360,12 @@ const SidebarMain = {
 			innerHTML: "<div style='height: 50px'></div>",
 		});
 
-		$(friendsTarget).slimscroll({
+		$.AdminLTE.layout.fixSidebar();
+
+		/*$(friendsTarget).slimscroll({
 			flex: 2,
 			height: "100%"
-		});
+		});*/
 
 		// Highlight active element
 		SidebarMain.refreshActiveElement()
