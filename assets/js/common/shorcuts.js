@@ -222,10 +222,13 @@ function log(message){
  * @param {number} id The ID of the conversation to open
  * @param {bool} fullscreen Specify whether the conversation has to
  * appear in full screen or not
+ * @param {number} group_id Related group ID (if any)
  */
-function openConversation(id, fullscreen = false){
+function openConversation(id, fullscreen = false, group_id){
     if(!fullscreen)
         ComunicWeb.components.conversations.manager.addConversation(id);
+    else if (group_id)
+        Page.openPage("groups/" + group_id + "/conversation/" + id);
     else
         openPage("conversations/" + id);
 }

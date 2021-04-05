@@ -600,12 +600,7 @@ const SidebarMain = {
 		let a = createElem2({
 			appendTo: li,
 			type: "a",
-			onclick: () => {
-				if (!conv.group_id)
-					openConversation(conv.id, true)
-				else
-					Page.openPage("groups/" + conv.group_id + "/conversation/" + conv.id);
-			}
+			onclick: () => openConversation(conv.id, true, conv.group_id)
 		});
 
 		// Icon

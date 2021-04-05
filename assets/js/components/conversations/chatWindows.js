@@ -305,7 +305,7 @@ const ConvChatWindow = {
 			this.__conversationsCache["conversation-"+conversationID] = conversationInfos;
 
 			//Change the name of the conversation
-			this.changeName(await getConvName(conv), conversationWindow);
+			this.changeName(await getConvName(conv), conversationWindow, conv);
 
 			// Apply the color of the conversation (if any)
 			if (conv.color)
@@ -395,9 +395,10 @@ const ConvChatWindow = {
 	 * 
 	 * @param {String} newName The new name for the conversation window
 	 * @param {Ojbect} info Information about the conversation window
+	 * @param {Conversation} conv Conversation information (if available)
 	 * @return {Boolean} True for a success
 	 */
-	changeName: function(newName, info){
+	changeName: function(newName, info, conv){
 
 		//Reduce new name
 		if(newName.length > 18)
@@ -412,7 +413,7 @@ const ConvChatWindow = {
 			appendTo: info.boxTitle,
 			class: "fa fa-comments",
 			ondblclick: () => {
-				openConversation(info.conversationID, true);
+				openConversation(info.conversationID, true, conv ? conv.group_id : null);
 				info.closeFunction();
 			}
 		});
@@ -429,7 +430,7 @@ const ConvChatWindow = {
 	/**
 	 * Update conversation members list
 	 * 
-	 * @param {Object} conv Information about the conversation
+	 * @param {Object} info Information about the conversation
 	 * @return {Boolean} True for a success
 	 */
 	updateMembersList: function(info) {
@@ -543,6 +544,9 @@ const ConvChatWindow = {
 				class: "contacts-list-msg",
 				innerHTML: (member.is_admin ? tr("Admin") : tr("Member")) + " "
 			});
+
+			if (conv.group_id)
+				continue;
 
 
 			// Set / unset admin
@@ -714,6 +718,19 @@ const ConvChatWindow = {
 			settingsForm.conversationColorInput.parentNode.parentNode.style.display = "none";
 
 			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
+		}
+
+		// It is not possible to update conversation info in managed conversations
+		if (conversation.infos.group_id) {
+			settingsForm.allowEveryoneToAddMembers.parentNode.parentNode.remove();
+
+			createElem2({
+				type: "a",
+				class: "a",
+				insertBefore: settingsForm.rootElem.children[0],
+				innerHTML: "This conversation is managed by a group",
+				onclick: () => openPage("groups/" + conversation.infos.group_id)
+			})
 		}
 
 		//Update follow conversation checkbox status
