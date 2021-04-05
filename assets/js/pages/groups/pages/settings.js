@@ -382,6 +382,22 @@ const GroupSettingsPage = {
 				},
 
 				/**
+				 * Change conversation visibility
+				 * 
+				 * @param {Conversation} conv Information about the target conversation
+				 */
+				changeVisibility: async function (conv) {
+					try {
+						await GroupsInterface.changeGroupConversationVisibility(conv.id, conv.group_min_membership_level);
+					}
+					
+					catch(e) {
+						console.error(e)
+						notify(tr("Failed to delete update conversation!"), "danger")
+					}
+				},
+
+				/**
 				 * Delete a conversation
 				 */
 				deleteConv: async function(convID) {

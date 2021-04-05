@@ -14,7 +14,13 @@
             </tr>
             <tr v-for="conv in conversations">
                 <td>{{ conv.name }}</td>
-                <td>{{ conv.group_min_membership_level }}</td>
+                <td>
+                    <select class="form-control" v-model="conv.group_min_membership_level" style="height: 26px;line-height: 7px;padding: 2px;" @change="changeVisibility(conv)">
+                        <option value="member">tr("Members")</option>
+                        <option value="moderator">tr("Moderators")</option>
+                        <option value="administrator">tr("Administrators")</option>
+                    </select>
+                </td>
                 <td>
                     <a style="color: white;" @click="deleteConv(conv.id)"><i class="fa fa-trash"></i></a>
                 </td>

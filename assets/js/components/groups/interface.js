@@ -134,6 +134,21 @@ const GroupsInterface = {
 		}, true)
 	},
 
+	
+	/**
+	 * Change group conversation visibility
+	 * 
+	 * @param {Number} convID The ID of the conversation to delete
+	 * @param {String} newLevel New minimal conversation visibility level
+	 */
+	changeGroupConversationVisibility: async function(convID, newLevel) {
+		await api("groups/set_conversation_visibility", {
+			conv_id: convID,
+			min_membership_level: newLevel
+		}, true)
+	},
+
+
 	/**
 	 * Delete a group conversation
 	 * 
