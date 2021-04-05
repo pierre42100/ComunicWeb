@@ -120,6 +120,21 @@ const GroupsInterface = {
 	},
 
 	/**
+	 * Create a new group conversation
+	 * 
+	 * @param {Number} groupID The ID of the target group
+	 * @param {String} convName The name of the new conversation
+	 * @param {String} minMembershipLevel Minimal membership level
+	 */
+	createGroupConversation: async function(groupID, convName, minMembershipLevel) {
+		await api("groups/create_conversation", {
+			group_id: groupID,
+			min_membership_level: minMembershipLevel,
+			name: convName
+		}, true)
+	},
+
+	/**
 	 * Check the availability of a virtual directory for a group
 	 * 
 	 * @param {String} directory The directory to check

@@ -47,7 +47,7 @@ const GroupSettingsPage = {
 
 		//Create form container
 		var formContainer = createElem2({
-			appendTo: settingsBox,
+	//TODO : remove comment		appendTo: settingsBox,
 			type: "div",
 			class: "group-settings-form"
 		});
@@ -338,6 +338,45 @@ const GroupSettingsPage = {
 			});
 		});
 
+
+		/**
+		 * Group conversations
+		 */
+		const conversationsSettingsTPL = await Page.loadHTMLTemplate("pages/groups/sections/GroupConversationsSettings.html");
+		const conversationsSettingsTarget = document.createElement("div")
+		conversationsSettingsTarget.innerHTML = conversationsSettingsTPL
+		settingsPage.appendChild(conversationsSettingsTarget)
+
+		Vue.createApp({
+			data: () => {
+				return {
+					newConvName: "",
+					newConvVisibility: "member"
+				}
+			},
+
+			methods: {
+				createNewConv: async function() {
+					try {
+						const convName = this.newConvName;
+
+						if (convName.length == 0)
+							return notify(tr("Please give a name to new group conversations!"), "danger")
+
+						await GroupsInterface.createGroupConversation(settings.id, convName, this.newConvVisibility)
+						
+						notify("The conversation was successfully created!", "success")
+
+						Page.refresh_current_page();
+					}
+					
+					catch(e) {
+						console.error(e)
+						notify(tr("Failed to create group conversation!"), "danger")
+					}
+				}
+			}
+		}).mount(conversationsSettingsTarget);
 
 
 

@@ -1,0 +1,37 @@
+<!-- Group conversations settings -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Group conversations</h3>
+    </div>
+    
+    <!-- /.box-body -->
+    
+    <!-- Create a new conversation-->
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <label for="newConvName">tr("Name")</label>
+                    <input type="text" class="form-control" id="newConvName" placeholder="tr("Conversation name")" v-model="newConvName">
+                  </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label>tr("Visibility")</label>
+                    <select class="form-control" v-model="newConvVisibility">
+                      <option value="member">tr("Members")</option>
+                      <option value="moderator">tr("Moderators")</option>
+                      <option value="administrator">tr("Administrators")</option>
+                    </select>
+                  </div>
+            </div>
+
+            <div class="col-xs-2">
+                <label style="display: block;">&nbsp;</label>
+                <button type="button" class="btn btn-primary" @click="createNewConv">tr("Create")</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
