@@ -350,12 +350,17 @@ const GroupSettingsPage = {
 		Vue.createApp({
 			data: () => {
 				return {
+					conversations: settings.conversations,
 					newConvName: "",
 					newConvVisibility: "member"
 				}
 			},
 
 			methods: {
+
+				/**
+				 * Create a new conversation
+				 */
 				createNewConv: async function() {
 					try {
 						const convName = this.newConvName;
@@ -373,6 +378,27 @@ const GroupSettingsPage = {
 					catch(e) {
 						console.error(e)
 						notify(tr("Failed to create group conversation!"), "danger")
+					}
+				},
+
+				/**
+				 * Delete a conversation
+				 */
+				deleteConv: async function(convID) {
+					try {
+						if (!await showConfirmDialog("Do you really want to delete this conversation ?"))
+							return;
+
+						await GroupsInterface.deleteGroupConversation(convID)
+						
+						notify("The conversation was successfully deleted!", "success")
+
+						Page.refresh_current_page();
+					}
+					
+					catch(e) {
+						console.error(e)
+						notify(tr("Failed to delete group conversation!"), "danger")
 					}
 				}
 			}

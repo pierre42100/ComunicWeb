@@ -135,6 +135,17 @@ const GroupsInterface = {
 	},
 
 	/**
+	 * Delete a group conversation
+	 * 
+	 * @param {Number} convID The ID of the conversation to delete
+	 */
+	deleteGroupConversation: async function(convID) {
+		await api("groups/delete_conversation", {
+			conv_id: convID,
+		}, true)
+	},
+
+	/**
 	 * Check the availability of a virtual directory for a group
 	 * 
 	 * @param {String} directory The directory to check

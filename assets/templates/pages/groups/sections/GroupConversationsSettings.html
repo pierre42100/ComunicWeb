@@ -5,6 +5,22 @@
     </div>
     
     <!-- /.box-body -->
+    <div class="box-body no-padding">
+        <table class="table">
+            <tbody><tr>
+                <th>Name</th>
+                <th>Visibility</th>
+                <th></th>
+            </tr>
+            <tr v-for="conv in conversations">
+                <td>{{ conv.name }}</td>
+                <td>{{ conv.group_min_membership_level }}</td>
+                <td>
+                    <a style="color: white;" @click="deleteConv(conv.id)"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
     
     <!-- Create a new conversation-->
     <div class="box-footer">
@@ -13,20 +29,20 @@
                 <div class="form-group">
                     <label for="newConvName">tr("Name")</label>
                     <input type="text" class="form-control" id="newConvName" placeholder="tr("Conversation name")" v-model="newConvName">
-                  </div>
+                </div>
             </div>
-
+            
             <div class="col-xs-4">
                 <div class="form-group">
                     <label>tr("Visibility")</label>
                     <select class="form-control" v-model="newConvVisibility">
-                      <option value="member">tr("Members")</option>
-                      <option value="moderator">tr("Moderators")</option>
-                      <option value="administrator">tr("Administrators")</option>
+                        <option value="member">tr("Members")</option>
+                        <option value="moderator">tr("Moderators")</option>
+                        <option value="administrator">tr("Administrators")</option>
                     </select>
-                  </div>
+                </div>
             </div>
-
+            
             <div class="col-xs-2">
                 <label style="display: block;">&nbsp;</label>
                 <button type="button" class="btn btn-primary" @click="createNewConv">tr("Create")</button>

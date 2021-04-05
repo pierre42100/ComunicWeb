@@ -10,7 +10,8 @@ declare interface AdvancedGroupInfo extends Group {
     description: String,
     url: String,
     number_likes: Number,
-    is_liking: Boolean
+    is_liking: Boolean,
+    conversations: Conversation[],
 }
 
 declare interface GroupSettings extends AdvancedGroupInfo {}

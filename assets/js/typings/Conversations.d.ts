@@ -27,6 +27,7 @@ declare interface Conversation {
 	color?: string,
 	logo?: string,
 	group_id?: number,
+	group_min_membership_level ?: "member"|"moderator"|"administrator",
 	members: ConversationMember[],
 	can_everyone_add_members: boolean,
 	can_have_call: boolean,
