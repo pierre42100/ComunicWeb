@@ -1,12 +1,23 @@
 <!-- Group tabs section -->
-
 <div class="row group-page tabs-container">
     <div class="col-md-6">
         <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs group-page-tabs" style="display: flex; flex-wrap: wrap; justify-content: start;">
               <li v-bind:class="activePage == 'posts' ? 'active': ''"><a @click="openPage('posts')">tr("Posts")</a></li>
+
+              <!-- Group conversations -->
+              <li v-for="conv in conversations" v-bind:class="activePage == 'conversation' && firstArgument == conv.id ? 'active': ''">
+                <a @click="openPage('conversation/' + conv.id)">{{conv.name}}</a></li>
+              </li>
+
+
+              <!-- Group members -->
               <li v-bind:class="activePage == 'members' ? 'active': ''"><a @click="openPage('members')" v-if="canSeeMembers">tr("Members")</a></li>
+              
+              <!-- About the group -->
               <li v-bind:class="activePage == 'about' ? 'active': ''"><a @click="openPage('about')">tr("About")</a></li>
+
+              <!-- Group settings -->
               <li class="pull-right" v-if="isAdmin" v-bind:class="activePage == 'settings' ? 'active': ''"><a  @click="openPage('settings')" class="text-muted"><i class="fa fa-gear"></i></a></li>
             </ul>
     </div>

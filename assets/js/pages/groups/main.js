@@ -48,12 +48,16 @@ const GroupsPage = {
 
 			//Else determine which group page to open (specified after the ID of the group)
 			var groupID = page;
+			let firstArg;
 			if(!args.subfolder || args.subfolder.split("/").length < 2){
 				page = "posts";
 			}
 			else {
 				//Extract the page to open from the URL
 				page = args.subfolder.split("/")[1];
+
+				if (args.subfolder.split("/").length == 3)
+					firstArg = args.subfolder.split("/")[2];
 
 				//Check if there is nothing after "/"
 				if(page.length < 2)
@@ -88,7 +92,7 @@ const GroupsPage = {
 			GroupSectionHeader.display(group, target);
 
 			// Display the tabs of the group
-			await GroupTabs.show(group, target, page);
+			await GroupTabs.show(group, target, page, firstArg);
 
 			switch(page) {
 
@@ -107,6 +111,14 @@ const GroupsPage = {
 				case "settings":
 					await GroupSettingsPage.display(group.id, target);
 					return;
+				
+				case "conversation":
+					let conv = group.conversations.find(c => c.id == firstArg);
+
+					if (conv) {
+						GroupConversationPage.show(conv, target)
+						return;
+					}
 
 				default:
 					ComunicWeb.common.error.pageNotFound(null, target);

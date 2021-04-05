@@ -532,6 +532,7 @@ class Dev {
 				"js/pages/groups/pages/main.js",
 				"js/pages/groups/pages/create.js",
 				"js/pages/groups/pages/posts.js",
+				"js/pages/groups/pages/conversation.js",
 				"js/pages/groups/pages/settings.js",
 				"js/pages/groups/pages/members.js",
 				"js/pages/groups/pages/forbidden.js",

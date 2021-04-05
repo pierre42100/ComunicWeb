@@ -146,7 +146,7 @@ const ConversationPageConvPart = {
 			// Apply the list of messages
 			ConversationPageConvPart.applyMessages(list)
 
-			// Automatically unregister conversations when it becoms required
+			// Automatically unregister conversations when it becomes required
 			let reg = true;
 			document.addEventListener("changeURI", async () => {
 				if(reg) {

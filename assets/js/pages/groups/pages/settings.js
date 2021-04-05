@@ -47,7 +47,7 @@ const GroupSettingsPage = {
 
 		//Create form container
 		var formContainer = createElem2({
-	//TODO : remove comment		appendTo: settingsBox,
+			appendTo: settingsBox,
 			type: "div",
 			class: "group-settings-form"
 		});
