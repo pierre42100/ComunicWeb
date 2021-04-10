@@ -9,16 +9,19 @@
     <!-- form start -->
     
     <div class="box-body">
+
+        <p>tr("Note: These parameters applies only for the web version of the application!")</p>
+
         <div class="form-group">
             <label>
-                <input type="checkbox"> tr("Allow sound for notifications")
+                <input name="allow_sounds" type="checkbox" v-model="allow_sounds"> tr("Allow sound for notifications")
             </label>
         </div>
     </div>
     <!-- /.box-body -->
     
     <div class="box-footer">
-        <button type="submit" class="btn btn-primary">tr("Update")</button>
+        <button type="submit" class="btn btn-primary" @click="update">tr("Update")</button>
     </div>
 </div>
 
@@ -36,13 +39,13 @@
         
         <div class="form-group">
             <label>
-                <input type="checkbox"> tr("Allow conversation notifications")
+                <input name="allow_conversations" type="checkbox" v-model="allow_conversations"> tr("Allow conversation notifications")
             </label>
         </div>
     </div>
     <!-- /.box-body -->
     
     <div class="box-footer">
-        <button type="submit" class="btn btn-primary">tr("Update")</button>
+        <button type="submit" class="btn btn-primary" @click="update">tr("Update")</button>
     </div>
 </div>

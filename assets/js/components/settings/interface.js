@@ -213,6 +213,24 @@ const SettingsInterface = {
 		}
 
 		await api("settings/set_data_conservation_policy", data, true)
+	},
+
+	/**
+	 * Get notifications settings
+	 * 
+	 * @returns {Promise<NotificationsSettings>}
+	 */
+	getNotifications: async function() {
+		return await api("settings/get_notifications", null, true);
+	},
+
+	/**
+	 * Update (set) notifications settings
+	 * 
+	 * @param {NotificationsSettings} settings
+	 */
+	setNotifications: async function(settings) {
+		return await api("settings/set_notifications", settings, true);
 	}
 }
 
