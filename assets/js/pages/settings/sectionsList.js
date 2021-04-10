@@ -31,6 +31,14 @@ ComunicWeb.pages.settings.sectionsList = {
 	},
 
 	/**
+	 * Notifications
+	 */
+	notifications: {
+		title: "Notifications",
+		handler: "NotificationsSettings.Open"
+	},
+
+	/**
 	 * Security settings
 	 */
 	security: {

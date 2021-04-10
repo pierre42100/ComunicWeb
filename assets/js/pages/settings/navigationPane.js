@@ -92,6 +92,20 @@ ComunicWeb.pages.settings.navigationPane = {
 			openPage("settings/emojies");
 		};
 
+		// Custom emojies
+		const sectionNotifications = createElem2({
+			appendTo: elemList,
+			type: "li",
+		});
+		var sectionNotificationsLink = createElem2({
+			appendTo: sectionNotifications,
+			type: "a",
+			innerHTML: "<i class='fa fa-bell-o'></i> Notifications"
+		});
+		sectionNotificationsLink.onclick = function(){
+			openPage("settings/notifications");
+		};
+
 		//Account security
 		var sectionSecurity = createElem2({
 			appendTo: elemList,
