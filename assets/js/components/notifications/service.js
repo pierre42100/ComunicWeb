@@ -55,7 +55,7 @@ ComunicWeb.components.notifications.service = {
 
 			//Play song if required
 			if(this.last_total_count != -1 && total_number_notifs > this.last_total_count)
-				ComunicWeb.components.notifications.song.play();
+				NotificationsSong.play();
 			
 			this.last_total_count = total_number_notifs;
 			

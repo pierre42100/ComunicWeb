@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.notifications.song = {
+const NotificationsSong = {
 
 	/**
 	 * Song element : null by default
