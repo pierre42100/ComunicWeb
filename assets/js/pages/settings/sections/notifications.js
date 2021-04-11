@@ -36,6 +36,9 @@ class NotificationsSettings {
 
                             await SettingsInterface.setNotifications(newSettings);
 
+                            // Apply new settings immediatly
+                            NotificationsSong.enableSong = newSettings.allow_notifications_sound;
+
                             notify(tr("Successfully updated settings!"), "success")
 
                         } catch(e) {
