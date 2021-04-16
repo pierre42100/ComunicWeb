@@ -58,7 +58,8 @@ ComunicWeb.pages.createAccount = {
 			target: formRoot,
 			label: lang("form_create_account_first_name_label"),
 			placeholder: lang("form_create_account_first_name_placeholder"),
-			type: "text"
+			type: "text",
+			maxLength: ServerConfig.conf.account_info_policy.max_first_name_length,
 		});
 
 		//Input user last name
@@ -66,7 +67,8 @@ ComunicWeb.pages.createAccount = {
 			target: formRoot,
 			label: lang("form_create_account_last_name_label"),
 			placeholder: lang("form_create_account_last_name_placeholder"),
-			type: "text"
+			type: "text",
+			maxLength: ServerConfig.conf.account_info_policy.max_last_name_length,
 		});
 
 		//Input user email
@@ -145,11 +147,11 @@ ComunicWeb.pages.createAccount = {
 				return notify(lang("form_create_account_err_need_accept_terms"), "danger");
 
 			//Check the first name
-			if(!FormChecker.checkInput(firstNameInput, true))
+			if(!FormChecker.checkInput(firstNameInput, true, ServerConfig.conf.account_info_policy.min_first_name_length))
 				return notify(lang("form_create_account_err_need_first_name"), "danger");
 			
 			//Check the last name
-			if(!FormChecker.checkInput(lastNameInput, true))
+			if(!FormChecker.checkInput(lastNameInput, true, ServerConfig.conf.account_info_policy.min_last_name_length))
 				return notify(lang("form_create_account_err_check_last_name"), "danger");
 
 			//Check the email address

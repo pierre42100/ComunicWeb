@@ -33,6 +33,13 @@ declare interface ConversationPolicy {
     writing_event_lifetime: number,
 }
 
+declare interface AccountInformationPolicy {
+    min_first_name_length: number,
+    max_first_name_length: number,
+    min_last_name_length: number,
+    max_last_name_length: number,
+}
+
 declare interface StaticServerConfig {
     terms_url: string,
     privacy_policy_url: string,
@@ -41,4 +48,5 @@ declare interface StaticServerConfig {
     password_policy: PasswordPolicy,
     data_conservation_policy: DataConservationPolicySettings,
     conversations_policy: ConversationPolicy,
+    account_info_policy: AccountInformationPolicy,
 }

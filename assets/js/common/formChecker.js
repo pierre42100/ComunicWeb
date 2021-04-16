@@ -10,9 +10,10 @@ const FormChecker = {
      * 
      * @param {elem} input The input element to check
      * @param {Boolean} inFormGroup Specify wether the input is in a formgroup or not
+     * @param {number} minLength Minimum length of input
      * @return {Boolean} True or false depending of the validity of the field
      */
-    checkInput: function(input, inFormGroup){
+    checkInput: function(input, inFormGroup, minLength = 3){
         //Check input existence
         if(!input){
             //Error message
@@ -28,7 +29,7 @@ const FormChecker = {
 
         //TextInput
         if(inputType == "text"){
-            inputOK = (input.value.length < 3 ? false:true);
+            inputOK = (input.value.length < minLength ? false:true);
         }
 
         //MailInput

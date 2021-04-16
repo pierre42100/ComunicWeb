@@ -110,29 +110,31 @@ ComunicWeb.pages.settings.sections.general = {
 			additionalGroupClasses: "input-user-email"
 		});
 
-		//Display user first name
+		// Display user first name
 		var firstName = createFormGroup({
 			target: target,
-			label: "First name",
-			placeholder: "Your first name",
+			label: tr("First name"),
+			placeholder: tr("Your first name"),
 			type: "text",
 			value: infos.firstName,
+			maxLength: ServerConfig.conf.account_info_policy.max_first_name_length
 		});
 
-		//Last name
+		// Last name
 		var lastName = createFormGroup({
 			target: target,
-			label: "Last name",
-			placeholder: "Your last name",
+			label: tr("Last name"),
+			placeholder: tr("Your last name"),
 			type: "text",
-			value: infos.lastName
+			value: infos.lastName,
+			maxLength: ServerConfig.conf.account_info_policy.max_last_name_length
 		});
 
 		//Allow mails from Comunic
 		var allowEmails = createFormGroup({
 			target: target,
 			type: "checkbox",
-			label: "Allow Comunic to send you emails",
+			label: tr("Allow Comunic to send you emails"),
 			checked: infos.allow_comunic_mails
 		});
 
@@ -148,7 +150,7 @@ ComunicWeb.pages.settings.sections.general = {
 		var publicPage = createFormGroup({
 			target: target,
 			type: "checkbox",
-			label: "Make your page public (available to every Comunic users)",
+			label: tr("Make your page public (available to every Comunic users)"),
 			checked: infos.is_public
 		});
 
@@ -177,7 +179,7 @@ ComunicWeb.pages.settings.sections.general = {
 		var allowComments = createFormGroup({
 			target: target,
 			type: "checkbox",
-			label: "Allow the comments on your page",
+			label: tr("Allow comments on your page"),
 			checked: infos.allow_comments
 		});
 
@@ -185,7 +187,7 @@ ComunicWeb.pages.settings.sections.general = {
 		var allowPostsFromFriends = createFormGroup({
 			target: target,
 			type: "checkbox",
-			label: "Allow the posts from your friends on your page",
+			label: tr("Allow the creation of posts from your friends on your page"),
 			checked: infos.allow_posts_from_friends
 		});
 
@@ -193,14 +195,14 @@ ComunicWeb.pages.settings.sections.general = {
 		var publicFriendsList = createFormGroup({
 			target: target,
 			type: "checkbox",
-			label: "Make your friend list public",
+			label: tr("Make your friend list public"),
 			checked: infos.public_friends_list
 		});
 
 		//Personnal website
 		var personnalWebsite = createFormGroup({
 			target: target,
-			label: "Personnal website (optionnal)",
+			label: tr("Personnal website (optionnal)"),
 			type: "text",
 			placeholder: "https://...",
 			value: infos.personnal_website != "null" ? infos.personnal_website : ""
@@ -263,15 +265,15 @@ ComunicWeb.pages.settings.sections.general = {
 		sendButton.onclick = function(){
 
 			//Check the given values
-			if(!ComunicWeb.common.formChecker.checkInput(firstName, true))
-				return notify("Please check your first name!", "danger");
+			if(!ComunicWeb.common.formChecker.checkInput(firstName, true, ServerConfig.conf.account_info_policy.min_first_name_length))
+				return notify(tr("Please check your first name!"), "danger");
 
-			if(!ComunicWeb.common.formChecker.checkInput(lastName, true))
-				return notify("Please check your last name!", "danger");
+			if(!ComunicWeb.common.formChecker.checkInput(lastName, true, ServerConfig.conf.account_info_policy.min_last_name_length))
+				return notify(tr("Please check your last name!"), "danger");
 			
 			if(personnalWebsite.value != ""){
 				if(!check_url(personnalWebsite.value))
-					return notify("Please check the given URL !", "danger");
+					return notify(tr("Please check the given URL !"), "danger");
 			}
 
 			//Pack all the values in an object

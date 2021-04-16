@@ -228,6 +228,7 @@ function checkMail(emailAddress){
  * * @info {string} value The default value of the input
  * * @info {boolean} disabled Set whether the field should be disabled or not
  * * @info {string} additionalGroupClasses Additionnal form group class names
+ * * @info {number} maxLength Maximum allowed length for input
  * @return {HTMLElement} The input 
  */
 function createFormGroup(infos){
@@ -364,6 +365,9 @@ function createFormGroup(infos){
 		input.placeholder = infos.placeholder;
 		input.value = value;
 		input.disabled = disabled;
+
+		if (infos.maxLength)
+			input.maxLength = infos.maxLength;
 	}
 
 	//Return input
