@@ -199,13 +199,31 @@ ComunicWeb.pages.settings.sections.general = {
 			checked: infos.public_friends_list
 		});
 
+		//Public email address
+		var publicEmailAddress = createFormGroup({
+			target: target,
+			type: "checkbox",
+			label: tr("Make your email address public"),
+			checked: infos.public_email
+		});
+
 		//Personnal website
 		var personnalWebsite = createFormGroup({
 			target: target,
-			label: tr("Personnal website (optionnal)"),
+			label: tr("Personnal website (optional)"),
 			type: "text",
 			placeholder: "https://...",
 			value: infos.personnal_website != "null" ? infos.personnal_website : ""
+		});
+
+		//Location
+		var location = createFormGroup({
+			target: target,
+			label: tr("Location (optional)"),
+			type: "text",
+			placeholder: "Feurs",
+			value: infos.location != null ? infos.location : "",
+			maxLength: ServerConfig.conf.account_info_policy.max_location_length,
 		});
 
 		//Public notes
@@ -286,16 +304,18 @@ ComunicWeb.pages.settings.sections.general = {
 				allowComments: allowComments.checked,
 				allowPostsFromFriends: allowPostsFromFriends.checked,
 				publicFriendsList: publicFriendsList.checked,
+				email_public: publicEmailAddress.checked,
 				personnalWebsite: personnalWebsite.value,
 				virtualDirectory: virtualDirectory.value,
 				publicNote: publicNotes.value,
+				location: location.value,
 			};
 
 			//Lock send button
 			sendButton.style.visibility = "hidden";
 
 			//Perform the request over the API
-			ComunicWeb.components.settings.interface.setGeneral(settings, function(result){
+			SettingsInterface.setGeneral(settings, function(result){
 
 				//Unlock send button
 				sendButton.style.visibility = "visible";

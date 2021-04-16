@@ -38,6 +38,7 @@ declare interface AccountInformationPolicy {
     max_first_name_length: number,
     min_last_name_length: number,
     max_last_name_length: number,
+    max_location_length: number,
 }
 
 declare interface StaticServerConfig {
