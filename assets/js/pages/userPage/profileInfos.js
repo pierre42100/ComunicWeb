@@ -201,6 +201,66 @@ ComunicWeb.pages.userPage.profileInfos = {
 			class: "box-body"
 		});
 
+		//Add user email address
+		if(infos.email_address){
+			const emailAddress = createElem2({
+				appendTo: boxBody,
+				type: "strong"
+			});
+			createElem2({
+				appendTo: emailAddress,
+				type: "i",
+				class: "fa fa-envelope-o margin-r-5"
+			});
+			createElem2({
+				appendTo: emailAddress,
+				type: "span",
+				innerHTML: tr("Email address")
+			});
+			createElem2({
+				appendTo: boxBody,
+				type: "p",
+				class: "text-muted",
+				innerHTML: infos.email_address
+			});
+
+			//Add separator
+			createElem2({
+				appendTo: boxBody,
+				type: "hr",
+			});
+		}
+
+		//Add location
+		if(infos.location){
+			const location = createElem2({
+				appendTo: boxBody,
+				type: "strong"
+			});
+			createElem2({
+				appendTo: location,
+				type: "i",
+				class: "fa fa-map-marker margin-r-5"
+			});
+			createElem2({
+				appendTo: location,
+				type: "span",
+				innerHTML: tr("Location")
+			});
+			createElem2({
+				appendTo: boxBody,
+				type: "p",
+				class: "text-muted",
+				innerHTML: infos.location
+			});
+
+			//Add separator
+			createElem2({
+				appendTo: boxBody,
+				type: "hr",
+			});
+		}
+
 		
 		//Add user website (if any)
 		if(infos.personnalWebsite){
