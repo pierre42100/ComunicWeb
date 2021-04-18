@@ -9,7 +9,7 @@ const GroupSectionHeader = {
     /**
      * Display groups page header
      * 
-     * @param {Object} info Information about the group to display
+     * @param {AdvancedGroupInfo} info Information about the group to display
      * @param {HTMLElement} target The target for the header
      */
     display: function(info, target){
@@ -89,14 +89,23 @@ const GroupSectionHeader = {
             class: "col-md-7 col-metadata"
         });
         
+        // Forez group
+        if (info.is_forez_group) {
+            createElem2({
+                appendTo: thirdColumn,
+                type: "div",
+                innerHTML: "<span><i class='fa fa-leaf'></i> Forez Group</span>"
+            })
+        }
 
-        //Display membership level
+        // Display membership level
         ComunicWeb.pages.groups.sections.membershipBlock.display(info, thirdColumn);
         
-        //Display follow block
+        // Display follow block
         if(signed_in() && ComunicWeb.components.groups.utils.isGroupMember(info))
             ComunicWeb.pages.groups.sections.followBlock.display(info, thirdColumn);
 
+        // Likes block
         ComunicWeb.components.like.button.display(
             "group",
             info.id,
@@ -107,7 +116,6 @@ const GroupSectionHeader = {
                 type: "div"
             })
         );
-
     },
 
 };
