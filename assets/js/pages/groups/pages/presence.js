@@ -36,6 +36,8 @@ class GroupPresencePage {
                 description: users.get(e.userID).fullName
             }
         })
+
+        let lastClick = null;
         
         const calendarTarget = el.querySelector(".calendar");
         const calendar = new FullCalendar.Calendar(calendarTarget, {
@@ -51,6 +53,22 @@ class GroupPresencePage {
             eventResize: async function(info) {
                 try {
                     await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
+                } catch(e) {
+                    console.error(e);
+                    notify(tr("Failed to update presence!"), "danger")
+                }
+            },
+
+            // Add new event
+            dateClick: async function(info) {
+                if (lastClick == null || new Date().getTime() - lastClick.getTime() > 500)
+                {
+                    lastClick = new Date()
+                    return;
+                }
+
+                try {
+                    await ForezPresenceHelper.AddDay(group.id, info.date.getFullYear(), info.date.getMonth() + 1, info.date.getDate())
                 } catch(e) {
                     console.error(e);
                     notify(tr("Failed to update presence!"), "danger")
