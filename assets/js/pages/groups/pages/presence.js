@@ -49,8 +49,8 @@ class GroupPresencePage {
 
                     presences.forEach((e) => e.end = addOneDay(e.date));
 
-                    console.log(presences)
-
+                    
+                    // Merge contiguous presence days
                     for(let i = 0; i < presences.length; i++) {
                         while(true) {
                             if (presences.length == i + 1)
@@ -88,8 +88,18 @@ class GroupPresencePage {
                 }
             },
             
-            // Update events
+            // Update events size
             eventResize: async function(info) {
+                try {
+                    await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
+                } catch(e) {
+                    console.error(e);
+                    notify(tr("Failed to update presence!"), "danger")
+                }
+            },
+
+            // Drag event
+            eventDrop: async function(info) {
                 try {
                     await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
                 } catch(e) {
@@ -114,7 +124,25 @@ class GroupPresencePage {
                     console.error(e);
                     notify(tr("Failed to update presence!"), "danger")
                 }
-            }
+            },
+
+            // Delete event
+            eventClick: async function(info) {
+                if (lastClick == null || new Date().getTime() - lastClick.getTime() > 500)
+                {
+                    lastClick = new Date()
+                    return;
+                }
+
+                try {
+                    await ForezPresenceHelper.UpdateEvents(group.id, info.event.start, info.event.end, new Date(), new Date(new Date().getTime() - 1))
+                    
+                    calendar.getEventSources()[0].refetch()
+                } catch(e) {
+                    console.error(e);
+                    notify(tr("Failed to update presence!"), "danger")
+                }
+            },
         });
         
         calendar.render()
