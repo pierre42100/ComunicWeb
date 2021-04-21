@@ -48,19 +48,13 @@ class GroupPresencePage {
             events: calEvents,
 
             // Update events
-            eventResize: function(info) {
-                const newDays = new Set(getDaysOfRange(info.event.start, info.event.end).map(el => el.getTime()));
-                const oldDays = new Set(getDaysOfRange(info.oldEvent.start, info.oldEvent.end).map(el => el.getTime()));
-
-                for (const el of newDays) {
-                    if(oldDays.has(el)) {
-                        newDays.delete(el)
-                        oldDays.delete(el)
-                    }
+            eventResize: async function(info) {
+                try {
+                    await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
+                } catch(e) {
+                    console.error(e);
+                    notify(tr("Failed to update presence!"), "danger")
                 }
-
-                console.info("add", newDays)
-                console.info("del", oldDays)
             }
         });
 

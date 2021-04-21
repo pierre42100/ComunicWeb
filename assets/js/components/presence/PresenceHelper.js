@@ -56,11 +56,33 @@ class ForezPresenceHelper {
      * @param {number} day 
      */
     static async DelDay(groupID, year, month, day) {
-        await ws("forez_presence/add_day", {
+        await ws("forez_presence/del_day", {
             group: groupID,
             year: year,
             month: month,
             day: day
         })
+    }
+
+    static async UpdateEvents(groupID, oldStart, oldEnd, newStart, newEnd) {
+        const newDays = new Set(getDaysOfRange(newStart, newEnd).map(el => el.getTime()));
+        const oldDays = new Set(getDaysOfRange(oldStart, oldEnd).map(el => el.getTime()));
+
+        for (const el of newDays) {
+            if(oldDays.has(el)) {
+                newDays.delete(el)
+                oldDays.delete(el)
+            }
+        }
+
+        for(const newEl of newDays) {
+            const date = new Date(newEl);
+            await this.AddDay(groupID, date.getFullYear(), date.getMonth() + 1, date.getDate())
+        }
+
+        for(const oldEl of oldDays) {
+            const date = new Date(oldEl);
+            await this.DelDay(groupID, date.getFullYear(), date.getMonth() + 1, date.getDate())
+        }
     }
 }
