@@ -684,3 +684,14 @@ img[src$="groups_logo/default.png"] {
 .posts-target-picker > div:hover {
     background-color: var(--black4);
 }
+
+/**
+ * Full calendar
+ */
+.fc-theme-standard .fc-list-day-cushion {
+    background-color: var(--black3);
+}
+
+.fc .fc-list-event:hover td {
+    background-color: var(--black3);
+}
