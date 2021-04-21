@@ -11,6 +11,10 @@ class Presence {
         this.month = month;
         this.day = day;
     }
+
+    get date() {
+         return new Date(this.year, this.month - 1, this.day);
+    }
 }
 
 

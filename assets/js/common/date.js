@@ -104,6 +104,15 @@ const ComunicDate = {
 ComunicWeb.common.date = ComunicDate;
 
 /**
+ * Add a day to a date
+ * 
+ * @param {Date} date Target date
+ */
+function addOneDay(date) {
+	return new Date(date.getTime() + 1000*60*60*24);
+}
+
+/**
  * Get all the days of a specified range
  * 
  * @param {Date} start 
@@ -115,7 +124,7 @@ function getDaysOfRange(start, end) {
 
 	while (curr < end) {
 		list.push(curr);
-		curr = new Date(curr.getTime() + 1000*60*60*24);
+		curr = addOneDay(curr);
 	}
 
 	return list;

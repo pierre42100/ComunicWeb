@@ -30,30 +30,64 @@ class GroupPresencePage {
                 right: 'dayGridMonth,listMonth'
             },
             initialView: 'dayGridMonth',
-
+            
             // Data source
             events: async function(info, success, failure) {
                 try {
-                    const presence = await ForezPresenceHelper.GetList(group.id);
-                    const users = await getUsers([...new Set(presence.map(e => e.userID))]);
-                    success(presence.map((e) => {
+                    let presences = await ForezPresenceHelper.GetList(group.id);
+                    const users = await getUsers([...new Set(presences.map(e => e.userID))]);
+                    
+                    presences.sort((one, two) => {
+                        if (one.userID < two.userID)
+                            return -1;
+                        
+                        if (one.userID > two.userID)
+                            return 1;
+                        
+                        return one.date - two.date;
+                    })
+
+                    presences.forEach((e) => e.end = addOneDay(e.date));
+
+                    console.log(presences)
+
+                    for(let i = 0; i < presences.length; i++) {
+                        while(true) {
+                            if (presences.length == i + 1)
+                                break;
+                            
+                            let curr = presences[i];
+                            let next = presences[i + 1];
+
+                            if(curr.userID != next.userID || curr.year != next.year || curr.month != next.month || curr.day != next.day - 1)
+                                break;
+                            
+                            curr.end = next.end;
+                            presences.splice(i + 1, 1)
+                        }
+                    }
+                    
+                    const events = presences.map((e) => {
                         return {
                             title: users.get(e.userID).fullName,
-                            start: new Date(e.year, e.month - 1, e.day),
+                            start: e.date,
+                            end: e.end,
                             backgroundColor: "#0073b7", //Blue
                             borderColor: "#0073b7", //Blue
                             editable: e.userID == userID(),
                             allDay: true,
                             description: users.get(e.userID).fullName
                         }
-                    }));
-
+                    });
+                    
+                    success(events);
+                    
                 } catch(e) {
                     console.error(e);
                     failure(e);
                 }
             },
-
+            
             // Update events
             eventResize: async function(info) {
                 try {
@@ -63,7 +97,7 @@ class GroupPresencePage {
                     notify(tr("Failed to update presence!"), "danger")
                 }
             },
-
+            
             // Add new event
             dateClick: async function(info) {
                 if (lastClick == null || new Date().getTime() - lastClick.getTime() > 500)
@@ -71,10 +105,10 @@ class GroupPresencePage {
                     lastClick = new Date()
                     return;
                 }
-
+                
                 try {
                     await ForezPresenceHelper.AddDay(group.id, info.date.getFullYear(), info.date.getMonth() + 1, info.date.getDate())
-
+                    
                     calendar.getEventSources()[0].refetch()
                 } catch(e) {
                     console.error(e);
@@ -82,7 +116,7 @@ class GroupPresencePage {
                 }
             }
         });
-
+        
         calendar.render()
     }
 }
