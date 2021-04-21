@@ -102,3 +102,21 @@ const ComunicDate = {
 }
 
 ComunicWeb.common.date = ComunicDate;
+
+/**
+ * Get all the days of a specified range
+ * 
+ * @param {Date} start 
+ * @param {Date} end (exclusive)
+ */
+function getDaysOfRange(start, end) {
+	let curr = start;
+	let list = [];
+
+	while (curr < end) {
+		list.push(curr);
+		curr = new Date(curr.getTime() + 1000*60*60*24);
+	}
+
+	return list;
+}

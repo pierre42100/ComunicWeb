@@ -29,4 +29,38 @@ class ForezPresenceHelper {
             return new Presence(...infos)
         });
     }
+
+    /**
+     * Add a day of presence
+     * 
+     * @param {number} groupID 
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     */
+    static async AddDay(groupID, year, month, day) {
+        await ws("forez_presence/add_day", {
+            group: groupID,
+            year: year,
+            month: month,
+            day: day
+        })
+    }
+
+    /**
+     * Remove a day of presence
+     * 
+     * @param {number} groupID 
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     */
+    static async DelDay(groupID, year, month, day) {
+        await ws("forez_presence/add_day", {
+            group: groupID,
+            year: year,
+            month: month,
+            day: day
+        })
+    }
 }
