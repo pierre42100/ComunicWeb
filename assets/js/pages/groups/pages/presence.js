@@ -92,6 +92,8 @@ class GroupPresencePage {
             eventResize: async function(info) {
                 try {
                     await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
+                    
+                    calendar.getEventSources()[0].refetch()
                 } catch(e) {
                     console.error(e);
                     notify(tr("Failed to update presence!"), "danger")
@@ -102,6 +104,8 @@ class GroupPresencePage {
             eventDrop: async function(info) {
                 try {
                     await ForezPresenceHelper.UpdateEvents(group.id, info.oldEvent.start, info.oldEvent.end, info.event.start, info.event.end)
+
+                    calendar.getEventSources()[0].refetch()
                 } catch(e) {
                     console.error(e);
                     notify(tr("Failed to update presence!"), "danger")
