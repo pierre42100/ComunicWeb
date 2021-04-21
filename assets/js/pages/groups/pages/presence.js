@@ -59,7 +59,7 @@ class GroupPresencePage {
                             let curr = presences[i];
                             let next = presences[i + 1];
 
-                            if(curr.userID != next.userID || curr.year != next.year || curr.month != next.month || curr.day != next.day - 1)
+                            if(curr.userID != next.userID || curr.end.getTime() != next.date.getTime())
                                 break;
                             
                             curr.end = next.end;
