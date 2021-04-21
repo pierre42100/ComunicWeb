@@ -78,6 +78,9 @@ class Dev {
 
 		// Color picker
 		"3rdparty/adminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css",
+
+		// Calendar
+		"3rdparty/adminLTE/plugins/fullcalendar/fullcalendar.min.css",
 	);
 
 	/**
@@ -176,6 +179,10 @@ class Dev {
 
 		// Color picker
 		"3rdparty/adminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js",
+
+		// Calendar
+		"3rdparty/adminLTE/plugins/moment.js/moment.min.js",
+		"3rdparty/adminLTE/plugins/fullcalendar/fullcalendar.min.js",
 	);
 
 	/**
