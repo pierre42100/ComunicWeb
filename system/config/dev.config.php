@@ -182,6 +182,7 @@ class Dev {
 
 		// Calendar
 		"3rdparty/fullcalendar/lib/main.js",
+		"3rdparty/fullcalendar/lib/locales/fr.js",
 	);
 
 	/**

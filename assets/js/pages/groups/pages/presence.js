@@ -21,6 +21,8 @@ class GroupPresencePage {
         target.appendChild(el);
         
         let lastClick = null;
+
+        const colors = ["#f012be", "#f39c12", "#0073b7", "#00a65a", "#dd4b39", "#605ca8"];
         
         const calendarTarget = el.querySelector(".calendar");
         const calendar = new FullCalendar.Calendar(calendarTarget, {
@@ -30,6 +32,8 @@ class GroupPresencePage {
                 right: 'dayGridMonth,dayGridWeek,listMonth'
             },
             initialView: 'dayGridMonth',
+            locale: "fr",
+            //dayMaxEvents: true,
             
             // Data source
             events: async function(info, success, failure) {
@@ -72,11 +76,12 @@ class GroupPresencePage {
                             title: users.get(e.userID).fullName,
                             start: e.date,
                             end: e.end,
-                            backgroundColor: "#0073b7", //Blue
-                            borderColor: "#0073b7", //Blue
+                            backgroundColor: colors[e.userID % colors.length], //Blue
+                            borderColor: colors[e.userID % colors.length], //Blue
                             editable: e.userID == userID(),
                             allDay: true,
-                            description: users.get(e.userID).fullName
+                            description: users.get(e.userID).fullName,
+                            userID: e.userID,
                         }
                     });
                     
@@ -132,6 +137,10 @@ class GroupPresencePage {
 
             // Delete event
             eventClick: async function(info) {
+                console.log(info)
+                if (info.event.userID != userID())
+                    return;
+
                 if (lastClick == null || new Date().getTime() - lastClick.getTime() > 500)
                 {
                     lastClick = new Date()
