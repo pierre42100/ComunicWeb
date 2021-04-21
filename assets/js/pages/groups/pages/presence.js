@@ -14,29 +14,12 @@ class GroupPresencePage {
     * @param {HTMLElement} target 
     */
     static async Show(group, target) {
-        const presence = await ForezPresenceHelper.GetList(group.id);
-        const users = await getUsers([...new Set(presence.map(e => e.userID))]);
-        
         // Load template
         const tpl = await Page.loadHTMLTemplate("pages/groups/pages/presence.html");
         const el = document.createElement("div")
         el.innerHTML = tpl;
         target.appendChild(el);
         
-        
-        
-        const calEvents = presence.map((e) => {
-            return {
-                title: users.get(e.userID).fullName,
-                start: new Date(e.year, e.month - 1, e.day),
-                backgroundColor: "#0073b7", //Blue
-                borderColor: "#0073b7", //Blue
-                editable: e.userID == userID(),
-                allDay: true,
-                description: users.get(e.userID).fullName
-            }
-        })
-
         let lastClick = null;
         
         const calendarTarget = el.querySelector(".calendar");
@@ -47,7 +30,29 @@ class GroupPresencePage {
                 right: 'dayGridMonth,listMonth'
             },
             initialView: 'dayGridMonth',
-            events: calEvents,
+
+            // Data source
+            events: async function(info, success, failure) {
+                try {
+                    const presence = await ForezPresenceHelper.GetList(group.id);
+                    const users = await getUsers([...new Set(presence.map(e => e.userID))]);
+                    success(presence.map((e) => {
+                        return {
+                            title: users.get(e.userID).fullName,
+                            start: new Date(e.year, e.month - 1, e.day),
+                            backgroundColor: "#0073b7", //Blue
+                            borderColor: "#0073b7", //Blue
+                            editable: e.userID == userID(),
+                            allDay: true,
+                            description: users.get(e.userID).fullName
+                        }
+                    }));
+
+                } catch(e) {
+                    console.error(e);
+                    failure(e);
+                }
+            },
 
             // Update events
             eventResize: async function(info) {
@@ -69,6 +74,8 @@ class GroupPresencePage {
 
                 try {
                     await ForezPresenceHelper.AddDay(group.id, info.date.getFullYear(), info.date.getMonth() + 1, info.date.getDate())
+
+                    calendar.getEventSources()[0].refetch()
                 } catch(e) {
                     console.error(e);
                     notify(tr("Failed to update presence!"), "danger")
