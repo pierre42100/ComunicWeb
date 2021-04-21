@@ -5,6 +5,9 @@
             <ul class="nav nav-tabs group-page-tabs" style="display: flex; flex-wrap: wrap; justify-content: start;">
               <li v-bind:class="activePage == 'posts' ? 'active': ''"><a @click="openPage('posts')">tr("Posts")</a></li>
 
+              <!-- Forez presence -->
+              <li v-bind:class="activePage == 'presence' ? 'active': ''"><a @click="openPage('presence')" v-if="is_forez">tr("Presence")</a></li>
+
               <!-- Group conversations -->
               <li v-for="conv in conversations" v-bind:class="activePage == 'conversation' && firstArgument == conv.id ? 'active': ''">
                 <a @click="openPage('conversation/' + conv.id)">{{conv.name}}</a></li>

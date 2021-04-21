@@ -119,6 +119,12 @@ const GroupsPage = {
 						GroupConversationPage.show(conv, target)
 						return;
 					}
+				
+				case "presence":
+					if (group.is_forez_group) {
+						await GroupPresencePage.Show(group, target)
+						return;
+					}
 
 				default:
 					ComunicWeb.common.error.pageNotFound(null, target);

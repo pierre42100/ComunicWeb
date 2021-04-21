@@ -272,6 +272,7 @@ class Dev {
 				"css/pages/groups/pages/members.css",
 				"css/pages/groups/pages/forbidden.css",
 				"css/pages/groups/pages/about.css",
+				"css/pages/groups/pages/presence.css",
 
 				//Groups sections
 				"css/pages/groups/sections/header.css",
@@ -495,6 +496,9 @@ class Dev {
 			// Small media player
 			"js/components/smallMediaPlayer.js",
 
+			// Presence helper
+			"js/components/presence/PresenceHelper.js",
+
 		//User scripts
 		"js/user/loginTokens.js",
 		"js/user/userLogin.js",
@@ -539,6 +543,7 @@ class Dev {
 				"js/pages/groups/pages/members.js",
 				"js/pages/groups/pages/forbidden.js",
 				"js/pages/groups/pages/about.js",
+				"js/pages/groups/pages/presence.js",
 
 				//Groups sections
 				"js/pages/groups/sections/header.js",

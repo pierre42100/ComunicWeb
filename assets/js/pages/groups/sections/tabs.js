@@ -28,6 +28,7 @@ const GroupTabs = {
                     activePage: activePage,
                     firstArgument: firstArgument,
                     conversations: group.conversations,
+                    is_forez: group.is_forez_group
                 }
             },
 
