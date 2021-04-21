@@ -27,7 +27,7 @@ class GroupPresencePage {
             headerToolbar: {
                 left: 'prev,next',
                 center: 'title',
-                right: 'dayGridMonth,listMonth'
+                right: 'dayGridMonth,dayGridWeek,listMonth'
             },
             initialView: 'dayGridMonth',
             
