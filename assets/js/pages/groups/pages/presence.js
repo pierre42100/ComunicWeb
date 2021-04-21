@@ -137,8 +137,8 @@ class GroupPresencePage {
 
             // Delete event
             eventClick: async function(info) {
-                console.log(info)
-                if (info.event.userID != userID())
+                
+                if (info.event.extendedProps.userID != userID())
                     return;
 
                 if (lastClick == null || new Date().getTime() - lastClick.getTime() > 500)
