@@ -121,7 +121,7 @@ const AccountInterface = {
 	checkPasswordResetToken: function(token, callback){
 		var apiURI = "account/check_password_reset_token";
 		var params = {
-			token: token
+			reset_token: token
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
 	},
@@ -136,7 +136,7 @@ const AccountInterface = {
 	resetUserPassword: function(token, passwd, callback){
 		var apiURI = "account/reset_user_passwd";
 		var params = {
-			token: token,
+			reset_token: token,
 			password: passwd
 		};
 		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
