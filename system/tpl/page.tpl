@@ -2,7 +2,7 @@
     Comunic web app client
     Main HTML file
 
-    (c) Pierre HUBERT 2017-2019
+    (c) Pierre HUBERT 2017-2021
 -->
 <!DOCTYPE html>
 <html>
