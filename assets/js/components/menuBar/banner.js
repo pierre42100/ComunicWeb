@@ -66,6 +66,9 @@ const MenubarBanner = {
             link.target = "_blank";
         }
 
+        if(banner.expire)
+            setTimeout(() => rootEl.remove(), (banner.expire - ComunicDate.time()) * 1000)
+
         return rootEl;
     }
 };
