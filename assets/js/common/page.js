@@ -252,7 +252,7 @@ const Page = {
                 (document.body.className.includes("sidebar-collapse") ? " sidebar-collapse " : "");
 
             //We load the menubar
-            ComunicWeb.components.menuBar.common.display();
+            MenuBar.display();
 
             //Bottom
             ComunicWeb.components.bottom.main.display();

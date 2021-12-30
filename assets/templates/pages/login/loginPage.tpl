@@ -5,6 +5,9 @@
 	</div>
 	<div class="login-box-body">
 
+		<!-- Global banner -->
+		<div id="login_banner"></div>
+
 		<!-- Login message -->
 		<p class="login-box-msg">{login_top_msg}</p>
 

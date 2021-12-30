@@ -197,7 +197,8 @@ class Dev {
 
 		//Components stylesheets
 			//Menubar stylesheet
-			"css/components/menuBar.css",
+			"css/components/menuBar/base.css",
+			"css/components/menuBar/banner.css",
 
 			//Language picker stylesheet
 			"css/components/languagePicker.css",
@@ -387,6 +388,7 @@ class Dev {
 			"js/components/menuBar/common.js",
 			"js/components/menuBar/notAuthenticated.js",
 			"js/components/menuBar/authenticated.js",
+			"js/components/menuBar/banner.js",
 
 			// Main side bar
 			"js/components/sidebar/main.js",

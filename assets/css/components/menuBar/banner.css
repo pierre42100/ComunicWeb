@@ -1,0 +1,41 @@
+/**
+ * Global banner
+ *
+ * @author Pierre Hubert
+ */
+
+.banner {
+    padding: 1px 15px;
+    text-align: left;
+    min-height: unset !important;
+    margin-bottom: 0px;
+}
+
+.banner button {
+    right: unset !important;
+}
+
+.banner a {
+    margin-left: 5px;
+}
+
+.content-wrapper + .content-wrapper,
+.content-wrapper + div + .content-wrapper,
+.content-wrapper + div + div + .content-wrapper,
+.content-wrapper + div + div + div + .content-wrapper {
+    padding-top: 1px;
+}
+
+@media screen and (max-width: 767px) {
+    .banner.content-wrapper {
+        margin-top: 50px;
+    }
+
+    .content-wrapper + .content-wrapper,
+    .content-wrapper + div + .content-wrapper,
+    .content-wrapper + div + div + .content-wrapper,
+    .content-wrapper + div + div + div + .content-wrapper {
+        margin-top: 0px !important;
+        padding-top: 2px !important;
+    }
+}

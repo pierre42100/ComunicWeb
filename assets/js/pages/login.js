@@ -78,6 +78,9 @@ ComunicWeb.pages.login = {
 			//Check if we have to display a login failed message
 			if(additionnalData.loginFailedMessage)
 				ComunicWeb.pages.login.displayLoginError();
+			
+			// Add menu banner
+			MenubarBanner.addBanner(byId("login_banner"))
 		};
 
 		//Apply template

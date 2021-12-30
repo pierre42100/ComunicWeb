@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.menuBar.notAuthenticated = {
+const NotAuthenticatedMenuBar = {
 	/**
 	 * Add not-authenticated user specific elements
 	 * 
@@ -124,5 +124,7 @@ ComunicWeb.components.menuBar.notAuthenticated = {
 			//Block form
 			return false;
 		}
+
+		MenubarBanner.addBanner(menuHeader)
 	}
 }

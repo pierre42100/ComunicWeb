@@ -122,3 +122,13 @@ ComunicWeb.common.langs = {
         return string;
     },
 }
+
+
+/**
+ * Get current language
+ * 
+ * @returns {string}
+ */
+function currLang() {
+    return ComunicWeb.common.langs.current();
+}

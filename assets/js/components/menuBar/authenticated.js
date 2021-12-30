@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.menuBar.authenticated = {
+const AuthenticatedMenuBar = {
 
 	/**
 	 * Dropdown menu links list
@@ -28,8 +28,8 @@ ComunicWeb.components.menuBar.authenticated = {
 		//Dark theme
 		{
 			innerLang: "menu_bar_action_dark_theme",
-			onclick: function(b){ComunicWeb.components.menuBar.authenticated.darkThemeButtonClicked(true, b)},
-			oninit: function(b){ComunicWeb.components.menuBar.authenticated.darkThemeButtonClicked(false, b)},
+			onclick: function(b){AuthenticatedMenuBar.darkThemeButtonClicked(true, b)},
+			oninit: function(b){AuthenticatedMenuBar.darkThemeButtonClicked(false, b)},
 			icon: "fa-sun-o"
 		},
 
@@ -56,7 +56,7 @@ ComunicWeb.components.menuBar.authenticated = {
 	 */
 	addElements: function(container){
 
-		// Site logo
+		// Site name
 		createElem2({
 			appendTo: container,
 			type: "a",
@@ -112,6 +112,13 @@ ComunicWeb.components.menuBar.authenticated = {
 
 		//Add dropdown menu
 		this.addDropdown(navbarRightElemList);
+
+		// Banner
+		const banner = MenubarBanner.addBanner(undefined)
+		if(banner) {
+			container.parentNode.insertBefore(banner, container.nextElementSibling)
+			banner.classList.add("content-wrapper")
+		}
 		
 	},
 

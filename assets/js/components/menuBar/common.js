@@ -4,7 +4,7 @@
  * @author Pierre HUBERT
  */
 
-ComunicWeb.components.menuBar.common = {
+const MenuBar = {
 	/**
 	 * Display menu bar
 	 * 
@@ -61,11 +61,11 @@ ComunicWeb.components.menuBar.common = {
 		//Call specific menu
 		if(signed_in()){
 			//Call authenticated menubar
-			ComunicWeb.components.menuBar.authenticated.addElements(menuContainer);
+			AuthenticatedMenuBar.addElements(menuContainer);
 		}
 		else {
 			//Call not-logged-in menubar
-			ComunicWeb.components.menuBar.notAuthenticated.addElements(menuContainer);
+			NotAuthenticatedMenuBar.addElements(menuContainer);
 		}
 	},
 

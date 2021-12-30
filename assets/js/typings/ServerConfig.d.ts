@@ -41,6 +41,14 @@ declare interface AccountInformationPolicy {
     max_location_length: number,
 }
 
+declare interface Banner {
+    enabled: boolean,
+    expire ?: number,
+    nature: "information"|"warning"|"success",
+    message: Map<string, string>,
+    link ?: string,
+}
+
 declare interface StaticServerConfig {
     terms_url: string,
     privacy_policy_url: string,
@@ -50,4 +58,5 @@ declare interface StaticServerConfig {
     data_conservation_policy: DataConservationPolicySettings,
     conversations_policy: ConversationPolicy,
     account_info_policy: AccountInformationPolicy,
+    banner?: Banner,
 }
