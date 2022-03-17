@@ -42,7 +42,7 @@ const AccountInterface = {
 		var params = {
 			email: email
 		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
 	},
 
 	/**
@@ -65,7 +65,7 @@ const AccountInterface = {
 		var params = {
 			email: email
 		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
 	},
 
 	/**
@@ -79,7 +79,7 @@ const AccountInterface = {
 		var params = {
 			email: email
 		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
 	},
 
 	/**
@@ -108,7 +108,7 @@ const AccountInterface = {
 			email: email,
 			answers: answersText
 		};
-		ComunicWeb.common.api.makeAPIrequest(apiURI, params, true, callback);
+		ComunicWeb.common.api.makeAPIrequest(apiURI, params, false, callback);
 
 	},
 
